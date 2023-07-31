@@ -9,7 +9,7 @@
             @endsection
             <div class="card">
                 <div class="card-table">
-                    <table class="table fixed_header manage-assessments-table" id="table_for_data_elements" >
+                    <table class="table fixed_header manage-assessments-table" id="datatable">
                         <thead>
                             <tr>
                                 <th style="vertical-align: middle;" scope="col" col-span="2">Data Classification Name English </th>

@@ -11,7 +11,7 @@
       <div class="table-responsive cust-table-width">
       	
 
-        <table class="table fixed_header manage-assessments-table" id="forms-table">
+        <table class="table fixed_header manage-assessments-table" id="datatable">
           <thead class="back_blue">
             <tr>
               

@@ -8,27 +8,18 @@
             background-color: #0f75bd !important;
             color:#fff;
         }
-        #remediation_plans {
-            border: none;
-        }
-        #remediation_plans td {
-            border: none;
-        }
-        #remediation_plans th {
-            border: none;
-        }
     </style>
     <section class="section dashboard">
         <div class="row bg-white">
             <div class="col-12 overflow-auto p-3">
                 <div class="card">
+                <div class="p-3">
+                                <a class="button float-right" href="{{ route('report.remediation') }}">
+                                <img src="{{url('assets/img/grr.png')}}" alt=""> {{ __("Global Remediation Report") }}</a>
+                        </div>
                     <div class="card-table">
                         
-                        <div class="p-3">
-                                <a class="btn btn-primary" href="{{ route('report.remediation') }}">
-                                <i class='bx bxs-report'></i> {{ __("Global Remediation Report") }}</a>
-                        </div>
-                        <table class="table fixed_header manage-assessments-table" id="remediation_plans" style="min-width:700px">
+                        <table class="table fixed_header manage-assessments-table" id="datatable" style="min-width:700px">
                             <thead class="">
                                 <tr>
                                     <th style="vertical-align: middle;"> # </th>
@@ -64,12 +55,3 @@
         </div>
     </section>
 @endsection
-@push('scripts')
-    <script>
-        $(function(){
-            $('#remediation_plans').DataTable({
-                order:[]
-            });
-        });
-    </script>
-@endpush

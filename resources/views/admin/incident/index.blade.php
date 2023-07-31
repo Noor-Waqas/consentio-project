@@ -73,7 +73,7 @@
 <section class="section">
       <div class="row">
         <div class="tile-footer col-sm-12 text-left">
-          <a href="{{url('add_inccident')}}" type="button" class="btn btn-primary mb-3"><i class='bx bx-plus mr-1' ></i> {{ __('ADD INCIDENT') }}</a>
+          <a href="{{url('add_inccident')}}" type="button" class="button mb-2"><i class='bx bx-plus mr-1' ></i> {{ __('ADD INCIDENT') }}</a>
         </div>
       </div>
             <div class="row">
@@ -244,17 +244,6 @@
 
     $(document).ready(function(){
         
-        
-
-        $(document).ready(function() {
-
-            $('#datatable').DataTable( {
-
-                "order": []
-
-            } );
-
-        } );
         
     	$( "body" ).on( "click", ".removePartner", function () {
     		var task_id = $( this ).attr( "data-id" );

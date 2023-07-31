@@ -48,10 +48,10 @@
                             @endif
                           </span> 
                         </td>
-                        <td>  <a href="{{ url('audit/form/'.$sub_form->parent_form_id) }}" ><i class="far fa-eye"></i> {{ __('View Form') }}</a> </td>
+                        <td>  <a href="{{ url('audit/form/'.$sub_form->parent_form_id) }}" ><img src="{{url('assets/img/solar_eye-bold.png')}}" alt=""></i> {{ __('View Form') }}</a> </td>
                         <td class="text-center">
                           @if ($sub_form->form_link_id != '')
-                            <a href="{{ url('audit/internal/'.$sub_form->form_link_id) }}" class="" target="_blank" >{{ __('Open')}}</a>
+                            <a href="{{ url('audit/internal/'.$sub_form->form_link_id) }}" class="btn btn-primary td_round_btn" target="_blank" >{{ __('Open')}}</a>
                           @endif
                         </td>
                       </tr>

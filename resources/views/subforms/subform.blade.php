@@ -152,32 +152,24 @@
 <?php endif; ?>
 
 <section class="assets_list">
-            <div class="main_custom_table">
+            <div class="row">
+              <div class="col-12">
                 <div class="table_filter_section">
                     <div class="select_tbl_filter">
-                        <div class="main_filter_tbl">
-                            <p>{{ __('Show')}}</p>
-                            <select>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>30</option>
-                            </select>
-                            <p>{{ __('Entries')}}</p>
-                        </div>
                         <div class="add_more_tbl">
-                            <a id="add" type="button" class="btn rounded_button"><i class='bx bx-plus mr-1' ></i> {{ __('ADD SUB FORM') }}</a>
+                            <a id="add" type="button" class="button mb-3"><i class='bx bx-plus mr-1' ></i> {{ __('ADD SUB FORM') }}</a>
                         </div>
                     </div>
                 </div>
-                <div class="main_table_redisign">
+                <div class="card">
                     {{-- <div class="table_breadcrumb">
                         <h3>INCIDENT REGISTER</h3>
                     </div> --}}
                     @section('page_title')
                     {{ __('SUB FORMS') }}
                     @endsection
-                    <div class="over_main_div">
-                    <table class="table table-striped text-center">
+                    <div class="card-table">
+                    <table class="table table-striped text-center" id="datatable">
                                <?php if ($user_type == 'admin'): ?>
     <thead class="back_blue">
     <?php else: ?>
@@ -189,12 +181,12 @@
 
               {{-- {{$form_info->title}} Sub Forms --}}
                 @if(session('locale')=='fr')
-  {{$form_info->title_fr}}
-  {{ __('Sub Forms') }}
-  @else
-  {{$form_info->title}}
-  {{ __('Sub Forms') }}
-  @endif
+    {{$form_info->title_fr}}
+    {{ __('Sub Forms') }}
+    @else
+    {{$form_info->title}}
+    {{ __('Sub Forms') }}
+    @endif
 
             </th>  
           </tr>
@@ -318,18 +310,24 @@ $(document).ready(function() {
     $('#add').click(function(){
         counter++;
         console.log("test");
-        $('#sub-form-area').append( '<div class="row" style="">'+
-                                      '<div style="width:31%">'+
-                                        '<label>{{ __("Label in English") }}</label>'+
-                                        '<input type="text" class="form-control" id="subform-title-'+counter+'" value="<?php echo $form_info->title; ?>">'+
+        $('#sub-form-area').append( '<div class="row" style="">'+ 
+                                      '<div class="col-6" style="">'+
+                                        '<div class="card" style="">'+
+                                        '<div class="card-body" style="">'+
+                                          '<div>'+
+                                            '<label>{{ __("Label in English") }}</label>'+
+                                            '<input type="text" class="form-control" id="subform-title-'+counter+'" value="<?php echo $form_info->title; ?>">'+
+                                          '</div>'+
+                                          '<br>'+
+                                          '<div>'+
+                                            '<label>{{ __("Label in French") }}</label>'+
+                                            '<input type="text" class="form-control" id="subform-title-fr-'+counter+'" value="<?php echo str_replace("'", '', $form_info->title_fr); ?>">'+
+                                          '</div>'+
+                                          '<br>'+
+                                            '<button style="margin-top:10px;margin-left:2px; margin-bottom:30px;" class="btn rounded_button btn-primary create-subform" id="subform-'+counter+'">{!! __('Create') !!}</button>'+
+                                        '</div>'+
+                                        '</div>'+
                                       '</div>'+
-                                      '<br>'+
-                                      '<div style="width:30%">'+
-                                        '<label>{{ __("Label in French") }}</label>'+
-                                        '<input style="width:100%" type="text" class="form-control" id="subform-title-fr-'+counter+'" value="<?php echo str_replace("'", '', $form_info->title_fr); ?>">'+
-                                      '</div>'+
-                                      '<br>'+
-                                        '<button style="margin-top:10px;margin-left:2px; margin-bottom:30px;" class="btn rounded_button btn-primary create-subform" id="subform-'+counter+'">{!! __('Create') !!}</button>'+
                                     '</div>');
     });
 

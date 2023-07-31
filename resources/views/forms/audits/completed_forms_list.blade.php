@@ -172,11 +172,15 @@
     </div>
   </section>
   <script>
-        $(document).ready(function() {
-            $('#datatable').DataTable({
-              // Disable auto-sort by name
-              "order": []
-            });
-        });
-    </script>
+      $(document).ready(function() {
+          $('#datatable').DataTable({
+            "order": [],
+            "language": {
+              "search": "",
+              "searchPlaceholder": "Search Here"
+            }
+          });
+          
+      });
+  </script>
 @endsection

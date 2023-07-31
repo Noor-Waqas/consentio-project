@@ -11,11 +11,11 @@
     <section>
         <div class="row mb-3">
             <div class="col">
-                <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary mx-1">Add New</button>
+                <button data-toggle="modal" data-target="#exampleModal" class="buton mx-1" style="border: 1px solid #71BA4F; background: #71BA4F;">Add New</button>
             </div>
             <div class="col text-right">
-                <a href="{{ route('export-elements-data', Auth::user()->client_id) }}"class="btn btn-primary mx-1">Export</a>
-                <a href="{{url('elements-data')}}" class="btn btn-primary import mx-1">Import</a>
+                <a href="{{ route('export-elements-data', Auth::user()->client_id) }}"class="buton mx-1">Export</a>
+                <a href="{{url('elements-data')}}" class="buton import mx-1">Import</a>
             </div>
             
         </div>
@@ -26,14 +26,14 @@
             @section('page_title')
                 {{ __('DATA ELEMENTS') }}
             @endsection
-                <table class="table fixed_header manage-assessments-table" id="table_for_data_elements">
+                <table class="table fixed_header manage-assessments-table" id="datatable">
                     <thead class="text-center text-capitalize">
                         <tr>
-                            <th>#</th> 
-                            <th>data elements</th>
-                            <th>data element group</th>
-                            <th>data classification</th>
-                            <th>action</th>
+                            <th style="vertical-align: middle;">#</th> 
+                            <th style="vertical-align: middle;">data elements</th>
+                            <th style="vertical-align: middle;">data element group</th>
+                            <th style="vertical-align: middle;">data classification</th>
+                            <th style="vertical-align: middle;">action</th>
                         </tr>
                     </thead>
                     <tbody class="btn-table">

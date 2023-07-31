@@ -117,7 +117,7 @@
                     <option value="months"<?php echo ($sar_settings->period == 'months')?('selected'):(''); ?>>{{ __('Months') }}</option>
                 </select>
             </div>
-            <button class="btn btn-primary" id="update-settings">{{ __('Update Settings') }}</button>
+            <button class="buton" id="update-settings">{{ __('Update Settings') }}</button>
         </div>
     </div>
 

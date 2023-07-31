@@ -26,6 +26,11 @@
 
     
     <section class="assets_list">
+        <div class="row">
+            <div class="col">
+                <a href="{{url('add_user')}}" class="button pull-left cust_color mb-2"><i class="fa fa-plus" ></i> {{ __('Add Organization User') }}</a>
+            </div>
+        </div>
       <div class="row">
         <div class="col-12">
             <div class="card">
@@ -41,7 +46,6 @@
           </div> --}}
 
           <div class="card-table">
-            <a href="{{url('add_user')}}" class="btn btn-sm btn-primary pull-right cust_color mb-2" style="margin-top: 15px; float: right; margin-right: 10px "><i class="fa fa-plus" ></i> {{ __('Add Organization User') }}</a>
             <table id="datatable" class="table table-striped text-center" >
             <thead>
             <tr style = "text-transform:uppercase;">
@@ -93,13 +97,13 @@
                             <td class="text-center">
                                 {{-- <div class="actions-btns dule-btns">
                                     <!-- <a href="javascript:void(0)" data-id="{{$row->id}}" data-status="{{$row->status}}" id="change_status" class="btn btn-sm btn-primary"> <i class="fa fa-eye"> </i></a>  -->
-                                    <a href="{{url('edit_user/' . $row->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                                    <a href="javascript:void(0)" data-id="{{$row->id}}" class="btn btn-sm btn-danger removePartner"><i class="fa fa-trash"></i></a>
+                                    <a href="{{url('edit_user/' . $row->id)}}" class="btn btn-sm btn-info"><img src="{{url('assets/img/action-edit.png')}}" alt=""></a>
+                                    <a href="javascript:void(0)" data-id="{{$row->id}}" class="btn btn-sm btn-danger removePartner"><img src="{{url('assets/img/action-delete.png')}}" alt=""></a>
                                 </div> --}}
 
                                 <div class="action_icons">
-                                   <a href="{{url('edit_user/' . $row->id)}}"><i class="bx bx-edit"></i></a>
-                                   <a href="javascript:void(0)" data-id="{{$row->id}}" class="removePartner" data-id="46"><i class="bx bxs-trash"></i></a>
+                                   <a href="{{url('edit_user/' . $row->id)}}"><img src="{{url('assets/img/action-edit.png')}}" alt=""></a>
+                                   <a href="javascript:void(0)" data-id="{{$row->id}}" class="removePartner" data-id="46"><img src="{{url('assets/img/action-delete.png')}}" alt=""></a>
                                 </div>
                             </td>
                         </tr>

@@ -17,6 +17,51 @@
         #datatable th {
             border: none;
         }
+        .dataTables_wrapper .dataTables_length {
+            float: right !important;
+        }
+        
+        .dataTables_wrapper .dataTables_filter {
+            float: left !important;
+        }
+        #datatable_filter input {
+            /* Your styling properties go here */
+            border: 1px solid #ccc;
+            padding: 15px 50px;
+            border-radius: 35px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .button{
+            padding: 12px 30px 12px 22px;
+            border-radius: 110px;
+            background: #0F75BD;
+            color: #FFF;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 20px;
+        }
+        .button:hover{
+            color: #FFF;
+        }
+        .buton{
+            padding: 10px 15px;
+            border-radius: 110px;
+            border: 1px solid #0F75BD;
+            background: #0F75BD;
+            color: #FFF;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 20px;
+        }
+        .buton:hover{
+            color: #FFF;
+            background: #71BA4F;
+            border: 1px solid #71BA4F;
+        }
+        
+        
     </style>
     <title>
         @if (View::hasSection('title'))
@@ -492,6 +537,23 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/datatables.min.js"></script>
+    <script>
+  $(document).ready(function() {
+    if ($.fn.DataTable.isDataTable('#datatable')) {
+      // If DataTable is already initialized, destroy it
+      $('#datatable').DataTable().destroy();
+    }
+    
+    $('#datatable').DataTable({
+      "order": [],
+      "language": {
+        "search": "",
+        "searchPlaceholder": "Search Here"
+      }
+    });
+  });
+</script>
+
     <script>
         // JavaScript function to toggle the collapse
         function toggleCollapse(targetId) {
