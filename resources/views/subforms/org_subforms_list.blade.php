@@ -1,27 +1,5 @@
 @extends(($user_type=='admin')?('admin.layouts.admin_app'):('admin.client.client_app'))
 @section('content')
-<style>
-    .row-btn {
-        margin-bottom:10px;
-        display:flex;
-        flex-direction:row;
-        justify-content: flex-end;
-    }
-    .expired {
-        color:#d73b3b;
-    }
-    #forms-list_wrapper {
-        white-space: nowrap;
-        padding-top: 15px;
-    }
-    .align_button {
-        display: flex;
-        justify-content: space-between;
-    }
-    .table {
-    margin-bottom: 3rem;
-  }
-</style>
 @section('page_title')
   {{ __('PENDING FORMS') }}
 @endsection
@@ -39,33 +17,29 @@
   </div>
   <section class="assets_list">
 
-  <div class="main_custom_table">
-    <div class="table_filter_section">
-      <div class="select_tbl_filter">
-        
-      </div>
-    </div>
-    <div class="main_table_redisign">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
       @if(!isset($all))
         <div class="table_breadcrumb">
           <h3 class="tile-title">{{ __('User Forms') }} {{app('request')->input('ext_user_only')? __('(External Users Only)'): __('(Internal and External Users)')}}</h3>
         </div> 
       @endif
-      <div class="over_main_div">
-        <table id="datatable" class="table table-striped text-center" >
+      <div class="card-table">
+        <table id="datatable" class="table fixed_header manage-assessments-table" >
           <thead>
-            <tr>
-              <th scope="col">{{ __('FORM LINKS') }}</th>
-              <th scope="col">{{ __('EMAIL') }}</th>
-              <th scope="col">{{ __('USER TYPE') }}</th>
-              <th scope="col">{{ __('FORM NAME') }}</th>
-              <th scope="col">{{ __('SENT DATE') }}</th>
-              <th scope="col">{{ __('TOTAL DAYS') }}</th>
-              <th scope="col">{{ __('REMAINING DAYS') }}</th>
-              <th scope="col">{{ __('EXPIRY DATE') }}</th>
-              <th scope="col">{{ __('SUBMISSION STATUS') }}</th>
-              <th scope="col">{{ __('LOCK/UNLOCK') }}</th>
-              <th scope="col">{{ __('CHANGE ACCESS') }}</th>
+            <tr style = "text-transform:uppercase !important;">
+              <th style="vertical-align: middle;" scope="col">{{ __('FORM LINKS') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('EMAIL') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('USER TYPE') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('FORM NAME') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('SENT DATE') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('TOTAL DAYS') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('REMAINING DAYS') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('EXPIRY DATE') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('SUBMISSION STATUS') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('LOCK/UNLOCK') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('CHANGE ACCESS') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -148,6 +122,7 @@
           </tbody>
         </table>
       </div>
+      </div>
     </div>
   </div>
   </section>
@@ -180,7 +155,9 @@
   <script src="{{url('frontend/js/jquery.mswitch.js')}}"></script>
   <script>
     $(document).ready(function() {
-      $('#datatable').DataTable();
+      $('#datatable').DataTable({
+        "order": []
+      });
     });
 </script>
   <script>

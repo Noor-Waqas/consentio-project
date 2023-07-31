@@ -8,7 +8,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <style>
-
+        #datatable {
+            border: none;
+        }
+        #datatable td {
+            border: none;
+        }
+        #datatable th {
+            border: none;
+        }
     </style>
     <title>
         @if (View::hasSection('title'))

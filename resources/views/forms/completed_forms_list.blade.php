@@ -2,45 +2,33 @@
 @section('content')
 
 
-<style>
-  .table {
-    margin-bottom: 3rem;
-  }
-</style>
-
 <section class="assets_list">
-      <div class="main_custom_table">
-        <div class="table_filter_section">
-          <div class="select_tbl_filter">
-            {{-- <div class="add_more_tbl">
-              <button type="button" class="btn rounded_button">ADD MORE</button>
-            </div> --}}
-          </div>
-        </div>
-        <div class="main_table_redisign">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
           @section('page_title')
           {{-- <div class="table_breadcrumb"> --}}
             {{-- <h3> --}}
               {{ __('COMPLETED FORMS') }}
             {{-- </h3> --}}
           @endsection
-          <div class="over_main_div ">
-            <table id="datatable" class="table table-striped text-center">
+          <div class="card-table">
+            <table id="datatable" class="table fixed_header manage-assessments-table">
               <thead>
-          <tr style = "text-transform:uppercase !important;">
-          <th scope="col">{{ __('ASSESSMENT FORM') }}</th>
-          <th scope="col">{{ __('USER EMAIL') }}</th>
-          <th scope="col">{{ __('USER TYPE') }}</th>
-          <th scope="col">{{ __('SUBFORM NAME') }}</th>
-          <th scope="col">{{ __('FORM NAME') }}</th>
-          <th scope="col" class="fs-12">{{ __('Total Organization Users of this subform') }}</th>
-          <th scope="col" class="fs-12">{{ __('Completed Forms (By Organization Users)') }}</th>
-          <th scope="col" class="fs-12">{{ __('Total External Users of this subform') }}</th>
-          <th scope="col" class="fs-12">{{ __('Completed Forms (By External Users)') }}</th>
-          <th scope="col">{{ __('Completed') }}</th>
-          <th scope="col">{{ __('Completed On') }}</th>
-          </tr>
-        </thead>
+                <tr style = "text-transform:uppercase !important;">
+                  <th style="vertical-align: middle;" scope="col">{{ __('ASSESSMENT FORM') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('USER EMAIL') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('USER TYPE') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('SUBFORM NAME') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('FORM NAME') }}</th>
+                  <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Total Organization Users of this subform') }}</th>
+                  <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Completed Forms (By Organization Users)') }}</th>
+                  <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Total External Users of this subform') }}</th>
+                  <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Completed Forms (By External Users)') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Completed') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Completed On') }}</th>
+                </tr>
+              </thead>
               <tbody>
                  
                  
@@ -179,6 +167,7 @@
               </div>
             </div> --}}
           </div>
+          </div>
         </div>
       </div>
     </section>
@@ -186,7 +175,9 @@
 
 <script>
     $(document).ready(function() {
-      $('#datatable').DataTable();
+      $('#datatable').DataTable({
+        "order": []
+      });
     });
 </script>
 @endsection

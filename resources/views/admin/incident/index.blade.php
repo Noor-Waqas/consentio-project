@@ -70,46 +70,45 @@
     @endif 
 </div>
 
-<section class="assets_list">
-            <div class="main_custom_table">
+<section class="section">
+      <div class="row">
+        <div class="tile-footer col-sm-12 text-left">
+          <a href="{{url('add_inccident')}}" type="button" class="btn btn-primary mb-3"><i class='bx bx-plus mr-1' ></i> {{ __('ADD INCIDENT') }}</a>
+        </div>
+      </div>
+            <div class="row">
+            <div class="col-12">
+            
                 <div class="table_filter_section">
                     <div class="select_tbl_filter">
-                        <div class="main_filter_tbl">
-                            <p>{{ __('Show') }}</p>
-                            <select>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>30</option>
-                            </select>
-                            <p>{{ __('Entries') }}</p>
-                        </div>
                         <div class="add_more_tbl">
-                            <a href="{{url('add_inccident')}}" type="button" class="btn rounded_button"><i class='bx bx-plus mr-1' ></i> {{ __('ADD INCIDENT') }}</a>
-                        </div>
+                            </div>
                     </div>
                 </div>
-                <div class="main_table_redisign">
+                
+                  <div class="card">
+                
                     {{-- <div class="table_breadcrumb">
                         <h3>INCIDENT REGISTER</h3>
                     </div> --}}
                     @section('page_title')
                     {{ __('INCIDENT REGISTER') }}
                     @endsection
-                    <div class="over_main_div">
-                    <table class="table table-striped text-center">
+                    <div class="card-table">
+                    <table class="table table-striped text-center" id="datatable">
                       <thead>
                         <tr>
-                          <th scope="col">{{ __('INCIDENT') }} <br> {{ __('NAME') }}</th>
-                          <th scope="col">{{ __('TYPE') }}</th>
-                          <th scope="col">{{ __('ORGANIZATION') }}</th>
-                          <th scope="col">{{ __('ASSIGNEE') }}</th>
-                          <th scope="col">{{ __('ROOT CAUSE') }}</th>
-                          <th scope="col">{{ __('DATE') }} <br> {{ __('DISCOVERED') }}</th>
-                          <th scope="col">{{ __('DEADLINE') }} <br> DATE</th>
-                          <th scope="col">{{ __('STATUS') }}</th>
-                          <th scope="col">{{ __('SEVERITY') }}</th>
-                          <th scope="col">{{ __('DATE') }}</th>
-                          <th scope="col">{{ __('ACTIONS') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('INCIDENT') }} <br> {{ __('NAME') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('TYPE') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('ORGANIZATION') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('ASSIGNEE') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('ROOT CAUSE') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('DATE') }} <br> {{ __('DISCOVERED') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('DEADLINE') }} <br> DATE</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('STATUS') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('SEVERITY') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('DATE') }}</th>
+                          <th style="vertical-align: middle;" scope="col">{{ __('ACTIONS') }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -208,6 +207,7 @@
                       </tbody>
                     </table>
                     </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -248,9 +248,9 @@
 
         $(document).ready(function() {
 
-            $('#orgs').DataTable( {
+            $('#datatable').DataTable( {
 
-                "order": [[ 10, "desc" ]]
+                "order": []
 
             } );
 

@@ -1,24 +1,6 @@
 @extends('admin.client.client_app')
 @section('content')
-<style>
-    .row-btn {
-        margin-bottom:10px;
-        display:flex;
-        flex-direction:row;
-        justify-content: flex-end;
-    }
-    .expired {
-        color:#d73b3b;
-    }
-    #forms-list_wrapper {
-        white-space: nowrap;
-        padding-top: 15px;
-    }
-    .align_button {
-        display: flex;
-        justify-content: space-between;
-    }
-</style>
+
 
 
  <link href="{{ url('frontend/css/jquery.mswitch.css')}}"  rel="stylesheet" type="text/css">
@@ -44,12 +26,9 @@
 
     
     <section class="assets_list">
-      <div class="main_custom_table">
-        <div class="table_filter_section">
-          <div class="select_tbl_filter">
-          </div>
-        </div>
-        <div class="main_table_redisign">
+      <div class="row">
+        <div class="col-12">
+            <div class="card">
 
           @section('page_title')
           {{-- <div class="table_breadcrumb"> --}}
@@ -61,20 +40,20 @@
             <h3>GENERATED FORMS</h3>
           </div> --}}
 
-          <div class="over_main_div">
-            <a href="{{url('add_user')}}" class="btn btn-sm btn-primary pull-right cust_color" style="margin-top: 15px; float: right; margin-right: 10px "><i class="fa fa-plus" ></i> {{ __('Add Organization User') }}</a>
+          <div class="card-table">
+            <a href="{{url('add_user')}}" class="btn btn-sm btn-primary pull-right cust_color mb-2" style="margin-top: 15px; float: right; margin-right: 10px "><i class="fa fa-plus" ></i> {{ __('Add Organization User') }}</a>
             <table id="datatable" class="table table-striped text-center" >
             <thead>
             <tr style = "text-transform:uppercase;">
-                         <th>{{ __('Name') }}</th>
-                            <th>{{ __('Email') }}</th>
-                            <th>{{ __('Image') }}</th>
-                            <th>{{ __('User Type') }}</th>
-                            <th>{{ __('Added By') }}</th>
-                            {{-- <th>Super User status</th> --}}
-                            <th>{{ __('Permissions') }}</th>                          
+                         <th style="vertical-align: middle;">{{ __('Name') }}</th>
+                            <th style="vertical-align: middle;">{{ __('Email') }}</th>
+                            <th style="vertical-align: middle;">{{ __('Image') }}</th>
+                            <th style="vertical-align: middle;">{{ __('User Type') }}</th>
+                            <th style="vertical-align: middle;">{{ __('Added By') }}</th>
+                            {{-- <th style="vertical-align: middle;">Super User status</th> --}}
+                            <th style="vertical-align: middle;">{{ __('Permissions') }}</th>                          
 
-                            <th width="130" class="text-center">{{ __('Actions') }}</th>
+                            <th style="vertical-align: middle;" width="130" class="text-center">{{ __('Actions') }}</th>
             </tr>
         </thead>
         <tbody>

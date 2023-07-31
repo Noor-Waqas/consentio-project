@@ -12,10 +12,10 @@
               <thead>
                 <tr style = "text-transform:uppercase !important;">
                   <!-- <th scope="col">{{ __('USER TYPE') }}</th> -->
-                  <th scope="col">{{ __('Audit Form Name') }}</th>
-                  <th scope="col">{{ __('Group Name') }}</th>
-                  <th scope="col">{{ __('Asset Number') }}</th>
-                  <th scope="col">{{ __('Asset Name') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Audit Form Name') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Group Name') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Asset Number') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Asset Name') }}</th>
                   @if(Auth::user()->role == 2)
                   <!-- <th scope="col" class="fs-12">{{ __('Total Organization Users of this subform') }}</th>
                   <th scope="col" class="fs-12">{{ __('Completed Forms (By Organization Users)') }}</th>
@@ -23,9 +23,9 @@
                   <th scope="col" class="fs-12">{{ __('Completed Forms (By External Users)') }}</th>
                   <th scope="col">{{ __('Completed') }}</th> -->
                   @endif
-                  <th scope="col">{{ __('Completed On') }}</th>
-                  <th scope="col">{{ __('USER EMAIL') }}</th>
-                  <th scope="col">{{ __('OPEN AUDIT') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Completed On') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('USER EMAIL') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('OPEN AUDIT') }}</th>
                 </tr>
               </thead>
               <tbody>

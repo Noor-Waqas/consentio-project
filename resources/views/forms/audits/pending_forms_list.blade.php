@@ -9,28 +9,22 @@
     }
   </style>
   <section class="assets_list">
-    <div class="main_custom_table">
-      <div class="table_filter_section">
-        <div class="select_tbl_filter">
-          {{-- <div class="add_more_tbl">
-            <button type="button" class="btn rounded_button">ADD MORE</button>
-          </div> --}}
-        </div>
-      </div>
-      <div class="main_table_redisign">
-        <div class="over_main_div ">
-          <table class="table table-striped text-center" id="datatable">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+        <div class="card-table">
+          <table class="table fixed_header manage-assessments-table" id="datatable">
             <thead>
               <tr style = "text-transform:uppercase !important;">
                 
                 
                 <!-- <th scope="col">{{ __('USER TYPE') }}</th> -->
-                <th scope="col">{{ __('Audit Form Name') }}</th>
-                <th scope="col">{{ __('Group Name') }}</th>
-                <th scope="col">{{ __('Asset Number') }}</th>
-                <th scope="col">{{ __('Asset Name') }}</th>
-                <th scope="col">{{ __('ASSIGNED TO') }}</th>
-                <th scope="col">{{ __('ACTION') }}</th>
+                <th style="vertical-align: middle;" scope="col">{{ __('Audit Form Name') }}</th>
+                <th style="vertical-align: middle;" scope="col">{{ __('Group Name') }}</th>
+                <th style="vertical-align: middle;" scope="col">{{ __('Asset Number') }}</th>
+                <th style="vertical-align: middle;" scope="col">{{ __('Asset Name') }}</th>
+                <th style="vertical-align: middle;" scope="col">{{ __('ASSIGNED TO') }}</th>
+                <th style="vertical-align: middle;" scope="col">{{ __('ACTION') }}</th>
                 @if(Auth::user()->role == 2)
                   <!-- <th scope="col" class="fs-12">{{ __('Total Organization Users of this subform') }}</th> -->
                   <!-- <th scope="col" class="fs-12">{{ __('Total External Users of this subform') }}</th> -->
@@ -128,6 +122,7 @@
               @endforeach
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </div>

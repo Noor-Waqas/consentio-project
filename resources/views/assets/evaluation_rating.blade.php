@@ -1,25 +1,25 @@
 @extends('admin.client.client_app')
 @section('content')
-<div class="row" style="margin-left:10px;">
-  <div class="col-md-12">
-    <div class="tile">
+@section('page_title')
+  {{ __('EVAUATION RATING') }}
+@endsection
+<div class="row">
+  <div class="col-12">
+  <div class="card">
+    <div class="card-table">
    
       <div class="table-responsive cust-table-width">
-
-        <h3 class="tile-title">
-          Evalution Rating
-        </h3>
       	
 
-        <table class="table" id="forms-table">
+        <table class="table fixed_header manage-assessments-table" id="forms-table">
           <thead class="back_blue">
             <tr>
               
-              <th scope="col" col-span="2" >Assessment</th>
-              <th scope="col" col-span="2" >Rating</th>
-              <th scope="col" col-span="2" >Background Color</th>
-              <th scope="col" col-span="2" >Text Color</th>
-              <th scope="col" col-span="2" >Action</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >Assessment</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >Rating</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >Background Color</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >Text Color</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >Action</th>
 
             </tr>
           </thead>
@@ -37,13 +37,14 @@
         </table>
          
       </div>
+      </div>
     </div>
   </div>
 </div> 
  <script>
     $(document).ready(function(){
         $('#forms-table').DataTable({
-                "order": [[ 0, "desc" ]]
+                "order": []
         });
 
         $(function () {

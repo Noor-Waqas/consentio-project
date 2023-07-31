@@ -11,13 +11,13 @@
             <table class="table fixed_header manage-assessments-table" id="datatable">
               <thead>
                 <tr>
-                  <th scope="col">Sr NO.</th>
-                  <th scope="col">{{ __('Audit Form Name') }}</th>
-                  <th scope="col">{{ __('Group Name') }}</th>
-                  <th scope="col">{{ __('Asset Number') }}</th>
-                  <th scope="col">{{ __('Asset Name') }}</th>
-                  <th scope="col">{{ __('Show Form') }}</th>
-                  <th scope="col">{{ __('Fill Form') }}</th>
+                  <th style="vertical-align: middle;" scope="col">Sr NO.</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Audit Form Name') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Group Name') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Asset Number') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Asset Name') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Show Form') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('Fill Form') }}</th>
                 </tr>
               </thead>
               <tbody>
