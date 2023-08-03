@@ -112,7 +112,7 @@ EDIT PROFILE
                   <label for="" class="col-sm-3 col-form-label">{{ __('Repeat Password')}}</label>
                   <div class="col-sm-8">
                     <input type="password" class="form-control" name="rpassword" id="rpassword" >
-                    <a href="{{url('dashboard')}}" class="btn btn-default" style="color: #4e73df; border: solid 1px;">{{ __('Cancel') }}</a>
+                    <a href="{{url('dashboard')}}" class="btn btn-secondary bg-dark" style="padding: 12px 30px;border-radius:30px;font-size:18px;">{{ __('Cancel') }}</a>
                     <button class="btn btn-primary" id ="sub_button"  type="submit" style="margin: 20px 0;">{{ __('Update')}}</button>
                     <span id='message'></span>
                   </div>
