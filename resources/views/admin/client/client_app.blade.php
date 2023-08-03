@@ -65,51 +65,45 @@
     </style>
     <title>
         @if (View::hasSection('title'))
-            @yield('title')
+        @yield('title')
         @else
-            Consentio | {{ __('We Manage Compliance') }}
+        Consentio | {{ __('We Manage Compliance') }}
         @endif
 
     </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href=" {{ url('img/favicon.png') }}" type="image/png">
+    <link rel="icon" href=" {{ url('newfavicon.png') }}" type="image/png">
     <script src="{{ url('backend/js/sweetalert.js') }}"></script>
     <link rel="stylesheet" href="{{ url('backend/css/sweetalert.css') }}">
-
-    <!-- <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}"> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
     <!--  -->
-    
     <!--  -->
     <!-- Custom fonts for this template-->
     <link href="{{ url('frontend/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-        crossorigin="anonymous" />
+    <!-- <link href="{{ url('frontend/css/sb-admin-2.min.css') }}" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <!--///////////////mycss////////-->
 
+    <link href="{{ url('frontend/css/table.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/datatables.min.css" />
     <?php
-          // load this css in client to match admin form style
-      if (isset($load_admin_css) && $load_admin_css == true): ?>
-    <link rel="stylesheet" type="text/css" href="{{ url('backend/css/main.css') }}">
+    // load this css in client to match admin form style
+    if (isset($load_admin_css) && $load_admin_css == true) : ?>
+        <link rel="stylesheet" type="text/css" href="{{ url('backend/css/main.css') }}">
     <?php endif; ?>
 
 
     <!-- BOXicon -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url('assets-new/vendor/bootstrap-icons/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="{{ url('assets-new/css/style.css') }}">
 </head>
 
 <body class="dashboard">
@@ -221,7 +215,7 @@
         @if (in_array('Dashboard', $data))
         <li class="nav-item dashboard">
             <a class="nav-link {{ Request::segment(1) == 'dashboard' ? 'active' : '' }}" href="{{ url('/dashboard') }}">
-            <img src="{{ url('assets/img/dashboard.png') }}" alt="Dashboard">
+            <img src="{{ url('assets-new/img/dashboard.png') }}" alt="Dashboard">
             <span>{{ __('dbrd') }}</span>
             </a>
         </li><!-- End Dashboard Nav -->
@@ -232,7 +226,7 @@
 
         <li class="nav-item">
             <a onclick="toggleCollapse('assessment-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'Forms/') !== false ? 'active' : '' }}" data-bs-target="#assessment-register-nav" data-bs-toggle="collapse" href="#">
-            <img src="{{ url('assets/img/a-r.png') }}"  alt="Assessment Register"><div class="border__bottom"><span>Assessment Register</span></div>
+            <img src="{{ url('assets-new/img/a-r.png') }}"  alt="Assessment Register"><div class="border__bottom"><span>Assessment Register</span></div>
             </a>
 
             @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3)
@@ -274,7 +268,7 @@
         @if (in_array('Manage Audits', $data) || in_array('Completed Audits', $data) || in_array('Assigned Audits', $data))
         <li class="nav-item">
             <a onclick="toggleCollapse('audit-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'audit/') !== false ? 'active' : '' }}" data-bs-target="#audit-register-nav" data-bs-toggle="collapse" href="#">
-            <img src="{{ url('assets/img/audit-reg.png') }}" alt="Audit Register"><div class="border__bottom"><span>{{ __('Audit Register') }}</span></div>
+            <img src="{{ url('assets-new/img/audit-reg.png') }}" alt="Audit Register"><div class="border__bottom"><span>{{ __('Audit Register') }}</span></div>
             </a>
 
             @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3)
@@ -324,7 +318,7 @@
         @if (in_array('Users Management', $data))
         <li class="nav-item">
             <a class="nav-link collapsed {{ Request::segment(1) == 'users_management' || Request::segment(1) == 'add_user' ? 'active' : '' }}" href="{{ url('users_management') }}">
-            <img src="{{ url('assets/img/users-manag.png') }}" alt="Users Management"><div class="border__bottom"><span>{{ __('Users Management') }}</span></div>
+            <img src="{{ url('assets-new/img/users-manag.png') }}" alt="Users Management"><div class="border__bottom"><span>{{ __('Users Management') }}</span></div>
             </a>
         </li><!-- End Tables Nav -->
         @endif
@@ -334,7 +328,7 @@
         @if (in_array('Global Data Inventory', $data) || in_array('Detailed Data Inventory', $data))
         <li class="nav-item">
             <a onclick="toggleCollapse('data-inventory-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'reports') !== false ? 'active' : '' }}" data-bs-target="#data-inventory-nav" data-bs-toggle="collapse" href="#">
-            <img src="{{ url('assets/img/data-in.png') }}" alt="Data Inventory"><div class="border__bottom"><span>{{ __('Data Inventory') }}</span></div>
+            <img src="{{ url('assets-new/img/data-in.png') }}" alt="Data Inventory"><div class="border__bottom"><span>{{ __('Data Inventory') }}</span></div>
             </a>
 
             <ul id="data-inventory-nav" class="nav-content collapse {{ strpos(url()->current(), 'reports/') !== false ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
@@ -362,7 +356,7 @@
         @if (in_array('Assets List', $data))
         <li class="nav-item">
             <a class="nav-link collapsed {{ Request::segment(1) == 'assets' ? 'active' : '' }}" href="{{ route('asset_list') }}">
-            <img src="{{ url('assets/img/assets-reg.png') }}" alt="Assets Register"><div class="border__bottom"><span>{{ __('Assets Register') }}</span></div>
+            <img src="{{ url('assets-new/img/assets-reg.png') }}" alt="Assets Register"><div class="border__bottom"><span>{{ __('Assets Register') }}</span></div>
             </a>
         </li><!-- End Icons Nav -->
         @endif
@@ -370,7 +364,7 @@
         @if (in_array('Activities List', $data))
         <li class="nav-item">
             <a class="nav-link collapsed"   href="{{ route('activity_list') }}">
-            <img src="{{ url('assets/img/activities.png') }}" alt="Activities List"><div class="border__bottom"><span>{{ __('Activities List') }}</span></div>
+            <img src="{{ url('assets-new/img/activities.png') }}" alt="Activities List"><div class="border__bottom"><span>{{ __('Activities List') }}</span></div>
             </a> 
         </li><!-- End Icons Nav -->
         @endif
@@ -378,7 +372,7 @@
         @if (in_array('Incident Register', $data))
         <li class="nav-item">
             <a class="nav-link collapsed {{ Request::segment(1) == 'incident' || Request::segment(1) == 'add_inccident' ? 'active' : '' }}"   href="{{ url('incident') }}">
-            <img src="{{ url('assets/img/incident-reg.png') }}" alt="Incident Register"><div class="border__bottom"><span>{{ __('Incident Register') }}</span></div>
+            <img src="{{ url('assets-new/img/incident-reg.png') }}" alt="Incident Register"><div class="border__bottom"><span>{{ __('Incident Register') }}</span></div>
             </a> 
         </li>
         @endif
@@ -396,7 +390,7 @@
         <ul class="sidebar-nav sidebar-nav-bottom" id="sidebar-nav">
         <li class="nav-item settings">
             <a onclick="toggleCollapse('settings-nav');" class="nav-link collapsed component {{ Request::is('evaluation_rate') ? 'active' : '' }} {{ strpos(url()->current(), 'FormSettings') !== false ? 'active' : '' }} {{ Request::is('assets_data_elements') ? 'active' : '' }} {{ Request::is('front/data-classification') ? 'active' : '' }}" data-bs-target="#sub-forms-expiry-nav" data-bs-toggle="collapse" href="#">
-            <img src="{{ url('assets/img/settings.png') }}" alt="Settings">
+            <img src="{{ url('assets-new/img/settings.png') }}" alt="Settings">
             <span>{{ __('Settings') }}</span>
             </a>
             <ul id="settings-nav" class="nav-content collapse {{ strpos(url()->current(), 'FormSettings') !== false ? 'show' : '' }} {{ Request::is('evaluation_rate') ? 'show' : '' }} {{ Request::is('assets_data_elements') ? 'show' : '' }} {{ Request::is('front/data-classification') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
@@ -439,7 +433,7 @@
         </li>
         <li class="nav-item logout">
             <a class="nav-link" href="{{ __('logout') }}">
-            <img src="{{ url('assets/img/logout.png') }}" alt="Logout">
+            <img src="{{ url('assets-new/img/logout.png') }}" alt="Logout">
             <span>Logout</span>
             </a>
         </li> 
@@ -450,6 +444,12 @@
     </aside><!-- End Sidebar-->
 
 <main id="main" class="main"> 
+
+<script src="{{ url('frontend/js/jquery.min.js') }}"></script>
+
+<script src="{{ url('frontend/js/bootstrap.bundle.min.js') }}"></script>
+
+
     
                 @yield('content')
 
@@ -508,13 +508,14 @@
         <i class="fas fa-angle-up"></i>
 
     </a>
-
     <!-- Core plugin JavaScript-->
 
-    
+    <script src="{{ url('frontend/js/jquery.easing.min.js') }}"></script>
+
     <!-- Custom scripts for all pages-->
 
-    
+    <script src="{{ url('frontend/js/sb-admin-2.min.js') }}"></script>
+
     <!-- Page level plugins -->
 
     <script src="{{ url('frontend/js/Chart.min.js') }}"></script>
@@ -525,34 +526,37 @@
 
     <script src="{{ url('frontend/js/chart-pie-demo.js') }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js"></script>
+    <script src="{{ url('assets-new/js/main.js') }}"></script>
+
+    <!-- Datatables scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js"></script>
-    <script src="{{ url('assets/js/main.js') }}"></script>
-
-    <!-- Datatables scripts -->
+    
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/datatables.min.js"></script>
-    <script>
-  $(document).ready(function() {
-    if ($.fn.DataTable.isDataTable('#datatable')) {
-      // If DataTable is already initialized, destroy it
-      $('#datatable').DataTable().destroy();
-    }
-    
-    $('#datatable').DataTable({
-      "order": [],
-      "language": {
-        "search": "",
-        "searchPlaceholder": "Search Here"
-      }
+<!-- @if(Request::segment(1) != 'report') -->
+<script>
+    $(document).ready(function() {
+        if ($.fn.DataTable.isDataTable('#datatable')) {
+        // If DataTable is already initialized, destroy it
+        $('#datatable').DataTable().destroy();
+        }
+        
+        $('#datatable').DataTable({
+        "order": [],
+        "language": {
+            "search": "",
+            "searchPlaceholder": "Search Here"
+        }
+        });
     });
-  });
-</script>
+    </script>
+<!-- @endif -->
 
     <script>
         // JavaScript function to toggle the collapse

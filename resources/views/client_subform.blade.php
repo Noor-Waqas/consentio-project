@@ -34,7 +34,7 @@
                       @elseif (session('locale')=='en')
                       {{ $sub_forms[$i]->title }}
                       @endif</td>
-                    <td><a href={{ url('Forms/ViewForm/'.$sub_forms[$i]->parent_form_id) }} > <i class="far fa-eye"></i> {{ __('View Form') }}</a></td></td>
+                    <td><a href={{ url('Forms/ViewForm/'.$sub_forms[$i]->parent_form_id) }} > <img src="{{url('assets-new/img/solar_eye-bold.png')}}"></i> {{ __('View Form') }}</a></td></td>
                     <td class="text-center">
                         @if ($sub_forms[$i]->form_link_id != '')
                         <a href="{{ url('Forms/CompanyUserForm/'.$sub_forms[$i]->form_link_id) }}" class="" target="_blank" >{{ __('Open')}}</a>

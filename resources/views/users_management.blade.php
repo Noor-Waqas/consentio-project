@@ -97,13 +97,13 @@
                             <td class="text-center">
                                 {{-- <div class="actions-btns dule-btns">
                                     <!-- <a href="javascript:void(0)" data-id="{{$row->id}}" data-status="{{$row->status}}" id="change_status" class="btn btn-sm btn-primary"> <i class="fa fa-eye"> </i></a>  -->
-                                    <a href="{{url('edit_user/' . $row->id)}}" class="btn btn-sm btn-info"><img src="{{url('assets/img/action-edit.png')}}" alt=""></a>
+                                    <a href="{{url('edit_user/' . $row->id)}}" class="btn btn-sm btn-info"><img src="{{url('assets-new/img/action-edit.png')}}" alt=""></a>
                                     <a href="javascript:void(0)" data-id="{{$row->id}}" class="btn btn-sm btn-danger removePartner"><img src="{{url('assets/img/action-delete.png')}}" alt=""></a>
                                 </div> --}}
 
                                 <div class="action_icons">
-                                   <a href="{{url('edit_user/' . $row->id)}}"><img src="{{url('assets/img/action-edit.png')}}" alt=""></a>
-                                   <a href="javascript:void(0)" data-id="{{$row->id}}" class="removePartner" data-id="46"><img src="{{url('assets/img/action-delete.png')}}" alt=""></a>
+                                   <a href="{{url('edit_user/' . $row->id)}}"><img src="{{url('assets-new/img/action-edit.png')}}" alt=""></a>
+                                   <a href="javascript:void(0)" data-id="{{$row->id}}" class="removePartner" data-id="46"><img src="{{url('assets-new/img/action-delete.png')}}" alt=""></a>
                                 </div>
                             </td>
                         </tr>

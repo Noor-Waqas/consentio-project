@@ -33,13 +33,13 @@
                                     <td>{{ $form_info->group_name }}</td>
                                     <td>
                                             <a href="{{ route('view_audit_form', $form_info->form_id) }}">
-                                                <img src="{{url('assets/img/solar_eye-bold.png')}}">{{ __(' View Form') }}
+                                                <img src="{{url('assets-new/img/solar_eye-bold.png')}}">{{ __(' View Form') }}
                                             </a>
                                     </td>
                                     <?php if (Auth::user()->role != 1): ?>
                                     <td>
                                                 <a href="{{ route('audit.sub-form', ['id' => $form_info->form_id]) }}">
-                                                <img src="{{url('assets/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} ({{ $form_info->subforms_count }}) </a>
+                                                <img src="{{url('assets-new/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} ({{ $form_info->subforms_count }}) </a>
                                     </td>
                                     <?php endif;?>
                                     <?php if (Auth::user()->role == 2 || Auth::user()->user_type == 1): ?>

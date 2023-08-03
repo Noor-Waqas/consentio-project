@@ -1,20 +1,7 @@
 @extends (($user_type == 'admin')?('admin.layouts.admin_app'):('admin.client.client_app'))
 @section('content')
     @if (isset($data))
-        <style type="text/css">
-            .custom_Efdit_card {
-                border-radius: 30px;
-                margin-right: 19%;
-                margin-left: 19%
-            }
-
-            @media screen and (max-width: 580px) {
-                .custom_Efdit_card {
-                    margin-right: 30px;
-                    margin-left: 30px;
-                }
-            }
-        </style>
+        
         @section('page_title')
             {{ __('EDIT ASSET') }}
         @endsection
@@ -200,7 +187,7 @@
                     <input type="hidden" id="tier_matrix_up" name="tier_matrix" class="form-control">
                     <div class="update_btn text-right">
                         <span id="tier_value"></span>
-                        <input class="btn btn-primary mb-3" type="submit" name="submit" value="{{ __('Update') }}">
+                        <input class="buton" type="submit" name="submit" value="{{ __('Update') }}">
                     </div>
                 </form>
             </div>
@@ -220,8 +207,21 @@
             {{ __('ASSETS LIST') }}
         @endsection
         <section class="assets_list">
-            <div class="main_custom_table">
-                <div class="table_filter_section">
+            <div class="row mb-2">
+                        
+                        <div class="col">
+                            <button type="button" data-toggle="modal" data-target="#myModal"
+                                class="buton mx-1" style="border: 1px solid #71BA4F; background: #71BA4F;">{{ __('ADD MORE') }}</button>
+                        </div>
+
+                        <div class="col text-right mt-2">
+                            <a class="buton mx-1" href="{{ route('export-asset', Auth::user()->client_id) }}">{{ __('EXPORT') }}</a>
+                            <a class="buton mx-1" href="{{ url('import-asset') }}">{{ __('IMPORT_ASSETS') }}</a>
+                        </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                <!-- <div class="table_filter_section">
                     <div class="select_tbl_filter">
                         @if (Session::has('success'))
                             <div class="alert alert-success alert-dismissible fade show mx-5" role="alert">
@@ -231,15 +231,6 @@
                                 </button>
                             </div>
                         @endif
-                        <!-- <div class="main_filter_tbl">
-                            <p>{{ __('Show') }}</p>
-                            <select>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>30</option>
-                            </select>
-                            <p>{{ __('Entries') }}</p>
-                        </div> -->
                         <div class="add_more_tbl">
                             <button type="button" data-toggle="modal" data-target="#myModal"
                                 class="btn rounded_button">{{ __('ADD MORE') }}</button>
@@ -255,12 +246,12 @@
 
 
                     </div>
-                </div>
-                <div class="main_table_redisign">
+                </div> -->
+                <div class="card">
                     <div class="table_breadcrumb">
                         <h3>{{ __('ASSETS') }}</h3>
                     </div>
-                    <div class="over_main_div">
+                    <div class="card-table">
                         <table class="table table-striped text-center" id="datatable">
                             <thead>
                                 <tr>
@@ -328,10 +319,9 @@
 
                                     <td>
                                         <div class="action_icons">
-                                            <a href="{{ url('asset_edit/' . $asset->id) }}"><i
-                                                    class='bx bx-edit'></i></a>
+                                            <a href="{{ url('asset_edit/' . $asset->id) }}"><img class="action-edit-right" src="{{url('assets-new/img/action-edit.png')}}"></a>
                                             <a href="javascript:void(0)" data-id="{{ $asset->id }}"
-                                                class=" removePartner"><i class='bx bxs-trash'></i></a>
+                                                class=" removePartner"><img class="action-edit-right" src="{{url('assets-new/img/action-delete.png')}}"></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -347,6 +337,7 @@
                             </div>
                         </div> -->
                     </div>
+                </div>
                 </div>
             </div>
         </section>

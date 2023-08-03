@@ -11,12 +11,12 @@
 
 <div class="container-fluid" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
-        <div class="col-9">
+        <div class="col-6">
             <h4 class="mt-3" style="color:black;"><b>{{$company->name}} {{$group[0]->group_name}} - Security Assessment</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
-            <a class="btn btn-primary report-change" href="{{ url('/report/remediation/' . $group_id) }}">Remediation Report</a>
-            <button id="screenshotButton" class="btn btn-secondary ml-2">Download Report</button>
+            <a class="btn btn-secondary report-change mr-2" style="padding: 12px 30px;border-radius:30px;font-size:18px;" href="{{ url('/report/remediation/' . $group_id) }}">Remediation Report</a>
+            <button id="screenshotButton" class="buton">Download Report</button>
         </div>
     </div>
     <input type="hidden" class="group_id" value="{{$group_id}}">
@@ -94,9 +94,9 @@
     </div>
     <div class="row mt-3 overflow-auto">
         <div class="col-12">
-            <table id="datatable" class="table table-striped table-sm text-dark" width="100%">
+            <table id="datatable" class="table table-striped table-sm text-dark border" width="100%">
                 <thead>
-                    <tr>
+                    <tr class="border">
                         <th>Asset Name</th>
                         <th>Asset Tier</th>
                         @foreach($data as $question)
@@ -109,11 +109,11 @@
                     @if (count($plans) == 0)
                     @continue;
                     @endif
-                    <tr>
+                    <tr class="border">
                         <td>{{$plans[0]->name}}</td>
                         <td>{{$plans[0]->tier}}</td>
                         @foreach ($plans as $plan)
-                        <td style="color:{{$plan->text_color}}; background-color:{{$plan->color}};">{{$plan->rating}}</td>
+                        <td style="color:{{$plan->text_color}} !important; background-color:{{$plan->color}} !important;">{{$plan->rating}}</td>
                         @endforeach
                     </tr>
                     @endforeach
@@ -510,7 +510,7 @@ $(document).ready(function() {
                         newRow.append("<td>" + plan[0].tier + "</td>");
 
                         $.each(plan, function(key, plans) {
-                            newRow.append("<td style='background:" + plans.color + "; color:" + plans.text_color + "'>" + plans.rating + "</td>");
+                            newRow.append("<td style='background:" + plans.color + " !important; color:" + plans.text_color + " !important'>" + plans.rating + "</td>");
                         });
 
 

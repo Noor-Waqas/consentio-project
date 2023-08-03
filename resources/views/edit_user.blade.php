@@ -209,7 +209,7 @@
 							</div>
 
 							<div class="tile-footer text-right">
-								<a href="{{url('users_management')}}" class="btn btn-default" style="color: #4e73df; border: solid 1px;">{{ __('Cancel') }}</a>
+								<a href="{{url('users_management')}}" class="btn btn-secondary bg-dark" style="padding: 12px 30px;border-radius:30px;font-size:18px;">{{ __('Cancel') }}</a>
 								<button type="submit" id="sub_button" class="btn btn-primary">{{ __('Save')}}</button>
 							</div>
 						</div>

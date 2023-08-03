@@ -15,7 +15,7 @@
                 <div class="card">
                 <div class="p-3">
                                 <a class="button float-right" href="{{ route('report.remediation') }}">
-                                <img src="{{url('assets/img/grr.png')}}" alt=""> {{ __("Global Remediation Report") }}</a>
+                                <img src="{{url('assets-new/img/grr.png')}}" alt=""> {{ __("Global Remediation Report") }}</a>
                         </div>
                     <div class="card-table">
                         

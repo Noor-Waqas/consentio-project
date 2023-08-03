@@ -52,8 +52,8 @@
         
     </div>
     <div class="row mt-3 overflow-auto">
-        <table id="datatable" class="table table-striped table-bordered table-sm text-dark" cellspacing="0" width="100%">
-            <thead>
+        <table id="datatable" class="table table-striped table-sm text-dark border" cellspacing="0" width="100%">
+            <thead class="border">
                     <th>Name</th>
                     <th>Control Name</th>
                     <th>Initial Rating</th>
@@ -67,7 +67,7 @@
                 </thead>
             <tbody>
                 @foreach($remediation_plans as $plan)
-                    <tr>
+                    <tr class="border">
                         <td>
                             @if($plan->asset_name)
                                 {{$plan->asset_name}}
@@ -79,7 +79,7 @@
                         @php
                             $check=DB::table('evaluation_rating')->where('rate_level', $plan->rating)->where('owner_id', $client_id)->first();
                         @endphp
-                        <td style="background:{{$check->color}};color:{{$check->text_color}}">
+                        <td style="background:{{$check->color}} !important;color:{{$check->text_color}} !important;">
                             {{$check->rating}}
                         </td>
                         <?php
@@ -89,11 +89,11 @@
                             if ($var) {
                                 echo $var->color;
                             }
-                            ?>; color:<?php
+                            ?> !important; color:<?php
                             if ($var) {
                                 echo $var->text_color;
                             }
-                            ?>">
+                            ?> !important;">
                         <?php
                             if ($var) {
                                 echo $var->rating;
@@ -525,8 +525,8 @@ $(document).ready(function() {
                     // Append table cells with data
                     newRow.append("<td>" + (plan.asset_name ? plan.asset_name : plan.other_id) + "</td>");
                     newRow.append("<td>" + plan.question_short + "</td>");
-                    newRow.append("<td style='background:" + plan.bg_icolor +"; color:" + plan.t_icolor + "'>" + (plan.irating ? plan.irating : '') + "</td>");
-                    newRow.append("<td style='background:" + plan.bg_pcolor + "; color:" + plan.t_pcolor + "'>" + (plan.prating ? plan.prating : '') + "</td>");
+                    newRow.append("<td style='background:" + plan.bg_icolor +" !important; color:" + plan.t_icolor + " !important'>" + (plan.irating ? plan.irating : '') + "</td>");
+                    newRow.append("<td style='background:" + plan.bg_pcolor +" !important; color:" + plan.t_pcolor + " !important'>" + (plan.prating ? plan.prating : '') + "</td>");
                     newRow.append("<td>" + (plan.proposed_remediation ? plan.proposed_remediation : "<span style='margin-left:47%;'>--</span>") + "</td>");
                     newRow.append("<td>" + (plan.completed_actions ? plan.completed_actions : "<span style='margin-left:47%;'>--</span>") + "</td>");
                     newRow.append("<td>" + (plan.eta ? plan.eta : "<span style='margin-left:47%;'>--</span>") + "</td>");

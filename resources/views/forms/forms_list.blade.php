@@ -44,14 +44,14 @@
                       <td>{{ $form_info->title }}</td>
                       <td>
                           <a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> 
-                          <img src="{{url('assets/img/solar_eye-bold.png')}}"> {{ __('View Form') }}
+                          <img src="{{url('assets-new/img/solar_eye-bold.png')}}"> {{ __('View Form') }}
                           </a>
                       </td>
                       @if (Auth::user()->role != 1)
                         <td>
                               <a href="{{ route('subforms_list', ['id' => $form_info->form_id]) }}"><span>+ ADD</span></a>
                             
-                              <a href="{{ route('subforms_list', ['id' => $form_info->form_id]) }}"><span class="table-ssf"><img src="{{url('assets/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} </span></a>
+                              <a href="{{ route('subforms_list', ['id' => $form_info->form_id]) }}"><span class="table-ssf"><img src="{{url('assets-new/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} </span></a>
                             
                         </td>
                       @endif

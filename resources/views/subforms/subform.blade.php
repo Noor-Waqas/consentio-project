@@ -13,7 +13,7 @@
   #sub-form-area .sub-form{
     display: flex;
     flex-direction: row;
-        align-items: baseline;
+    align-items: baseline;
   }
   #sub-form-area .sub-form input,#sub-form-area .sub-form select{
     max-width: 80%;
@@ -197,12 +197,12 @@
             <th scope="col">{{ __('External Users') }}</th>     
             <th scope="col">{{ __('Internal Users') }}</th>     
             <th scope="col">{{ __('Sub Form Users') }}</th>
-            <th scope="col" style="width:100px">{{ __('Actions') }}</th>
+            <th scope="col">{{ __('Actions') }}</th>
       @endif
             <!--<th scope="col">External Users Forms</th>-->
           </tr>
         </thead>
-               <tbody>
+        <tbody>
     @if (!empty($sub_forms))
       @for ($i = 0; $i < count($sub_forms); $i++)          
           <tr>
@@ -227,7 +227,7 @@
               
               if ($count>=0):
           ?>
-              <a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id.'/?ext_user_only=1')}}"> <span class="adding_circle" style="vertical-align: middle;">{{$count}}</span> {{ __('Assign To') }}</a>
+              <a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id.'/?ext_user_only=1')}}"> <span class="adding_circle" style="vertical-align: middle;margin-right: 0px;">{{$count}}</span> {{ __('Assign To') }}</a>
           <?php
               else:
           ?>
@@ -235,11 +235,11 @@
           <?php endif; ?>
       </td>     
       
-      <td><a class="fs-14" href="{{url('Forms/SubFormAssignees/'.$sub_forms[$i]->id)}}">  <span class="adding_circle" style="vertical-align: middle;"><?php echo (isset($sub_forms[$i]->internal_users_count) && !empty($sub_forms[$i]->internal_users_count))?($sub_forms[$i]->internal_users_count):(0); ?></span> {{ __('Assign To') }}</a></td>
+      <td><a class="fs-14" href="{{url('Forms/SubFormAssignees/'.$sub_forms[$i]->id)}}">  <span class="adding_circle" style="vertical-align: middle;margin-right: 0px;"><?php echo (isset($sub_forms[$i]->internal_users_count) && !empty($sub_forms[$i]->internal_users_count))?($sub_forms[$i]->internal_users_count):(0); ?></span> {{ __('Assign To') }}</a></td>
       
-      <td><a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id)}}">  <span style="color: #3fd474;">{{ __('SHOW') }}</span>  </a>
-          <span style="color: black;">|</span>
-          <a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id)}}">   <span style="color: #5778ba;">{{ __('SEND FORM') }}</span></a>
+      <td><a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id)}}">  <span style="color: #3fd474;margin-right: 0px;">{{ __('SHOW') }}</span>  </a>
+          <span style="color: black;margin-right: 0px;">|</span>
+          <a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id)}}">   <span style="color: #5778ba;margin-right: 0px;">{{ __('SEND FORM') }}</span></a>
       </td>
       <td>
 
@@ -250,8 +250,8 @@
                      <a class="fs-14 delete-sb" sb-id="{{$sub_forms[$i]->id}}" href="#"><i class="fas fa-minus-circle"></i></a>
  --}}
 
-                          <a data-toggle="modal" data-target="#edit-modal" class="edit-sb" sb-id="{{$sub_forms[$i]->id}}" sb-name="{{ $sub_forms[$i]->title }}"><i class="bx bx-edit"></i></a>
-                          <a sb-id="{{$sub_forms[$i]->id}}" class=" delete-sb"><i class="bx bxs-trash"></i></a>
+                          <a data-toggle="modal" data-target="#edit-modal" class="edit-sb" sb-id="{{$sub_forms[$i]->id}}" sb-name="{{ $sub_forms[$i]->title }}"><img src="{{url('assets-new/img/action-edit.png')}}" alt=""></a>
+                          <a sb-id="{{$sub_forms[$i]->id}}" class=" delete-sb"><img src="{{url('assets-new/img/action-delete.png')}}" alt=""></a>
                         </div>
        </td>                 
       @endif
