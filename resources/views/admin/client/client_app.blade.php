@@ -11,6 +11,11 @@
         #datatable {
             border: none;
         }
+        #datatable-container {
+            width: 100%; /* Adjust this as needed */
+            overflow-x: scroll; /* Use "scroll" to always show the scrollbar */
+            white-space: nowrap; /* Prevent text wrapping */
+        }
         #datatable td {
             border: none;
         }

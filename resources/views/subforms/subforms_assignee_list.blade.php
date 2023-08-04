@@ -1,41 +1,11 @@
 @extends('admin.client.client_app')
 @section('content')
-	<style>
-		.row-btn {
-			margin-bottom:10px;
-			display:flex;
-			flex-direction:row;
-			justify-content: flex-end;
-		}
-		.expired {
-			color:#d73b3b;
-		}
-		#forms-list_wrapper {
-			white-space: nowrap;
-			padding-top: 15px;
-		}
-		.align_button {
-			display: flex;
-			justify-content: space-between;
-		}
-	</style>
+	
 	<link href="{{ url('frontend/css/jquery.mswitch.css')}}"  rel="stylesheet" type="text/css">
     <section class="assets_list">
-      <div class="main_custom_table">
-        <div class="table_filter_section">
-          <div class="select_tbl_filter">
-            <div class="main_filter_tbl">
-              <p>{{ __('Show') }}</p>
-              <select>
-                <option>10</option>
-                <option>20</option>
-                <option>30</option>
-              </select>
-              <p>{{ __('Entries') }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="main_table_redisign">
+      <div class="row">
+        
+        <div class="col-12">
 
         @section('page_title')
 			@if (Request::is('audit/*'))
@@ -45,11 +15,12 @@
 			@endif
         @endsection
 
-          <div class="over_main_div">
+          <div class="card">
+          <div class="card-table">
 
-              <button class="btn btn-primary" id="assign" style="margin-top: 16px;float:right; margin-right: 22px;">{{ __('Assign') }} / {{ __('Unassign') }}</button>
+              <button class="buton" id="assign" style="margin-bottom: 16px;float:right; margin-right: 22px;">{{ __('Assign') }} / {{ __('Unassign') }}</button>
       </h3>
-            <table class="table table-striped text-center paginated" >
+            <table class="table table-striped text-center" id="datatable">
     <thead>
         <tr style = "text-transform:uppercase;">
         	  <th scope="col">{{ __('Sr No') }}.</th>
@@ -92,14 +63,7 @@
      </tbody>
       
             </table>
-            <div class="table_footer">
-              <p>{{ __('Showing 1 to 9 of 9 entries')}}</p>
-              <div class="table_custom_pagination">
-                <p class="active_pagination">1</p>
-                <p>2</p>
-                <p>3</p>
-              </div>
-            </div>
+		</div>
         </div>
         </div>
       </div>

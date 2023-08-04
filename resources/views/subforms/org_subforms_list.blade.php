@@ -4,18 +4,19 @@
   {{ __('PENDING FORMS') }}
 @endsection
   <link href="{{ url('frontend/css/jquery.mswitch.css')}}"  rel="stylesheet" type="text/css">
-  <div class="container-fluid">
-  <div class="align_button">    
+  
+  <section class="assets_list">
+    <div class="row">
+      <div class="col-12">
+      <div class="align_button">    
     @if(!isset($all))
       <div class="row-btn float-right">
-          <button class="btn btn-primary ight" data-toggle="modal" data-target="#myModal">{{ __('Send Link to External Users') }}</button>
+          <button class="buton mb-2" data-toggle="modal" data-target="#myModal">{{ __('Send Link to External Users') }}</button>
       </div>
     @endif
-    @if(!isset($all))
-    @endif
   </div>
-  </div>
-  <section class="assets_list">
+      </div>
+    </div>
 
   <div class="row">
     <div class="col-12">

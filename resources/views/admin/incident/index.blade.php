@@ -193,8 +193,8 @@
                                 </div> --}}
 
                                 <div class="action_icons">
-                                   <a href="{{url('edit_incident/' . $row->id)}}"><i class='bx bx-edit'></i></a>
-                                   <a href="javascript:void(0)" class="removePartner" data-id="{{$row->id}}"><i class='bx bxs-trash' ></i></a>
+                                   <a href="{{url('edit_incident/' . $row->id)}}"><img class="action-edit-right" src="{{url('assets-new/img/action-edit.png')}}"></a>
+                                   <a href="javascript:void(0)" class="removePartner" data-id="{{$row->id}}"><img class="action-edit-right" src="{{url('assets-new/img/action-delete.png')}}"></a>
                                 </div>
                             </td>
                         </tr>

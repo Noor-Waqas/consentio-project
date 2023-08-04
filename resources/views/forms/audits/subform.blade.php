@@ -167,28 +167,19 @@
     @endif
 
     <section class="assets_list">
-      <div class="main_custom_table">
+      <div class="row">
         <div class="table_filter_section">
-          <div class="select_tbl_filter">
-            <div class="main_filter_tbl">
-              <p>{{ __('Show')}}</p>
-              <select>
-                  <option>10</option>
-                  <option>20</option>
-                  <option>30</option>
-              </select>
-              <p>{{ __('Entries')}}</p>
-            </div>
+            
             <div class="add_more_tbl">
               <a id="add" type="button" class="btn rounded_button"><i class='bx bx-plus mr-1' ></i> {{ __('ADD SUB FORM') }}</a>
             </div>
-          </div>
         </div>
-        <div class="main_table_redisign">
+        <div class="col-12">
           @section('page_title')
           {{ __('SUB FORMS') }}
           @endsection
-          <div class="over_main_div">
+          <div class="card">
+          <div class="card-table">
             <table class="table table-striped text-center">
               @if ($user_type == 'admin')
                 <thead class="back_blue">
@@ -197,7 +188,7 @@
               @endif
                 @if (!empty($sub_forms))
                   <tr>
-                    <th colspan="{{( ( (Auth::user()->role == 2) || (Auth::user()->role == 3) ) || (Auth::user()->user_type == 1) )?(6):(3)}}" style="text-align:center">
+                    <th colspan="{{( ( (Auth::user()->role == 2) || (Auth::user()->role == 3) ) || (Auth::user()->user_type == 1) )?(8):(3)}}" style="text-align:center">
                       @if(session('locale')=='fr')
                         {{$form_info->title_fr}}
                         {{ __('Sub Forms') }}
@@ -280,7 +271,7 @@
 
                         @if($count >= 0)
                         <a class="fs-14" href="{{url('/audit/external/assigned/'.$sub_forms[$i]->id.'/?ext_user_only=1')}}"> 
-                          <span class="adding_circle" style="vertical-align: middle;">{{$count}}</span> 
+                          <span class="adding_circle" style="vertical-align: middle;margin-right: 0px;">{{$count}}</span> 
                           {{ __('Assign To') }}</a>
                         @else
                           <span class="fs-14">0</span> {{ __('Assign To') }}
@@ -288,7 +279,7 @@
                       </td>   
                       <td>
                         <a class="fs-14" href="{{url('audit/internal/assigned/'.$sub_forms[$i]->id)}}">  
-                          <span class="adding_circle" style="vertical-align: middle;">
+                          <span class="adding_circle" style="vertical-align: middle;margin-right: 0px;">
                             <?php echo (isset($sub_forms[$i]->internal_users_count) && !empty($sub_forms[$i]->internal_users_count))?($sub_forms[$i]->internal_users_count):(0); ?>
                           </span> {{ __('Assign To') }}
                         </a>
@@ -296,11 +287,11 @@
                       <td>
                         <!-- <a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id)}}">   -->
                         <a class="fs-14" href="{{url('/audit/external/assigned/'.$sub_forms[$i]->id.'/?ext_user_only=1')}}">  
-                          <span style="color: #3fd474;">
+                          <span style="color: #3fd474;margin-right: 0px;">
                             {{ __('SHOW') }}
                           </span> 
                         </a>
-                        <span style="color: black;">|</span>
+                        <span style="color: black;margin-right: 0px;">|</span>
                         <!-- <a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id)}}">    -->
                         <a class="fs-14" href="{{url('/audit/external/assigned/'.$sub_forms[$i]->id.'/?ext_user_only=1')}}">   
                           <span style="color: #5778ba;">
@@ -310,8 +301,8 @@
                       </td>
                       <td>
                         <div class="action_icons">
-                          <a data-toggle="modal" data-target="#edit-modal" class="edit-sb" sb-id="{{$sub_forms[$i]->id}}" sb-name="{{ $sub_forms[$i]->title }}"><i class="bx bx-edit"></i></a>
-                          <a sb-id="{{$sub_forms[$i]->id}}" class=" delete-sb"><i class="bx bxs-trash"></i></a>
+                          <a data-toggle="modal" data-target="#edit-modal" class="edit-sb" sb-id="{{$sub_forms[$i]->id}}" sb-name="{{ $sub_forms[$i]->title }}"><img class="action-edit-right" src="{{url('assets-new/img/action-edit.png')}}"></a>
+                          <a sb-id="{{$sub_forms[$i]->id}}" class=" delete-sb"><img class="action-edit-right" src="{{url('assets-new/img/action-delete.png')}}"></a>
                         </div>
                       </td>                 
                     @endif
@@ -320,6 +311,7 @@
                 @endif   
               </tbody>
             </table>
+          </div>
           </div>
         </div>
       </div>
