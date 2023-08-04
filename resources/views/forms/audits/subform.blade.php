@@ -116,7 +116,7 @@
   </div>
 
   <div class="modal" id="edit-modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog mt-6" style="width: 400px;">
       <div class="modal-content">
         <!-- Modal Header -->
         <div class="modal-header">
@@ -465,6 +465,7 @@
         $('.modal-body #sb-name').val($(this).attr('sb-name'));
         $('.modal-body #sb-name').attr('sb-id', $(this).attr('sb-id'));
         var name = $('#sb-name').val();   
+        $('#edit-modal').modal('show');
       });
       $('#edit-form').click(function(){
         var sb_id    = $('#sb-name').attr('sb-id');        

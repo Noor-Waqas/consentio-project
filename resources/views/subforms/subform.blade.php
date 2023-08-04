@@ -97,7 +97,7 @@
     @endif 
 </div>
 <div class="modal" id="edit-modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog mt-6" style="width: 400px;">
       <div class="modal-content">
       
         <!-- Modal Header -->
@@ -108,7 +108,7 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-          <label for="usr">{{ __('Name') }} :</label>
+          <label for="usr"><b>{{ __('Name') }} </b></label>
             <input type="text" name="sb-name" id="sb-name" sb-id="" class="form-control zdd">
         </div>
         
@@ -377,6 +377,8 @@ $(document).ready(function() {
         
         
         var name = $('#sb-name').val();
+
+        $('#edit-modal').modal('show');
           
     });
     
