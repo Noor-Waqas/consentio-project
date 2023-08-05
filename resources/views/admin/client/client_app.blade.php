@@ -24,6 +24,18 @@
         }
         .dataTables_wrapper .dataTables_length {
             float: right !important;
+            margin-right: 10px;
+        }
+        .dataTables_wrapper .dataTables_length select{
+            border-radius: 20px;
+            border: 1px solid #DADADA;
+            background: #FEFEFE;
+            width: 72px;
+            height: 66px;
+            color: #343434;
+            font-size: 16px;
+            text-align: center;
+            margin: 0 5px;
         }
         
         .dataTables_wrapper .dataTables_filter {
@@ -77,7 +89,7 @@
 
     </title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href=" {{ url('newfavicon.png') }}" type="image/png">
+    <link rel="icon" href=" {{ url('assets-new/img/favicon.png') }}" type="image/png">
     <script src="{{ url('backend/js/sweetalert.js') }}"></script>
     <link rel="stylesheet" href="{{ url('backend/css/sweetalert.css') }}">
     <!--  -->

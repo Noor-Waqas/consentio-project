@@ -61,7 +61,7 @@
     </section>
 
     <!-- Add New Data Elements Model -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding: 5% 0% 5% 0%;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,8 +105,8 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="buton bg-dark" data-dismiss="modal">Close</button>
+                    <button type="submit" class="buton">Submit</button>
                 </div>
                 </form>
             </div>

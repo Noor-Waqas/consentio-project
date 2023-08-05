@@ -96,8 +96,8 @@
     </div>
     @endif 
 </div>
-<div class="modal" id="edit-modal">
-    <div class="modal-dialog mt-6" style="width: 400px;">
+<div class="modal" id="edit-modal" style="padding: 15% 0% 5% 0%;">
+    <div class="modal-dialog" >
       <div class="modal-content">
       
         <!-- Modal Header -->

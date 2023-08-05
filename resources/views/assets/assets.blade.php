@@ -342,8 +342,8 @@
             </div>
         </section>
 
-        <div class="modal" id="myModal">
-            <div class="modal-dialog modal-lg">
+        <div class="modal" id="myModal" style="padding: 5% 0% 5% 0%;">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content" style="border-radius: 30px;">
 
                     <!-- Modal Header -->
@@ -370,7 +370,6 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <div class='input-field'>
                                             <label>{{ __('Hosting Type') }}<span class="red">*</span></label>
                                             <select class="form-control" required id="hosting_type1" name='hosting_type'>
                                                 <option value="Cloud">{{ __('Cloud') }}</option>
@@ -379,10 +378,8 @@
                                                 <option value="Hybrid">{{ __('Hybrid') }}</option>
 
                                             </select>
-                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class='input-field'>
                                             <label for='country'>{{ __('Hosting Country') }}<span class="red">*</span></label>
                                             <select id='country_select' class="form-control" required name='country'>
                                                 @foreach ($countries as $country)
@@ -390,7 +387,6 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label>{{ __('State') }}/{{ __('Province') }} </label>
@@ -523,10 +519,11 @@
                             <input type="hidden" id="langutitude" name="lng" class="form-control">
                             <input type="hidden" id="tier_matrix" name="tier_matrix" class="form-control">
                             <div class="pt-4 d-flex justify-content-center">
-                                <button type="button" class="btn btn-danger mr-2"
-                                    data-dismiss="modal">{{ __('Close') }}</button>
-                                <input class="btn btn-primary" type="submit" name="submit"
+                                <input class="buton mr-2 px-5"  type="submit" name="submit"
                                     value="{{ __('Add') }}">
+                                <button type="button" class="btn btn-primary px-5"
+                                    data-dismiss="modal">{{ __('Close') }}</button>
+                                
                             </div>
                         </form>
                     </div>
@@ -660,16 +657,16 @@
                 var country_select = document.getElementById('country_select').value;
                 var city1 = document.getElementById('city1').value;
                 //alert("ok")
-                $.ajax({
-                    url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_select + "+" + city1 +
-                        "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
-                    method: "GET",
-                    success: function(response) {
-                        window.locationData = response;
-                        var lat = locationData.results[0].geometry.location.lat;
-                        var lng = locationData.results[0].geometry.location.lng;
-                        document.getElementById("latituede").value = lat;
-                        document.getElementById("langutitude").value = lng;
+                // $.ajax({
+                //     url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_select + "+" + city1 +
+                //         "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
+                //     method: "GET",
+                //     success: function(response) {
+                //         window.locationData = response;
+                //         var lat = locationData.results[0].geometry.location.lat;
+                //         var lng = locationData.results[0].geometry.location.lng;
+                //         document.getElementById("latituede").value = lat;
+                //         document.getElementById("langutitude").value = lng;
 
                         document.getElementById("add_asset_loc").removeAttribute("onsubmit");
 
@@ -720,8 +717,8 @@
 
                         return (lng);
 
-                    }
-                })
+                //     }
+                // })
             }
         </script>
     @endif
@@ -762,16 +759,16 @@
             var country_selectz = document.getElementById('country_selectz').value;
             var cityz = document.getElementById('citiz').value;
 
-            $.ajax({
-                url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_selectz + "+" + cityz +
-                    "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
-                method: "GET",
-                success: function(response) {
-                    window.locationData = response;
-                    var lat = locationData.results[0].geometry.location.lat;
-                    var lng = locationData.results[0].geometry.location.lng;
-                    document.getElementById("latituedez").value = lat;
-                    document.getElementById("langutitudez").value = lng;
+            // $.ajax({
+            //     url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_selectz + "+" + cityz +
+            //         "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
+            //     method: "GET",
+            //     success: function(response) {
+            //         window.locationData = response;
+            //         var lat = locationData.results[0].geometry.location.lat;
+            //         var lng = locationData.results[0].geometry.location.lng;
+            //         document.getElementById("latituedez").value = lat;
+            //         document.getElementById("langutitudez").value = lng;
 
                     document.getElementById("update_asset_locz").removeAttribute("onsubmit");
 
@@ -816,8 +813,8 @@
                         }
                     });
 
-                }
-            })
+            //     }
+            // })
         }
     </script>
 
