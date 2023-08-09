@@ -6,14 +6,14 @@
     
     <title>Consentio | {{ __('We Manage Compliance') }}</title>
     <!-- Custom -->
-    <link href="{{ url('assets-new/img/favicon.png')}}" rel="icon">
+    <link href="{{ url('public/assets-new/img/favicon.png')}}" rel="icon">
     <!-- Vendor CSS Files -->
-    <link href="{{ url('assets-new/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ url('assets-new/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{ url('public/assets-new/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ url('public/assets-new/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Template Main CSS File -->
-    <link href="{{ url('assets-new/css/style.css')}}" rel="stylesheet">
+    <link href="{{ url('public/assets-new/css/style.css')}}" rel="stylesheet">
 </head>
 
 <body class="dashboard login-option-page">
@@ -21,7 +21,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/') }}" class="logo d-flex align-items-center">
-        <img src="{{url('assets-new/img/logo.png')}}" alt="">
+        <img src="{{url('public/assets-new/img/logo.png')}}" alt="">
       </a>
     </div><!-- End Logo -->
   </header><!-- End Header -->
@@ -30,7 +30,7 @@
       <div class="row">
         <div class="col-12">
           <div class="form-login">
-            <img src="{{url('assets-new/img/login-logo.png')}}" class="login-logo">
+            <img src="{{url('public/assets-new/img/login-logo.png')}}" class="login-logo">
             <h1>{{ __('Compliance Management') }}</h1>
             @if (Session::has('status'))
             <div class="alert alert-danger fw-bolder" style="color: red;">
@@ -81,9 +81,9 @@
     </section>  
 
 
-    <script src="{{url('assets-new/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url('public/assets-new/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js"></script>  
-    <script src="{{url('assets-new/js/main.js')}}"></script>
+    <script src="{{url('public/assets-new/js/main.js')}}"></script>
     
     <script type="text/javascript">
         $('#reload').click(function(e) {
