@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <style>
-        td {
+        td, th {
             text-align: center;
             vertical-align: middle !important;
         }
@@ -14,14 +14,17 @@
         }
     </style>
     <section class="assets_list">
-        <div class="row bg-white p-3">
+        <div class="row">
+            <div class="col-12">
+            <div class="card">
+            
             {{--<td>{{Auth::user()->client_id}}-{{$plan->asset_number}}</td> <td>{{$plan->assets_name}}</td> --}}
 
             <div class="col-12">
                 <h2 align="center">@if(session('locale') == 'fr') {{ $remediation_plans[0]->sub_form_title_fr }} @else {{ $remediation_plans[0]->sub_form_title }} @endif</h2>
             </div>
 
-            <div class="col-md-10 px-5 offset-1 py-2 d-flex justify-content-between">
+            <div class="col-12 px-5 py-2 d-flex justify-content-between">
                 <h4>{{__("remediation_item_name")}} : @if($remediation_plans[0]->type == 'others') {{ $remediation_plans[0]->other_name }} @else {{ $remediation_plans[0]->assets_name }}@endif</h4>
                 <h4>{{__("Group Question")}} : {{ $remediation_plans[0]->group_name }}</h4>
                 <h4>{{__("remediation_item_number")}} : 
@@ -33,10 +36,10 @@
                     {{Auth::user()->client_id}}-
                     @if($remediation_plans[0]->type == 'others') {{ $remediation_plans[0]->other_number }} @else {{ $remediation_plans[0]->assets_number }}@endif</h4>
             </div>
-
+            <div class="card-table">
             <div class="col-12 overflow-auto py-3">
-                <table class="table" id="remediation_details" style="min-width:800px">
-                    <thead class="back_blue">
+                <table class="table" id="datatable" style="min-width:800px">
+                    <thead>
                         <tr>
                             <th> #</th>
                             <th> Control ID</th>
@@ -130,6 +133,9 @@
 
                     </tbody>
                 </table>
+            </div>
+            </div>
+            </div>
             </div>
         </div>
     </section>
