@@ -8,6 +8,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <style>
+        body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+footer{
+    margin-top: auto;
+}
         #datatable {
             border: none;
         }
@@ -486,11 +494,11 @@
 
             <!-- Footer -->
 
-            <footer class="sticky-footer bg-white">
+            <footer class="bg-white">
 
-                <div class="container my-auto">
+                <div class="container">
 
-                    <div class="copyright text-center my-auto">
+                    <div class="copyright text-center">
                         @if (Request::segment(2) == 'ShowSARAssignees')
                             <span>{{ __('Copyright') }} &copy; {{ date('Y') }}</span>
                         @else
@@ -559,6 +567,7 @@
 <!-- @if(Request::segment(1) != 'report') -->
 <script>
     $(document).ready(function() {
+
         if ($.fn.DataTable.isDataTable('#datatable')) {
         // If DataTable is already initialized, destroy it
         $('#datatable').DataTable().destroy();
