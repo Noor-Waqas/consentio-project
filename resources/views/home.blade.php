@@ -232,395 +232,71 @@
       }
   }
 </style>
-<!-- table style -->
-<!-- End of Topbar -->
-<!-- Begin Page Content -->
-<div class="container-fluid add_space_on_bottom">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
-    <!-- Page Heading -->
-    <!-- Content Row -->
-    <div class="main_top_boxes">
-      <div class="parent_main_cards mb-4 @if(!in_array('Manage Forms', $assigned_permissions)) card_is_ban  @endif"
-          @if(!in_array('Manage Forms', $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <a @if(in_array('Manage Forms', $assigned_permissions)) href="{{url('Forms/FormsList')}}" @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i class="fas fa-file-signature fa-2x mr-2"></i> {{$forms_count}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Assessment Forms') }}</div>
 
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-
-
-      <div class="parent_main_cards mb-4 
-            @if(!in_array('Manage Forms', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Manage Forms',
-          $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <div class="card card_earnings shadow h-100 py-2">
-              <div class="card-body p-3">
-                  <div class="icon_field">
-
-                      <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                              class="fas fa-clone fa-2x mr-2"></i>{{$subforms_count}}</div>
-                  </div>
-                  <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-uppercase mt-2">{{ __('Total Sub Forms') }}</div>
-
-                      </div>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="parent_main_cards mb-4 @if(!in_array('Manage Forms', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Manage Forms', $assigned_permissions)) data-toggle="tooltip" data-placement="top" title="You don't have permission of this section" @endif>
-          <a @if(in_array('Manage Forms', $assigned_permissions)) href="{{url('/audit/list')}}" @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-file-signature fa-2x mr-2"></i> {{$total_audit_forms}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Audit Forms') }}</div>
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-      <!-- Earnings (Monthly) New Card Example -->
-
-      <div class="parent_main_cards mb-4 
-            @if(!in_array('Users Management', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Users
-          Management', $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <a @if(in_array('Users Management', $assigned_permissions)) href="{{ url('users_management') }}" @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-users fa-2x mr-2"></i>{{$total_organisational_users}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Organisational Users') }}</div>
-
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-
-
-      <!-- Earnings (Monthly) New Card Example -->
-
-
-      <!-- Earnings (Monthly) New Card Example -->
-
-      <div class="parent_main_cards mb-4 
-        @if(!in_array('Global Data Inventory', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Global
-          Data Inventory', $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <a @if(in_array('Global Data Inventory', $assigned_permissions)) href="{{ route('summary_reports_all') }}"
-              @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-file-signature fa-2x mr-2"></i>{{$total_data_types}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Data Types Collected') }}
-                              </div>
-
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-
-      <!-- Pending Requests Card Example -->
-
-      <div class="parent_main_cards mb-4 
-          @if(!in_array('Generated Forms', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Generated
-          Forms', $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <a @if(in_array('Generated Forms', $assigned_permissions)) href="{{ url('Forms/All_Generated_Forms') }}"
-              @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas  fa-share  fa-2x mr-2"></i>{{$total_shared_forms}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">{{ __('Total Forms Shared') }}
-                              </div>
-
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-
-      <!-- Pending Requests Card Example -->
-      <div class="parent_main_cards mb-4 @if(!in_array('Completed Forms', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Completed Forms', $assigned_permissions)) data-toggle="tooltip" data-placement="top" title="You don't have permission of this section" @endif>
-          <a @if(in_array('Completed Forms', $assigned_permissions)) href="{{ url('Forms/CompletedFormsList') }}" @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-                          <div class="h5 mb-0 font-weight-bold icon_num"> 
-                            <i class="fas fa-check fa-2x mr-2"></i>{{$total_completed_forms}}
-                          </div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Completed Form') }}</div>
-
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-      <!-- Pending Requests Card Example -->
-
-      <div class="parent_main_cards mb-4 @if(!in_array('Completed Forms', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Completed Forms', $assigned_permissions)) data-toggle="tooltip" data-placement="top" title="You don't have permission of this section" @endif>
-          <div class="card card_earnings shadow h-100 py-2">
-              <div class="card-body p-3">
-                  <div class="icon_field">
-                      <div class="h5 mb-0 font-weight-bold icon_num"> 
-                        <i class="fas fa-times fa-2x mr-2"></i>{{$total_incomplete_forms}}
-                      </div>
-                  </div>
-                  <div class="row no-gutters align-items-center">
-                      <div class="col">
-                          <div class="text-xs font-weight-bold text-uppercase mt-2">{{ __('Incomplete Forms') }}</div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- Pending Requests Card Example -->
-
-      <div class="parent_main_cards mb-4 @if(!in_array('Activities List', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Activities List', $assigned_permissions)) data-toggle="tooltip" data-placement="top" title="You don't have permission of this section" @endif>
-          <a @if(in_array('Activities List', $assigned_permissions)) href="{{url('activities')}}" @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-assistive-listening-systems  fa-2x mr-2"></i>{{$total_activities}}
-                          </div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">{{ __('Total Activities') }}
-                              </div>
-
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-
-      <!-- Total Assets -->
-      <div class="parent_main_cards mb-4  @if(!in_array('Assets List', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Assets List',
-          $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <a @if(in_array('Assets List', $assigned_permissions)) href="{{url('assets')}}" @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-assistive-listening-systems  fa-2x mr-2"></i>{{$total_assets}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">{{ __('Total Assets') }}</div>
-
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-      <!-- Pending Requests Card Example -->
-
-      <div class="parent_main_cards mb-4 @if(!in_array('SAR Forms Submitted', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('SAR Forms
-          Submitted', $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <a @if(in_array('SAR Forms Submitted', $assigned_permissions)) href="{{url('SAR/SARCompletedFormsList')}}"
-              @endif>
-              <div class="card card_earnings shadow h-100 py-2">
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-check fa-2x mr-2"></i>{{$total_sar_completed_forms}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Completed SAR Forms') }}
-                              </div>
-
-                          </div>
-
-                      </div>
-                  </div>
-              </div>
-          </a>
-      </div>
-      <!-- Pending Requests Card Example -->
-
-      <div class="parent_main_cards mb-4  @if(!in_array('SAR Forms pending', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('SAR Forms pending',
-          $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <div class="card card_earnings shadow h-100 py-2">
-              <?php if (isset($sar_subform_id) && !empty($sar_subform_id)): $search_filter = urlencode('Not Submitted'); ?>
-              <a @if(in_array('SAR Forms pending', $assigned_permissions))
-                  href="{{url('SAR/OrgSubFormsList/'.$sar_subform_id.'/?search_filter='.$search_filter)}}" @endif>
-                  <?php endif; ?>
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-times fa-2x mr-2"></i>{{$total_sar_incomplete_forms}}</div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Incomplete SAR Forms') }}
-                              </div>
-
-                          </div>
-
-                      </div>
-                  </div>
-                  <?php if (isset($sar_subform_id) && !empty($sar_subform_id)): ?>
-              </a>
-              <?php endif; ?>
-          </div>
-      </div>
-
-      <!-- Pending Requests Card Example -->
-
-      <div class="parent_main_cards mb-4 @if(!in_array('Incident Register', $assigned_permissions)) card_is_ban  @endif" @if(!in_array('Incident Register',
-          $assigned_permissions)) data-toggle="tooltip" data-placement="top"
-          title="You don't have permission of this section" @endif>
-          <div class="card card_earnings shadow h-100 py-2">
-              <a @if(in_array('Incident Register', $assigned_permissions)) href="{{url('incident')}}" @endif>
-
-                  <div class="card-body p-3">
-                      <div class="icon_field">
-
-                          <div class="h5 mb-0 font-weight-bold icon_num"> <i
-                                  class="fas fa-file-signature fa-2x mr-2"></i>{{$total_incident_register_forms}}
-                          </div>
-                      </div>
-                      <div class="row no-gutters align-items-center">
-                          <div class="col">
-                              <div class="text-xs font-weight-bold text-uppercase mt-2">
-                                  {{ __('Total Incident Register Forms') }}</div>
-
-                          </div>
-
-                      </div>
-                  </div>
-
-              </a>
-
-          </div>
-      </div>
-    </div>
-    <?php $total = $total_incomplete_forms + $total_completed_forms;
-      if($total_sar_completed_forms == 0){
-        $percentage = 0;
-      }else{  
-        $percentage =  ($total_completed_forms *100)/$total;
-      }
-    ?>
-    <?php $total = $total_sar_incomplete_forms + $total_sar_completed_forms; 
-      if($total_sar_completed_forms == 0){
-        $percentage = 0;
-      }else{  
-        $percentage =  ($total_sar_completed_forms *100)/$total;
-      }
-    ?>
-    <?php 
-        $client_id = Auth::user()->client_id;
-        $assets = DB::table('assets')->where('client_id' , $client_id )->orderBy('id' , 'desc')->get();
-    ?>
+<section class="section dashboard"> 
     <div class="row">
-        <div class="col-md-6 @if(!in_array('Assets List', $assigned_permissions)) table_is_ban @endif" @if(!in_array('Assets
-            List', $assigned_permissions)) data-toggle="tooltip" data-placement="right"
-            title="You don't have permissions of this section" @endif>
-            <section class="assets_list m-0">
-                <div class="main_custom_table">
-                    <div class="main_table_redisign">
-                        <div class="table_breadcrumb">
-                            <h3>{{ __('ASSET LIST') }}</h3>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                <div class="row completed-audits-box5">
+                    @php
+                        $user_type = Auth::user()->role;
+                        $user_id = Auth::user()->id;
+                        $client_id = Auth::user()->client_id;
+                    @endphp
+                    <div class="col-xs-2 col-half-offset active">
+                        <span class="number">{{$forms}}</span>
+                        <img src="{{url('assets-new/img/write.png')}}">
+                        <p>Completed Assessments</p>
+                    </div>
+                    <div class="col-xs-2 col-half-offset">
+                        <span class="number">{{$pen_forms}}</span>
+                        <img src="{{url('assets-new/img/paper.png')}}">
+                        <p>Pending Assessments</p>
+                    </div>
+                    
+                    <div class="col-xs-2 col-half-offset">
+                        <span class="number">{{$audits}}</span>
+                        <img src="{{url('assets-new/img/audit.png')}}">
+                        <p>Completed Audits</p>
+                    </div>
+                    <div class="col-xs-2 col-half-offset">
+                        <span class="number">{{$pen_audits}}</span>
+                        <img src="{{url('assets-new/img/roll.png')}}">
+                        <p>Pending Audits</p>
+                    </div>
+                    <div class="col-xs-2 col-half-offset">
+                        <span class="number">{{$remediation}}</span>
+                        <img src="{{url('assets-new/img/plan.png')}}">
+                        <p>Remediation Plans</p>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-full-content">
+                            <div class="card-body" style="height:80vh;">
+
+                            </div>
                         </div>
-                        <div class="over_main_div">
-                            <table class="table table-striped text-center paginated" style="margin-bottom: 50px;">
+                    </div> 
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="card card-full-content">
+                            <div class="card-table">
+                            <h3 class="card-title-h3  text-center">{{ __('ASSET LIST') }}</h3>
+                            <table class="table fixed_header manage-assessments-table">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>{{ __('Asset Type') }}</th>
-                                        <th>{{ __('Asset Name') }}</th>
-                                        <th>
-                                            {{ __('Hosting Type') }}
-                                        </th>
-                                        <th>
-                                            {{ __('Hosting Provider') }}
-                                        </th>
-                                        <th>
-                                            {{ __('Country') }}
-                                        </th>
-                                        <th>
-                                            {{ __('City') }}
-                                        </th>
-                                        <!-- <th>
-                                {{ __('State') }}
-                              </th> -->
-                                    </tr>
+                                <tr>
+                                    <th class="align-middle" scope="col">#</th>
+                                    <th class="align-middle" scope="col">{{ __('Asset Type') }}</th>
+                                    <th class="align-middle" scope="col">{{ __('Asset Name') }}</th> 
+                                    <th class="align-middle" scope="col">{{ __('Hosting Type') }}</th>
+                                    <th class="align-middle" scope="col">{{ __('Hosting Provider') }}</th>
+                                    <th class="align-middle" scope="col">{{ __('Country') }}</th>
+                                    <th class="align-middle" scope="col">{{ __('City') }}</th> 
+                                </tr>
                                 </thead>
                                 <tbody>
                                     <?php
@@ -628,242 +304,152 @@
                             foreach ($assets as $ass): ?>
                                     <tr>
                                         <td>{{$count}}</td> <?php $count++; ?>
-                                        <td scope="row" class="fix_width_td">{{$ass->asset_type}}</td>
-                                        <td style="text-align:center">{{$ass->name}}</td>
-                                        <td style="text-align:center">{{$ass->hosting_type}}</td>
-                                        <td style="text-align:center">{{$ass->hosting_provider}}</td>
-                                        <td style="text-align:center">{{$ass->country}}</td>
-                                        <td style="text-align:center">{{$ass->city}}</td>
+                                        <td>{{$ass->asset_type}}</td>
+                                        <td>{{$ass->name}}</td>
+                                        <td>{{$ass->hosting_type}}</td>
+                                        <td>{{$ass->hosting_provider}}</td>
+                                        <td>{{$ass->country}}</td>
+                                        <td>{{$ass->city}}</td>
                                         <!-- <td style="text-align:center">{{$ass->state}}</td> -->
                                     </tr>
                                     <?php endforeach; ?>
 
                                 </tbody>
                             </table>
+                            
+                            </div>
+                        </div>
+                        </div>
+                        <!-- <div class="col-sm-4 col-xs-12">
+                            <div class="map-image card card-full-content">
+                                <img src="assets/img/map.png">
+                                <div class="map_canvas"></div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="mapouter">
+                                <div class="gmap_canvas">
+                                    <div id='map_canvas' style="position:relative; width:auto; height:100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php  
+                        $incident_type = DB::table('incident_type')->orderBy('id' , 'desc')->get();
+                        $organization  = DB::table('users')->where('role',4)->get();
+                        $user_type = Auth::user()->role;
+                        $currentuserid = Auth::user()->id;
+                        if ($user_type == 2 || Auth::user()->user_type == 1){
+                            $incident_front = DB::table('incident_register')->where('organization_id',Auth::user()->client_id)->where('incident_status' , '!=', 'Resolved')
+                            ->orderBy('date_discovered', 'DESC')
+                            ->get();
+                        }
+                        else {
+                            $incident_front = DB::table('incident_register')->where('created_by',$currentuserid)->where('incident_status' , '!=', 'Resolved')
+                            ->orderBy('date_discovered', 'DESC')
+                            ->get();
+
+                        }
+
+
+                        $incident_register = DB::table('incident_register')->where('incident_status' , '!=', 'Resolved')->orderBy('date_discovered', 'DESC')->get();
+                        $assigned_permissions =array();
+                        $data = DB::table('module_permissions_users')->where('user_id' , Auth::user()->id)->pluck('allowed_module');
+
+                                if($data != null){
+                                    foreach ($data as $value) {
+                                    $assigned_permissions = explode(',',$value);
+                                    
+                                }
+                                }
+
+
+                    ?>
+
+                    <div class="row">
+                        <div class="col-12">
+                        <div class="card card-full-content">
+                            <div class="card-table">
+                            <h3 class="card-title-h3  text-center">Incident List</h3>
+                            <table class="table fixed_header manage-assessments-table">
+                                <thead>
+                                <tr>
+                                    <th class="align-middle" scope="col">#</th>
+                                    <th class="align-middle" scope="col">Incident Name</th>
+                                    <th class="align-middle" scope="col">Type</th> 
+                                    <th class="align-middle" scope="col">Organization</th>
+                                    <th class="align-middle" scope="col">Assignee</th>
+                                    <th class="align-middle" scope="col">Root Cause</th>
+                                    <th class="align-middle" scope="col">Date Discovered</th>
+                                    <th class="align-middle" scope="col">Deadline Date</th>
+                                    <th class="align-middle" scope="col">Status</th>
+                                    <th class="align-middle" scope="col">Severity</th>  
+                                </tr>
+                                </thead>
+                                @if($user_type=='1')
+                                <tbody>
+                                    <?php $count = 1; ?>
+                                    @foreach($incident_register as $row)
+                                    <tr>
+                                        <td>{{$count}}</td> <?php $count++; ?>
+                                        <td>{{$row->name}}</td>
+                                        <td><?php $incident  = DB::table('incident_type')->where('id',$row->incident_type)->first();?>
+                                            {{ $incident->name}}</td>
+                                        <td><?php $org  = DB::table('users')->where('id',$row->organization_id)->first();?>
+                                            {{ $org->company}}</td>
+                                        <td>{{$row->assignee}}</td>
+                                        <td>{{$row->root_cause}}</td>
+                                        <td><a href="" class="btn seet_detail_btn" data-toggle="modal"
+                                                data-val="{{$row->root_cause}}" data-target='#practice_modal'><i
+                                                    class="bx bx-show-alt"></i>{{ __('See Detail') }}</a></td>
+                                        <td>{{$row->date_discovered}}</td>
+                                        <td>{{$row->deadline_date}}</td>
+                                        <td>{{$row->incident_status}}</td>
+                                        <td class="{{$row->incident_severity}}"><strong>{{$row->incident_severity}}</strong></td>
+
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                @else
+                                <tbody>
+                                    <?php $count = 1; ?>
+                                    @foreach($incident_front as $row)
+                                    <tr>
+                                        <td>{{$count}}</td> <?php $count++; ?>
+                                        <td>{{$row->name}}</td>
+                                        <td><?php $incident  = DB::table('incident_type')->where('id',$row->incident_type)->first();?>
+                                            {{ $incident->name}}</td>
+                                        <td><?php $org  = DB::table('users')->where('id',$row->organization_id)->first();?>
+                                            {{ $org->company}}</td>
+                                        <td>{{$row->assignee}}</td>
+                                        <td><a href="" class="btn seet_detail_btn" data-toggle="modal"
+                                                data-val="{{$row->root_cause}}" data-target='#practice_modal'><i
+                                                    class="bx bx-show-alt"></i>{{ __('See Detail') }}</a></td>
+                                        <td>{{$row->date_discovered}}</td>
+                                        <td>{{$row->deadline_date}}</td>
+                                        <td>{{ __($row->incident_status) }}</td>
+                                        <td class="{{$row->incident_severity}}"><strong>{{ __($row->incident_severity)}}</strong>
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                @endif
+                            </table>
+                            
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-        <div class="col-md-6">
-            <div class="mapouter">
-                <div class="gmap_canvas">
-                    <div id='map_canvas' style="position:relative; width:auto; height:100%;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-
-
-
-  <?php  
-      $incident_type = DB::table('incident_type')->orderBy('id' , 'desc')->get();
-      $organization  = DB::table('users')->where('role',4)->get();
-      $user_type = Auth::user()->role;
-      $currentuserid = Auth::user()->id;
-      if ($user_type == 2 || Auth::user()->user_type == 1){
-        $incident_front = DB::table('incident_register')->where('organization_id',Auth::user()->client_id)->where('incident_status' , '!=', 'Resolved')
-        ->orderBy('date_discovered', 'DESC')
-        ->get();
-      }
-      else {
-        $incident_front = DB::table('incident_register')->where('created_by',$currentuserid)->where('incident_status' , '!=', 'Resolved')
-        ->orderBy('date_discovered', 'DESC')
-        ->get();
-
-      }
-
-
-      $incident_register = DB::table('incident_register')->where('incident_status' , '!=', 'Resolved')->orderBy('date_discovered', 'DESC')->get();
-      $assigned_permissions =array();
-      $data = DB::table('module_permissions_users')->where('user_id' , Auth::user()->id)->pluck('allowed_module');
-
-            if($data != null){
-                 foreach ($data as $value) {
-                $assigned_permissions = explode(',',$value);
-                 
-            }
-            }
-
-
-  ?>
-
-
-
-
-<section class="assets_list m-0 add_margin_space_bt  @if(!in_array('Incident Register', $assigned_permissions)) table_is_ban @endif" @if(!in_array('Incident Register', $assigned_permissions)) data-toggle="tooltip" data-placement="right" title="You don't have permissions of this section" @endif>
-    <div class="main_custom_table">
-        <div class="main_table_redisign">
-            <div class="table_breadcrumb">
-                <h3>{{ __('INCIDENT LIST') }}</h3>
-            </div>
-            <div class="over_main_div">
-                <table class="table table-striped text-center paginated" id="" style="margin-bottom: 50px;">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>{{ __('Incident Name') }}</th>
-                            <th>{{ __('Type') }}</th>
-                            <th>{{ __('Organization') }}</th>
-                            <th>{{ __('Assignee') }}</th>
-                            <th>{{ __('Root Cause') }}</th>
-                            <th>{{ __('Date Discovered') }}</th>
-                            <th>{{ __('Deadline Date') }}</th>
-                            <th>{{ __('Status') }}</th>
-                            <th>{{ __('Severity') }}</th>
-                        </tr>
-                    </thead>
-                    @if($user_type=='1')
-                    <tbody>
-                        <?php $count = 1; ?>
-                        @foreach($incident_register as $row)
-                        <tr>
-                            <td>{{$count}}</td> <?php $count++; ?>
-                            <td>{{$row->name}}</td>
-                            <td><?php $incident  = DB::table('incident_type')->where('id',$row->incident_type)->first();?>
-                                {{ $incident->name}}</td>
-                            <td><?php $org  = DB::table('users')->where('id',$row->organization_id)->first();?>
-                                {{ $org->company}}</td>
-                            <td>{{$row->assignee}}</td>
-                            <td>{{$row->root_cause}}</td>
-                            <td><a href="" class="btn seet_detail_btn" data-toggle="modal"
-                                    data-val="{{$row->root_cause}}" data-target='#practice_modal'><i
-                                        class="bx bx-show-alt"></i>{{ __('See Detail') }}</a></td>
-                            <td>{{$row->date_discovered}}</td>
-                            <td>{{$row->deadline_date}}</td>
-                            <td>{{$row->incident_status}}</td>
-                            <td class="{{$row->incident_severity}}"><strong>{{$row->incident_severity}}</strong></td>
-
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    @else
-                    <tbody>
-                        <?php $count = 1; ?>
-                        @foreach($incident_front as $row)
-                        <tr>
-                            <td>{{$count}}</td> <?php $count++; ?>
-                            <td>{{$row->name}}</td>
-                            <td><?php $incident  = DB::table('incident_type')->where('id',$row->incident_type)->first();?>
-                                {{ $incident->name}}</td>
-                            <td><?php $org  = DB::table('users')->where('id',$row->organization_id)->first();?>
-                                {{ $org->company}}</td>
-                            <td>{{$row->assignee}}</td>
-                            <td><a href="" class="btn seet_detail_btn" data-toggle="modal"
-                                    data-val="{{$row->root_cause}}" data-target='#practice_modal'><i
-                                        class="bx bx-show-alt"></i>{{ __('See Detail') }}</a></td>
-                            <td>{{$row->date_discovered}}</td>
-                            <td>{{$row->deadline_date}}</td>
-                            <td>{{ __($row->incident_status) }}</td>
-                            <td class="{{$row->incident_severity}}"><strong>{{ __($row->incident_severity)}}</strong>
-                            </td>
-
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    @endif
-                </table>
             </div>
         </div>
     </div>
 </section>
-
-<?php if (!empty($form_completion_stats)): ?>
-<section class="assets_list m-0">
-    <div class="main_custom_table">
-        <div class="main_table_redisign">
-            <div class="table_breadcrumb">
-                <h3>{{ __('FORM LIST') }}</h3>
-            </div>
-            <div class="over_main_div no_scroll">
-                <table class="table table-striped text-center paginated" style="margin-bottom: 50px;">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th colspan="1">{{ __('Form Name') }}</th>
-                            <th colspan="1">{{ __('No. of Subforms') }}</th>
-                            <th colspan="2" style="text-align:center">
-                                {{ __('External User Forms') }} <br>
-                                <p> <span class="cmplt"> {{ __('Complete') }} </span> | <span class="not_cmplt">
-                                        {{ __('Not Complete') }} </span> </p>
-                            </th>
-                            <th colspan="2" style="text-align:center">
-                                {{ __('Org. User Forms') }} <br>
-                                <p> <span class="cmplt"> {{ __('Complete') }} </span> | <span class="not_cmplt">
-                                        {{ __('Not Complete') }} </span> </p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="paginated">
-                        <?php
-                        $count = 1;
-                        foreach ($form_completion_stats as $key => $stats): ?>
-                        <tr>
-                            <td>{{$count}}</td> <?php $count++; ?>
-                            <td>
-                                {{$stats['form_name']}}</td>
-                            <td><a href="{{url('Forms/SubFormsList/'.$key)}}">
-                                @if(isset($stats['subforms_count']))
-                                    {{$stats['subforms_count']}}
-                                @endif
-                            </a></td>
-                            <td style="border-right: 0 !important">
-                                {{isset($stats['external'])?($stats['external']['completed']):(0)}}</td>
-                            <td>{{isset($stats['external'])?($stats['external']['not_completed']):(0)}}</td>
-                            <td style="border-right: 0 !important">
-                                {{isset($stats['internal'])?($stats['internal']['completed']):(0)}}</td>
-                            <td>{{isset($stats['internal'])?($stats['internal']['not_completed']):(0)}}</td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<!--           <div class="row">
-            <div class="col-lg-12">
-              <h4 class="stats-table text-center">  Form List </h4>
-              <table  class="table table-hover table-striped table-bordered stats-table main_paginated">
-                <tr>
-                  <th style="vertical-align:middle;text-align:center">#</th>
-                  <th colspan="1"  style="vertical-align:middle;text-align:center">Form Name</th>
-                  <th colspan="1"  style="vertical-align:middle;text-align:center">No. of Subforms</th>
-                  <th colspan="2" style="text-align:center">
-                    External User Forms <br> <p> <span class="cmplt"> Complete </span> | <span class="not_cmplt"> Not Complete </span> </p>
-                  </th>
-                  <th colspan="2" style="text-align:center">
-                    Org. User Forms <br>     <p> <span class="cmplt"> Complete </span> | <span class="not_cmplt"> Not Complete </span> </p>
-                  </th>
-                </tr>
-                <tbody class="paginated">
-                  <?php
-                  $count = 1;
-                  foreach ($form_completion_stats as $key => $stats): ?>
-                  <tr>
-                    <td>{{$count}}</td>    <?php $count++; ?>
-                    <td>{{$stats['form_name']}}</td>
-                    <td><a href="{{url('Forms/SubFormsList/'.$key)}}"></a></td>
-                    <td>{{isset($stats['external'])?($stats['external']['completed']):(0)}}</td>
-                    <td>{{isset($stats['external'])?($stats['external']['not_completed']):(0)}}</td>
-                    <td>{{isset($stats['internal'])?($stats['internal']['completed']):(0)}}</td>
-                    <td>{{isset($stats['internal'])?($stats['internal']['not_completed']):(0)}}</td>
-                  </tr>
-                  <?php endforeach; ?>
-                </tbody>
-              </table>
-            </div>
-          </div> -->
-<?php endif; ?>
-
-
-<div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="my-modal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="practice_modal" role="dialog" aria-labelledby="my-modal" aria-hidden="true">
+    <div class="modal-dialog mt-5 pt-5" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{ __('Root Cause') }}</h5>
@@ -879,7 +465,6 @@
         </div>
     </div>
 </div>
-
 
 
 
@@ -1018,82 +603,6 @@ $(document).ready(function() {
 
 
 
-
-
-<script type="text/javascript">
-google.charts.load('current', {
-    'packages': ['bar']
-});
-//google.charts.setOnLoadCallback(drawChart);
-
-google.charts.setOnLoadCallback(formUsers);
-
-//   function drawChart() {
-//     var data = google.visualization.arrayToDataTable([
-//       ['Forms', 'Total Users', 'Filled'],
-//       ['2014', 232, 23],
-//       ['2015', 67, 76],
-//       ['2016', 789, 73],
-//       ['2017', 345, 46]
-//     ]);
-
-function formUsers() {
-    var data = google.visualization.arrayToDataTable([
-        ['Number of Form Users', 'Total Users', 'Internal', 'External'],
-        <?php
-                $last_element = end($num_of_form_users);
-                foreach ($num_of_form_users as $key => $form_info):
-                    $name     = $form_info['name'];
-                    $internal = $form_info['internal']??0;
-                    $external = $form_info['external']??0;
-                    $total    = $form_info['total'];
-                    $comma    = ',';
-                    if ($form_info == $last_element)
-                    {
-                        $comma = '';
-                    }
-                    
-            ?>['{{$name}}', {
-            {
-                $total
-            }
-        }, {
-            {
-                $internal
-            }
-        }, {
-            {
-                $external
-            }
-        }] {
-            {
-                $comma
-            }
-        }
-        <?php endforeach; ?>
-    ]);
-
-    var options = {
-        chart: {
-            // title: 'Company Performance',
-            // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-        },
-        //bars:    'vertical', // Required for Material Bar Charts.
-        bars: 'horizontal',
-        colors: ['#4e72df', '#f26925', '#f6c23e'],
-        hAxis: {
-            showTextEvery: 1,
-            textStyle: {
-                //           'fontSize':'5'
-            }
-        },
-    };
-
-    var chart = new google.charts.Bar(document.getElementById('barchart_material'));
-
-    chart.draw(data, google.charts.Bar.convertOptions(options));
-}
-</script>
 
 <input type="hidden" id="lat_value" value="<?php echo htmlentities(json_encode($lat_value)); ?>">
 <input type="hidden" id="lat_detail" value="<?php echo htmlentities(json_encode($lat_detail)); ?>">
