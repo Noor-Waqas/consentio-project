@@ -425,8 +425,7 @@
                                             {{ $org->company}}</td>
                                         <td>{{$row->assignee}}</td>
                                         <td><a href="" class="btn seet_detail_btn" data-toggle="modal"
-                                                data-val="{{$row->root_cause}}" data-target='#practice_modal'><i
-                                                    class="bx bx-show-alt"></i>{{ __('See Detail') }}</a></td>
+                                                data-val="{{$row->root_cause}}" data-target='#practice_modal'><img src="{{url('assets-new/img/solar_eye-bold.png')}}" alt="">{{ __('See Detail') }}</a></td>
                                         <td>{{$row->date_discovered}}</td>
                                         <td>{{$row->deadline_date}}</td>
                                         <td>{{ __($row->incident_status) }}</td>
