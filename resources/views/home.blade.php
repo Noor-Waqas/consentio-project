@@ -322,7 +322,7 @@
                                             <div class="carousel-inner">
                                                 @foreach($group_id as $group)
                                                 <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
-                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; height:100vh;border:none;"></object>
+                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; height:80vh;border:none;"></object>
                                                 </div>
                                                 @endforeach
                                             </div>
