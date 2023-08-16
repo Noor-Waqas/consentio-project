@@ -141,7 +141,7 @@
 
 
     
-<div class="container-fluid" style="background-color: white;" id="myDiv">
+<div class="container-fluid mt-5" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <div class="col-6">
             <h4 class="mt-3" style="color:black;"><b>{{$company->name}} {{$group[0]->group_name}} - Security Assessment</b></h4>

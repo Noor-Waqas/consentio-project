@@ -233,6 +233,41 @@
   }
 </style>
 <style>
+    .carousel-control-prev,
+    .carousel-control-next {
+        background-color: #0F75BD;
+        color: #ffffff;
+        border-radius: 25px;
+        opacity: 100%;
+    }
+
+    /* Change the hover state color of the carousel control links */
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        background-color: #28a745;
+        color: red;
+        border-radius: 25px;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        position: absolute;
+        top: 0;
+        bottom: auto; /* Remove the default "bottom" value */
+        transform: translateY(0);
+        padding: 15px;
+    }
+
+    .carousel-control-prev {
+        left: 0;
+        margin-bottom: 20px;
+    }
+
+    .carousel-control-next {
+        right: 0;
+        margin-bottom: 20px;
+    }
+
+    
     .center-tabs {
       display: flex;
       justify-content: center;

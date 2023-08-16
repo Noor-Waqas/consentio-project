@@ -142,7 +142,7 @@
 
 
 </style>
-<div class="container-fluid" style="background-color: white;" id="myDiv">
+<div class="container-fluid mt-5" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <input type="hidden" class="group" value="{{ $group_id }}">
         <div class="col-6">
