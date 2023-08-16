@@ -301,14 +301,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-full-content">
-                            <div class="card-body" style="height:80vh;">
+                            <div class="card-body">
                                 <div class="center-tabs mt-2">
                                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Audit</a>
+                                        <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Audit Reports</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Remediation</a>
+                                        <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Global Remediation</a>
                                     <!-- </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Tab 3</a>
@@ -318,16 +318,31 @@
                                 
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                                        <h3>Tab 1 Content</h3>
-                                        <p>This is the content for Tab 1.</p>
+                                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                @foreach($group_id as $group)
+                                                <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
+                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; height:100vh;border:none;"></object>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-                                        <h3>Tab 2 Content</h3>
-                                        <p>This is the content for Tab 2.</p>
+                                    <object data="{{ url('/dash/global') }}" style="width: 100%; height:100vh;border:none;"></object>
                                     </div>
+                                    
                                     <!-- <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-                                    <h3>Tab 3 Content</h3>
-                                    <p>This is the content for Tab 3.</p>
+                                        <h3>Tab 3 Content</h3>
+                                        <p>This is the content for Tab 3.</p>
                                     </div> -->
                                 </div>
                             </div>

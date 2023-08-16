@@ -173,7 +173,7 @@ class Reports extends Controller{
 
     }
 
-    public function get_asset_report($id){
+    public function get_asset_report($id, Request $request){
         
         $group_id=$id;
 
@@ -238,6 +238,9 @@ class Reports extends Controller{
         // $remediation_plans = $this->paginate($remediation_plans);
         // dd($remediation_plans);
 
+        if($request->Segment(1)=="dash"){
+            return view("reports.audit_report_dash", compact('group','group_id', 'data', 'remediation_plans', 'company'));
+        }
         
                 
         return view("reports.asset_report", compact('group','group_id', 'data', 'remediation_plans', 'company'));
@@ -334,7 +337,7 @@ class Reports extends Controller{
         return response()->json($remediation_plans);
     }
 
-    public function get_remediation_report($id){
+    public function get_remediation_report($id, Request $request){
         // dd($id);
         $group_id=$id;
 
@@ -386,6 +389,9 @@ class Reports extends Controller{
             
         
         // dd($remediation_plans);
+        if($request->Segment(1)=="dash"){
+            return view("reports.reme_report_dash", compact('remediation_plans', 'client_id', 'group_id', 'group'));
+        }
                 
         return view("reports.one_remediation_report", compact('remediation_plans', 'client_id', 'group_id', 'group'));
 
@@ -501,7 +507,7 @@ class Reports extends Controller{
         return response()->json($units);
     }
 
-    public function remediation_report(){
+    public function remediation_report(Request $request){
         // dd($id);
         // $group_id=$id;
 
@@ -550,7 +556,9 @@ class Reports extends Controller{
             )
             ->get();
 
-            
+            if($request->Segment(1)=="dash"){
+                return view("reports.global_report_dash", compact('remediation_plans', 'client_id'));
+            }
         
         // dd($remediation_plans);
                 

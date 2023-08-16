@@ -9,13 +9,13 @@
     <meta name="author" content="">
     <style>
         body{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-footer{
-    margin-top: auto;
-}
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        footer{
+            margin-top: auto;
+        }
         #datatable {
             border: none;
         }

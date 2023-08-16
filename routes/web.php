@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Session;
 Auth::routes();
 
 // -------------------------------------------------------------------
+Route::get('/dash/asset/{id}', 'Reports@get_asset_report')->name('dash.asset');
+Route::get('/dash/remediation/{id}', 'Reports@get_remediation_report')->name('dash.onerem');
+Route::get('/dash/global', 'Reports@remediation_report')->name('dash.global');
 
 Route::get('/dummy', 'Reports@Dummywork')->name('dummy');
 // ----------------Reportssss----------------------

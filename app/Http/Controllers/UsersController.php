@@ -1108,10 +1108,21 @@ class UsersController extends Controller
         /* Table Data*/
         // ================================================================================================================= //
 
+        /* Reports*/
+
+        $group_id = DB::table('forms')
+        ->where('forms.type', 'audit')
+        ->pluck('group_id');
+        // dd($group_id);
+
+        // ================================================================================================================= //
+
        
         
         $assigned_permissions = Helper::getUserPermissions(auth()->user()->id);
         return view('home', compact(
+            "group_id",
+            "client_id",
             "forms",
             "pen_forms",
             "audits",
