@@ -1018,7 +1018,9 @@ class UsersController extends Controller
             ->where('forms.type', '!=', 'audit')
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+            $forms=$forms->count();
 
             // Pending Assessment forms
             $pen_forms = DB::table('forms')
@@ -1027,7 +1029,9 @@ class UsersController extends Controller
             ->where('forms.type', '!=', 'audit')
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+            $pen_forms=$pen_forms->count();
 
             // Completed Audits Counts
             $audits = DB::table('forms')
@@ -1036,7 +1040,10 @@ class UsersController extends Controller
             ->where('forms.type', 'audit')
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+             $audits=$audits->count();
+            // dd($audits);
 
 
             // Pending Audit Counts
@@ -1046,7 +1053,10 @@ class UsersController extends Controller
             ->where('forms.type', 'audit')
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+            $pen_audits=$pen_audits->count();
+            // dd($pen_audits);
 
             // Remediation Counts
             $remediation = DB::table('remediation_plans')
