@@ -198,7 +198,7 @@ class Reports extends Controller{
         $form = DB::table('forms')->where('group_id', $group_id)->select('id')->first();
         $form_id = $form->id;
 
-        $subforms = DB::table('sub_forms')->where('parent_form_id', $form_id)->pluck('id');
+        $subforms = DB::table('sub_forms')->where('parent_form_id', $form_id)->where('client_id', $company_id)->pluck('id');
 
         $remediation_plans = [];
         $client_id=Auth::user()->client_id;
@@ -284,7 +284,7 @@ class Reports extends Controller{
         $form = DB::table('forms')->where('group_id', $group_id)->select('id')->first();
         $form_id = $form->id;
 
-        $subforms = DB::table('sub_forms')->where('parent_form_id', $form_id)->pluck('id');
+        $subforms = DB::table('sub_forms')->where('parent_form_id', $form_id)->where('client_id', $company_id)->pluck('id');
 
         $remediation_plans = [];
         $client_id=Auth::user()->client_id;

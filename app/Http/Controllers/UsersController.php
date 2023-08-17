@@ -1016,6 +1016,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', '!=', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
             ->count();
 
@@ -1024,6 +1025,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', '!=', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
             ->count();
 
@@ -1032,6 +1034,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
             ->count();
 
@@ -1041,6 +1044,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
             ->count();
 
@@ -1056,6 +1060,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', '!=', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
             ->where('user_form_links.user_id', $user_id)
             ->count();
@@ -1064,6 +1069,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', '!=', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
             ->where('user_form_links.user_id', $user_id)
             ->count();
@@ -1073,6 +1079,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
             ->where('user_form_links.user_id', $user_id)
             ->count();
@@ -1083,6 +1090,7 @@ class UsersController extends Controller
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
             ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
             ->where('forms.type', 'audit')
+            ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
             ->where('user_form_links.user_id', $user_id)
             ->count();
