@@ -235,18 +235,24 @@
 <style>
     .carousel-control-prev,
     .carousel-control-next {
-        background-color: #0F75BD;
+        /* background-color: #0F75BD;
         color: #ffffff;
-        border-radius: 25px;
+        border-radius: 25px; */
         opacity: 100%;
+    }
+    .carousel-control-prev-icon{
+        background-image: url("assets-new/left-arrow.png");
+    }
+    .carousel-control-next-icon{
+        background-image: url("assets-new/right-arrow.png");
     }
 
     /* Change the hover state color of the carousel control links */
     .carousel-control-prev:hover,
     .carousel-control-next:hover {
-        background-color: #28a745;
+        /* background-color: #28a745;
         color: red;
-        border-radius: 25px;
+        border-radius: 25px; */
     }
     .carousel-control-prev,
     .carousel-control-next {
@@ -298,8 +304,8 @@
 <section class="section dashboard"> 
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-body">
+            <!-- <div class="card">
+                <div class="card-body"> -->
                 <div class="row completed-audits-box5">
                     @php
                         $user_type = Auth::user()->role;
@@ -353,11 +359,11 @@
                                 
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div id="carouselExampleControls" class="carousel slide">
                                             <div class="carousel-inner">
                                                 @foreach($group_id as $group)
                                                 <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
-                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; height:80vh;border:none;"></object>
+                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; height:100vh;border:none;"></object>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -372,7 +378,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-                                    <object data="{{ url('/dash/global') }}" style="width: 100%; height:100vh;border:none;"></object>
+                                    <object data="{{ url('/dash/global') }}" style="width: 100%; height:90vh;border:none;"></object>
                                     </div>
                                     
                                     <!-- <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
@@ -546,8 +552,8 @@
                         </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                <!-- </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -563,14 +569,19 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                <button type="button" class="buton" data-dismiss="modal">{{ __('Close') }}</button>
             </div>
         </div>
     </div>
 </div>
 
 
-
+<script>
+  // for pause the Slider
+  $(document).ready(function() {
+    $('#carouselExampleControls').carousel('pause');
+  });
+</script>
 <script>
 $('#practice_modal').on('show.bs.modal', function(event) {
     var myVal = $(event.relatedTarget).data('val');

@@ -70,14 +70,14 @@
             color: #FFF;
         }
         .buton{
-            padding: 10px 15px;
+            padding: 5px 15px;
             border-radius: 110px;
             border: 1px solid #0F75BD;
             background: #0F75BD;
             color: #FFF;
             text-align: center;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 500;
             line-height: 20px;
         }
         .buton:hover{
@@ -149,7 +149,7 @@
             <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Remediation Plan</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
-            <a class="btn btn-secondary report-change mr-2" style="padding: 12px 30px;border-radius:30px;font-size:18px;" href="{{ url('/dash/asset/' . $group_id) }}">Asset Report</a>
+            <a class="report-change mr-2" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Audit Report</button></a>
             <button id="screenshotButton" class="buton">Download Report</button>
         </div>
     </div>
