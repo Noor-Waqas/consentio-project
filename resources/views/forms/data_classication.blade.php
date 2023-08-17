@@ -23,8 +23,7 @@
                                 <td>{{ $class->classification_name_en }}</td>
                                 <td>{{ $class->classification_name_fr }}</td>
 
-                                <td><a href="{{ url('front/edit-classification/' . $class->id) }}"> <i
-                                            class="fas fa-pencil-alt"></i> Edit</a></td>
+                                <td><a href="{{ url('front/edit-classification/' . $class->id) }}"> <img src="{{url('assets-new/img/action-edit.png')}}" alt=""> </a></td>
 
 
                             </tr>

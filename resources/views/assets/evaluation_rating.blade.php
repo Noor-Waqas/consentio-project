@@ -30,7 +30,7 @@
             		<td>{{$val->rating}}</td>
             		<td>{{$val->color}}</td>
             		<td>{{$val->text_color}}</td>
-                <td><a href="{{url('edit-evalution/'.$val->id)}}" class="btn btn-primary">Edit</a></td>
+                <td><a href="{{url('edit-evalution/'.$val->id)}}" class=""><img src="{{url('assets-new/img/action-edit.png')}}" alt=""></a></td>
             	</tr>
             	@endforeach
           </tbody>

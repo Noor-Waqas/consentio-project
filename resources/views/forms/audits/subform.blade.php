@@ -171,7 +171,7 @@
         <div class="table_filter_section">
             
             <div class="add_more_tbl">
-              <a id="add" type="button" class="btn rounded_button"><i class='bx bx-plus mr-1' ></i> {{ __('ADD SUB FORM') }}</a>
+              <a id="add" type="button" class="button mb-3 ml-3"><i class='bx bx-plus mr-1' ></i> {{ __('ADD SUB FORM') }}</a>
             </div>
         </div>
         <div class="col-12">
@@ -180,7 +180,7 @@
           @endsection
           <div class="card">
           <div class="card-table">
-            <table class="table table-striped text-center">
+            <table class="table table-striped text-center" id="datatable">
               @if ($user_type == 'admin')
                 <thead class="back_blue">
               @else

@@ -519,9 +519,9 @@
                             <input type="hidden" id="langutitude" name="lng" class="form-control">
                             <input type="hidden" id="tier_matrix" name="tier_matrix" class="form-control">
                             <div class="pt-4 d-flex justify-content-center">
-                                <input class="buton mr-2 px-5"  type="submit" name="submit"
+                                <input class="buton mr-2 px-5"  type="submit" name="submit" style="background-color: red;border: none;" onmouseover="this.style.backgroundColor='#0b5ed7';" onmouseout="this.style.backgroundColor='red';"
                                     value="{{ __('Add') }}">
-                                <button type="button" class="btn btn-primary px-5"
+                                <button type="button" class="btn btn-primary px-5" style="width:145px;"
                                     data-dismiss="modal">{{ __('Close') }}</button>
                                 
                             </div>

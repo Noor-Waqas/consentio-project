@@ -48,7 +48,7 @@
                                 <td>{{ $element->classification_name_en }}</td>
                             @endif
                             <td>
-                                <a href="{{url('edit-data-element/'.$element->id) }}" class="btn btn-primary text-light" > Edit</a>
+                                <a href="{{url('edit-data-element/'.$element->id) }}" ><img src="{{url('assets-new/img/action-edit.png')}}" alt=""></a>
                             </td>
                         </tr>
                         @endforeach

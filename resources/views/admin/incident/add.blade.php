@@ -234,7 +234,7 @@
 									</div>
 									<div class="buttons">
 										<a href="{{url('incident')}}" class="btn btn-secondary bg-dark mr-2" style="padding: 12px 30px;border-radius:30px;font-size:18px;">{{ __('Cancel') }}</a>
-										<button type="sumbit" class="btn btn-primary">{{ __('Add') }}</button>
+										<button type="sumbit" class="btn btn-primary" style="width:140px;height:51px">{{ __('Add') }}</button>
 										</form>
 						</div>
 					</div>
