@@ -27,40 +27,32 @@
 @endsection
   <link href="{{ url('frontend/css/jquery.mswitch.css')}}"  rel="stylesheet" type="text/css">
   <div class="container-fluid">
-  <div class="align_button">    
+  <div class="row">
+    <div class="col-12">
+    <div class="align_button">    
     @if(!isset($all))
       <div class="row-btn float-right">
-          <button class="btn btn-primary ight" data-toggle="modal" data-target="#myModal">{{ __('Send Link to External Users') }}</button>
+          <button class="buton" data-toggle="modal" data-target="#myModal">{{ __('Send Link to External Users') }}</button>
       </div>
     @endif
     @if(!isset($all))
     @endif
+  </div>
+    </div>
   </div>
   </div>
   <section class="assets_list">
 
-  <div class="main_custom_table">
-    <div class="table_filter_section">
-      <div class="select_tbl_filter">
-        <div class="main_filter_tbl">
-          <p>{{ __('Show') }}</p>
-          <select>
-            <option>10</option>
-            <option>20</option>
-            <option>30</option>
-          </select>
-          <p>{{ __('Entries') }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="main_table_redisign">
+  <div class="row">
+    <div class="col-12">
+    <div class="card">
       @if(!isset($all))
         <div class="table_breadcrumb">
           <h3 class="tile-title">{{ __('User Forms') }} {{app('request')->input('ext_user_only')? __('(External Users Only)'): __('(Internal and External Users)')}}</h3>
         </div> 
       @endif
-      <div class="over_main_div">
-        <table class="table table-striped text-center paginated" >
+      <div class="card-table">
+        <table class="table table-striped text-center paginated" id="datatable">
           <thead>
             <tr>
               <th scope="col">{{ __('FORM LINKS') }}</th>
@@ -156,13 +148,14 @@
           </tbody>
         </table>
       </div>
+      </div>
     </div>
   </div>
   </section>
 
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding:10% 10%;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

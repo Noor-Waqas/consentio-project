@@ -10,7 +10,7 @@
       <div class="col-12">
       <div class="align_button">    
     @if(!isset($all))
-      <div class="row-btn float-right">
+      <div class="row-btn">
           <button class="buton mb-2" data-toggle="modal" data-target="#myModal">{{ __('Send Link to External Users') }}</button>
       </div>
     @endif
@@ -130,7 +130,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding:10% 10%;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

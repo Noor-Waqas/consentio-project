@@ -12,16 +12,24 @@
 				</button>
 			</div>
 		@endif	
-		<form action="{{route('import')}}" method="post" enctype="multipart/form-data">
-			{{ csrf_field() }}
-			 <div class="form-group" >
-			 	<input type="file" name="import_file" id="import_file" class="form-control">
-			 </div>
-			 <div class="form-group">
-			 	<button type="submit" class="btn btn-primary">Import Data</button>
-			 	<a href="{{url('export-sample-data')}}" class="btn btn-success float-right">Sample Data</a>
-			 </div>
-		</form>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body">
+						<form action="{{route('import')}}" method="post" enctype="multipart/form-data">
+							{{ csrf_field() }}
+							<div class="form-group" >
+								<input type="file" name="import_file" id="import_file" class="form-control" style="padding: 6px 15px;font-size: 22px;">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Import Data</button>
+								<a href="{{url('export-sample-data')}}" class="button float-right">Sample Data</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 
 @endsection
