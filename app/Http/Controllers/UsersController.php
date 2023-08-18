@@ -1129,8 +1129,11 @@ class UsersController extends Controller
         /* Reports*/
 
         $group_id = DB::table('forms')
+        ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
         ->where('forms.type', 'audit')
-        ->pluck('group_id');
+        ->where('sub_forms.client_id', $client_id)
+        ->groupby('sub_forms.parent_form_id')
+        ->pluck('forms.group_id');
         // dd($group_id);
 
         // ================================================================================================================= //
