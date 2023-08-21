@@ -147,6 +147,7 @@
             <h4 class="mt-3" style="color:black;"><b>{{$company->name}} {{$group[0]->group_name}} - Security Assessment</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
+            <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
             <a class="report-change mr-2" href="{{ url('/dash/remediation/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Remediation Report</button></a>
             <button id="screenshotButton" class="buton">Download Report</button>
         </div>
@@ -390,6 +391,9 @@ $busData = [
         // Add the d-none class to the button
         $(this).addClass('d-none');
         $('.report-change').addClass('d-none');
+        // Add Logo
+        $('#report-logo').removeClass('d-none');
+        $('#myDiv').attr("style", "padding:7%;");
 
 
         // Capture screenshot and download report
@@ -426,6 +430,9 @@ $busData = [
             // Remove the d-none class from the button
             $('#screenshotButton').removeClass('d-none');
             $('.report-change').removeClass('d-none');
+            // Remove Logo
+            $('#report-logo').addClass('d-none');
+            $('#myDiv').attr("style", "padding:0;")
 
             // Reinitialize the DataTable after capturing the screenshot
             initializeDataTable();
@@ -434,8 +441,11 @@ $busData = [
 
     function initializeDataTable() {
         $('#datatable').DataTable({
-            searching: false,
-            lengthChange: false,
+            "order": [],
+            "language": {
+            "search": "",
+            "searchPlaceholder": "Search Here"
+        }
         });
     }
 </script>
@@ -448,7 +458,11 @@ $busData = [
 <script>
 $(document).ready(function() {
     $('#datatable').DataTable({
-        
+        "order": [],
+            "language": {
+            "search": "",
+            "searchPlaceholder": "Search Here"
+        }
     });
 });
 </script>
@@ -485,9 +499,9 @@ $(document).ready(function() {
             titleTextStyle: {
                 fontSize: 14
             },
-            pieHole: 0.5,
+            // pieHole: 0.5,
             backgroundColor: 'transparent',
-            is3D: true,
+            // is3D: true,
             chartArea: {
                 left: 0,
                 top: 40,

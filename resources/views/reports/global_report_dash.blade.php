@@ -146,6 +146,7 @@
             <h4 class="mt-2" style="color:black;"><b>Security Remediation Plan</b></h4>
         </div>
         <div class="col d-flex justify-content-end download-btn">
+            <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
             <button id="screenshotButton" class="buton">Download Report</button>
         </div>
     </div>
@@ -440,6 +441,10 @@
         // Add the d-none class to the button
         $(this).addClass('d-none');
 
+        // Add Logo
+        $('#report-logo').removeClass('d-none');
+        $('#myDiv').attr("style", "padding:7%;");
+
         // Capture screenshot and download report
         captureScreenshot();
     });
@@ -474,6 +479,10 @@
             // Remove the d-none class from the button
             $('#screenshotButton').removeClass('d-none');
 
+            // Remove Logo
+            $('#report-logo').addClass('d-none');
+            $('#myDiv').attr("style", "padding:0;")
+
             // Reinitialize the DataTable after capturing the screenshot
             initializeDataTable();
         });
@@ -481,8 +490,11 @@
 
     function initializeDataTable() {
         $('#datatable').DataTable({
-            searching: false,
-            lengthChange: false,
+            "order": [],
+            "language": {
+            "search": "",
+            "searchPlaceholder": "Search Here"
+        }
         });
     }
 </script>
@@ -499,8 +511,11 @@
 <script>
 $(document).ready(function() {
     $('#datatable').DataTable({
-        searching: false,
-        lengthChange: false,
+        "order": [],
+            "language": {
+            "search": "",
+            "searchPlaceholder": "Search Here"
+        }
     });
 });
 </script>
@@ -572,8 +587,8 @@ $(document).ready(function() {
         var options = {
           title: 'Initial Rating',
           titleTextStyle: { fontSize: 14 },
-          pieHole: 0.5,
-          is3D: true,
+        //   pieHole: 0.5,
+        //   is3D: true,
           backgroundColor: 'transparent',
           colors: colors,
           chartArea: { left: 0, top: 40, width: '100%', height: '100%' }, // Add this line to remove margin and padding
@@ -616,8 +631,8 @@ $(document).ready(function() {
         var options = {
           title: 'Post Remediation Rating',
           titleTextStyle: { fontSize: 14 },
-          pieHole: 0.5,
-          is3D: true,
+        //   pieHole: 0.5,
+        //   is3D: true,
           backgroundColor: 'transparent',
           colors: colors,
           chartArea: { left: 0, top: 40, width: '100%', height: '100%' }, // Add this line to remove margin and padding
