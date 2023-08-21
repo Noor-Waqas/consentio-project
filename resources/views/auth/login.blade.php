@@ -21,7 +21,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/') }}" class="logo d-flex align-items-center">
-        <img src="{{url('public/assets-new/img/logo.png')}}" alt="">
+        <img src="{{url('public/assets-new/img/logo.png')}}" alt="" style="height:30px">
       </a>
     </div><!-- End Logo -->
   </header><!-- End Header -->

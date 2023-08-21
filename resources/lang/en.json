@@ -379,6 +379,7 @@
     "Database": "Database",
     "Physical Storage": "Physical Storage",
     "Hosting Type": "Hosting Type",
+    "Hosting Location": "Hosting Location",
     "Cloud": "Cloud",
     "On-Premise": "On-Premise",
     "Hybrid": "Hybrid",
@@ -840,7 +841,7 @@
     "The requested asset was successfully removed": "The requested asset was successfully removed",
     "This asset is already present!": "This asset is already present!",
 
-    "Tier": "Tier",
+    "Tier": "Asset Tier",
 
     "Request Denide!": "Request Denide!",
     "Unable to Delete": "Unable to Delete",

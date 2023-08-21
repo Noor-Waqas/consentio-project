@@ -315,28 +315,28 @@
                     <div class="col-xs-2 col-half-offset active">
                         <span class="number">{{$forms}}</span>
                         <img src="{{url('assets-new/img/write.png')}}">
-                        <p>Completed Assessments</p>
+                        <p>{{ __('Completed Forms') }}</p>
                     </div>
                     <div class="col-xs-2 col-half-offset">
                         <span class="number">{{$pen_forms}}</span>
                         <img src="{{url('assets-new/img/paper.png')}}">
-                        <p>Pending Assessments</p>
+                        <p>{{ __('Generated_Forms') }}</p>
                     </div>
                     
                     <div class="col-xs-2 col-half-offset">
                         <span class="number">{{$audits}}</span>
                         <img src="{{url('assets-new/img/audit.png')}}">
-                        <p>Completed Audits</p>
+                        <p>{{ __('Completed Audits') }}</p>
                     </div>
                     <div class="col-xs-2 col-half-offset">
                         <span class="number">{{$pen_audits}}</span>
                         <img src="{{url('assets-new/img/roll.png')}}">
-                        <p>Pending Audits</p>
+                        <p>{{ __('Generated Audits') }}</p>
                     </div>
                     <div class="col-xs-2 col-half-offset">
                         <span class="number">{{$remediation}}</span>
                         <img src="{{url('assets-new/img/plan.png')}}">
-                        <p>Remediation Plans</p>
+                        <p>{{ __('Remediation Plans') }}</p>
                     </div>
                 </div> 
                 <div class="row">
@@ -363,7 +363,7 @@
                                             <div class="carousel-inner">
                                                 @foreach($group_id as $group)
                                                 <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
-                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; height:100vh;border:none;"></object>
+                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; min-height:80vh;border:none;"></object>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -378,7 +378,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-                                    <object data="{{ url('/dash/global') }}" style="width: 100%; height:90vh;border:none;"></object>
+                                    <object data="{{ url('/dash/global') }}" style="width: 100%; height:100vh;border:none;"></object>
                                     </div>
                                     
                                     <!-- <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
@@ -391,43 +391,60 @@
                     </div> 
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-8 col-xs-12">
-                        <div class="card card-full-content">
-                            <div class="card-table">
-                            <h3 class="card-title-h3  text-center">{{ __('ASSET LIST') }}</h3>
-                            <table class="table fixed_header manage-assessments-table">
-                                <thead>
-                                <tr>
-                                    <th class="align-middle" scope="col">#</th>
-                                    <th class="align-middle" scope="col">{{ __('Asset Type') }}</th>
-                                    <th class="align-middle" scope="col">{{ __('Asset Name') }}</th> 
-                                    <th class="align-middle" scope="col">{{ __('Hosting Type') }}</th>
-                                    <th class="align-middle" scope="col">{{ __('Hosting Provider') }}</th>
-                                    <th class="align-middle" scope="col">{{ __('Country') }}</th>
-                                    <th class="align-middle" scope="col">{{ __('City') }}</th> 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                            $count = 1;
-                            foreach ($assets as $ass): ?>
-                                    <tr>
-                                        <td>{{$count}}</td> <?php $count++; ?>
-                                        <td>{{$ass->asset_type}}</td>
-                                        <td>{{$ass->name}}</td>
-                                        <td>{{$ass->hosting_type}}</td>
-                                        <td>{{$ass->hosting_provider}}</td>
-                                        <td>{{$ass->country}}</td>
-                                        <td>{{$ass->city}}</td>
-                                        <!-- <td style="text-align:center">{{$ass->state}}</td> -->
-                                    </tr>
-                                    <?php endforeach; ?>
+                
 
-                                </tbody>
-                            </table>
-                            
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="card card-full-content">
+                            <div class="p-4">
+                                <a class="" style="font-size:18px;font-weight:600;color:#0F75BD;" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                {{ __('ASSET LIST') }}
+                                </a>
+                                <a class=" float-right" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    <i class="fa fa-compress mr-2" style="font-size:25px;color:#0F75BD;"></i>
+                                </a>
                             </div>
+                            <div class="collapse" id="collapseExample">
+                            <div class="card-table">
+                                
+                                <!-- <h3 class="card-title-h3  text-center">{{ __('ASSET LIST') }}</h3> -->
+                                
+                                <table class="table fixed_header manage-assessments-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="align-middle" scope="col">{{ __('Asset #') }}</th>
+                                        <th class="align-middle" scope="col">{{ __('Name') }}</th> 
+                                        <th class="align-middle" scope="col">{{ __('Business Unit') }}</th> 
+                                        <th class="align-middle" scope="col">{{ __('Tier') }}</th> 
+                                        <th class="align-middle" scope="col">{{ __('Asset Type') }}</th>
+                                        <th class="align-middle" scope="col">{{ __('Hosting Provider') }}</th>
+                                        <th class="align-middle" scope="col">{{ __('Internal or 3rd party') }}</th> 
+                                        <th class="align-middle" scope="col">{{ __('Hosting Location') }}</th>   
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                    foreach ($assets as $ass): ?>
+                                        <tr>
+                                            <td>A-{{$ass->client_id}}-{{$ass->asset_number}}</td>
+                                            <td>{{$ass->name}}</td> 
+                                            <td>{{$ass->business_unit}}</td>
+                                            <td>{{$ass->tier}}</td>
+                                            <td>{{$ass->hosting_type}}</td>
+                                            <td>{{$ass->hosting_provider}}</td>
+                                            <td>{{$ass->internal_3rd_party}}</td>
+                                            <td>{{$ass->country}}</td>
+                                            <!-- <td style="text-align:center">{{$ass->state}}</td> -->
+                                        </tr>
+                                        <?php endforeach; ?>
+    
+                                    </tbody>
+                                </table>
+                                
+                                </div>
+                            </div>
+                            
+                            
                         </div>
                         </div>
                         <!-- <div class="col-sm-4 col-xs-12">
@@ -436,14 +453,15 @@
                                 <div class="map_canvas"></div>
                             </div>
                         </div> -->
-                        <div class="col-sm-4 col-xs-12">
+                        <!-- New Map  -->
+                        <!-- <div class="col-sm-4 col-xs-12">
                             <div class="mapouter">
                                 <div class="gmap_canvas">
                                     <div id='map_canvas' style="position:relative; width:auto; height:100%;">
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <?php  
@@ -477,25 +495,35 @@
 
 
                     ?>
+                    
 
                     <div class="row">
                         <div class="col-12">
                         <div class="card card-full-content">
+                            <div class="p-4">
+                                <a class="" style="font-size:18px;font-weight:600;color:#0F75BD;" data-toggle="collapse" href="#collapseExamplee" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                {{ __('Incident List') }}
+                                </a>
+                                <a class=" float-right" data-toggle="collapse" data-target="#collapseExamplee" aria-expanded="false" aria-controls="collapseExample">
+                                    <i class="fa fa-compress mr-2" style="font-size:25px;color:#0F75BD;"></i>
+                                </a>
+                            </div>
+                            <div class="collapse" id="collapseExamplee">
                             <div class="card-table">
-                            <h3 class="card-title-h3  text-center">Incident List</h3>
+                            <!-- <h3 class="card-title-h3  text-center">Incident List</h3> -->
                             <table class="table fixed_header manage-assessments-table">
                                 <thead>
                                 <tr>
                                     <th class="align-middle" scope="col">#</th>
-                                    <th class="align-middle" scope="col">Incident Name</th>
-                                    <th class="align-middle" scope="col">Type</th> 
-                                    <th class="align-middle" scope="col">Organization</th>
-                                    <th class="align-middle" scope="col">Assignee</th>
-                                    <th class="align-middle" scope="col">Root Cause</th>
-                                    <th class="align-middle" scope="col">Date Discovered</th>
-                                    <th class="align-middle" scope="col">Deadline Date</th>
-                                    <th class="align-middle" scope="col">Status</th>
-                                    <th class="align-middle" scope="col">Severity</th>  
+                                    <th class="align-middle" scope="col">{{ __('Incident Name') }}</th>
+                                    <th class="align-middle" scope="col">{{ __('Type') }}</th> 
+                                    <th class="align-middle" scope="col">{{ __('Organization') }}</th>
+                                    <th class="align-middle" scope="col">{{ __('Assignee')}}</th>
+                                    <th class="align-middle" scope="col">{{ __('Root Cause')}}</th>
+                                    <th class="align-middle" scope="col">{{ __('Date Discovered')}}</th>
+                                    <th class="align-middle" scope="col">{{ __('Deadline Date')}}</th>
+                                    <th class="align-middle" scope="col">{{ __('Status')}}</th>
+                                    <th class="align-middle" scope="col">{{ __('Severity')}}</th>  
                                 </tr>
                                 </thead>
                                 @if($user_type=='1')
@@ -549,6 +577,8 @@
                             </table>
                             
                             </div>
+                            </div>
+                            
                         </div>
                         </div>
                     </div>

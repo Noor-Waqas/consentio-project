@@ -38,7 +38,9 @@ class RemediationController extends Controller{
                     "audit_questions_groups.group_name_fr"
                 )
                 ->groupby("remediation_plans.sub_form_id")
-                ->having("remediation_plans.client_id", Auth::user()->client_id)->get();  
+                ->having("remediation_plans.client_id", Auth::user()->client_id)
+                ->orderBy("remediation_plans.created_at", "desc")
+                ->get();  
                 // dd($remediation_plans);
 
                 foreach($remediation_plans as $plan){
@@ -70,7 +72,9 @@ class RemediationController extends Controller{
                     "audit_questions_groups.group_name_fr"
                 )
                 ->groupby("remediation_plans.sub_form_id")
-                ->where("remediation_plans.person_in_charge", Auth::user()->id)->get();
+                ->where("remediation_plans.person_in_charge", Auth::user()->id)
+                ->orderBy("remediation_plans.created_at", "desc")
+                ->get();
                 // dd($remediation_plans);
             
             foreach($remediation_plans as $plan){
