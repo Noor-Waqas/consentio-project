@@ -363,7 +363,7 @@
                                             <div class="carousel-inner">
                                                 @foreach($group_id as $group)
                                                 <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
-                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; min-height:80vh;border:none;"></object>
+                                                    <object data="{{ url('/dash/asset/' . $group) }}" style="width: 100%; min-height:90vh;border:none;"></object>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -378,7 +378,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-                                    <object data="{{ url('/dash/global') }}" style="width: 100%; height:100vh;border:none;"></object>
+                                    <object data="{{ url('/dash/global') }}" style="width: 100%; height:110vh;border:none;"></object>
                                     </div>
                                     
                                     <!-- <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
