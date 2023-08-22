@@ -1,5 +1,48 @@
 @extends (($user_type == 'admin')?('admin.layouts.admin_app'):('admin.client.client_app'))
 @section('content')
+<style>
+    #map_wrapper {
+      height: 400px;
+      margin-bottom: 2rem;
+  }
+
+  #map_canvas {
+      width: 100%;
+      height: 100%;
+  }
+    .mapouter {
+      margin-bottom: 2rem;
+  }
+
+  .mapouter,
+  .gmap_canvas {
+      width: auto !important;
+      height: 100% !important;
+  }
+
+  .mapouter iframe {
+      width: 100% !important;
+
+  }
+
+  .mapouter {
+      position: relative;
+      text-align: right;
+      height: 500px;
+  }
+  .gmap_canvas {
+      overflow: hidden;
+      background: none !important;
+      height: 500px;
+      width: 600px;
+      border-radius: 20px;
+      /*-webkit-filter: grayscale(100%) !important;*/
+      /* -moz-filter: grayscale(100%)!important;
+                -ms-filter: grayscale(100%) !important;
+                -o-filter: grayscale(100%) !important;*/
+      /*filter: grayscale(100%) !important;*/
+  }
+</style>
     @if (isset($data))
         
         @section('page_title')
@@ -341,6 +384,25 @@
                 </div>
             </div>
         </section>
+        <section>
+            <div class="row">
+                <!-- <div class="col-sm-4 col-xs-12">
+                            <div class="map-image card card-full-content">
+                                <img src="assets/img/map.png">
+                                <div class="map_canvas"></div>
+                            </div>
+                        </div> -->
+                        <!-- New Map  -->
+                        <div class="col-sm-12 col-xs-12">
+                            <div class="mapouter">
+                                <div class="gmap_canvas">
+                                    <div id='map_canvas' style="position:relative; width:100%; height:350px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </section>
 
         <div class="modal" id="myModal" style="padding: 5% 0% 5% 0%;">
             <div class="modal-dialog modal-xl">
@@ -566,6 +628,149 @@
 
             </div>
         </div>
+
+        <script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
+<script src="https://knockoutjs.com/downloads/knockout-2.2.1.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false&.js"></script>
+<script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.js"></script>
+<script src="https://knockoutjs.com/downloads/jquery.tmpl.min.js"></script>
+
+
+
+
+
+<input type="hidden" id="lat_value" value="<?php echo htmlentities(json_encode($lat_value)); ?>">
+<input type="hidden" id="lat_detail" value="<?php echo htmlentities(json_encode($lat_detail)); ?>">
+
+<script>
+var lat_value = [];
+var lat_detail = [];
+jQuery(function($) {
+
+    lat_value = JSON.parse(document.getElementById("lat_value").value);
+    lat_detail = JSON.parse(document.getElementById("lat_detail").value);
+    console.log({
+        "lat_value": lat_value
+    });
+
+
+    // Asynchronously Load the map API 
+    var script = document.createElement('script');
+    script.src =
+        "//maps.googleapis.com/maps/api/js?key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg&callback=initialize&libraries=&v=beta&map_ids=66b6b123dade7a4d";
+    document.body.appendChild(script);
+});
+
+function initialize() {
+
+
+    //above lines were put for var map, for api key
+
+
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: 'roadmap'
+
+    };
+
+
+
+    map = new google.maps.Map(document.getElementById("map_canvas"), {
+        mapId: "66b6b123dade7a4d",
+
+    });
+
+
+
+
+
+
+
+
+    var markers = lat_value;
+    var html = '';
+    var windowArray = [];
+
+    var ct = "";
+
+    var windowArray = [];
+
+    for (var r = 0; r < lat_detail.length; r++) {
+        ct = "";
+
+        if (lat_detail[r][1] != null) {
+            ct += '<p class="info_content"><strong>City :</strong>  ' + lat_detail[r][1] + '</p>';
+        }
+
+
+        if (lat_detail[r][2] != null) {
+            ct += '<p class="info_content"><strong>State :</strong> ' + lat_detail[r][2] + '</p></div>';
+        }
+
+
+
+
+        // var html = [''. $string];
+
+        var html = ['<div class="info_content"><p> <strong>Country :</strong> ' + lat_detail[r][0] + '</p>' +
+            '<p><strong>Asset Name :</strong> ' + lat_detail[r][3] + '</p>' +
+            '<p class="info_content"><strong>Hosting provider  :</strong> ' + lat_detail[r][4] + '</p>' +
+            '<p class="info_content"><strong>Asset type :</strong> ' + lat_detail[r][5] + '</p>' + ct
+        ];
+        // html+=string;
+
+        windowArray.push(html);
+
+    }
+
+    console.log(windowArray);
+
+
+
+    for (var r = 0; r < markers.length; r++) {
+
+        bounds = new google.maps.LatLngBounds();
+
+
+
+        var position = new google.maps.LatLng(markers[r][1], markers[r][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[r][0]
+        });
+
+
+
+
+        var infoWindow = new google.maps.InfoWindow(),
+            marker, r;
+
+        google.maps.event.addListener(marker, 'click', (function(marker, r) {
+            return function() {
+                infoWindow.setContent(windowArray[r][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, r));
+
+        console.log(bounds);
+
+        map.fitBounds(bounds);
+
+    }
+
+
+
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(1.7);
+        // this.setTilt('africa');
+        google.maps.event.removeListener(boundsListener);
+    });
+
+
+}
+</script>
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>

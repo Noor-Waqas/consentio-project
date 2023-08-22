@@ -235,9 +235,41 @@ class AssetsController extends Controller
             $countries = DB::table('countries')->get();
             $impact = DB::table("impact")->get();
             $dt_classification = DB::table("data_classifications")->where('organization_id', Auth::user()->client_id)->get();
+
+            // =============================================== //
+        /* MAP LAT LNG */
+
+        $user_type = Auth::user()->role;
+        $user_id = Auth::user()->id;
+        $client_id = Auth::user()->client_id;
+        
+        $lat_value[] = '';
+        $lat_detail[] = '';
+
+        $lat_lng = DB::table('assets')->where('lat', '!=', '')
+            ->where('client_id', $client_id)
+            ->get();
+        $total_assets = count($lat_lng);
+
+        if ($lat_lng != '') {
+            foreach ($lat_lng as $lat_val) {
+                $lang = $lat_val->lng;
+                $lng = number_format((float) $lang, 6, '.', '');
+                $lng = floatval($lng);
+                $late = $lat_val->lat;
+                $lat = number_format((float) $late, 6, '.', '');
+                $lat = floatval($lat);
+                $lat_value[] = [$lat_val->country, $lat, $lng];
+                $lat_detail[] = [$lat_val->country, $lat_val->city, $lat_val->state, $lat_val->name, $lat_val->hosting_provider, $lat_val->asset_type];
+            }
+        }
+
+        /* MAP LAT LNG */
+        // ================================================================================================================= //
+
                 
             // print("<pre>");print_r($asset_list);exit;
-            return view('assets.assets', ["asset_data_element"=>$asset_data_element,"impact"=>$impact,"dt_classification"=>$dt_classification,'asset_list' => $asset_list, 'countries' => $countries, 'user_type' => (Auth::user()->role == 1)?('admin'):('client')]);
+            return view('assets.assets', ["asset_data_element"=>$asset_data_element,"impact"=>$impact,"dt_classification"=>$dt_classification,"lat_value"=>$lat_value,"lat_detail"=>$lat_detail,'asset_list' => $asset_list, 'countries' => $countries, 'user_type' => (Auth::user()->role == 1)?('admin'):('client')]);
         }
     }
 

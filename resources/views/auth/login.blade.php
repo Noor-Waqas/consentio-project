@@ -14,6 +14,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ url('public/assets-new/css/style.css')}}" rel="stylesheet">
+    <style>
+      body{
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        footer{
+            margin-top: auto;
+        }
+    </style>
 </head>
 
 <body class="dashboard login-option-page">
