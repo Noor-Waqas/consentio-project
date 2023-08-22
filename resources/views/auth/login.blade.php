@@ -16,12 +16,14 @@
     <link href="{{ url('public/assets-new/css/style.css')}}" rel="stylesheet">
     <style>
       body{
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         footer{
             margin-top: auto;
+        }
+        .login-option-page section.section.dashboard {
+            height: 90vh;
         }
     </style>
 </head>
@@ -80,15 +82,15 @@
         </div>
         </div>
       </div>
-      <footer>
+    </section>
+    <footer style="background:#ced4da;padding-top:20px;padding-bottom:20px;color:#424245;opacity:70%;" class="">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-xs-12"><a href="#">Privacy Policy</a>   |    <a href="#">Terms & Conditions</a></div>
-                <div class="col-sm-6 col-xs-12 text-right">Copyright © 2023 Consentio Inc. All rights reserved.</div>
+                <div class="col-sm-6 col-xs-12"><a href="#" style="color:#424245;">Privacy Policy</a>   |    <a href="#" style="color:#424245;">Terms &amp; Conditions</a></div>
+                <div class="col-sm-6 col-xs-12 text-right" style="color:#424245;">Copyright © 2023 Consentio Inc. All rights reserved.</div>
             </div>
         </div>
     </footer>
-    </section>  
 
 
     <script src="{{url('public/assets-new/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
