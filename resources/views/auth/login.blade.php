@@ -25,15 +25,19 @@
         .login-option-page section.section.dashboard {
             height: 90vh;
         }
+        body.dashboard section.section.dashboard {
+            /* position: initial; */
+        }
+        
     </style>
 </head>
 
-<body class="dashboard login-option-page">
+<body class="dashboard login-option-page" style="background:#fbfbfd;">
     <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center"  style="background:transparent;">
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{ url('/') }}" class="logo d-flex align-items-center">
-        <img src="{{url('public/assets-new/img/logo.png')}}" alt="" style="height:30px">
+      <a href="{{ url('/') }}" class="logo d-flex align-items-center" style="background: transparent;">
+        <img src="{{url('public/assets-new/img/logo.png')}}" style="height:30px;" alt="">
       </a>
     </div><!-- End Logo -->
   </header><!-- End Header -->
@@ -83,11 +87,11 @@
         </div>
       </div>
     </section>
-    <footer style="background:#ced4da;padding-top:20px;padding-bottom:20px;color:#424245;opacity:70%;" class="">
+    <footer style="background:#ced4da;padding:20px;color:#424245;opacity:60%;" class="">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-xs-12"><a href="#" style="color:#424245;">Privacy Policy</a>   |    <a href="#" style="color:#424245;">Terms &amp; Conditions</a></div>
-                <div class="col-sm-6 col-xs-12 text-right" style="color:#424245;">Copyright © 2023 Consentio Inc. All rights reserved.</div>
+                <div class="col-sm-6 col-xs-12"><a href="#" style="color:#424245;opacity:100%;">Privacy Policy</a>   |    <a href="#" style="color:#424245;">Terms &amp; Conditions</a></div>
+                <div class="col-sm-6 col-xs-12 text-right" style="color:#424245;opacity:100%;">Copyright © 2023 Consentio Inc. All rights reserved.</div>
             </div>
         </div>
     </footer>
