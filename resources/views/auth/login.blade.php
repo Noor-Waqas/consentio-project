@@ -23,10 +23,14 @@
             margin-top: auto;
         }
         .login-option-page section.section.dashboard {
-            height: 90vh;
+            height: 93vh;
         }
         body.dashboard section.section.dashboard {
             /* position: initial; */
+        }
+        body.dashboard {
+            padding-top: 0px;
+            padding-right: 0px;
         }
         
     </style>
