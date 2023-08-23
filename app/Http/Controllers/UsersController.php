@@ -1133,6 +1133,8 @@ class UsersController extends Controller
         ->where('forms.type', 'audit')
         ->where('sub_forms.client_id', $client_id)
         ->groupby('sub_forms.parent_form_id')
+        ->orderby('date_created', 'desc')
+        // ->get();
         ->pluck('forms.group_id');
         // dd($group_id);
 

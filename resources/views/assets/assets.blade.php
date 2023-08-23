@@ -393,10 +393,14 @@
                             </div>
                         </div> -->
                         <!-- New Map  -->
-                        <div class="col-sm-12 col-xs-12">
+                        <div class="col-3 d-flex flex-column align-items-center justify-content-center">
+                            <img src="{{url('assets-new/location.png')}}" alt="" style="width:80px;">
+                            <h3 class="text-center">{{ __('Asset Location Map') }}</h3>
+                        </div>
+                        <div class="col-9">
                             <div class="mapouter">
                                 <div class="gmap_canvas">
-                                    <div id='map_canvas' style="position:relative; width:100%; height:350px;">
+                                    <div id='map_canvas' style="position:relative; width:100%; height:370px;">
                                     </div>
                                 </div>
                             </div>
