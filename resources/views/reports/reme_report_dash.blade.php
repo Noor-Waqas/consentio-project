@@ -149,7 +149,7 @@
             <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Remediation Plan</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
-            <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
+            <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
             <a class="report-change mr-2" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Audit Report</button></a>
             <button id="screenshotButton" class="buton">Download Report</button>
         </div>

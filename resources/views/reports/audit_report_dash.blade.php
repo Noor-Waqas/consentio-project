@@ -9,13 +9,13 @@
     <meta name="author" content="">
     <style>
         body{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    }
-    footer{
-        margin-top: auto;   
-    }
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        footer{
+            margin-top: auto;   
+        }
         #datatable {
             border: none;
         }
@@ -147,7 +147,7 @@
             <h4 class="mt-3" style="color:black;"><b>{{$company->name}} {{$group[0]->group_name}} - Security Assessment</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
-            <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
+            <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
             <a class="report-change mr-2" href="{{ url('/dash/remediation/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Remediation Report</button></a>
             <button id="screenshotButton" class="buton">Download Report</button>
         </div>
@@ -402,8 +402,8 @@ $busData = [
 
     function captureScreenshot() {
         // Get the screen dimensions
-        const screenWidth = 500;
-        const screenHeight = 650;
+        const screenWidth = 800;
+        const screenHeight = 450;
 
         // Specify the ID of the div you want to capture
         const divId = 'myDiv';
@@ -421,6 +421,7 @@ $busData = [
             image: { type: 'jpeg', quality: 0.99 },
             html2canvas: { scale: 1 },
             jsPDF: {
+                orientation: 'landscape',
                 format: [screenWidth, screenHeight] // Set the page size to the screen dimensions
             }
         };
