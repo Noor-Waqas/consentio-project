@@ -19,6 +19,7 @@
             <button id="screenshotButton" class="buton">Download Report</button>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-md-3">
             <div id="chart"></div>
@@ -377,7 +378,7 @@
 
 <!-- jQuery -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script>
+<!-- <script>
 $(document).ready(function() {
     $('#datatable').DataTable({
         "order": [],
@@ -387,7 +388,7 @@ $(document).ready(function() {
         }
     });
 });
-</script>
+</script> -->
 
 <script type="text/javascript">
     
@@ -525,6 +526,11 @@ $(document).ready(function() {
         // Initialize DataTable
         var dataTable = $("#datatable").DataTable({
             // Configure DataTable options and settings here
+            "order": [],
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search Here"
+            }
         });
 
         // Listen for change event on checkboxes with class "checkbox-group"

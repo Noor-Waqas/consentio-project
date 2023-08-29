@@ -11,15 +11,16 @@
 <div class="container-fluid" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <input type="hidden" class="group" value="{{ $group_id }}">
-        <div class="col-9">
+        <div class="col-7">
             <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Remediation Plan</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
-            <a class="btn btn-primary report-change" href="{{ url('/report/asset/' . $group_id) }}">Asset Report</a>
-            <button id="screenshotButton" class="btn btn-secondary ml-2">Download Report</button>
+            <a class="btn btn-secondary report-change mr-2"  style="padding: 6px 30px;border-radius:30px;font-size:18px;" href="{{ url('/report/asset/' . $group_id) }}">Audit Report</a>
+            <button id="screenshotButton" class="buton">Download Report</button>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-md-3">
             <div id="chart"></div>
@@ -357,7 +358,7 @@
 <!-- jQuery -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
     $('#datatable').DataTable({
         "order": [],
@@ -367,7 +368,7 @@ $(document).ready(function() {
     }
     });
 });
-</script>
+</script> -->
 
 <script type="text/javascript">
     
@@ -502,6 +503,11 @@ $(document).ready(function() {
     // Initialize DataTable
     var dataTable = $("#datatable").DataTable({
         // Configure DataTable options and settings here
+        "order": [],
+        "language": {
+        "search": "",
+        "searchPlaceholder": "Search Here"
+    }
     });
     
     // Listen for change event on checkboxes with class "checkbox-group"
