@@ -312,7 +312,7 @@
 
         // Add Logo
         $('#report-logo').removeClass('d-none');
-        $('#myDiv').attr("style", "padding:7%;");
+        $('#myDiv').attr("style", "padding:5%;");
 
         // Capture screenshot and download report
         captureScreenshot();
