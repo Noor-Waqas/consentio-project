@@ -32,6 +32,15 @@
             padding-top: 0px;
             padding-right: 0px;
         }
+        @media (max-width: 800px){
+            .login-option-page .form-login {
+                background: none;
+                border-radius: 0px;
+                background: none;
+                box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.15);
+            }
+        }
+        
         
     </style>
 </head>
