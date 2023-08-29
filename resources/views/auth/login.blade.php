@@ -23,7 +23,7 @@
             margin-top: auto;
         }
         .login-option-page section.section.dashboard {
-            height: 93vh;
+            height: 90vh;
         }
         body.dashboard section.section.dashboard {
             /* position: initial; */
@@ -41,7 +41,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center"  style="background:transparent;">
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/') }}" class="logo d-flex align-items-center" style="background: transparent;">
-        <img src="{{url('public/assets-new/img/logo.png')}}" style="height:30px;" alt="">
+        <img src="{{url('public/assets-new/img/logo.webp')}}" style="height:30px;" alt="">
       </a>
     </div><!-- End Logo -->
   </header><!-- End Header -->
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-12">
           <div class="form-login">
-            <img src="{{url('public/assets-new/img/login-logo.png')}}" class="login-logo">
+            <img src="{{url('public/assets-new/img/login-logo.webp')}}" class="login-logo">
             <h1>{{ __('Compliance Management') }}</h1>
             @if (Session::has('status'))
             <div class="alert alert-danger fw-bolder" style="color: red;">
@@ -91,11 +91,15 @@
         </div>
       </div>
     </section>
-    <footer style="background:#ced4da;padding:20px;color:#424245;opacity:60%;" class="">
+    <footer style="background:#ced4da;padding:20px;color:#424245;opacity:0.6;position: fixed;bottom: 0;width:100%" class="fixed-bottom">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-xs-12"><a href="#" style="color:#424245;opacity:100%;">Privacy Policy</a>   |    <a href="#" style="color:#424245;">Terms &amp; Conditions</a></div>
-                <div class="col-sm-6 col-xs-12 text-right" style="color:#424245;opacity:100%;">Copyright © 2023 Consentio Inc. All rights reserved.</div>
+                <div class="col-6">
+                    <a href="#" style="color:#424245;opacity:1;">Privacy Policy</a> | <a href="#" style="color:#424245;">Terms &amp; Conditions</a>
+                </div>
+                <div class="col-6 text-right" style="color:#424245;opacity:1;">
+                    Copyright © 2023 Consentio Inc. All rights reserved.
+                </div>
             </div>
         </div>
     </footer>
