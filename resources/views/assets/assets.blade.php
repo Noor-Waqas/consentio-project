@@ -400,7 +400,7 @@
                         <div class="col-9">
                             <div class="mapouter">
                                 <div class="gmap_canvas">
-                                    <div id='map_canvas' style="position:relative; width:100%; height:370px;">
+                                    <div id='map_canvas' style="position:relative; width:100%; height:500px;">
                                     </div>
                                 </div>
                             </div>

@@ -144,14 +144,15 @@
 <div class="container-fluid mt-5" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b>{{$company->name}} {{$group[0]->group_name}} - Security Assessment</b></h4>
+            <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Assessment</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
-            <a class="report-change mr-2" href="{{ url('/dash/remediation/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Remediation Report</button></a>
-            <button id="screenshotButton" class="buton">Download Report</button>
+            <a class="report-change mr-2" href="{{ url('/dash/remediation/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Remediation Reprot</button></a>
+            <button id="screenshotButton" class="buton">Download</button>
         </div>
     </div>
+    <br>
     <input type="hidden" class="group_id" value="{{$group_id}}">
     <div class="row">
         <div class="col-md-3">
@@ -458,7 +459,7 @@ $busData = [
 <!-- jQuery -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
     $('#datatable').DataTable({
         "order": [],
@@ -468,7 +469,7 @@ $(document).ready(function() {
         }
     });
 });
-</script>
+</script> -->
 
 <script type="text/javascript">
     // First Chart 
@@ -600,7 +601,11 @@ $(document).ready(function() {
         }
         // Initialize DataTable
         var dataTable = $("#datatable").DataTable({
-            // Configure DataTable options and settings here
+            "order": [],
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search Here"
+            }
         });
         // Listen for change event on checkboxes with class "checkbox-group"
         $(".change").change(function() {
@@ -814,7 +819,7 @@ $(document).ready(function() {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/datatables.min.js"></script>
-@if(Request::segment(1) == 'dash')
+<!-- @if(Request::segment(1) == 'dash')
 <script>
     $(document).ready(function() {
 
@@ -832,7 +837,7 @@ $(document).ready(function() {
         });
     });
     </script>
-@endif
+@endif -->
 
     <script>
         // JavaScript function to toggle the collapse
