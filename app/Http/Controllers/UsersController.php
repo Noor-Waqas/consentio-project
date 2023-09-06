@@ -1061,7 +1061,10 @@ class UsersController extends Controller
             // Remediation Counts
             $remediation = DB::table('remediation_plans')
             ->where('client_id', $client_id)
-            ->count();
+            ->groupby('sub_form_id')
+            ->get();
+            $remediation=$remediation->count();
+            // dd($remediation);
 
         }
         else{
@@ -1073,7 +1076,9 @@ class UsersController extends Controller
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
             ->where('user_form_links.user_id', $user_id)
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+            $forms=$forms->count();
 
             $pen_forms = DB::table('forms')
             ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
@@ -1082,7 +1087,9 @@ class UsersController extends Controller
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
             ->where('user_form_links.user_id', $user_id)
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+            $pen_forms=$pen_forms->count();
             
             // Completed Audits Counts
             $audits = DB::table('forms')
@@ -1092,7 +1099,9 @@ class UsersController extends Controller
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
             ->where('user_form_links.user_id', $user_id)
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+             $audits=$audits->count();
 
 
             // Pending Audit Counts
@@ -1103,13 +1112,17 @@ class UsersController extends Controller
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
             ->where('user_form_links.user_id', $user_id)
-            ->count();
+            ->groupby('user_form_links.sub_form_id')
+            ->get();
+            $pen_audits=$pen_audits->count();
 
             // Remediation Counts
             $remediation = DB::table('remediation_plans')
             ->where('client_id', $client_id)
             ->where('person_in_charge', $user_id)
-            ->count();
+            ->groupby('sub_form_id')
+            ->get();
+            $remediation=$remediation->count();
         };
                 
 

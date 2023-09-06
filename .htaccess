@@ -25,3 +25,18 @@ RewriteRule /?\.htaccess$ - [F,L]
 <Files ".env">  
   Require all denied
 </Files>
+
+<Files php.ini>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files composer.json>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<Files composer.lock>
+    Order Allow,Deny
+    Deny from all
+</Files>
