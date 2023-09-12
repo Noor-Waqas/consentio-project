@@ -44,11 +44,18 @@
             border: 1px solid black !important;
             cursor: pointer;
         }
+        a.paginate_button {
+            text-decoration: none;
+        }
         .paginate_button.next{
             padding: 5px !important;
         }
         .paginate_button.previous{
             padding: 5px !important;
+        }
+
+        div.dataTables_length select {
+            border: 1px solid black;
         }
     </style>
   </head>
