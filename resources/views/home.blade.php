@@ -342,7 +342,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-full-content">
-                            <div class="card-body">
+                            <div class="card-body" style="min-height:130px;">
                                 <div class="center-tabs mt-2">
                                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                                     <li class="nav-item">

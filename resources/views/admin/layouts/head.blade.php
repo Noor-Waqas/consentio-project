@@ -54,6 +54,10 @@
             padding: 5px !important;
         }
 
+        
+        div.dataTables_length{
+            float: left;
+        }
         div.dataTables_length select {
             border: 1px solid black;
         }
