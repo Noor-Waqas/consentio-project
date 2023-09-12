@@ -11,7 +11,7 @@ Route::get('/dash/remediation/{id}', 'Reports@get_remediation_report')->name('da
 Route::get('/dash/global', 'Reports@remediation_report')->name('dash.global');
 
 Route::get('/dummy', 'Reports@Dummywork')->name('dummy');
-// ----------------Reportssss----------------------
+// ----------------Dashboard Reports----------------------
 Route::get('/report/audit/{id}', 'Reports@get_report')->name('report.audit');
 Route::get('/report/rem/{id}', 'Reports@get_reme_report')->name('report.reme');
 Route::get('/report/postrem', 'Reports@get_postreme_report')->name('postreport.reme');
