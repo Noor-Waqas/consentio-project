@@ -77,6 +77,10 @@
         background: #4e73df;
         color: #fff;
     }
+    #main {
+        margin-top: 0px !important;
+        padding: 0px 10px !important;
+    }
   </style>
   @if (session('alert'))
     <div class="alert alert-danger">
@@ -180,6 +184,7 @@
           @endsection
           <div class="card">
           <div class="card-table">
+              <a id="add" type="button" class="button mb-3">{{ __('Back') }}</a>
             <table class="table table-striped text-center" id="datatable">
               @if ($user_type == 'admin')
                 <thead class="back_blue">

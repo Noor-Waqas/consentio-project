@@ -12,6 +12,8 @@
     <link href="{{ url('public/assets-new/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <!-- Template Main CSS File -->
     <link href="{{ url('public/assets-new/css/style.css')}}" rel="stylesheet">
     <style>
@@ -32,6 +34,12 @@
             padding-top: 0px;
             padding-right: 0px;
         }
+        .input-group-append{
+            position: absolute;
+            right: 15px;
+            top: 20px;
+            font-size: 20px;
+        }
         @media (max-width: 800px){
             .login-option-page .form-login {
                 background: none;
@@ -41,6 +49,14 @@
             }
             .login-option-page .form-login button {
                 width: 50%;
+            }
+            .input-group-append{
+            top: 10px;
+        }
+        }
+        @media (max-width: 568px){
+            footer{
+                font-size:10px;
             }
         }
         
@@ -53,7 +69,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center"  style="background:transparent;">
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ url('/') }}" class="logo d-flex align-items-center" style="background: transparent;">
-        <img src="{{url('public/assets-new/img/logo.webp')}}" style="height:30px;" alt="">
+        <img src="{{url('public/assets-new/img/logo.webp')}}" style="height:40px;" alt="">
       </a>
     </div><!-- End Logo -->
   </header><!-- End Header -->
@@ -80,14 +96,21 @@
                         </span>
                         @endif
                   </div>
-                  <div class="col-sm-12"> 
-                      <input id="password" type="password" class="form-control" name="password" placeholder="{{ __('Password') }}" required>
-                        @if ($errors->has('password'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                        @endif
-                  </div>
+                  <div class="col-sm-12">
+                    <div class="input-group" style="position:relative;">
+                        <input id="password" type="password" class="form-control" name="password" placeholder="{{ __('Password') }}" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="toggle-password">
+                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                    @if ($errors->has('password'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                    @endif
+                </div>
                   <div class="col-sm-12">
                       <button type="submit" class="btn btn-primary add-btn" id="sign-in">{{ __('SIGN IN') }}</button>
                   </div>
@@ -131,6 +154,22 @@
                     $(".captcha span").html(data.captcha);
                 }
             });
+        });
+    </script>
+    <script>
+        document.getElementById('toggle-password').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
         });
     </script>
 </body>

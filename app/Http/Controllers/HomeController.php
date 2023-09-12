@@ -132,6 +132,12 @@ class HomeController extends Controller
             $errors['email_not_exist'] = 'Login Failed Wrong User Credentials';
         }
 
+        $emailVerified = DB::table('users')->where('email',$request->email)->where('is_email_varified', 0)->first();
+        if($emailVerified){
+            return redirect()->back()->with('status', 'You Email Address is not Verified. Please contact your customer care team for further support.');
+            $errors['account_blocked'] = 'You Email Address is not Verified. Please contact your customer care team for further support.';  
+        }
+
         $emailBlocked = DB::table('users')->where('email',$request->email)->where('is_blocked','Yes')->first();
         if($emailBlocked){
             return redirect()->back()->with('status', 'You account is currently blocked. Please contact your customer care team for further support.');

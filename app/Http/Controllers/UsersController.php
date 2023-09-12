@@ -81,6 +81,8 @@ class UsersController extends Controller
         }
         $permissions = DB::table('module_permissions')->select('module', 'module_title')->get();
 
+        $user_name= DB::table('users')->where('id', $id)->pluck('name');
+
 
         // print("<pre>");
         // print_r($permissions);
@@ -92,7 +94,7 @@ class UsersController extends Controller
         } else {
             $user_type = 'client';
         }
-        return view('admin.users.permission_add_remove', compact('permissions', 'granted_permissions', 'user_type', 'id'));
+        return view('admin.users.permission_add_remove', compact('permissions', 'granted_permissions', 'user_type', 'user_name', 'id'));
     }
 
     public function permissions_store(Request $request){
@@ -1018,7 +1020,7 @@ class UsersController extends Controller
             ->where('forms.type', '!=', 'audit')
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
-            ->groupby('user_form_links.sub_form_id')
+            // ->groupby('user_form_links.sub_form_id')
             ->get();
             $forms=$forms->count();
 
@@ -1029,7 +1031,7 @@ class UsersController extends Controller
             ->where('forms.type', '!=', 'audit')
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
-            ->groupby('user_form_links.sub_form_id')
+            // ->groupby('user_form_links.sub_form_id')
             ->get();
             $pen_forms=$pen_forms->count();
 
@@ -1076,7 +1078,7 @@ class UsersController extends Controller
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '1')
             ->where('user_form_links.user_id', $user_id)
-            ->groupby('user_form_links.sub_form_id')
+            // ->groupby('user_form_links.sub_form_id')
             ->get();
             $forms=$forms->count();
 
@@ -1087,7 +1089,7 @@ class UsersController extends Controller
             ->where('sub_forms.client_id', $client_id)
             ->where('user_form_links.is_locked', '0')
             ->where('user_form_links.user_id', $user_id)
-            ->groupby('user_form_links.sub_form_id')
+            // ->groupby('user_form_links.sub_form_id')
             ->get();
             $pen_forms=$pen_forms->count();
             

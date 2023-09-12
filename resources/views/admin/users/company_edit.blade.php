@@ -222,7 +222,7 @@ input:checked + .slider:before {
   										   UPLOADCARE_PUBLIC_KEY = "demopublickey";
 										</script>
 										<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
-										<input type="hidden" role="uploadcare-uploader" data-crop="free, 5:1 ,16:9, 4:3, 5:4, 1:1" data-images-only >
+										<input type="hidden" role="uploadcare-uploader" data-crop="5:1" data-images-only >
 
 										<!-- Your preview will be put here -->
 										<div class="main_croppir_img"  style="width: fit-content;" >

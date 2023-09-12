@@ -26,4 +26,29 @@
     <!-- datatables js-->	
 	<script src="{{url('backend/js/jquery.dataTables.js')}}"></script>
     <script src="https://foliotek.github.io/Croppie/croppie.js"></script>
+    <style>
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            background-color: transparent !important;
+            color: black !important;
+            border: 1px solid black !important;
+            padding: 5px 12px !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button{
+            color:black !important;
+            padding: 5px 12px !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+            color:white !important;
+            background:rgb(51, 36, 36) !important;
+            border: 1px solid black !important;
+            cursor: pointer;
+        }
+        .paginate_button.next{
+            padding: 5px !important;
+        }
+        .paginate_button.previous{
+            padding: 5px !important;
+        }
+    </style>
   </head>

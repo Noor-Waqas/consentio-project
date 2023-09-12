@@ -1966,7 +1966,7 @@ class AuditFormsController extends Controller{
 
         if (Auth::check()) {
             $template = 'admin.client.client_app';
-            $user_type = 'in';
+            $user_type = 'auditin';
             $user_role = Auth::user()->role;
             $is_super = Auth::user()->user_type;
 

@@ -1650,7 +1650,6 @@ class Forms extends Controller{
         if ($data != null) {
             foreach ($data as $value) {
                 $assigned_permissions = explode(',', $value);
-
             }
         }
         if (!in_array('Completed Forms', $assigned_permissions)) {
@@ -1660,6 +1659,7 @@ class Forms extends Controller{
         $role_id = Auth::user()->role;
         $mytime = Carbon::now();
         $result = null;
+
 
         if ((Auth::user()->role == 2 || Auth::user()->role == 3) || (Auth::user()->role == 3 && Auth::user()->user_type == 1)) {
             /*
@@ -1706,17 +1706,17 @@ class Forms extends Controller{
                     ->join('forms', 'forms.id', '=', 'sub_forms.parent_form_id')
                     ->where('forms.type', 'assessment')
                     ->where('exf.client_id', $client_id)
-                    ->where('is_locked', 1)
+                    ->where('exf.is_locked', 1)
+                    ->where('exf.is_internal', 0)
                     ->select('*', DB::raw('exf.user_email as email,
-                        SUM(CASE WHEN is_locked = 1 THEN 1 ELSE 0 END) as ex_completed_forms,
-                        COUNT(exf.user_email) as total_external_users_count,
                         forms.title as form_title,
                         forms.title_fr as form_title_fr,
                         sub_forms.title as subform_title,
                         sub_forms.title_fr as subform_title_fr,
                         "External" as user_type'))
-                    ->groupBy('sub_forms.id')
+                    // ->groupBy('sub_forms.id')
                     ->get();
+                    // dd($ext_forms);
 
                 $int_forms = DB::table('user_form_links as uf')
                     ->join('users', 'users.id', '=', 'uf.user_id')
@@ -1726,18 +1726,19 @@ class Forms extends Controller{
                     ->where('uf.client_id', $client_id)
                     ->where('uf.is_locked', 1)
                     ->select('*', DB::raw('users.email,
-                                        SUM(CASE WHEN is_locked = 1 THEN 1 ELSE 0 END) as in_completed_forms,
-                                        COUNT(users.email) as total_internal_users_count,
                                         forms.title as form_title,
                                         forms.title_fr as form_title_fr,
                                         sub_forms.title as subform_title,
                                         sub_forms.title_fr as subform_title_fr,
                                         form_link_id as form_link,
                                         "Internal" as user_type'))
-                    ->groupBy('sub_forms.id')
+                    // ->groupBy('sub_forms.id')
                     ->get();
+                    // dd($int_forms);
                 $all_forms = $int_forms->merge($ext_forms);
                 $all_form_data = json_decode(json_encode($all_forms), true);
+                // dd($all_forms);
+                // dd($all_form_data);
 
                 foreach ($all_form_data as $data) {
                     DB::Table('tmp_Data')->insert([
@@ -1789,22 +1790,25 @@ class Forms extends Controller{
                     ]);
                 }
 
-                $completed_forms = DB::Table('tmp_Data')->where('user_id', auth::user()->client_id)
+                $completed_forms = DB::Table('tmp_Data')->where('user_id', auth::user()->id)
                                     ->orwhere('is_locked', 1)
                                     ->where('in_completed_forms', 1)
                                     ->orderby('updated_at', 'desc')->get();
+                                    // dd($completed_forms);
 
                 DB::table('tmp_Data')->where('user_id', auth::user()->id)->truncate();
-
+                // dd("admin");
             } else {
+                // dd("user side");
                 $client_id = Auth::user()->id;
                 $int_forms = DB::table('user_form_links as uf')
 
                     ->join('users', 'users.id', '=', 'uf.user_id')
                     ->join('sub_forms', 'uf.sub_form_id', '=', 'sub_forms.id')
                     ->join('forms', 'forms.id', '=', 'sub_forms.parent_form_id')
+                    ->where('forms.type', 'assessment')
                     ->where('uf.user_id', $client_id)
-                ->where('is_locked', 1)
+                    ->where('is_locked', 1)
                     ->select('*', DB::raw('users.email,
                                 SUM(CASE WHEN is_locked = 1 THEN 1 ELSE 0 END) as in_completed_forms,
                                 COUNT(users.email) as total_internal_users_count,
@@ -1816,6 +1820,7 @@ class Forms extends Controller{
                                 "Internal" as user_type'))
                     ->groupBy('sub_forms.id')
                     ->get();
+                
                 $completed_forms = $int_forms;
             }
 
@@ -1830,7 +1835,7 @@ class Forms extends Controller{
                 //  $completed_forms = $result;
 
             }
-            //dd($completed_forms);
+            // dd($completed_forms);
             // tohandle null values
             if ($completed_forms == null) {$completed_forms = [];}
 
@@ -2527,6 +2532,7 @@ class Forms extends Controller{
         $parent_form_info = DB::table('forms')->where('id', $parent_form_id)->first();
 
         $client_id = Auth::user()->client_id;
+        $user_id = Auth::user()->id;
 
         $int_form_user_list = DB::table('user_form_links')->where('sub_forms.client_id', $client_id)
             ->join('sub_forms', 'sub_forms.id', '=', 'user_form_links.sub_form_id')
@@ -2534,6 +2540,8 @@ class Forms extends Controller{
             ->join('users', 'users.id', '=', 'user_form_links.user_id')
             ->where('forms.type', 'assessment')
             ->where('user_form_links.is_internal', 1)
+            ->where('user_form_links.is_locked', 0)
+            // ->where('user_form_links.user_id', $user_id)
             ->wherein('sub_form_id', $subform_id)
             ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "internal", is_locked'))->get();
         $ext_form_user_list = DB::table('user_form_links')->where('sub_forms.client_id', $client_id)
@@ -2541,6 +2549,7 @@ class Forms extends Controller{
             ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
             ->wherein('sub_form_id', $subform_id)
             ->where('user_form_links.is_internal', 0)
+            ->where('user_form_links.is_locked', 0)
             ->where('forms.type', 'assessment')
             ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "external", is_locked'))
         ->get();
@@ -2550,6 +2559,23 @@ class Forms extends Controller{
         } else {
             $form_user_list = $int_form_user_list->merge($ext_form_user_list);
         }
+
+        if(Auth::user()->role == 3){
+            $int_form_user_list = DB::table('user_form_links')->where('sub_forms.client_id', $client_id)
+            ->join('sub_forms', 'sub_forms.id', '=', 'user_form_links.sub_form_id')
+            ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+            ->join('users', 'users.id', '=', 'user_form_links.user_id')
+            ->where('forms.type', 'assessment')
+            ->where('user_form_links.is_internal', 1)
+            ->where('user_form_links.is_locked', 0)
+            ->where('user_form_links.user_id', $user_id)
+            ->wherein('sub_form_id', $subform_id)
+            ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "internal", is_locked'))->get();
+
+            $form_user_list = $int_form_user_list;
+        }
+
+        
 
         $user_type = 'client';
         if (Auth::user()->role == 1) {

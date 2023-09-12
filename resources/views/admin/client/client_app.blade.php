@@ -85,6 +85,18 @@
             background: #71BA4F;
             border: 1px solid #71BA4F;
         }
+        body.dashboard {
+            padding-top: 1px !important;
+        }
+        .logo img {
+            height: auto !important;
+        }
+        @media (max-width: 500px){
+            .logo img {
+                height: 30px !important;
+            }
+        }
+        
         
         
     </style>
@@ -140,7 +152,7 @@
       <a href="{{ url('/dashboard') }}" class="logo d-flex align-items-center">
         @if (!empty($company_logo))
         <div>
-            <img src="{{ url('img/' . $company_logo) }}">
+            <img style="max-width:280px;" src="{{ url('img/' . $company_logo) }}">
         </div>
         @else
         <img src="{{ url('_organisation.png') }}">

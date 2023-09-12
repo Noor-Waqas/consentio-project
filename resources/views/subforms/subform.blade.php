@@ -58,6 +58,10 @@
     background: #4e73df;
     color: #fff;
   }
+  #main {
+        margin-top: 0px !important;
+        padding: 0px 10px !important;
+    }
 </style>
 @if (session('alert'))
     <div class="alert alert-danger">
@@ -168,7 +172,9 @@
                     @section('page_title')
                     {{ __('SUB FORMS') }}
                     @endsection
+                    
                     <div class="card-table">
+                    <a href="{{ url('Forms/FormsList') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
                     <table class="table table-striped text-center" id="datatable">
                                <?php if ($user_type == 'admin'): ?>
     <thead class="back_blue">

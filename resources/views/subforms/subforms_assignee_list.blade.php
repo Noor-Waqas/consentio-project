@@ -16,9 +16,16 @@
         @endsection
 
           <div class="card">
+		  
           <div class="card-table">
+		  	@if (Request::is('audit/*'))
+			  	<a href="{{ url('audit/list') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
+			@else
+				<a href="{{ url('Forms/FormsList') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
+			@endif
 
-              <button class="buton" id="assign" style="margin-bottom: 16px;float:right; margin-right: 22px;">{{ __('Assign') }} / {{ __('Unassign') }}</button>
+		  	
+            <button class="buton" id="assign" style="margin-bottom: 16px;float:right; margin-right: 22px;">{{ __('Assign') }} / {{ __('Unassign') }}</button>
       </h3>
             <table class="table table-striped text-center" id="datatable">
     <thead>

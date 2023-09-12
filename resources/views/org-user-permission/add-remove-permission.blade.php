@@ -152,8 +152,8 @@ input:checked + .slider:before {
                                              
                                     ?>
                                     <tr>
-                                         <th>{{$total_permissions}}</th>   
-                                        <td>
+                                         <th style="vertical-align: middle;">{{$total_permissions}}</th>   
+                                        <td style="padding:8px;">
                                             <label class="switch">
                                                 <input name="permiss[]" value="{{$total_permissions}}"  @if(in_array($total_permissions, $granted_permissions) == true) checked="true" @endif  type="checkbox">
                                                 <span class="slider round"></span>
@@ -168,8 +168,8 @@ input:checked + .slider:before {
                      <input id="file" type="hidden" class="form-control" name="id" value="{{$id}}">
                      <div class="form-group row form-btn">
 						<div class="col-sm-12 text-right">
-							<a href="{{url('users_management')}}" class="btn btn-sm btn-secondary"> {{ __('Cancel')}}</a>
-							<button type="submit" class="btn btn-sm btn-primary">{{ __('Save')}} </button>
+							<a href="{{url('users_management')}}" class="buton bg-dark" style="padding:9px;"> {{ __('Cancel')}}</a>
+							<button type="submit" class="buton ">{{ __('Save')}} </button>
 						</div>
 					 </div>	
 			         
