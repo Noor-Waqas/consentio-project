@@ -64,54 +64,58 @@
         font-size: 21px !important;
       }
   </style>   
-  <div class="export_btn" style="margin-left: 40px; margin-bottom: 1rem;"> 
-    <a href="{{url('report_export/1')}}" class="btn btn-sm btn-primary"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i> {{ __('Export') }}</a>
+  <div class="export_btn" style="margin-bottom: 1rem;"> 
+    <a href="{{url('report_export/1')}}" class="buton"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i> {{ __('Export') }}</a>
   </div>
   <section class="assets_list">
-    <div class="main_custom_table">
-      <div class="main_table_redisign main_inv_not">
-        <?php  $array_index=0; ?>
-        @foreach($option_questions as $key => $row)
-        <table class="table table-striped border-0 detail_inv_page">
-          <thead>
-            <th colspan="2">
-              @if(session('locale') == 'fr') 
-                @if(DB::table('questions')->where('question' , $row['question_string'])->pluck('question_fr')->first() != null)
-                  {{ DB::table('questions')->where('question' , $row['question_string'])->pluck('question_fr')->first() }}
-                @else
-                  {{ $row['question_string'] }}
-                @endif
+    <div class="card">
+      <div class="card-body">
+        <div class="main_custom_table">
+          <div class="main_table_redisign main_inv_not">
+            <?php  $array_index=0; ?>
+            @foreach($option_questions as $key => $row)
+            <table class="table table-striped border-0 detail_inv_page">
+              <thead>
+                <th colspan="2">
+                  @if(session('locale') == 'fr') 
+                    @if(DB::table('questions')->where('question' , $row['question_string'])->pluck('question_fr')->first() != null)
+                      {{ DB::table('questions')->where('question' , $row['question_string'])->pluck('question_fr')->first() }}
+                    @else
+                      {{ $row['question_string'] }}
+                    @endif
 
-              @else 
-                {{ $row['question_string'] }}
-              @endif    
-            </th>
-          </thead>
-          <tbody>
-            <?php 
-              if($key == 0){ 
-                $x = 0;
-              }
-              for($i = 0 ; $i <$option_questions[$key]['op_count']; $i++) { ?>
-                    <tr>
-                      <td class="green_td_glb">
-                        @if(session('locale') == 'fr')   
-                          {{$final_fr[$array_index]}}
-                        @else
-                          {{$final[$array_index]}}
-                        @endif
-                      </td>
-                      <td class="check_icon text-right">
-                        <i class='bx bx-check'></i>
-                      </td>
-                    </tr>
-                  <?php  
-                $array_index++; 
-              } 
-            ?>
-          </tbody>
-        </table>
-        @endforeach
+                  @else 
+                    {{ $row['question_string'] }}
+                  @endif    
+                </th>
+              </thead>
+              <tbody>
+                <?php 
+                  if($key == 0){ 
+                    $x = 0;
+                  }
+                  for($i = 0 ; $i <$option_questions[$key]['op_count']; $i++) { ?>
+                        <tr>
+                          <td class="green_td_glb">
+                            @if(session('locale') == 'fr')   
+                              {{$final_fr[$array_index]}}
+                            @else
+                              {{$final[$array_index]}}
+                            @endif
+                          </td>
+                          <td class="check_icon text-right">
+                            <i class='bx bx-check'></i>
+                          </td>
+                        </tr>
+                      <?php  
+                    $array_index++; 
+                  } 
+                ?>
+              </tbody>
+            </table>
+            @endforeach
+          </div>
+        </div>
       </div>
     </div>
   </section>

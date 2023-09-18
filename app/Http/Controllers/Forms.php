@@ -1714,7 +1714,7 @@ class Forms extends Controller{
                         sub_forms.title as subform_title,
                         sub_forms.title_fr as subform_title_fr,
                         "External" as user_type'))
-                    // ->groupBy('sub_forms.id')
+                    ->orderBy('exf.created', 'desc')
                     ->get();
                     // dd($ext_forms);
 
@@ -1732,10 +1732,11 @@ class Forms extends Controller{
                                         sub_forms.title_fr as subform_title_fr,
                                         form_link_id as form_link,
                                         "Internal" as user_type'))
-                    // ->groupBy('sub_forms.id')
+                    ->orderBy('uf.created', 'desc')
                     ->get();
                     // dd($int_forms);
                 $all_forms = $int_forms->merge($ext_forms);
+
                 $all_form_data = json_decode(json_encode($all_forms), true);
                 // dd($all_forms);
                 // dd($all_form_data);
@@ -1818,7 +1819,7 @@ class Forms extends Controller{
                                 sub_forms.title_fr as subform_title_fr,
                                 form_link_id as form_link,
                                 "Internal" as user_type'))
-                    ->groupBy('sub_forms.id')
+                    ->orderBy('uf.created', 'desc')
                     ->get();
                 
                 $completed_forms = $int_forms;
@@ -2543,7 +2544,9 @@ class Forms extends Controller{
             ->where('user_form_links.is_locked', 0)
             // ->where('user_form_links.user_id', $user_id)
             ->wherein('sub_form_id', $subform_id)
-            ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "internal", is_locked'))->get();
+            ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "internal", is_locked'))
+            ->orderBy('user_form_links.created', 'desc')
+            ->get();
         $ext_form_user_list = DB::table('user_form_links')->where('sub_forms.client_id', $client_id)
             ->join('sub_forms', 'sub_forms.id', '=', 'user_form_links.sub_form_id')
             ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
@@ -2552,7 +2555,8 @@ class Forms extends Controller{
             ->where('user_form_links.is_locked', 0)
             ->where('forms.type', 'assessment')
             ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "external", is_locked'))
-        ->get();
+            ->orderBy('user_form_links.created', 'desc')
+            ->get();
 
         if (isset($_GET['ext_user_only']) && $_GET['ext_user_only'] == '1') {
             $form_user_list = $ext_form_user_list;
@@ -2570,7 +2574,9 @@ class Forms extends Controller{
             ->where('user_form_links.is_locked', 0)
             ->where('user_form_links.user_id', $user_id)
             ->wherein('sub_form_id', $subform_id)
-            ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "internal", is_locked'))->get();
+            ->select(DB::raw('*, user_form_links.created as uf_created, user_form_links.expiry_time as uf_expiry_time, "internal", is_locked'))
+            ->orderBy('user_form_links.created', 'desc')
+            ->get();
 
             $form_user_list = $int_form_user_list;
         }
@@ -2861,6 +2867,7 @@ class Forms extends Controller{
                     $user_email = DB::table('users')->where('id', $user_id)->pluck('email')->first();
 
                     $CompanyUserForm = "CompanyUserForm";
+                    $ExtUserForm = "CompanyUserForm";
                     $form_email      = "form_email";
                     if (Form::find($sub_form_info->parent_form_id)->type == 'audit'){
                         $ExtUserForm = "internal";
@@ -2869,18 +2876,18 @@ class Forms extends Controller{
 
                     $data = array('name' => $org_name, 'form_link_id' => $form_link_id, 'user_form' => $ExtUserForm, 'expiry_time' => $expiry_time, 'client_info' => $client_info);
 
-                    $transport = new Swift_SmtpTransport(env('MAIL_HOST'), env('MAIL_PORT'), env('MAIL_ENCRYPTION'));
-                    $transport->setUsername(env('mail_username'));
-                    $transport->setPassword(env('MAIL_PASSWORD'));
-                    $swift_mailer = new Swift_Mailer($transport);
-                    Mail::setSwiftMailer($swift_mailer);
+                    // $transport = new Swift_SmtpTransport(env('MAIL_HOST'), env('MAIL_PORT'), env('MAIL_ENCRYPTION'));
+                    // $transport->setUsername(env('mail_username'));
+                    // $transport->setPassword(env('MAIL_PASSWORD'));
+                    // $swift_mailer = new Swift_Mailer($transport);
+                    // Mail::setSwiftMailer($swift_mailer);
                     $reciever_email = $user_email;
-                    $sender_email = env('MAIL_FROM_ADDRESS');
+                    $sender_email = 'noreply@consentio.cloud';
                     $subject = $sb_title;
                     Mail::send(['html' => $form_email], $data, function ($message) use ($reciever_email, $sender_email, $subject) {
                         $message->to($reciever_email, 'Consentio Forms')->subject
                             ($subject);
-                        $message->from($sender_email, $sender_email);
+                        $message->from($sender_email, 'Consentio');
                     });
 
                 }

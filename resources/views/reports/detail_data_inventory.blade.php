@@ -65,11 +65,11 @@
       }
   </style>
 
-  <div class="export_btn" style="    margin-left: 40px; margin-bottom: 1rem;"> 
-    <a href="{{url('report_export/2')}}" class="btn btn-sm btn-primary"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i> {{ __('Export') }}</a>
+  <div class="export_btn" style="margin-bottom: 1rem;"> 
+    <a href="{{url('report_export/2')}}" class="buton"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i> {{ __('Export') }}</a>
   </div>
 
-  <div class="card" style="border-radius: 30px;;margin-left: 30px; margin-right: 30px">
+  <div class="card">
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table table-responsive-sm text-center" id="tab">
