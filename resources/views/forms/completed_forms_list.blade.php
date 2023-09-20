@@ -21,11 +21,11 @@
                   <th style="vertical-align: middle;" scope="col">{{ __('USER TYPE') }}</th>
                   <th style="vertical-align: middle;" scope="col">{{ __('SUBFORM NAME') }}</th>
                   <th style="vertical-align: middle;" scope="col">{{ __('FORM NAME') }}</th>
-                  <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Total Organization Users of this subform') }}</th>
+                  <!-- <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Total Organization Users of this subform') }}</th>
                   <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Completed Forms (By Organization Users)') }}</th>
                   <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Total External Users of this subform') }}</th>
-                  <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Completed Forms (By External Users)') }}</th>
-                  <th style="vertical-align: middle;" scope="col">{{ __('Completed') }}</th>
+                  <th style="vertical-align: middle;" scope="col" class="fs-12">{{ __('Completed Forms (By External Users)') }}</th> -->
+                  <!-- <th style="vertical-align: middle;" scope="col">{{ __('Completed') }}</th> -->
                   <th style="vertical-align: middle;" scope="col">{{ __('Completed On') }}</th>
                 </tr>
               </thead>
@@ -53,7 +53,7 @@
                     $form_link = url('Forms/ExtUserForm/'.$form_info->form_link);
                     
             ?>
-            <a class="btn rounded_button td_round_btn" href="<?php echo $form_link; ?>" target="_blank">{{ __('Open') }}</a>
+            <a class="btn btn-primary td_round_btn" href="<?php echo $form_link; ?>" target="_blank">{{ __('Open') }}</a>
         </td>
         <td><?php echo $form_info->email;  ?></td>
         <td>{!! __($form_info->user_type) !!}</td>
@@ -72,8 +72,8 @@
           <?php echo $form_info->form_title; ?>
           @endif
         </td>
-        <td>
-            <?php 
+        <!-- <td>
+            @php
                 if (isset($form_info->total_internal_users_count ))
                 {
                     
@@ -87,10 +87,10 @@
                 }
                 else
                     echo '-';            
-            ?>
-        </td>
-        <td>
-            <?php
+            @endphp
+        </td> -->
+        <!-- <td>
+            @php
                 if (isset($form_info->in_completed_forms ))
                 {
                   if($form_info->in_completed_forms > 0)
@@ -105,11 +105,11 @@
                 else
                 echo '-';  
                              
-            ?>            
-        </td>
-        <td>
+            @endphp          
+        </td> -->
+        <!-- <td>
          
-            <?php
+            @php
                 if (isset($form_info->total_external_users_count ))
                 {
                    if($form_info->total_external_users_count > 0 )
@@ -123,10 +123,10 @@
                 }
                 else
                     echo '-';            
-            ?>
-        </td>
-        <td>
-            <?php
+            @endphp
+        </td> -->
+        <!-- <td>
+            @php
                 if (isset($form_info->ex_completed_forms))
                 {
                   if($form_info->ex_completed_forms > 0)
@@ -140,13 +140,13 @@
                 }
                 else
                     echo '-';            
-            ?>  
-        </td>
-        <td>
-            <?php
+            @endphp  
+        </td> -->
+        <!-- <td>
+            @php
                 echo $form_info->is_locked;
-            ?>
-        </td>
+            @endphp
+        </td> -->
         <td>
             <?php
                 echo date('Y-m-d', strtotime($form_info->updated));

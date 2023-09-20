@@ -81,7 +81,7 @@
                 ?>   
                 <tr>
                   <td style="color:#<?php echo ($form_info->is_locked)?('7bca94'):('f26924'); ?>">
-                    <a type="button" class="btn rounded_button td_round_btn" href="{{ url($url) }}" target="_blank">{{ __('Open') }}</a>
+                    <a type="button" class="btn btn-primary td_round_btn" href="{{ url($url) }}" target="_blank">{{ __('Open') }}</a>
                   </td>
                   <td>{{ isset($form_info->email)?($form_info->email):($form_info->user_email) }}</td>
                   <td>{!! $user_type !!}</td>

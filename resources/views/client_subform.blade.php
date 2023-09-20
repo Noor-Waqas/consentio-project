@@ -17,7 +17,7 @@
                 <tr>
                   <th style="vertical-align: middle;" scope="col">Sr NO.</th>
                   <th style="vertical-align: middle;" scope="col">{{ __('Form Name') }}</th>
-                  <th style="vertical-align: middle;" scope="col">{{ __('Show Form') }}</th>
+                  <!-- <th style="vertical-align: middle;" scope="col">{{ __('Show Form') }}</th> -->
                   <th style="vertical-align: middle;" scope="col">{{ __('Fill Form') }}</th>
                 </tr>
             </thead>
@@ -34,10 +34,10 @@
                       @elseif (session('locale')=='en')
                       {{ $sub_forms[$i]->title }}
                       @endif</td>
-                    <td><a href={{ url('Forms/ViewForm/'.$sub_forms[$i]->parent_form_id) }} > <img src="{{url('assets-new/img/solar_eye-bold.png')}}"></i> {{ __('View Form') }}</a></td></td>
+                    <!-- <td><a href={{ url('Forms/ViewForm/'.$sub_forms[$i]->parent_form_id) }} > <img src="{{url('assets-new/img/solar_eye-bold.png')}}"></i> {{ __('View Form') }}</a></td></td> -->
                     <td class="text-center">
                         @if ($sub_forms[$i]->form_link_id != '')
-                        <a href="{{ url('Forms/CompanyUserForm/'.$sub_forms[$i]->form_link_id) }}" class="" target="_blank" >{{ __('Open')}}</a>
+                        <a href="{{ url('Forms/CompanyUserForm/'.$sub_forms[$i]->form_link_id) }}" class="btn btn-primary td_round_btn" target="_blank" >{{ __('Open')}}</a>
                               @endif
                           </td>
                     </tr>

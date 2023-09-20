@@ -183,10 +183,11 @@
         </li><!-- End Messages Nav -->
         <div class="secondNavDiv ">
         @if(session('locale')=='fr')
-        <li class="header-flag"><a href="{{ url('language/en') }}">En</a></li>
+        <li class="header-flag"><a href="{{ url('language/en') }}" style="color:#0F75BD">En</a></li>
         @elseif(session('locale')=='en')
-        <li class="header-flag"><a href="{{ url('language/fr') }}">Fr</a></li>
+        <li class="header-flag"><a href="{{ url('language/fr') }}" style="color:#0F75BD">Fr</a></li>
         @endif
+        <li class="" style="font-weight:600"><a href="{{ url('/profile/' . Auth::user()->id) }}" style="color:#0F75BD">{{Auth::user()->name}}</a></li>
         <li class="nav-item dropdown pe-3"> 
         <?php
             $d_image = '_admin.png';
