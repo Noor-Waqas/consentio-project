@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'noreply@d3cod.com'),
-        'name' => env('MAIL_FROM_NAME', 'Team Consentio'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@consentio.cloud'),
+        'name' => env('MAIL_FROM_NAME', 'Consentio TEAM'),
     ],
 
     /*
@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +84,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME', '2ee0d100-e94e-4726-8220-508ed36936b8'),
+    'username' => env('mail_username', '2ee0d100-e94e-4726-8220-508ed36936b8'),
 
     'password' => env('MAIL_PASSWORD', '56017645-c8c9-48a7-a1cd-403f6870d78f'),
 

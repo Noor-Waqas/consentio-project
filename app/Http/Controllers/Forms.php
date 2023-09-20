@@ -3789,9 +3789,17 @@ class Forms extends Controller{
 
         // return $request->all();
         $attachments = $request->add_attachments_box;
-        for ($i = sizeof($request->add_attachments_box); $i < sizeof($request->s_question_title); $i++){ 
-            $attachments[$i] = false;
+        if($attachments==null){
+            for ($i = 0; $i < sizeof($request->s_question_title); $i++){ 
+                $attachments[$i] = false;
+            }
         }
+        else{
+            for ($i = sizeof($request->add_attachments_box); $i < sizeof($request->s_question_title); $i++){ 
+                $attachments[$i] = false;
+            }
+        }
+        // dd($attachments);
 
         $obj    = (object) null;
         $obj_fr = (object) null;
