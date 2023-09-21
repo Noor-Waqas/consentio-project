@@ -1145,13 +1145,26 @@ class UsersController extends Controller
 
         $group_id = DB::table('forms')
         ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
+        ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
         ->where('forms.type', 'audit')
         ->where('sub_forms.client_id', $client_id)
+        ->select('forms.group_id', 'audit_questions_groups.group_name',  'audit_questions_groups.group_name_fr')
+        ->groupby('sub_forms.parent_form_id')
+        ->orderby('date_created', 'desc')
+        ->get();
+        // ->pluck('forms.group_id');
+        // dd($group_id);
+
+        $fav_id = DB::table('forms')
+        ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
+        ->where('forms.type', 'audit')
+        ->where('sub_forms.client_id', $client_id)
+        ->where('forms.is_fav', 1)
         ->groupby('sub_forms.parent_form_id')
         ->orderby('date_created', 'desc')
         // ->get();
         ->pluck('forms.group_id');
-        // dd($group_id);
+        // dd($fav_id);
 
         // ================================================================================================================= //
 
@@ -1160,6 +1173,7 @@ class UsersController extends Controller
         $assigned_permissions = Helper::getUserPermissions(auth()->user()->id);
         return view('home', compact(
             "group_id",
+            "fav_id",
             "client_id",
             "forms",
             "pen_forms",

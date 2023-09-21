@@ -30,12 +30,14 @@
     }
     .set_heading , .set_bg {
         background: #dfdfdfb3;
-        border-radius: 11px;
-        /*color: #fff;*/
+        border-radius: 10px 15px 15px 10px;
+        color: #7A7A7A;
+        font-size: 18px !important;
+        font-weight:600 !important;
     }
     .styling {
       font-size: 18px !important;
-      color: #1cc88a !important;
+      color: #7A7A7A !important;
     }
     .table-bordered thead td, .table-bordered thead th {
     border-bottom-width: 2px;
@@ -72,7 +74,7 @@
   <div class="card">
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table table-responsive-sm text-center" id="tab">
+        <table class="table table-striped table-responsive-sm text-center" id="datatable">
           <thead>
             <tr>
              @if(count($option_questions))
@@ -159,9 +161,9 @@
   
   <script>
     /* global $ */
-    $("#dl").click(function(){
-      $("#tab").table2csv('output', {appendTo: '#out'});
-      $("#tab").table2csv();
-    })
+    // $("#dl").click(function(){
+    //   $("#tab").table2csv('output', {appendTo: '#out'});
+    //   $("#tab").table2csv();
+    // })
   </script>
 @endsection

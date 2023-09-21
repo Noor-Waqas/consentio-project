@@ -11,13 +11,22 @@
 
 <div class="container-fluid" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
-        <div class="col-7">
+        <div class="col-6">
             <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Assessment</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
             <a class="btn btn-secondary report-change mr-2" style="padding: 6px 30px;border-radius:30px;font-size:18px;" href="{{ url('/report/remediation/' . $group_id) }}">Remediation Report</a>
-            <button id="screenshotButton" class="buton">Download Report</button>
+            <button id="screenshotButton" class="buton mr-2">Download Report</button>
+            <div>
+                <input type="hidden" id="fav_id" name="fav_id" value="{{$group_id}}">
+                @php
+                    $fav=DB::table('forms')->where('group_id', $group_id)->pluck('is_fav');
+                    //echo $fav[0];
+                @endphp
+                <button id="add_favorite" class="buton"><img src="{{url('assets-new/rstar.png')}}" style="width: 22px;" alt=""></button>
+                <button id="rem_favorite" class="buton"><img src="{{url('assets-new/star.png')}}" style="width:22px;" alt=""></button>
+            </div>
         </div>
     </div>
     <br>
@@ -457,9 +466,27 @@ $(document).ready(function() {
 
     //   Other JS Code
     $(document).ready(function() {
+
+        // Get the value of $fav[0] from PHP
+        var favValue = <?php echo $fav[0]; ?>;
+
+        // Get references to the elements by their IDs
+        var addFavoriteButton = document.getElementById('add_favorite');
+        var remFavoriteButton = document.getElementById('rem_favorite');
+
+        // Check the value and add/remove the d-none class accordingly
+        if (favValue === null || favValue === 0) {
+            addFavoriteButton.classList.remove('d-none'); // Show add favorite button
+            remFavoriteButton.classList.add('d-none');    // Hide remove favorite button
+        } else {
+            addFavoriteButton.classList.add('d-none');    // Hide add favorite button
+            remFavoriteButton.classList.remove('d-none'); // Show remove favorite button
+        }
+        
         if ($.fn.DataTable.isDataTable("#datatable")) {
             $("#datatable").DataTable().destroy();
         }
+
         // Initialize DataTable
         var dataTable = $("#datatable").DataTable({
             // Configure DataTable options and settings here
@@ -469,6 +496,50 @@ $(document).ready(function() {
             "searchPlaceholder": "Search Here"
         }
         });
+        // js code for report favorite
+        $("#add_favorite").click(function(){
+            var group_id= $("#fav_id").val();
+            console.log(group_id);
+            // Retrieve CSRF token from meta tag
+            var token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "/make-favorite",
+                method: "POST",
+                data: {
+                    group_id: group_id,
+                    _token: token
+                },
+                datatype: "json",
+                success: function(response){
+                    console.log(response)
+                    $("#add_favorite").addClass("d-none");
+                    $("#rem_favorite").removeClass("d-none");
+                }
+            })
+        })
+        $("#rem_favorite").click(function(){
+            var group_id= $("#fav_id").val();
+            console.log(group_id);
+            // Retrieve CSRF token from meta tag
+            var token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "/remove-favorite",
+                method: "POST",
+                data: {
+                    group_id: group_id,
+                    _token: token
+                },
+                datatype: "json",
+                success: function(response){
+                    console.log(response)
+                    $("#rem_favorite").addClass("d-none");
+                    $("#add_favorite").removeClass("d-none");
+                }
+            })
+        })
+
         // Listen for change event on checkboxes with class "checkbox-group"
         $(".change").change(function() {
             var classUnits = [];

@@ -25,7 +25,7 @@
               {{ __('Manage Forms') }}
             @endsection
             <div class="card-table">
-              <table class="table fixed_header manage-assessments-table">
+              <table id="datatable" class="table fixed_header manage-assessments-table">
                 <thead>
                   <tr>
                       <th style="vertical-align: middle;" scope="col">{{ __('Form Name') }}</th>

@@ -45,7 +45,9 @@
     }
     .table thead th {
         vertical-align: bottom;
-        font-size: 16px;
+        font-size: 20px !important;
+        font-weight:600 !important;
+        padding:10px 0px !important;
     }
     .table-responsive {
         min-height: 200px;

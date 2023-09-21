@@ -150,8 +150,17 @@
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
-            <a class="report-change mr-2" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Audit Report</button></a>
-            <button id="screenshotButton" class="buton">Download</button>
+            <a class="report-change mr-1" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Audit Report</button></a>
+            <button id="screenshotButton" class="buton mr-1">Download</button>
+            <div>
+                <input type="hidden" id="fav_id" name="fav_id" value="{{$group_id}}">
+                @php
+                    $fav=DB::table('forms')->where('group_id', $group_id)->pluck('is_fav');
+                    //echo $fav[0];
+                @endphp
+                <button id="add_favorite" class="buton"><img src="{{url('assets-new/rstar.png')}}" style="width: 22px;" alt=""></button>
+                <button id="rem_favorite" class="buton"><img src="{{url('assets-new/star.png')}}" style="width:22px;" alt=""></button>
+            </div>
         </div>
     </div>
     <br>
@@ -633,6 +642,23 @@ $(document).ready(function() {
       ///other js Code
     
 $(document).ready(function() {
+
+    // Get the value of $fav[0] from PHP
+    var favValue = <?php echo $fav[0]; ?>;
+
+    // Get references to the elements by their IDs
+    var addFavoriteButton = document.getElementById('add_favorite');
+    var remFavoriteButton = document.getElementById('rem_favorite');
+
+    // Check the value and add/remove the d-none class accordingly
+    if (favValue === null || favValue === 0) {
+        addFavoriteButton.classList.remove('d-none'); // Show add favorite button
+        remFavoriteButton.classList.add('d-none');    // Hide remove favorite button
+    } else {
+        addFavoriteButton.classList.add('d-none');    // Hide add favorite button
+        remFavoriteButton.classList.remove('d-none'); // Show remove favorite button
+    }
+
     if ($.fn.DataTable.isDataTable("#datatable")) {
         $("#datatable").DataTable().destroy();
     }
@@ -645,6 +671,51 @@ $(document).ready(function() {
             "searchPlaceholder": "Search Here"
         }
     });
+
+    // js code for report favorite
+    $("#add_favorite").click(function(){
+            var group_id= $("#fav_id").val();
+            console.log(group_id);
+            // Retrieve CSRF token from meta tag
+            var token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "/make-favorite",
+                method: "POST",
+                data: {
+                    group_id: group_id,
+                    _token: token
+                },
+                datatype: "json",
+                success: function(response){
+                    console.log(response)
+                    $("#add_favorite").addClass("d-none");
+                    $("#rem_favorite").removeClass("d-none");
+                }
+            })
+        })
+        $("#rem_favorite").click(function(){
+            var group_id= $("#fav_id").val();
+            console.log(group_id);
+            // Retrieve CSRF token from meta tag
+            var token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "/remove-favorite",
+                method: "POST",
+                data: {
+                    group_id: group_id,
+                    _token: token
+                },
+                datatype: "json",
+                success: function(response){
+                    console.log(response)
+                    $("#rem_favorite").addClass("d-none");
+                    $("#add_favorite").removeClass("d-none");
+                }
+            })
+        })
+
     
     // Listen for change event on checkboxes with class "checkbox-group"
     $(".checkbox-group").change(function() {

@@ -689,6 +689,67 @@ class Reports extends Controller{
         // Return the assets as a JSON response
         return response()->json($units);
     }
+    
+    public function make_favorite(Request $request){
+        // dd($request->all());
+        $group_id= $request->group_id;
+        if($group_id){
+            DB::table("forms")->where('group_id', $group_id)->update([
+                "is_fav"=>1,
+            ]);
+            return response()->json([
+                "code" => 200,
+                "message" => "Report Favorite"
+            ]);
+        }
+        else{
+            return response()->json([
+                "code" => 404,
+                "message" => "Not Found"
+            ]);
+        }
+        
+    }
+
+    public function remove_favorite(Request $request){
+        // dd($request->all());
+        $group_id= $request->group_id;
+        if($group_id){
+            DB::table("forms")->where('group_id', $group_id)->update([
+                "is_fav"=>0,
+            ]);
+            return response()->json([
+                "code" => 200,
+                "message" => "Report Favorite Removed"
+            ]);
+        }
+        else{
+            return response()->json([
+                "code" => 404,
+                "message" => "Not Found"
+            ]);
+        }
+        
+    }
+
+    public function favor_report(){
+
+        $client_id= Auth::user()->client_id;
+
+        $fav_id = DB::table('forms')
+        ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
+        ->where('forms.type', 'audit')
+        ->where('sub_forms.client_id', $client_id)
+        ->where('forms.is_fav', 1)
+        ->groupby('sub_forms.parent_form_id')
+        ->orderby('date_created', 'desc')
+        // ->get();
+        ->pluck('forms.group_id');
+
+        return response()->json([
+            'group_ids'=> $fav_id
+        ]);
+    }
 
     ///////////////////
     public function __construct(){

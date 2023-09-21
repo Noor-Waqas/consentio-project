@@ -25,6 +25,14 @@ Route::post('/your-ajax-endpointz', 'Reports@getoneRemediationByBusinessUnits');
 Route::get('/report/remediation', 'Reports@remediation_report')->name('report.remediation');
 Route::post('/your-ajax-endpoint', 'Reports@getRemediationByBusinessUnits');
 
+// Report Make Favorite
+Route::post('/make-favorite', 'Reports@make_favorite');
+Route::post('/remove-favorite', 'Reports@remove_favorite');
+
+// Report in Dashboard
+Route::get('/favor-reports', 'Reports@favor_report');
+
+
 
 
 

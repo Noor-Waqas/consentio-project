@@ -88,8 +88,12 @@
         body.dashboard {
             padding-top: 1px !important;
         }
+        .sidebar-nav {
+            padding: 0px 0px 0px 2px !important;
+        }
         .logo img {
             height: auto !important;
+            max-height: 70px !important;
         }
         @media (max-width: 500px){
             .logo img {
@@ -148,8 +152,8 @@
     <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
   <div class="outerClassNav">
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="{{ url('/dashboard') }}" class="logo d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-center">
+      <a href="{{ url('/dashboard') }}" class="logo d-flex align-items-center justify-content-center">
         @if (!empty($company_logo))
         <div>
             <img style="max-width:280px;" src="{{ url('img/' . $company_logo) }}">
