@@ -39,27 +39,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($forms_list as $form_info)
-                    <tr>
-                      <td>{{ $form_info->title }}</td>
-                      <td>
-                          <a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> 
+                @foreach($forms_list as $form_info)
+                <tr>
+                  <td>{{ $form_info->title }}</td>
+                  <td>
+                    <a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> 
                           <img src="{{url('assets-new/img/solar_eye-bold.png')}}"> {{ __('View Form') }}
-                          </a>
-                      </td>
-                      @if (Auth::user()->role != 1)
-                        <td>
-                              <a href="{{ route('subforms_list', ['id' => $form_info->form_id]) }}"><span>+ ADD</span></a>
-                            
-                              <a href="{{ route('subforms_list', ['id' => $form_info->form_id]) }}"><span class="table-ssf"><img src="{{url('assets-new/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} </span></a>
-                            
-                        </td>
-                      @endif
-                      @if (Auth::user()->role == 2 || Auth::user()->user_type == 1)
-                        <td>{{ $form_info->subforms_count }}</td>
-                      @endif
-                    <tr>
-                  @endforeach
+                    </a>
+                  </td>
+                  <?php if (Auth::user()->role != 1): ?>
+                  <td>
+                    <a href="{{ route('subforms_list', ['id' => $form_info->form_id]) }}"><span>+ ADD</span></a>        
+                    <a href="{{ route('subforms_list', ['id' => $form_info->form_id]) }}"><span class="table-ssf"><img src="{{url('assets-new/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} </span></a>  
+                  </td>
+                  <?php endif; ?>
+                  <?php if (Auth::user()->role == 2 || Auth::user()->user_type == 1): ?>
+                  <td>{{ $form_info->subforms_count }}</td>
+                  <?php endif; ?>
+                </tr>
+                @endforeach
                 </tbody>
               </table>
             </div>

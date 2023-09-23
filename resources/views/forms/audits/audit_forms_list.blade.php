@@ -26,39 +26,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($forms_list as $form_info): ?>
-                                <tr>
-
-                                    <td>{{ $form_info->title }}</td>
-                                    <td>{{ $form_info->group_name }}</td>
-                                    <td>
+                                @foreach($forms_list as $form_info)
+                                    <tr>
+                                        <td>{{ $form_info->title }}</td>
+                                        <td>{{ $form_info->group_name }}</td>
+                                        <td>
                                             <a href="{{ route('view_audit_form', $form_info->form_id) }}">
                                                 <img src="{{url('assets-new/img/solar_eye-bold.png')}}">{{ __(' View Form') }}
                                             </a>
-                                    </td>
-                                    <?php if (Auth::user()->role != 1): ?>
-                                    <td>
-                                                <a href="{{ route('audit.sub-form', ['id' => $form_info->form_id]) }}">
-                                                <img src="{{url('assets-new/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} ({{ $form_info->subforms_count }}) </a>
-                                    </td>
-                                    <?php endif;?>
-                                    <?php if (Auth::user()->role == 2 || Auth::user()->user_type == 1): ?>
-                                    <td>
-                                    <div class="add_plus_form">
-                                            <div class="add_forms">
-                                                <a href="{{ route('report.asset', ['id' => $form_info->group_id]) }}">
-                                                <i class='bx bxs-report'></i> {{ __("Audit") }}</a>
+                                        </td>
+                                        <?php if (Auth::user()->role != 1): ?>
+                                        <td>
+                                            <a href="{{ route('audit.sub-form', ['id' => $form_info->form_id]) }}">
+                                                <img src="{{url('assets-new/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} ({{ $form_info->subforms_count }}) 
+                                            </a>
+                                        </td>
+                                        <?php endif;?>
+                                        <?php if (Auth::user()->role == 2 || Auth::user()->user_type == 1): ?>
+                                        <td>
+                                            <div class="add_plus_form">
+                                                <div class="add_forms">
+                                                    <a href="{{ route('report.asset', ['id' => $form_info->group_id]) }}">
+                                                    <i class='bx bxs-report'></i> {{ __("Audit") }}</a>
+                                                </div>
+                                                <div class="add_forms">
+                                                    <a href="{{ route('report.onerem', ['id' => $form_info->group_id]) }}">
+                                                    <i class='bx bxs-report'></i> {{ __("Remediation") }}</a>
+                                                </div>
                                             </div>
-                                            <div class="add_forms">
-                                                <a href="{{ route('report.onerem', ['id' => $form_info->group_id]) }}">
-                                                <i class='bx bxs-report'></i> {{ __("Remediation") }}</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <?php endif;?>
-
-                                <tr>
-                                    <?php endforeach;?>
+                                        </td>
+                                        <?php endif;?>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
