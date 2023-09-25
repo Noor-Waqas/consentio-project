@@ -51,7 +51,7 @@
                     <tr>
                            <td><a href="{{ $fq->form_link }}" target="_blank" > {{$fq->question_response}}</a></td>
                            <td > {{$fq->user_email}}</td>  
-                           <td>  {{ $fq->form_type }} {{ __('user') }} </td>
+                           <td>  {{ $fq->form_type }}</td>
                            <td> {{date('d', strtotime($fq->created))}} {{date(' F', strtotime($fq->created))}} {{date('Y  H:i', strtotime($fq->created))}} </td>
                         
                     </tr>
