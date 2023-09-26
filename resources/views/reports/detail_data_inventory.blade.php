@@ -79,6 +79,7 @@
             <tr>
              @if(count($option_questions))
                  <th class="set_heading fixed">  {{ __('User') }} </th> 
+                 <th class="set_heading fixed">  {{ __('Activity Name') }} </th> 
              @endif
               @foreach($option_questions as $quest_heading)
                 <th class="set_heading" colspan="{{$quest_heading['op_count']}}" >
@@ -95,6 +96,7 @@
               @endforeach
             </tr>
             <tr>
+              <td class="coloring fixed"> <!-- <span> User </span> |  Option --> </td>
               <td class="coloring fixed"> <!-- <span> User </span> |  Option --> </td>
               @if(session('locale') == 'fr' && $final_fr != null)
                 @foreach($final_fr as $options)   
@@ -116,6 +118,13 @@
                     ({{$responses['sub_form_title_fr']?$responses['sub_form_title_fr']:$responses['sub_form_title']}})
                   @else
                     ( {{$responses['sub_form_title']}})
+                  @endif
+                </td>
+                <td class="add_color table-sm fixed">
+                  @if($responses['activity'] == null)
+                    -
+                  @else
+                    {{$responses['activity']}}
                   @endif
                 </td>
                 @if(session('locale') == 'fr' && $final_fr != null)

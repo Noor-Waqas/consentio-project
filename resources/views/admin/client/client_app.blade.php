@@ -591,15 +591,33 @@
         }
         
         $('#datatable').DataTable({
-        "order": [],
-        "language": {
-            "search": "",
-            "searchPlaceholder": "Search Here"
-        }
+            "order": [],
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search Here"
+            }
         });
     });
     </script>
 @endif
+<!-- @if(Request::segment(1) == 'reports')
+<script>
+    $(document).ready(function() {
+
+        if ($.fn.DataTable.isDataTable('#datatable')) {
+        // If DataTable is already initialized, destroy it
+        $('#datatable').DataTable().destroy();
+        }
+        
+        $('#datatable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel'
+            ]
+        });
+    });
+    </script>
+@endif -->
 
     <script>
         // JavaScript function to toggle the collapse

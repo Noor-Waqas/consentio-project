@@ -1109,6 +1109,8 @@ class Reports extends Controller{
             ->pluck('question_key');
 
         $filled_questions = $filled_questions->merge($filled_questions_internal);
+        // dd($filled_questions);
+
         $question = DB::table('questions')
                     ->where('type', 'mc')
                     ->wherein('form_id', $piaDpiaRop_ids)
@@ -1120,6 +1122,7 @@ class Reports extends Controller{
                     })->get();
 
         $data_inv_forms = DB::table('questions')->where('is_data_inventory_question', 1)->pluck('form_id')->unique()->toArray();
+        // dd($data_inv_forms);
 
         $new_data_inv_questions = DB::table('questions')->where('type', 'mc')->wherein('form_id', $data_inv_forms)->wherein('form_key', $filled_questions)
 		->where('is_data_inventory_question', 1)
@@ -1128,9 +1131,11 @@ class Reports extends Controller{
 				->where('question_num', '=', null)
 				->orWhere('question_num', '=', '');
 		})->get();
+        // dd($new_data_inv_questions);
 
         $question = $question->merge($new_data_inv_questions);
         $question = $question->unique('question');
+        // dd($question);
 
         //Bari start
         $en_opt = [];
@@ -1272,9 +1277,11 @@ class Reports extends Controller{
         $data = [];
         $flag = false;
         $count = 0;
+        // dd($emails);
 
         if (count($emails) > 0) {
             foreach ($emails as $users) {
+                // dd($users);
 				
                 $ex_user_res = DB::table('external_users_filled_response')->wherein('question_key', $mc_ids)->where('external_user_form_id', $users->external_user_form_id)->get();
 
@@ -1309,15 +1316,18 @@ class Reports extends Controller{
 
                 $exuserfrmid = DB::table('user_form_links')->where('id', $users->external_user_form_id)->pluck('sub_form_id')->first();
                 $form_name = DB::table('sub_forms')->where('id', $exuserfrmid)->pluck('title')->first();
+                $form_id = DB::table('sub_forms')->where('id', $exuserfrmid)->pluck('id')->first();
                 $form_name_fr = DB::table('sub_forms')->where('id', $exuserfrmid)->pluck('title_fr')->first();
 
                 if ($form_name == null) {
                     $exuserfrmid = DB::table('user_form_links')->where('id', $users->external_user_form_id)->pluck('sub_form_id')->first();
                     $form_name = DB::table('sub_forms')->where('id', $exuserfrmid)->pluck('title')->first();
+                    $form_id = DB::table('sub_forms')->where('id', $exuserfrmid)->pluck('id')->first();
                 }
                 if ($form_name_fr == null) {
                     $exuserfrmid = DB::table('user_form_links')->where('id', $users->external_user_form_id)->pluck('sub_form_id')->first();
                     $form_name_fr = DB::table('sub_forms')->where('id', $exuserfrmid)->pluck('title_fr')->first();
+                    $form_id = DB::table('sub_forms')->where('id', $exuserfrmid)->pluck('id')->first();
                 }
                 //bari start
                 $finalar = array_filter($finalar);
@@ -1352,8 +1362,30 @@ class Reports extends Controller{
                 }
                 if ($language == 'en') {
                     $op_count = $count;
+                    $ac_id= DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                    ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                    ->join('questions', 'questions.form_id', 'forms.id')
+                    ->where('sub_forms.client_id', $client_id)
+                    ->where('questions.question', 'What activity are you assessing?')
+                    ->pluck('form_key');
+                    // dd($ac_id);
+                    
+                    if(count($ac_id)>0){
+                        $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                        ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                        ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
+                        ->where('user_form_links.user_id', $users->user_id)
+                        ->where('user_form_links.client_id', $client_id)
+                        ->where('internal_users_filled_response.question_key', $ac_id)
+                        ->pluck('question_response')->first();
+                    }
+                    else{
+                        $activity=null;
+                    }
+                    // dd($activity);
                     array_push($data, array(
                         "email" => $users->user_email,
+                        "activity" => $activity,
                         "response" => $finalar,
                         "response_fr" => $finalar_fr,
                         "sub_form_title" => $form_name,
@@ -1367,8 +1399,30 @@ class Reports extends Controller{
                     $finalar_fr = $finalar;
                     $finalar = $temp;
                     $op_count = $count;
+                    $ac_id= DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                    ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                    ->join('questions', 'questions.form_id', 'forms.id')
+                    ->where('sub_forms.client_id', $client_id)
+                    ->where('questions.question', 'What activity are you assessing?')
+                    ->pluck('form_key');
+                    // dd($ac_id);
+                    
+                    if(count($ac_id)>0){
+                        $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                        ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                        ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
+                        ->where('user_form_links.user_id', $users->user_id)
+                        ->where('user_form_links.client_id', $client_id)
+                        ->where('internal_users_filled_response.question_key', $ac_id)
+                        ->pluck('question_response')->first();
+                    }
+                    else{
+                        $activity=null;
+                    }
+                    // dd($activity);
                     array_push($data, array(
                         "email" => $users->user_email,
+                        "activity" => $activity,
                         "response" => $finalar,
                         "response_fr" => $finalar_fr,
                         "sub_form_title" => $form_name,
@@ -1392,6 +1446,7 @@ class Reports extends Controller{
                 $final_fr[] = $opt_final_fr[array_search($final1, $opt_final_en)];
             }
         }
+        // dd($data);
 
         return view('reports.detail_data_inventory', compact('final', 'data', 'option_questions', 'final_fr'));
     }
