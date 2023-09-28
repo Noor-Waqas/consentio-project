@@ -95,13 +95,13 @@ class HomeController extends Controller
         $name    = $user->name;
         $email   =  $user->email;
         /*from swift mailer*/
-        $transport = new Swift_SmtpTransport(env('MAIL_HOST'), env('MAIL_PORT'), env('MAIL_ENCRYPTION'));
-        $transport->setUsername(env('mail_username'));
-        $transport->setPassword(env('MAIL_PASSWORD'));
-        $swift_mailer = new Swift_Mailer($transport);
-        Mail::setSwiftMailer($swift_mailer);        
+        // $transport = new Swift_SmtpTransport(env('MAIL_HOST'), env('MAIL_PORT'), env('MAIL_ENCRYPTION'));
+        // $transport->setUsername(env('mail_username'));
+        // $transport->setPassword(env('MAIL_PASSWORD'));
+        // $swift_mailer = new Swift_Mailer($transport);
+        // Mail::setSwiftMailer($swift_mailer);        
         $reciever_email = $email;
-        $sender_email = env('MAIL_FROM_ADDRESS');        
+        $sender_email = 'noreply@consentio.cloud';        
         Mail::send(['html'=>'varification_email'], $data, function($message) use($reciever_email , $sender_email, $subject ) {
             $message->to($reciever_email, 'Consentio Forms')->subject
             ($subject);
@@ -133,10 +133,10 @@ class HomeController extends Controller
         }
 
         $emailVerified = DB::table('users')->where('email',$request->email)->where('is_email_varified', 0)->first();
-        if($emailVerified){
-            return redirect()->back()->with('status', 'You Email Address is not Verified. Please contact your customer care team for further support.');
-            $errors['account_blocked'] = 'You Email Address is not Verified. Please contact your customer care team for further support.';  
-        }
+        // if($emailVerified){
+        //     return redirect()->back()->with('status', 'You Email Address is not Verified. Please contact your customer care team for further support.');
+        //     $errors['account_blocked'] = 'You Email Address is not Verified. Please contact your customer care team for further support.';  
+        // }
 
         $emailBlocked = DB::table('users')->where('email',$request->email)->where('is_blocked','Yes')->first();
         if($emailBlocked){
@@ -153,7 +153,7 @@ class HomeController extends Controller
             $rememberme = $emailExists->rememberme; 
             $rememberme_browser_name = $emailExists->rememberme_browser_name; 
             $rememberme_browser_type = $emailExists->rememberme_browser_type; 
-            if($rememberme=='No' || ($rememberme=='Yes' && $rememberme_browser_name!=$this->getBrowser())){
+            if($emailVerified){
                 $this->send_code(); 
             }else{
                 DB::table('users')->where('email' , $emailExists->email)->update([

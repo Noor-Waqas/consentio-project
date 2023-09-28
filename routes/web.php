@@ -58,6 +58,7 @@ Route::redirect('/', 'login');
 Route::post('/login_post', 'HomeController@login_post')->name('login_post');
 Route::get('/reload-captcha', 'HomeController@reloadCaptcha');
 Route::get('send_code', 'UsersController@send_code')->middleware(['auth', '2fa']);
+Route::post('verify_code', 'HomeController@verify_code');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/2fa', 'PasswordSecurityController@show2faform');
@@ -348,7 +349,7 @@ Route::group(["middleware" => 'admin'], function () {
     Route::get('/users/add', 'UsersController@addUser');
     Route::post('/users/store', 'UsersController@store');
     Route::post('/users/delete', 'UsersController@destroy');
-    Route::post('verify_code', 'HomeController@verify_code');
+    
     Route::post('/users/edit_store/{id}', 'UsersController@edit_store');
     Route::post('/client/store', 'UsersController@clientStore');
     Route::get('/client/add', 'UsersController@addClient');
