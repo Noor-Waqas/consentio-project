@@ -10,6 +10,8 @@
         @section('page_title')
 			@if (Request::is('audit/*'))
 				{{ __('AUDIT FORM ASSIGNEES') }}
+			@elseif (Request::is('Forms/*'))
+				{{ __('ASSESSMENT FORM ASSIGNEES') }}
 			@else
 				{{ __('SAR FORM ASSIGNEES') }}
 			@endif
@@ -20,6 +22,8 @@
           <div class="card-table">
 		  	@if (Request::is('audit/*'))
 			  	<a href="{{ url('audit/list') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
+			@elseif (Request::is('SAR/*'))
+			  	<a href="{{ url('SAR/ShowSARAssignees') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
 			@else
 				<a href="{{ url('Forms/FormsList') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
 			@endif

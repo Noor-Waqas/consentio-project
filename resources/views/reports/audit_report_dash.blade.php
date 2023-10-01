@@ -158,7 +158,7 @@
                 @endphp
                 <button id="add_favorite" class="buton"><img src="{{url('assets-new/rstar.png')}}" style="width: 22px;" alt=""></button>
                 <button id="rem_favorite" class="buton"><img src="{{url('assets-new/star.png')}}" style="width:22px;" alt=""></button>
-                <button class="d-none" id="load"></button>
+                <!-- <button class=""  onclick="alert('Button clicked!')" id="load">google</button>  -->
             </div>
         </div>
     </div>
@@ -699,8 +699,14 @@ $(document).ready(function() {
                             console.log(response)
                             $("#rem_favorite").addClass("d-none");
                             $("#add_favorite").removeClass("d-none");
-                            $("#load").click();
+                            // $("#load").click();
+                            // console.log("ok");
+                            var parentDocument = window.parent.document;
 
+                            // Find the parent button by its ID and trigger a click event on it
+                            var parentButton = parentDocument.getElementById('load');
+                            parentButton.click();
+                            // console.log("ok");
                         }
                     });
                 }

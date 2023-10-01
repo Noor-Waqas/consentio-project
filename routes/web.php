@@ -111,9 +111,10 @@ Route::middleware(['auth', '2fa', 'is_email_varified'])->group(function () {
     Route::get('SAR/SubFormAssignees/{id}', 'Forms@subform_assignees')->name('sar_subform_assignees');
     Route::get('SAR/OrgSubFormsList/{id}', 'Forms@organization_all_forms_list')->name('sar_org_all_forms_list');
     Route::get('SAR/CompanyUserForm/{link_id}', 'Forms@in_users_show_form')->name('sar_user_form_link');
-    Route::get('SAR/ShowSARAssignees/{form_id}', 'SARForm@assignee_list')->name('show_SAR_assignee_list');
+    Route::get('SAR/ShowSARAssignees', 'SARForm@assignee_list')->name('show_SAR_assignee_list');
     Route::get('SAR/SARCompletedFormsList', 'SARForm@sar_completed_forms_list');
     Route::get('SAR/SARInCompletedFormsList', 'SARForm@sar_incompleted_forms_list');
+    Route::get('SAR/SubFormsList/{id}', 'SARForm@subforms_list')->name('sar_subforms_list');
     Route::get('FormSettings/SARExpirySettings', 'SARForm@sar_expiry_settings_get');
     Route::post('FormSettings/SARExpirySettings', 'SARForm@sar_expiry_settings_post');
     Route::post('SAR/ChangeRequestStatus', 'SARForm@change_sar_request_status_post');

@@ -370,7 +370,9 @@
                                             <div class="carousel-inner">
                                                 @foreach($group_id as $group)
                                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                    <object data="{{ url('/dash/asset/' . $group->group_id) }}" style="width: 100%; min-height: 90vh; border: none;"></object>
+                                                    <object data="{{ url('/dash/asset/' . $group->group_id) }}" style="width: 100%; min-height: 90vh; border: none;">
+                                                        <!-- <button class=""  onclick="alert('Button clicked!')" id="load">google</button>     -->
+                                                    </object>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -973,7 +975,16 @@ $(document).ready(function () {
                             'id': 'loadedObject',
                             'style': 'width: 100%; min-height: 90vh; border: none;'
                         });
+                        var loadTag = $('<button>').attr({
+                            'id': 'load',
+                            'class': 'd-none'
+                            
+                        }).click(function() {
+                            // Your click event handler code here
+                            load();
+                        });
 
+                        carouselItem.append(loadTag);
                         carouselItem.append(objectTag);
                         favReportContainer.append(carouselItem);
 
@@ -997,6 +1008,65 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    function load() {
+        // Make an Ajax request to retrieve the group IDs
+        $.ajax({
+            url: '/favor-reports', // Replace with the actual API endpoint
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                // Check if the response contains group IDs
+                if (Array.isArray(response.group_ids)) {
+                    $('.fav-report').html("");
+                    $('#carousel-indicator').html("");
+                    var favReportContainer = $('.fav-report');
+
+                    // Loop through the group IDs and append the structure for each group
+                    $.each(response.group_ids, function (index, groupId) {
+                        var url = '/dash/asset/' + groupId.group_id;
+
+                        // Create the carousel item with the object tag and append it
+                        var carouselItem = $('<div>').addClass('carousel-item ' + (index === 0 ? 'active' : ''));
+                        var objectTag = $('<object>').attr({
+                            'data': url,
+                            'id': 'loadedObject',
+                            'style': 'width: 100%; min-height: 90vh; border: none;'
+                        });
+                        var loadTag = $('<button>').attr({
+                            'id': 'load',
+                            'class': 'd-none'
+                        }).click(function() {
+                            // Your click event handler code here
+                            load();
+                        });
+
+                        carouselItem.append(loadTag);
+                        carouselItem.append(objectTag);
+                        favReportContainer.append(carouselItem);
+
+                        var option = $('<option>', {
+                            value: groupId.group_id,
+                            text: groupId.group_name
+                        });
+                        if (index === 0) {
+                            option.attr('selected', 'selected');
+                        }
+                        $('#carousel-indicator').append(option);
+                    });
+                } else {
+                    // Handle the case where there are no group IDs in the response
+                    console.error('No group IDs found in the response.');
+                }
+            },
+            error: function (xhr, status, error) {
+                // Handle the error case
+                console.error('Ajax request failed:', status, error);
+            }
+        });
+    }
+
 });
 </script>
 

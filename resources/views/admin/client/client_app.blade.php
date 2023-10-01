@@ -95,6 +95,12 @@
             height: auto !important;
             max-height: 70px !important;
         }
+        .btn-primary {
+            background-color: #0F75BD !important;
+            border-color: #0F75BD !important;
+        }
+
+
         @media (max-width: 500px){
             .logo img {
                 height: 30px !important;
@@ -364,14 +370,14 @@
         @if (in_array('SAR Forms', $data) || in_array('SAR Forms Submitted', $data) || in_array('SAR Forms pending', $data))
         <li class="nav-item">
             <a onclick="toggleCollapse('sar-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'SAR/') !== false ? 'active' : '' }}" data-bs-target="#sar-register-nav" data-bs-toggle="collapse" href="#">
-            <img src="{{ url('assets-new/img/audit-reg.png') }}" alt="Audit Register"><div class="border__bottom"><span>{{ __('SAR Forms') }}</span></div>
+            <img src="{{ url('assets-new/img/a-r.png') }}" alt="Audit Register"><div class="border__bottom"><span>{{ __('SAR Forms') }}</span></div>
             </a>
 
             @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3)
             <ul id="sar-register-nav" class="nav-content collapse {{ strpos(url()->current(), 'SAR/') !== false ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 @if (in_array('SAR Forms', $data))
                 <li class="{{ (Request::segment(2) == 'ShowSARAssignees') ? 'active' : '' }}">
-                    <a href="{{ url('SAR/ShowSARAssignees/' . $SAR_company_subform->parent_form_id) }}">
+                    <a href="{{ url('SAR/ShowSARAssignees') }}">
                     <span>{{ __('SAR Forms') }}</span>
                     </a>
                 </li>
@@ -386,7 +392,7 @@
                 @if (in_array('SAR Forms pending', $data))
                 <li class="{{ (Request::segment(2) == 'SARInCompletedFormsList') ? 'active' : '' }}">
                     <a href="{{ url('SAR/SARInCompletedFormsList') }}">
-                    <span>{{ __('SAR Forms pending') }}</span>
+                    <span>{{ __('SAR Forms Pending') }}</span>
                     </a>
                 </li>
                 @endif
