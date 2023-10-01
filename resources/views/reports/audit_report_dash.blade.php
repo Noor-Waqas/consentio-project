@@ -699,11 +699,9 @@ $(document).ready(function() {
                             console.log(response)
                             $("#rem_favorite").addClass("d-none");
                             $("#add_favorite").removeClass("d-none");
-                            // $("#load").click();
                             // console.log("ok");
+                            /// Hit the Button in Parent Document to reload fav reports. 
                             var parentDocument = window.parent.document;
-
-                            // Find the parent button by its ID and trigger a click event on it
                             var parentButton = parentDocument.getElementById('load');
                             parentButton.click();
                             // console.log("ok");
