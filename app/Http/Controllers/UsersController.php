@@ -1157,13 +1157,15 @@ class UsersController extends Controller
 
         $fav_id = DB::table('forms')
         ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
+        ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
         ->where('forms.type', 'audit')
         ->where('sub_forms.client_id', $client_id)
         ->where('forms.is_fav', 1)
+        ->select('forms.group_id', 'audit_questions_groups.group_name',  'audit_questions_groups.group_name_fr')
         ->groupby('sub_forms.parent_form_id')
         ->orderby('date_created', 'desc')
-        // ->get();
-        ->pluck('forms.group_id');
+        ->get();
+        // ->pluck('forms.group_id');
         // dd($fav_id);
 
         // ================================================================================================================= //

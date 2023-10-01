@@ -729,7 +729,7 @@ class Reports extends Controller{
                 "message" => "Not Found"
             ]);
         }
-        
+
     }
 
     public function favor_report(){
@@ -738,13 +738,14 @@ class Reports extends Controller{
 
         $fav_id = DB::table('forms')
         ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
+        ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
         ->where('forms.type', 'audit')
         ->where('sub_forms.client_id', $client_id)
         ->where('forms.is_fav', 1)
+        ->select('forms.group_id', 'audit_questions_groups.group_name',  'audit_questions_groups.group_name_fr')
         ->groupby('sub_forms.parent_form_id')
         ->orderby('date_created', 'desc')
-        // ->get();
-        ->pluck('forms.group_id');
+        ->get();
 
         return response()->json([
             'group_ids'=> $fav_id
@@ -1369,7 +1370,13 @@ class Reports extends Controller{
                     ->where('questions.question', 'What activity are you assessing?')
                     ->pluck('form_key');
                     // dd($ac_id);
-                    
+                    $as_id= DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                    ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                    ->join('questions', 'questions.form_id', 'forms.id')
+                    ->where('sub_forms.client_id', $client_id)
+                    ->where('questions.question', 'What assets are used to process the data for this activity?')
+                    ->pluck('form_key');
+                    // dd($as_id);
                     if(count($ac_id)>0){
                         $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
                         ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
@@ -1382,10 +1389,23 @@ class Reports extends Controller{
                     else{
                         $activity=null;
                     }
-                    // dd($activity);
+                    if(count($as_id)>0){
+                        $asset = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                        ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                        ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
+                        ->where('user_form_links.user_id', $users->user_id)
+                        ->where('user_form_links.client_id', $client_id)
+                        ->where('internal_users_filled_response.question_key', $as_id)
+                        ->pluck('question_response')->first();
+                    }
+                    else{
+                        $asset=null;
+                    }
+                    // dd($asset);
                     array_push($data, array(
                         "email" => $users->user_email,
                         "activity" => $activity,
+                        "asset" => $asset,
                         "response" => $finalar,
                         "response_fr" => $finalar_fr,
                         "sub_form_title" => $form_name,
@@ -1406,6 +1426,13 @@ class Reports extends Controller{
                     ->where('questions.question', 'What activity are you assessing?')
                     ->pluck('form_key');
                     // dd($ac_id);
+                    $as_id= DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                    ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                    ->join('questions', 'questions.form_id', 'forms.id')
+                    ->where('sub_forms.client_id', $client_id)
+                    ->where('questions.question', 'What assets are used to process the data for this activity?')
+                    ->pluck('form_key');
+                    // dd($as_id);
                     
                     if(count($ac_id)>0){
                         $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
@@ -1420,9 +1447,23 @@ class Reports extends Controller{
                         $activity=null;
                     }
                     // dd($activity);
+                    if(count($as_id)>0){
+                        $asset = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                        ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                        ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
+                        ->where('user_form_links.user_id', $users->user_id)
+                        ->where('user_form_links.client_id', $client_id)
+                        ->where('internal_users_filled_response.question_key', $as_id)
+                        ->pluck('question_response')->first();
+                    }
+                    else{
+                        $asset=null;
+                    }
+                    // dd($asset);
                     array_push($data, array(
                         "email" => $users->user_email,
                         "activity" => $activity,
+                        "asset" => $asset,
                         "response" => $finalar,
                         "response_fr" => $finalar_fr,
                         "sub_form_title" => $form_name,

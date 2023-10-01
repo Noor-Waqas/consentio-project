@@ -80,6 +80,7 @@
              @if(count($option_questions))
                  <th class="set_heading fixed">  {{ __('User') }} </th> 
                  <th class="set_heading fixed">  {{ __('Activity Name') }} </th> 
+                 <th class="set_heading fixed">  {{ __('Assets Name') }} </th> 
              @endif
               @foreach($option_questions as $quest_heading)
                 <th class="set_heading" colspan="{{$quest_heading['op_count']}}" >
@@ -96,6 +97,7 @@
               @endforeach
             </tr>
             <tr>
+              <td class="coloring fixed"> <!-- <span> User </span> |  Option --> </td>
               <td class="coloring fixed"> <!-- <span> User </span> |  Option --> </td>
               <td class="coloring fixed"> <!-- <span> User </span> |  Option --> </td>
               @if(session('locale') == 'fr' && $final_fr != null)
@@ -125,6 +127,13 @@
                     -
                   @else
                     {{$responses['activity']}}
+                  @endif
+                </td>
+                <td class="add_color table-sm fixed">
+                  @if($responses['asset'] == null)
+                    -
+                  @else
+                    {{$responses['asset']}}
                   @endif
                 </td>
                 @if(session('locale') == 'fr' && $final_fr != null)
@@ -174,5 +183,17 @@
     //   $("#tab").table2csv('output', {appendTo: '#out'});
     //   $("#tab").table2csv();
     // })
+  </script>
+  <script>
+      $(document).ready(function() {
+          $('#datatable').DataTable({
+            "order": [],
+            "language": {
+              "search": "",
+              "searchPlaceholder": "Search Here"
+            }
+          });
+          
+      });
   </script>
 @endsection

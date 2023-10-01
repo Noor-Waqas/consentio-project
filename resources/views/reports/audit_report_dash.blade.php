@@ -158,6 +158,7 @@
                 @endphp
                 <button id="add_favorite" class="buton"><img src="{{url('assets-new/rstar.png')}}" style="width: 22px;" alt=""></button>
                 <button id="rem_favorite" class="buton"><img src="{{url('assets-new/star.png')}}" style="width:22px;" alt=""></button>
+                <button class="d-none" id="load"></button>
             </div>
         </div>
     </div>
@@ -479,6 +480,8 @@ $(document).ready(function() {
     });
 });
 </script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
 <script type="text/javascript">
     // First Chart 
@@ -641,20 +644,32 @@ $(document).ready(function() {
             // Retrieve CSRF token from meta tag
             var token = $('meta[name="csrf-token"]').attr('content');
 
-            $.ajax({
-                url: "/make-favorite",
-                method: "POST",
-                data: {
-                    group_id: group_id,
-                    _token: token
-                },
-                datatype: "json",
-                success: function(response){
-                    console.log(response)
-                    $("#add_favorite").addClass("d-none");
-                    $("#rem_favorite").removeClass("d-none");
+            Swal.fire({
+                title: 'Mark Report as favorite?',
+                // text: 'Mark Report as favorite?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User clicked "Yes," proceed with the AJAX request
+                    $.ajax({
+                        url: "/make-favorite",
+                        method: "POST",
+                        data: {
+                            group_id: group_id,
+                            _token: token
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            $("#add_favorite").addClass("d-none");
+                            $("#rem_favorite").removeClass("d-none");
+                        }
+                    });
                 }
-            })
+            });
         })
         $("#rem_favorite").click(function(){
             var group_id= $("#fav_id").val();
@@ -662,20 +677,36 @@ $(document).ready(function() {
             // Retrieve CSRF token from meta tag
             var token = $('meta[name="csrf-token"]').attr('content');
 
-            $.ajax({
-                url: "/remove-favorite",
-                method: "POST",
-                data: {
-                    group_id: group_id,
-                    _token: token
-                },
-                datatype: "json",
-                success: function(response){
-                    console.log(response)
-                    $("#rem_favorite").addClass("d-none");
-                    $("#add_favorite").removeClass("d-none");
+            Swal.fire({
+                title: 'Remove Report from Favorites?',
+                // text: 'Mark Report as favorite?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User clicked "Yes," proceed with the AJAX request
+                    $.ajax({
+                        url: "/remove-favorite",
+                        method: "POST",
+                        data: {
+                            group_id: group_id,
+                            _token: token
+                        },
+                        datatype: "json",
+                        success: function(response){
+                            console.log(response)
+                            $("#rem_favorite").addClass("d-none");
+                            $("#add_favorite").removeClass("d-none");
+                            $("#load").click();
+
+                        }
+                    });
                 }
-            })
+            });
+
+            
         })
 
         // Listen for change event on checkboxes with class "checkbox-group"

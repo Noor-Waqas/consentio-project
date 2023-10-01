@@ -89,7 +89,7 @@
             padding-top: 1px !important;
         }
         .sidebar-nav {
-            padding: 0px 0px 0px 2px !important;
+            padding: 0px 0px 0px 5px !important;
         }
         .logo img {
             height: auto !important;
@@ -355,6 +355,51 @@
             @endif
         </li><!-- End Forms Nav -->
         @endif
+
+
+
+        <!-- //////////////////////////////////////////// -->
+        @if ((isset($SAR_company_subform) && !empty($SAR_company_subform)) || Auth::user()->role == 3)
+
+        @if (in_array('SAR Forms', $data) || in_array('SAR Forms Submitted', $data) || in_array('SAR Forms pending', $data))
+        <li class="nav-item">
+            <a onclick="toggleCollapse('sar-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'SAR/') !== false ? 'active' : '' }}" data-bs-target="#sar-register-nav" data-bs-toggle="collapse" href="#">
+            <img src="{{ url('assets-new/img/audit-reg.png') }}" alt="Audit Register"><div class="border__bottom"><span>{{ __('SAR Forms') }}</span></div>
+            </a>
+
+            @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3)
+            <ul id="sar-register-nav" class="nav-content collapse {{ strpos(url()->current(), 'SAR/') !== false ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                @if (in_array('SAR Forms', $data))
+                <li class="{{ (Request::segment(2) == 'ShowSARAssignees') ? 'active' : '' }}">
+                    <a href="{{ url('SAR/ShowSARAssignees/' . $SAR_company_subform->parent_form_id) }}">
+                    <span>{{ __('SAR Forms') }}</span>
+                    </a>
+                </li>
+                @endif
+                @if (in_array('SAR Forms Submitted', $data))
+                <li class="{{ (Request::segment(2) == 'SARCompletedFormsList') ? 'active' : '' }}">
+                    <a href="{{ url('SAR/SARCompletedFormsList') }}">
+                    <span>{{ __('SAR Forms Submitted') }}</span>
+                    </a>
+                </li>
+                @endif
+                @if (in_array('SAR Forms pending', $data))
+                <li class="{{ (Request::segment(2) == 'SARInCompletedFormsList') ? 'active' : '' }}">
+                    <a href="{{ url('SAR/SARInCompletedFormsList') }}">
+                    <span>{{ __('SAR Forms pending') }}</span>
+                    </a>
+                </li>
+                @endif
+            
+            </ul>
+            @endif
+        </li><!-- End Forms Nav -->
+        @endif
+        
+        @endif
+
+
+        <!-- //////////////////////// -->
 
         @if (Auth::user()->role == 2)
         @if (in_array('Users Management', $data))

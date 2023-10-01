@@ -346,10 +346,10 @@
                                 <div class="center-tabs mt-2">
                                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                                         <li class="nav-item favor">
-                                            <a class="nav-link active" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Favorites</a>
+                                            <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Favorites</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Audit Reports</a>
+                                            <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Audit Reports</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Global Remediation</a>
@@ -358,7 +358,7 @@
                                 </div>
                                 
                                 <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
                                     <div id="carouselExampleControls" class="carousel slide">
                                             <!-- Carousel Indicators (Dropdown) -->
                                             <select id="carousel-indicators" style="max-width:20%;margin:0 auto;" class="form-control">
@@ -399,14 +399,21 @@
                                         <object data="{{ url('/dash/global') }}" style="width: 100%; height:110vh;border:none;"></object>
                                     </div>
                                     
-                                    <div class="tab-pane fade show active" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+                                    <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
                                         <div id="carouselExampleControls1" class="carousel slide">
+                                                <!-- Carousel Indicators (Dropdown) -->
+                                                <select id="carousel-indicator" style="max-width:20%;margin:0 auto;" class="form-control">
+                                                    <!-- @foreach($fav_id as $fav)
+                                                        <option value="{{ $fav->group_id }}" {{ $loop->first ? 'selected' : '' }}>{{ $fav->group_name }}</option>
+                                                    @endforeach -->
+                                                </select>
+
                                                 <div class="carousel-inner fav-report">
-                                                    @foreach($fav_id as $fav)
+                                                    <!-- @foreach($fav_id as $fav)
                                                     <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
-                                                        <object data="{{ url('/dash/asset/' . $fav) }}" style="width: 100%; min-height:90vh;border:none;"></object>
+                                                        <object data="{{ url('/dash/asset/' . $fav->group_id) }}" style="width: 100%; min-height:90vh;border:none;"></object>
                                                     </div>
-                                                    @endforeach
+                                                    @endforeach -->
                                                 </div>
                                                 <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -418,6 +425,13 @@
                                                 </a>
                                         </div>
                                     </div>
+                                    <script>
+                                        // Add event listener to the select element for navigation
+                                        document.getElementById('carousel-indicator').addEventListener('change', function() {
+                                            const selectedIndex = this.selectedIndex;
+                                            $('#carouselExampleControls1').carousel(selectedIndex); // Activate the corresponding slide
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -916,7 +930,23 @@ function initialize() {
 
 <script>
 $(document).ready(function () {
-    // Define a click event handler for the element with the ID 'favorite-report'
+    // $("#loadedObject").on("load", function() {
+    //     var loadedDocument = this.contentDocument || this.contentWindow.document;
+    //     var button = loadedDocument.getElementById("load");
+    //     console.log(loadedDocument);
+        
+    //     if (button) {
+    //         // Define a click event handler for the button with the ID 'rem-favorite'
+    //         $(button).on('click', function(e) {
+    //             e.preventDefault(); // Prevent the default behavior of the button click
+    //             // Your logic to handle the button click goes here
+    //             console.log("Button 'rem-favorite' clicked!");
+    //         });
+    //     } else {
+    //         console.log("Button with ID 'rem-favorite' not found in loaded content.");
+    //     }
+    // });
+
     $('.favor').on('click', function (e) {
         e.preventDefault(); // Prevent the default behavior of the link (e.g., navigating to a new page)
 
@@ -929,21 +959,32 @@ $(document).ready(function () {
                 // Check if the response contains group IDs
                 if (Array.isArray(response.group_ids)) {
                     $('.fav-report').html("");
+                    $('#carousel-indicator').html("");
                     var favReportContainer = $('.fav-report');
 
                     // Loop through the group IDs and append the structure for each group
                     $.each(response.group_ids, function (index, groupId) {
-                        var url = '/dash/asset/' + groupId;
+                        var url = '/dash/asset/' + groupId.group_id;
 
                         // Create the carousel item with the object tag and append it
                         var carouselItem = $('<div>').addClass('carousel-item ' + (index === 0 ? 'active' : ''));
                         var objectTag = $('<object>').attr({
                             'data': url,
+                            'id': 'loadedObject',
                             'style': 'width: 100%; min-height: 90vh; border: none;'
                         });
 
                         carouselItem.append(objectTag);
                         favReportContainer.append(carouselItem);
+
+                        var option = $('<option>', {
+                            value: groupId.group_id,
+                            text: groupId.group_name
+                        });
+                        if (index === 0) {
+                            option.attr('selected', 'selected');
+                        }
+                        $('#carousel-indicator').append(option);
                     });
                 } else {
                     // Handle the case where there are no group IDs in the response
