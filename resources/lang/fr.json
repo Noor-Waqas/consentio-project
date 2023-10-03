@@ -377,6 +377,8 @@
     "Completed": "Complété",
     "Subform Name": "Nom du sous-formulaire",
     "Manage Assessment Forms": "Gérer les formulaires d'évaluation",
+    "Login Failed Wrong User Credentials": "Échec de la connexion Informations d'identification utilisateur erronées",
+    "Your account is currently blocked. Please contact your customer care team for further support.": "Votre compte est actuellement bloqué. Veuillez contacter votre équipe de service client pour obtenir une assistance supplémentaire.",
     "Enter the pin from Google Authenticator Enable 2FA": "Entrez le code PIN de Google Authenticator Activer 2FA",
     "Disable 2FA": "Désactiver 2FA",
     "Current Password": "Mot de passe actuel",

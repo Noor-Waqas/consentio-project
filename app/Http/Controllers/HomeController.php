@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Auth;
 use Hash;
 use Session;
@@ -140,13 +141,13 @@ class HomeController extends Controller
 
         $emailBlocked = DB::table('users')->where('email',$request->email)->where('is_blocked','Yes')->first();
         if($emailBlocked){
-            return redirect()->back()->with('status', 'You account is currently blocked. Please contact your customer care team for further support.');
-            $errors['account_blocked'] = 'You account is currently blocked. Please contact your customer care team for further support.';  
+            return redirect()->back()->with('status', 'Your account is currently blocked. Please contact your customer care team for further support.');
+            $errors['account_blocked'] = 'Your account is currently blocked. Please contact your customer care team for further support.';  
         }
         $login_attempts = $emailExists->login_attempts;
         if($login_attempts>5){
             Session::flush();    
-            return redirect()->back()->with('status', 'You account is currently blocked. Please contact your customer care team for further support.');
+            return redirect()->back()->with('status', 'Your account is currently blocked. Please contact your customer care team for further support.');
         }
         if (Auth::attempt($userdata)) {
             // return Auth::user();
@@ -165,6 +166,9 @@ class HomeController extends Controller
 
         }else{
             $login_attempts = $this->checkUserBlockage($request->email);
+            if(App::getLocale()=='fr'){
+                return redirect()->back()->with('status', 'Veuillez saisir un e-mail et un mot de passe précis. Votre compte sera bloqué après '.$login_attempts.' tentatives de connexion.'); 
+            }
     	    return redirect()->back()->with('status', 'Please enter an accurate email and password. You account will be blocked after '.$login_attempts.' login attempts.');                           
         } 
         return redirect('/dashboard');

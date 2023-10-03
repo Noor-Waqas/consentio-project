@@ -254,7 +254,7 @@
                         
                         <div class="col">
                             <button type="button" data-toggle="modal" data-target="#myModal"
-                                class="buton mx-1" style="border: 1px solid #71BA4F; background: #71BA4F;">{{ __('ADD MORE') }}</button>
+                                class="buton mx-1" style="border: 1px solid #71BA4F; background: #71BA4F;">{{ __('ADD ASSET') }}</button>
                         </div>
 
                         <div class="col text-right mt-2">

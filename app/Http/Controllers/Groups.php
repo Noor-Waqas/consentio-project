@@ -143,6 +143,14 @@ class Groups extends Controller
                     'data'      => null
                 ], 200);
             }
+            $dublicate=GroupSection::where('section_title', strtoupper($request->section_title))->count();
+            // dd($dublicate);
+            if($dublicate > 0){
+                return response()->json([
+                    'status' => false,
+                    'success' => "Section Name Already Exist",
+                ], 200);
+            }
 
             $section_number = GroupSection::where('group_id', $request->group_id)->count();
             $section_number = $section_number + 1;

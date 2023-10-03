@@ -82,7 +82,7 @@
             <h1>{{ __('Compliance Management') }}</h1>
             @if (Session::has('status'))
             <div class="alert alert-danger fw-bolder" style="color: red;">
-                {{ session()->get('status') }}
+                {{ __(session()->get('status')) }}
             </div>
             @endif
           <form class="login-form" method="POST" action="{{ route('login_post') }}" id="admin_login">

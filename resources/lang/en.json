@@ -395,6 +395,8 @@
     "E-Mail Address": "E-Mail Address",
     "Send Password Reset Link": "Send Password Reset Link",
     "Confirm Password": "Confirm Password",
+    "Login Failed Wrong User Credentials": "Login Failed. Wrong User Credentials",
+    "Your account is currently blocked. Please contact your customer care team for further support.": "Your account is currently blocked. Please contact your customer care team for further support.",
     "Two Factor Authentication": "Two Factor Authentication",
     "Two factor authentication (2FA) strengthens access security by requiring two methods (also referred to as factors) to verify your identity. Two factor authentication protects against phishing, social engineering and password brute force attacks and secures your logins from attackers exploiting weak or stolen credentials.": "Two factor authentication (2FA) strengthens access security by requiring two methods (also referred to as factors) to verify your identity. Two factor authentication protects against phishing, social engineering and password brute force attacks and secures your logins from attackers exploiting weak or stolen credentials.",
     "Enter the pin from Google Authenticator app": "Enter the pin from Google Authenticator app",

@@ -77,7 +77,7 @@
         }
         function submitDuplicate(url){
             swal({
-                title:"Are you want to duplicate?",
+                title:"Are you sure you want to duplicate?",
                 type: "info",
                 showCancelButton: true,
                 confirmButtonColor: "#05DD6B",

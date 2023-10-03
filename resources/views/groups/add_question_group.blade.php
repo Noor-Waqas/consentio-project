@@ -875,13 +875,21 @@
                 success: function (res) {
                     if (!res.status) {
                         swal('', res.error, 'warning');
-                    }else{
+                    }
+                    if(res.status == true){
                         $('#addQuestionModel').modal('hide');
                         console.log();
                         swal('', res.success, 'success');
                         setTimeout(() => {
                             location.reload();
-                        }, 500);
+                        }, 1000);
+                    }
+                    if(res.status == false){
+                        $('#addQuestionModel').modal('hide');
+                        console.log();
+                        swal('', res.success, 'warning');
+                        setTimeout(() => {
+                        }, 1000);
                     }
                 }
             });

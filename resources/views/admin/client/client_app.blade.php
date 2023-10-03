@@ -273,7 +273,7 @@
         @if (in_array('My Assigned Forms', $data) || in_array('Manage Forms', $data) || in_array('Completed Forms', $data))
 
         <li class="nav-item">
-            <a onclick="toggleCollapse('assessment-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'Forms/') !== false ? 'active' : '' }}" data-bs-target="#assessment-register-nav" data-bs-toggle="collapse" href="#">
+            <a onclick="toggleCollapse('assessment-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'Forms/') !== false ? 'active' : '' }}" data-bs-target="#assessment-register-nav" data-bs-toggle="collapse" href="{{ url('Forms/FormsList') }}">
             <img src="{{ url('assets-new/img/a-r.png') }}"  alt="Assessment Register"><div class="border__bottom"><span>Assessment Register</span></div>
             </a>
 
@@ -315,7 +315,7 @@
 
         @if (in_array('Manage Audits', $data) || in_array('Completed Audits', $data) || in_array('Assigned Audits', $data))
         <li class="nav-item">
-            <a onclick="toggleCollapse('audit-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'audit/') !== false ? 'active' : '' }}" data-bs-target="#audit-register-nav" data-bs-toggle="collapse" href="#">
+            <a onclick="toggleCollapse('audit-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'audit/') !== false ? 'active' : '' }}" data-bs-target="#audit-register-nav" data-bs-toggle="collapse" href="{{ route('audit.list') }}">
             <img src="{{ url('assets-new/img/audit-reg.png') }}" alt="Audit Register"><div class="border__bottom"><span>{{ __('Audit Register') }}</span></div>
             </a>
 
@@ -369,7 +369,7 @@
 
         @if (in_array('SAR Forms', $data) || in_array('SAR Forms Submitted', $data) || in_array('SAR Forms pending', $data))
         <li class="nav-item">
-            <a onclick="toggleCollapse('sar-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'SAR/') !== false ? 'active' : '' }}" data-bs-target="#sar-register-nav" data-bs-toggle="collapse" href="#">
+            <a onclick="toggleCollapse('sar-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'SAR/') !== false ? 'active' : '' }}" data-bs-target="#sar-register-nav" data-bs-toggle="collapse" href="{{ url('SAR/ShowSARAssignees') }}">
             <img src="{{ url('assets-new/img/a-r.png') }}" alt="Audit Register"><div class="border__bottom"><span>{{ __('SAR Forms') }}</span></div>
             </a>
 
@@ -420,7 +420,7 @@
         @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3)
         @if (in_array('Global Data Inventory', $data) || in_array('Detailed Data Inventory', $data))
         <li class="nav-item">
-            <a onclick="toggleCollapse('data-inventory-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'reports') !== false ? 'active' : '' }}" data-bs-target="#data-inventory-nav" data-bs-toggle="collapse" href="#">
+            <a onclick="toggleCollapse('data-inventory-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'reports') !== false ? 'active' : '' }}" data-bs-target="#data-inventory-nav" data-bs-toggle="collapse" href="{{ route('summary_reports_all') }}">
             <img src="{{ url('assets-new/img/data-in.png') }}" alt="Data Inventory"><div class="border__bottom"><span>{{ __('Data Inventory') }}</span></div>
             </a>
 
