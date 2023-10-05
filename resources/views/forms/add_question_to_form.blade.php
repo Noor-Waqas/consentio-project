@@ -822,9 +822,9 @@
 
                         <div class="form-group">
                             <label for="question_title" class="col-form-label">Add Question Title English <strong style="color: red">*</strong></label>
-                            <input type="text" name="question_title" class="form-control" onkeyup="$('#qmodel_main_q').val($(this).val())">
+                            <input type="text" name="question_title" class="form-control" onkeyup="$('#qmodel_main_q_fr').val($(this).val())">
                             <label for="question_title_fr" class="col-form-label fr_group">Add Question Title French <strong style="color: red">*</strong></label>
-                            <input type="text" name="question_title_fr" class="form-control fr_field" id="qmodel_main_q">
+                            <input type="text" name="question_title_fr" class="form-control fr_field" id="qmodel_main_q_fr">
                         </div>
 
                         <div class="form-group">
@@ -1121,7 +1121,7 @@
                             '<input type="text" ' +property + ' id="main-' + created_div_id + '" name="s_question_title_fr[]" class="form-control fr_field" >'+
                             '<div class="form-group">'+
                                 '<label for="question_title" class="col-form-label">Add Question Short Title English <strong style="color: red">*</strong></label>'+
-                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" onkeyup="$("#qm_main_q").val($(this).val())">'+
+                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" onkeyup="updateValue(this)">'+
                                 '<label for="question_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>'+
                                 '<input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="qm_main_q">'+
                             '</div>';
@@ -1243,7 +1243,7 @@
                             '<input type="text" ' +property + ' name="s_question_title_fr[]" id="main-' + created_div_id +'"  class="form-control fr_field" >'+
                             '<div class="form-group">'+
                                 '<label for="question_title" class="col-form-label">Add Question Short Title English <strong style="color: red">*</strong></label>'+
-                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" onkeyup="$("#q_main_q").val($(this).val())">'+
+                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" onkeyup="updateVal(this)">'+
                                 '<label for="question_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>'+
                                 '<input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="q_main_q">'+
                             '</div>';
@@ -1622,6 +1622,99 @@
             $('#' + render_div).html(' ');
             var html = '<input type="hidden" name="q_type" value="' + type + '">';
             switch (type) {
+                case 'mc':
+                    html += '<label for="' + type +
+                        '_question_options" class="col-form-label">Add (,) Separated English options <strong style="color:  red">*</strong></label>' +
+                        '<textarea onkeyup="check_is_type_sc_for_datepicker(this.value,this),$(\'#options-\').val($(this).val())" type="text"  class="form-control" name="question_options"></textarea>' +
+                        '<label for="' + type +
+                        '_question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
+                        '<textarea onkeyup="check_is_type_sc_for_datepicker(this.value,this)" type="text"  class="form-control" id="options-" name="question_options_fr" ' +
+                        property + ' ></textarea>' +
+                        '<label for="' + type +
+                        '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
+                        '<textarea type="text"  class="form-control" name="question_coment" onkeyup="$(\'#comment-\').val($(this).val())" ></textarea>' +
+                        '<label for="' + type +
+                        '_question_options_fr" class="col-form-label">Add Question Comment French (Optional)</label>' +
+                        '<textarea type="text" class="form-control" name="question_coment_fr" ' + property +'id="comment-" ></textarea>'+
+                        '<div class="pt-2">'+
+                            '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
+                            '<div class="options"></div>'+
+                            // '<input type="checkbox" onclick=$(this).val($(this).prop("checked")) value="false"  name="add_not_sure_box"> Add (Not Sure) Option'
+                        '</div>';
+
+                    $('#' + render_div).html(html);
+                    $('#' + render_div).show();
+                    $('#question_div').show();
+                    break;
+                case 'sc':
+                    // code block
+                    html += '<label for="' + type +
+                        '_question_options" class="col-form-label">Add (,) Separated English options <strong style="color:  red">*</strong></label>' +
+                        '<textarea onkeyup="check_is_date_picker_is_single(this.value,this),$(\'#options-\').val($(this).val())" type="text"  class="form-control" name="question_options" ></textarea>' +
+                        '<label for="' + type +
+                        '_question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
+                        '<textarea onkeyup="check_is_date_picker_is_single(this.value,this)" type="text"  class="form-control" id="options-" name="question_options_fr" ' +
+                        property + ' ></textarea>' +
+                        '<label for="' + type +
+                        '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
+                        '<textarea type="text"  class="form-control" name="question_coment" onkeyup="$(\'#comment-\').val($(this).val())" ></textarea>' +
+                        '<label for="' + type +
+                        '_question_options_fr" class="col-form-label">Add Question Comment French (Optional)</label>' +
+                        '<textarea type="text"  class="form-control" name="question_coment_fr" ' + property +
+                        ' id="comment-"></textarea>'+
+                        '<div class="pt-2">'+
+                            '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
+                            '<div class="options"></div>'+
+                            // '<input type="checkbox" onclick=$(this).val($(this).prop("checked")) value="false"  name="add_not_sure_box"> Add (Not Sure) Option'
+                        '</div>';
+                    $('#' + render_div).html(html);
+                    $('#' + render_div).show();
+                    $('#question_div').show();
+                    break;
+                case 'qa':
+                    html += '<label for="' + type +
+                        '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
+                        '<textarea type="text" onkeyup="$(\'#comment-\').val($(this).val())" class="form-control" name="question_coment"></textarea>' +
+                        '<label for="' + type +
+                        '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
+                        '<textarea type="text"  class="form-control" name="question_coment_fr" ' + property +
+                        '  id="comment-"></textarea>' +
+                        '<br/>' +
+                        '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
+                        '<input type="checkbox" onclick=$(this).val($(this).prop("checked")) value="false"  name="add_not_sure_box"> &nbsp; Add (Not Sure) Option &nbsp;&nbsp;&nbsp;' +
+                        '<div class="options"></div>';
+                    $('#' + render_div).html(html);
+                    $('#' + render_div).show();
+                    $('#question_div').show();
+                    break;
+                case 'im':
+                    html += '<label for="' + type +
+                        '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
+                        '<textarea type="text"  class="form-control" name="question_coment" onkeyup="$(\'#comment-\').val($(this).val())"  ></textarea>' +
+                        '<label for="' + type +
+                        '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
+                        '<textarea type="text"  class="form-control" name="question_coment_fr" ' + property +
+                        ' id="comment-"></textarea>' +
+                        '<div class="col-md-6">' +
+                        '<label for="inputCity" class="form-label">Select Attachment:</label>' +
+                        '<div class="form-label">' +
+                        '<input  type="checkbox" name="attachment[]" id="" value="1">' +
+                        '<label  for="inlineRadio1">IMAGE &nbsp;&nbsp;</label>' +
+                        '<input  type="checkbox" name="attachment[]" id="" value="2">' +
+                        '<label  for="inlineRadio1">WORD DOCs&nbsp;&nbsp;</label>' +
+                        '<input  type="checkbox" name="attachment[]" id="" value="3">' +
+                        '<label  for="inlineRadio1">PDF &nbsp;&nbsp;</label>' +
+                        '<input  type="checkbox" name="attachment[]" id="" value="4">' +
+                        '<label  for="inlineRadio1">EXCEL &nbsp;&nbsp;</label>' +
+                        '<input  type="checkbox" name="attachment[]" id="" value="5">' +
+                        '<label  for="inlineRadio1">ZIP</label>' +
+                        '</div>' +
+                        '</div>';
+                    $('#' + render_div).html(html);
+                    $('#' + render_div).show();
+                    $('#question_div').show();
+                    // code block
+                    break;
                 case 'mcc':
                     html += '<label for="' + type +
                         '_question_options" class="col-form-label">Add (,) Separated English options <strong style="color:  red">*</strong></label>' +
@@ -2107,4 +2200,14 @@
         });
 
     </script>
+    <script>
+        function updateValue(input) {
+            var value = input.value;
+            $("#qm_main_q").val(value);
+        }
+        function updateVal(input) {
+            var value = input.value;
+            $("#q_main_q").val(value);
+        }
+</script>
 @endsection

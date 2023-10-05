@@ -162,6 +162,7 @@ function checkfu(id){
 					}
 				});
 			} else {
+				window.history.back();
 				// User clicked "Cancel" or closed the dialog, do nothing
 			}
 		});
