@@ -2521,10 +2521,15 @@ class Forms extends Controller{
 
         $parent_form_id = DB::table('sub_forms')->pluck('parent_form_id');
         $subform_id = DB::table('sub_forms')->pluck('id');
-        //dd($subform_id);
+        // dd($subform_id);
 
-        if (!$parent_form_id) {
-            return abort('404');
+        // if (!$parent_form_id) {
+        //     return abort('404');
+        // }
+
+        if (!count($parent_form_id)>0) {
+            $parent_form_id=0;
+            // dd($subform_id);
         }
 
         // $forms=DB::table('sub_forms')->get();
