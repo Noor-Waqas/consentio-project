@@ -460,15 +460,17 @@
 													</form> 
 												</div>
 											@endif
+											@if(Auth::user()->role != 2)
 											<div class="col-md-12 p-0 py-3">
 												<label>Additional Comment</label>
 												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 											</div>
+											@endif
 											<div id="bar_{{$question->id}}" class="d-none filling_bar w-100"></div>
 											@if($user_form_link_info->is_locked == 1 && ((Auth::user()->role != 2 && $question->responses->rating != 0) || (Auth::user()->role == 2)))
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">
-														<label>Assessment </label>
+														<label>Rating </label>
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}">
 															{{-- @if($question->responses->rating == 0)
 															@endif --}}

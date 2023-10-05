@@ -358,12 +358,15 @@
                                 </div>
                                 
                                 <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                                    <div id="carouselExampleControls" class="carousel slide">
+                                    <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                                        <div id="carouselExampleControls" class="carousel slide" data-interval="false">
                                             <!-- Carousel Indicators (Dropdown) -->
                                             <select id="carousel-indicators" style="max-width:20%;margin:0 auto;" class="form-control">
                                                 @foreach($group_id as $group)
-                                                    <option value="{{ $group->group_id }}" {{ $loop->first ? 'selected' : '' }}>{{ $group->group_name }}</option>
+                                                @if($loop->iteration == 1)
+                                                <option value="" selected>---Select Report---</option>
+                                                @endif
+                                                    <option value="{{ $group->group_id }}" >{{ $group->group_name }}</option>
                                                 @endforeach
                                             </select>
                                             
@@ -392,7 +395,7 @@
                                     <script>
                                         // Add event listener to the select element for navigation
                                         document.getElementById('carousel-indicators').addEventListener('change', function() {
-                                            const selectedIndex = this.selectedIndex;
+                                            const selectedIndex = this.selectedIndex-1;
                                             $('#carouselExampleControls').carousel(selectedIndex); // Activate the corresponding slide
                                         });
                                     </script>
@@ -402,7 +405,7 @@
                                     </div>
                                     
                                     <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
-                                        <div id="carouselExampleControls1" class="carousel slide">
+                                        <div id="carouselExampleControls1" class="carousel slide" data-interval="false">
                                                 <!-- Carousel Indicators (Dropdown) -->
                                                 <select id="carousel-indicator" style="max-width:20%;margin:0 auto;" class="form-control">
                                                     <!-- @foreach($fav_id as $fav)
@@ -430,7 +433,7 @@
                                     <script>
                                         // Add event listener to the select element for navigation
                                         document.getElementById('carousel-indicator').addEventListener('change', function() {
-                                            const selectedIndex = this.selectedIndex;
+                                            const selectedIndex = this.selectedIndex-1;
                                             $('#carouselExampleControls1').carousel(selectedIndex); // Activate the corresponding slide
                                         });
                                     </script>
@@ -958,11 +961,19 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (response) {
+                console.log("ok");
                 // Check if the response contains group IDs
                 if (Array.isArray(response.group_ids)) {
                     $('.fav-report').html("");
                     $('#carousel-indicator').html("");
                     var favReportContainer = $('.fav-report');
+
+                    // Add a default "Select Report" option
+                    var defaultOption = $('<option>', {
+                        value: '', // No value for the default option
+                        text: '---Select Report---' // Text for the default option
+                    });
+                    $('#carousel-indicator').append(defaultOption);
 
                     // Loop through the group IDs and append the structure for each group
                     $.each(response.group_ids, function (index, groupId) {
@@ -992,9 +1003,9 @@ $(document).ready(function () {
                             value: groupId.group_id,
                             text: groupId.group_name
                         });
-                        if (index === 0) {
-                            option.attr('selected', 'selected');
-                        }
+                        // if (index === 0) {
+                        //     option.attr('selected', 'selected');
+                        // }
                         $('#carousel-indicator').append(option);
                     });
                 } else {
@@ -1023,6 +1034,13 @@ $(document).ready(function () {
                     $('#carousel-indicator').html("");
                     var favReportContainer = $('.fav-report');
 
+                    // Add a default "Select Report" option
+                    var defaultOption = $('<option>', {
+                        value: '', // No value for the default option
+                        text: '---Select Report---' // Text for the default option
+                    });
+                    $('#carousel-indicator').append(defaultOption);
+
                     // Loop through the group IDs and append the structure for each group
                     $.each(response.group_ids, function (index, groupId) {
                         var url = '/dash/asset/' + groupId.group_id;
@@ -1050,9 +1068,9 @@ $(document).ready(function () {
                             value: groupId.group_id,
                             text: groupId.group_name
                         });
-                        if (index === 0) {
-                            option.attr('selected', 'selected');
-                        }
+                        // if (index === 0) {
+                        //     option.attr('selected', 'selected');
+                        // }
                         $('#carousel-indicator').append(option);
                     });
                 } else {

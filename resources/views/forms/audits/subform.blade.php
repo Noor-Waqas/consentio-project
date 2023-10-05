@@ -384,6 +384,10 @@
       var subform_info = {};
       subform_info['_token'] = '{{ csrf_token() }}';
 
+      $(document).on('click', '.exit-subform', function (){
+        $('#sub-form-area').html('');
+      });
+
       $(document).on('click', '.create-subform', function (){
         const item_type = $('#item-type-'+counter).val();
         // alert(item_type);
@@ -600,6 +604,7 @@
                 '<div class="w-50 pl-2">'+
                   '<label "> </label><br/>'+
                   '<button class="btn rounded_button btn-primary create-subform mt-2" id="subform-'+counter+'" asset_count="'+ asetscount +'">{!! __('Create') !!}</button>'+
+                  '<button class="btn rounded_button btn-secondary exit-subform ml-2 mt-2" id="exit-subform">{!! __('Cancel') !!}</button>'+
                 '</div>'+
               '</div>'+
               '</div>'+

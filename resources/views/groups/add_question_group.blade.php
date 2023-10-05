@@ -28,6 +28,11 @@
         .handle_hover:hover .edit_enable{
             display:block;
         }
+        .selected {
+            background-color: #28a745; 
+            border-color: #28a745;
+            color: #FFFFFF; 
+        }
     </style>
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb">
@@ -217,13 +222,13 @@
                             </div>
 
                             <div class="row pb-2">
-                                <a onclick="get_html('mc')" id="mc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Multiple Choice Question</a>
-                                <a onclick="get_html('sc')" id="sc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Single Choice Question</a>
-                                <a onclick="get_html('qa')" id="qa" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Text Question</a>
+                                <a onclick="get_html('mc')" id="mc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Multiple Choice Question</a>
+                                <a onclick="get_html('sc')" id="sc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Single Choice Question</a>
+                                <a onclick="get_html('qa')" id="qa" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Text Question</a>
                                 <!-- <a onclick="get_html('im')" id="im" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Attachment Upload Option</a>
                                 <a onclick="get_html('sp')" id="sp" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Design Multi Level Question</a>
                                 <a onclick="get_html('da')" id="da" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Data Inventory Questions</a> -->
-                                <a onclick="get_html('dc')" id="dc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Dynamic Control Question</a>
+                                <a onclick="get_html('dc')" id="dc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Dynamic Control Question</a>
                             </div>
 
                             <div class="form-check py-2">
@@ -360,6 +365,10 @@
 
             // child_questions = [];
             // current = 0;
+            // Selected Button
+            $('.question-button').removeClass('selected');
+            $('#' + type).addClass('selected');
+            ///////
 
             if (previous_type !=  type || type == 'sp') {
                 previous_type = type;

@@ -149,7 +149,7 @@
             <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Remediation Plan</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
-            <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
+            <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" style="max-height: 70px;max-width:280px;" alt="logo">
             <a class="report-change mr-1" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Audit Report</button></a>
             <button id="screenshotButton" class="buton mr-1">Download</button>
             <div>
@@ -158,8 +158,10 @@
                     $fav=DB::table('forms')->where('group_id', $group_id)->pluck('is_fav');
                     //echo $fav[0];
                 @endphp
-                <button id="add_favorite" class="buton"><img src="{{url('assets-new/rstar.png')}}" style="width: 22px;" alt=""></button>
-                <button id="rem_favorite" class="buton"><img src="{{url('assets-new/star.png')}}" style="width:22px;" alt=""></button>
+                <div class="favorite-buttons">
+                    <button id="add_favorite" class="buton"><img src="{{url('assets-new/rstar.png')}}" style="width: 22px;" alt=""></button>
+                    <button id="rem_favorite" class="buton"><img src="{{url('assets-new/star.png')}}" style="width:22px;" alt=""></button>
+                </div>
             </div>
         </div>
     </div>
@@ -432,6 +434,7 @@
         // Add the d-none class to the button
         $(this).addClass('d-none');
         $('.report-change').addClass('d-none');
+        $('.favorite-buttons').addClass('d-none');
 
         // Add Logo
         $('#report-logo').removeClass('d-none');
@@ -472,6 +475,7 @@
             // Remove the d-none class from the button
             $('#screenshotButton').removeClass('d-none');
             $('.report-change').removeClass('d-none');
+            $('.favorite-buttons').removeClass('d-none');
 
             // Remove Logo
             $('#report-logo').addClass('d-none');
@@ -702,6 +706,7 @@ $(document).ready(function() {
                             console.log(response);
                             $("#add_favorite").addClass("d-none");
                             $("#rem_favorite").removeClass("d-none");
+                            swal.fire('Mark as Favorite', '', 'success');
                         }
                     });
                 }
@@ -735,6 +740,11 @@ $(document).ready(function() {
                             console.log(response)
                             $("#rem_favorite").addClass("d-none");
                             $("#add_favorite").removeClass("d-none");
+                            swal.fire('Remove as Favorite', '', 'success');
+
+                            var parentDocument = window.parent.document;
+                            var parentButton = parentDocument.getElementById('load');
+                            parentButton.click();
 
                         }
                     });

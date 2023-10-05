@@ -314,6 +314,7 @@ $(document).ready(function() {
     var counter = {{ $i }};
 
     $('#add').click(function(){
+        $('#sub-form-area').html('');
         counter++;
         console.log("test");
         $('#sub-form-area').append( '<div class="row" style="">'+ 
@@ -331,10 +332,15 @@ $(document).ready(function() {
                                           '</div>'+
                                           '<br>'+
                                             '<button style="margin-top:10px;margin-left:2px; margin-bottom:30px;" class="btn rounded_button btn-primary create-subform" id="subform-'+counter+'">{!! __('Create') !!}</button>'+
+                                            '<button style="margin-top:10px;margin-left:2px; margin-bottom:30px;" class="btn rounded_button btn-secondary exit-subform" id="exit-subform">{!! __('Cancel') !!}</button>'+
                                         '</div>'+
                                         '</div>'+
                                       '</div>'+
                                     '</div>');
+    });
+
+    $(document).on('click', '.exit-subform', function (){
+      $('#sub-form-area').html('');
     });
 
 

@@ -104,7 +104,15 @@
                                     </select>
                                 </td>
                                 <td> 
-                                    <b class="px-3 py-2 rounded" style="background-color: {{$plan->color}}; color: {{$plan->text_color}} ">{{$plan->rating}} </b>
+                                @php
+                                    $client_id = Auth()->user()->client_id;
+                                    $rating = $plan->rate_level;
+                                    $rat = DB::table('evaluation_rating')
+                                        ->where('rate_level', $rating)
+                                        ->where('owner_id', $client_id)
+                                        ->first();
+                                @endphp
+                                    <b class="px-3 py-2 rounded" style="background-color: {{$rat->color}}; color: {{$rat->text_color}} ">{{$rat->rating}} </b>
                                 </td>
                                 <td style="min-width: 200px">
                                     <select class="form-control handle_onChange" onchange="$(this)." q_type="rating" plan_id="{{$plan->id}}" class="form-control handle_onChange" name="post_remediation_rating" >

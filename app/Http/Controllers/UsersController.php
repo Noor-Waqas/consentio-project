@@ -1063,8 +1063,10 @@ class UsersController extends Controller
             // Remediation Counts
             $remediation = DB::table('remediation_plans')
             ->join('sub_forms', 'sub_forms.id', 'remediation_plans.sub_form_id')
+            ->join("forms","forms.id", "sub_forms.parent_form_id")
+            ->join("audit_questions_groups","audit_questions_groups.id", "forms.group_id")
             ->where('remediation_plans.client_id', $client_id)
-            ->groupby('sub_form_id')
+            ->groupby('remediation_plans.sub_form_id')
             ->get();
             $remediation=$remediation->count();
             // dd($remediation);
@@ -1122,9 +1124,11 @@ class UsersController extends Controller
             // Remediation Counts
             $remediation = DB::table('remediation_plans')
             ->join('sub_forms', 'sub_forms.id', 'remediation_plans.sub_form_id')
+            ->join("forms","forms.id", "sub_forms.parent_form_id")
+            ->join("audit_questions_groups","audit_questions_groups.id", "forms.group_id")
             ->where('remediation_plans.client_id', $client_id)
             ->where('remediation_plans.person_in_charge', $user_id)
-            ->groupby('sub_form_id')
+            ->groupby('remediation_plans.sub_form_id')
             ->get();
             $remediation=$remediation->count();
         };

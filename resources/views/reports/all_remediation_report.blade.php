@@ -12,7 +12,7 @@
 <div class="container-fluid" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <div class="col-9">
-            <h4 class="mt-2" style="color:black;"><b>Security Remediation Plan</b></h4>
+            <h4 class="mt-2" style="color:black;"><b>{{__('Audit Remediation Plan')}}</b></h4>
         </div>
         <div class="col d-flex justify-content-end download-btn">
             <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">

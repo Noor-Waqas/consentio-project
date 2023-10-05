@@ -286,7 +286,7 @@ input:checked + .slider:before {
 						                        <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i>
 						                      </div>
 
-										  <img src="<?php  echo  URL::to('_organisations.png');  ?>" alt="" id="preview" class="gambar img-responsive img-thumbnail"  />
+										  <!-- <img src="<?php  echo  URL::to('_organisation.png');  ?>" alt="" id="preview" class="gambar img-responsive img-thumbnail"  /> -->
 										</div>
 
 										<input type="hidden" name="base_string" value="" id="destination"> 
