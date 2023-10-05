@@ -61,5 +61,14 @@
         div.dataTables_length select {
             border: 1px solid black;
         }
+        
+        .dataTables_info{
+            float:left;
+        }
+        .dataTables_paginate{
+            display:flex;
+            justify-content:end;
+            align-items:center;
+        }
     </style>
   </head>
