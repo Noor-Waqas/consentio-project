@@ -38,8 +38,18 @@
                         <td> {{ $group->group_name }} </td>
                         <td> {{ $group->group_name_fr }} </td>
                         <td>
+                            @php
+                                $check=DB::table("sub_forms")
+                                ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                                ->where('forms.group_id', $group->id)
+                                ->count();
+                            @endphp
                             <a href="{{ route('group_edit',$group->id) }}"  class="btn btn-sm btn-primary" title="Edit Group"><i class="fa fa-edit mr-0"></i></a>
-                            <a href="{{ route('group_add_quetion', $group->id) }}"  class="btn btn-sm btn-primary"> Add / Edit Questions</a>
+                            @if($check>0)
+                                <a href="javascript:" onclick="showerror()" style="color:white;background:grey;border-color:grey;" class="btn btn-sm btn-primary" role="link" aria-disabled="true"> Add / Edit Questions</a>
+                            @else
+                                <a href="{{ route('group_add_quetion', $group->id) }}"  class="btn btn-sm btn-primary"> Add / Edit Questions</a>
+                            @endif
                             <a href="javascript:" onclick="submitDuplicate('/group/duplicate/{{$group->id}}')"  class="btn btn-sm btn-primary" title="Duplicate Group"><i> Duplicate </i></a> 
                             <a href="javascript:" onclick="submitDelete('/group/delete/{{$group->id}}')"        class="btn btn-sm btn-danger" title="Delete Group"><i class="fa fa-times mr-0"></i></a> 
                         </td>
@@ -90,6 +100,16 @@
                     document.getElementById('delete_item').click();
                 }
                 swal.close();
+            })
+        }
+        function showerror(){
+            swal({
+                title:"You Can't Add/Edit Question in this Form",
+                text:"Already Assigned to Organization",
+                type: "error",
+                cancelButtonColor: "#05DD6B",
+                cancelButtonText: "OK",
+                closeOnConfirm: true
             })
         }
     </script>

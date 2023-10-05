@@ -166,11 +166,12 @@ function checkfu(id){
 						//console.log(response);
 					
 						swal.fire('Information Updated', 'Forms assigned/un-assigned to company', 'success');
-						setTimeout(function () { location.reload(); }, 1000);
+						setTimeout(function () { window.history.back(); }, 2000);
 					}
 				});
+				
 			} else {
-				window.history.back();
+				
 				// User clicked "Cancel" or closed the dialog, do nothing
 			}
 		});
