@@ -1672,21 +1672,21 @@ class Forms extends Controller{
                 AND   user_form_links.client_id = 120
                 GROUP BY sub_forms.id
              */
-            $ext_forms = DB::table('user_form_links as exf')
-                ->join('sub_forms', 'exf.sub_form_id', '=', 'sub_forms.id')
-                ->join('forms', 'forms.id', '=', 'sub_forms.parent_form_id')
-                ->where('forms.type', 'assessment')
-                ->where('exf.client_id', $client_id)
-                ->select('*', DB::raw('exf.user_email as email,
-                                    SUM(CASE WHEN is_locked = 1 THEN 1 ELSE 0 END) as ex_completed_forms,
-                                    COUNT(exf.user_email) as total_external_users_count,
-                                    forms.title as form_title,
-                                    forms.title_fr as form_title_fr,
-                                    sub_forms.title as subform_title,
-                                    sub_forms.title_fr as subform_title_fr,
-                                    "External" as user_type'))
-                ->groupBy('sub_forms.id')
-                ->get();
+            // $ext_forms = DB::table('user_form_links as exf')
+            //     ->join('sub_forms', 'exf.sub_form_id', '=', 'sub_forms.id')
+            //     ->join('forms', 'forms.id', '=', 'sub_forms.parent_form_id')
+            //     ->where('forms.type', 'assessment')
+            //     ->where('exf.client_id', $client_id)
+            //     ->select('*', DB::raw('exf.user_email as email,
+            //                         SUM(CASE WHEN is_locked = 1 THEN 1 ELSE 0 END) as ex_completed_forms,
+            //                         COUNT(exf.user_email) as total_external_users_count,
+            //                         forms.title as form_title,
+            //                         forms.title_fr as form_title_fr,
+            //                         sub_forms.title as subform_title,
+            //                         sub_forms.title_fr as subform_title_fr,
+            //                         "External" as user_type'))
+            //     ->groupBy('sub_forms.id')
+            //     ->get();
 
             /*
                 SELECT sub_forms.id, users.email, sub_forms.title as subform_title, forms.title as form_title, 'internal' as user_type,
@@ -1725,6 +1725,7 @@ class Forms extends Controller{
                     ->where('forms.type', 'assessment')
                     ->where('uf.client_id', $client_id)
                     ->where('uf.is_locked', 1)
+                    ->where('uf.is_internal', 1)
                     ->select('*', DB::raw('users.email,
                                         forms.title as form_title,
                                         forms.title_fr as form_title_fr,
@@ -1735,84 +1736,83 @@ class Forms extends Controller{
                     ->orderBy('uf.created', 'desc')
                     ->get();
                     // dd($int_forms);
-                $all_forms = $int_forms->merge($ext_forms);
+                $completed_forms = $int_forms->merge($ext_forms);
+                // $all_forms = $int_forms->merge($ext_forms);
 
-                $all_form_data = json_decode(json_encode($all_forms), true);
-                // dd($all_forms);
-                // dd($all_form_data);
+                // $all_form_data = json_decode(json_encode($all_forms), true);
+                // // dd($all_forms);
+                // // dd($all_form_data);
 
-                foreach ($all_form_data as $data) {
-                    DB::Table('tmp_Data')->insert([
-                        'form_link_id' => $data['form_link_id'] ?? "",
-                        'percent_completed' => $data['percent_completed'] ?? "",
-                        'is_locked' => $data['is_locked'] ?? "",
-                        'is_accessible' => $data['is_accessible'] ?? "",
-                        'sub_form_id' => $data['sub_form_id'] ?? "",
-                        'client_id' => $data['client_id'] ?? "",
-                        'created' => $data['created'] ?? "",
-                        'updated' => $data['updated'] ?? "",
-                        'expiry_time' => $data['expiry_time'] ?? "",
-                        'name' => $data['name'] ?? "",
-                        'is_email_varified' => $data['is_email_varified'] ?? "",
-                        'email_varification_code' => $data['email_varification_code'] ?? "",
-                        'browser_check_code' => $data['browser_check_code'] ?? "",
-                        'email' => $data['email'] ?? "",
-                        'website' => $data['website'] ?? "",
-                        'role' => $data['role'] ?? "",
-                        'company' => $data['company'] ?? "",
-                        'status' => $data['status'] ?? "",
-                        'created_by' => $data['created_by'] ?? "",
-                        'image_name' => $data['image_name'] ?? "",
-                        'tfa' => $data['tfa'] ?? "",
-                        'remember_token' => $data['remember_token'] ?? "",
-                        'created_at' => $data['created_at'] ?? "",
-                        'updated_at' => $data['updated_at'] ?? "",
-                        'rememberme_browser_type' => $data['rememberme_browser_type'] ?? "",
-                        'title' => $data['title'] ?? "",
-                        'title_fr' => $data['title_fr'] ?? "",
-                        'parent_form_id' => $data['parent_form_id'] ?? "",
-                        'lang' => $data['lang'] ?? "",
-                        'code' => $data['code'] ?? "",
-                        'comments' => $data['comments'] ?? "",
-                        'type' => $data['type'] ?? "",
-                        'date_created' => $data['date_created'] ?? "",
-                        'expiry' => $data['expiry'] ?? "",
-                        'date_updated' => $data['date_updated'] ?? "",
-                        'in_completed_forms' => $data['in_completed_forms'] ?? "",
-                        'total_internal_users_count' => $data['total_internal_users_count'] ?? "",
-                        'total_external_users_count' => $data['total_external_users_count'] ?? "",
-                        'ex_completed_forms' => $data['ex_completed_forms'] ?? "",
-                        'form_title' => $data['form_title'] ?? "",
-                        'subform_title' => $data['subform_title'] ?? "",
-                        'subform_title_fr' => $data['subform_title_fr'] ?? "",
-                        'form_link' => $data['form_link'] ?? "",
-                        'user_type' => $data['user_type'],
-                        'user_id' => auth::user()->id,
-                    ]);
-                }
+                // foreach ($all_form_data as $data) {
+                //     DB::Table('tmp_Data')->insert([
+                //         'form_link_id' => $data['form_link_id'] ?? "",
+                //         'percent_completed' => $data['percent_completed'] ?? "",
+                //         'is_locked' => $data['is_locked'] ?? "",
+                //         'is_accessible' => $data['is_accessible'] ?? "",
+                //         'sub_form_id' => $data['sub_form_id'] ?? "",
+                //         'client_id' => $data['client_id'] ?? "",
+                //         'created' => $data['created'] ?? "",
+                //         'updated' => $data['updated'] ?? "",
+                //         'expiry_time' => $data['expiry_time'] ?? "",
+                //         'name' => $data['name'] ?? "",
+                //         'is_email_varified' => $data['is_email_varified'] ?? "",
+                //         'email_varification_code' => $data['email_varification_code'] ?? "",
+                //         'browser_check_code' => $data['browser_check_code'] ?? "",
+                //         'email' => $data['email'] ?? "",
+                //         'website' => $data['website'] ?? "",
+                //         'role' => $data['role'] ?? "",
+                //         'company' => $data['company'] ?? "",
+                //         'status' => $data['status'] ?? "",
+                //         'created_by' => $data['created_by'] ?? "",
+                //         'image_name' => $data['image_name'] ?? "",
+                //         'tfa' => $data['tfa'] ?? "",
+                //         'remember_token' => $data['remember_token'] ?? "",
+                //         'created_at' => $data['created_at'] ?? "",
+                //         'updated_at' => $data['updated_at'] ?? "",
+                //         'rememberme_browser_type' => $data['rememberme_browser_type'] ?? "",
+                //         'title' => $data['title'] ?? "",
+                //         'title_fr' => $data['title_fr'] ?? "",
+                //         'parent_form_id' => $data['parent_form_id'] ?? "",
+                //         'lang' => $data['lang'] ?? "",
+                //         'code' => $data['code'] ?? "",
+                //         'comments' => $data['comments'] ?? "",
+                //         'type' => $data['type'] ?? "",
+                //         'date_created' => $data['date_created'] ?? "",
+                //         'expiry' => $data['expiry'] ?? "",
+                //         'date_updated' => $data['date_updated'] ?? "",
+                //         'in_completed_forms' => $data['in_completed_forms'] ?? "",
+                //         'total_internal_users_count' => $data['total_internal_users_count'] ?? "",
+                //         'total_external_users_count' => $data['total_external_users_count'] ?? "",
+                //         'ex_completed_forms' => $data['ex_completed_forms'] ?? "",
+                //         'form_title' => $data['form_title'] ?? "",
+                //         'subform_title' => $data['subform_title'] ?? "",
+                //         'subform_title_fr' => $data['subform_title_fr'] ?? "",
+                //         'form_link' => $data['form_link'] ?? "",
+                //         'user_type' => $data['user_type'],
+                //         'user_id' => auth::user()->id,
+                //     ]);
+                // }
 
-                $completed_forms = DB::Table('tmp_Data')->where('user_id', auth::user()->id)
-                                    ->orwhere('is_locked', 1)
-                                    ->where('in_completed_forms', 1)
-                                    ->orderby('updated_at', 'desc')->get();
-                                    // dd($completed_forms);
+                // $completed_forms = DB::Table('tmp_Data')->where('user_id', auth::user()->id)
+                //                     ->orwhere('is_locked', 1)
+                //                     ->where('in_completed_forms', 1)
+                //                     ->orderby('updated_at', 'desc')->get();
+                //                     // dd($completed_forms);
 
-                DB::table('tmp_Data')->where('user_id', auth::user()->id)->truncate();
+                // DB::table('tmp_Data')->where('user_id', auth::user()->id)->truncate();
                 // dd("admin");
             } else {
                 // dd("user side");
-                $client_id = Auth::user()->id;
+                $user_id = Auth::user()->id;
                 $int_forms = DB::table('user_form_links as uf')
-
-                    ->join('users', 'users.id', '=', 'uf.user_id')
-                    ->join('sub_forms', 'uf.sub_form_id', '=', 'sub_forms.id')
-                    ->join('forms', 'forms.id', '=', 'sub_forms.parent_form_id')
+                    ->join('users', 'users.id', 'uf.user_id')
+                    ->join('sub_forms', 'uf.sub_form_id', 'sub_forms.id')
+                    ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
                     ->where('forms.type', 'assessment')
-                    ->where('uf.user_id', $client_id)
-                    ->where('is_locked', 1)
+                    ->where('uf.user_id', $user_id)
+                    ->where('uf.is_locked', 1)
+                    ->where('uf.is_internal', 1)
                     ->select('*', DB::raw('users.email,
-                                SUM(CASE WHEN is_locked = 1 THEN 1 ELSE 0 END) as in_completed_forms,
-                                COUNT(users.email) as total_internal_users_count,
                                 forms.title as form_title,
                                 forms.title_fr as form_title_fr,
                                 sub_forms.title as subform_title,
