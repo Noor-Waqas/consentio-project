@@ -287,6 +287,7 @@ input:checked + .slider:before {
 						                      </div>
 
 										  <!-- <img src="<?php  echo  URL::to('_organisation.png');  ?>" alt="" id="preview" class="gambar img-responsive img-thumbnail"  /> -->
+										  <img src="" alt="" id="preview" class="gambar img-responsive img-thumbnail d-none"  />
 										</div>
 
 										<input type="hidden" name="base_string" value="" id="destination"> 
@@ -368,6 +369,7 @@ widget.onUploadComplete(fileInfo => {
   .then(blob => new Promise((resolve, reject) => {
   	//alert('2');
   	$('#sub_button').hide();
+  	$('#preview').removeClass("d-none");
     $('#loader').show();
     const reader = new FileReader()
     reader.onloadend = () => resolve(reader.result)
