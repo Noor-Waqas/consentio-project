@@ -396,7 +396,7 @@ $( "body" ).on( "click", ".removePartner", function () {
     					success: function ( msg ) {
     						swal( "@lang('users.success_delete')", '', 'success' )
     						setTimeout( function () {
-    							location.reload();
+    							window.location.href = '/company';
     						}, 2000 );
     					}
     				} );

@@ -114,7 +114,7 @@ input:checked + .slider:before {
 					@endforeach
 					<div class="tile-footer col-sm-12 text-right">
 
-						<button type="submit" class="btn btn-primary">Update</button>
+						<button type="button" class="btn btn-primary" id="updateButton">Update</button>
 
 					</div>
 
@@ -127,8 +127,36 @@ input:checked + .slider:before {
 	</div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
+<script>
+$(document).ready(function () {
+    // Attach a click event handler to the "Update" button
+    $('#updateButton').click(function () {
+        // Display a SweetAlert confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You are about to update the evaluation rating.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user confirms, submit the form
+                Swal.fire('Evaluation Rating is Updated', '', 'success');
+                setTimeout( function () {
+    							$('form').submit();
+    						}, 2000 );
+                
+            }
+        });
+    });
+});
+</script>
 
 
 

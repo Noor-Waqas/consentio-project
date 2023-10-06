@@ -3347,6 +3347,22 @@ class Forms extends Controller{
     }
 
     public function store_new_form(Request $request){
+        if($request->type == "audit"){
+            $this->validate($request, [
+                'title' => 'required',
+                'title_fr' => 'required',
+                'type' => 'required',
+                'group_id' => 'required',
+                ],
+                [
+                    'title.required' => __('Please provide proper English Form name to proceed.'),
+                    'title_fr.required' => __('Please provide proper French Form name to proceed.'),
+                    'type.required' => __('Please provide Form type to proceed.'),
+                    'group_id.required' => __('Please provide Question Group to proceed.'),
+                ]
+    
+            );
+        }
 
         $this->validate($request, [
             'title' => 'required',
@@ -3374,9 +3390,9 @@ class Forms extends Controller{
         ]);
 
         if ($request->type == "audit") {
-            return redirect('Forms/AdminFormsList/audit')->with('message', __('From added successfully'));    
+            return redirect('Forms/AdminFormsList/audit')->with('message', __('Audit Form added Successfully'));    
         }
-        return redirect('Forms/AdminFormsList')->with('message', __('From added successfully'));
+        return redirect('Forms/AdminFormsList')->with('message', __('Form added Successfully'));
 
     }
 
