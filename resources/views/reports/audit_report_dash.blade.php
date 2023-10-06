@@ -144,10 +144,11 @@
 <div class="container-fluid mt-5" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Assessment</b></h4>
+            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - Security Assessment</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" style="max-height: 70px;max-width:280px;" alt="logo">
+            <p class="d-none" id="date">{{ now() }}</p>
             <a class="report-change mr-1" href="{{ url('/dash/remediation/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Remediation Reprot</button></a>
             <button id="screenshotButton" class="buton mr-1">Download</button>
             <div>
@@ -405,7 +406,10 @@ $busData = [
         $(this).addClass('d-none');
         $('.report-change').addClass('d-none');
         $('.favorite-buttons').addClass('d-none');
-        // Add Logo
+        
+        // Add Logo date and company name
+        $('#date').removeClass('d-none');
+        $('#client').removeClass('d-none');
         $('#report-logo').removeClass('d-none');
         $('#myDiv').removeClass('mt-5');
         $('#myDiv').attr("style", "padding:7%;");
@@ -448,6 +452,8 @@ $busData = [
             $('.report-change').removeClass('d-none');
             $('.favorite-buttons').removeClass('d-none');
             // Remove Logo
+            $('#client').addClass('d-none');
+            $('#date').addClass('d-none');
             $('#report-logo').addClass('d-none');
             $('#myDiv').attr("style", "padding:0;");
             $('#myDiv').addClass('mt-5');
