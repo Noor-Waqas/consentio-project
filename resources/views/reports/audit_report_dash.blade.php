@@ -144,7 +144,7 @@
 <div class="container-fluid mt-5" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - Security Assessment</b></h4>
+            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - Audit Report</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" style="max-height: 70px;max-width:280px;" alt="logo">

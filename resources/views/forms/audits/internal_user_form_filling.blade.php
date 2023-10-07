@@ -455,8 +455,21 @@
 														<input type="hidden" name="q_id" value="{{ $question->id }}">
 														<input type="hidden" name="question_key" value="im-{{ $question->form_key }}">
 														<input type="hidden" name="accepted_types" id="file_accepted_types_{{$question->id}}" value="{{$question->accepted_formates}}">
+														<!-- <p>{{$question->accepted_formates}}</p> -->
+														@php
+															$formats = json_decode($question->accepted_formates);
+														@endphp
+														
+														<p style="font-size:14px;">
+															@foreach($formats as $format)
+																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+															@endforeach
+															Allowed Format
+														</p>
+														
 														<input type="file" name="img-{{ $question->id }}" q_id="{{ $question->id }}" id="file-upload-{{$question->id}}" class="attachment_file" {{ isset($question->responses->attachment) ? "data-default-file=".URL::to('public/'.$question->responses->attachment):''}}>
-														<p id="attachment_error_{{$question->id}}"></p>
+														<p id="attachment_format_{{$question->id}}"></p>
+														<p id="attachment_error_{{$question->id}}" style="color:red;"></p>
 													</form> 
 												</div>
 											@endif
@@ -464,6 +477,11 @@
 											<div class="col-md-12 p-0 py-3">
 												<label>Additional Comment</label>
 												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
+											</div>
+											@else
+											<div class="col-md-12 p-0 py-3">
+												<label>Additional Comment</label>
+												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}" disabled>@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 											</div>
 											@endif
 											<div id="bar_{{$question->id}}" class="d-none filling_bar w-100"></div>
@@ -643,7 +661,7 @@
 					var uploaded_file_extention = event.target.files[0].name.split('.').pop();
 					if (accepted_extentions.indexOf(uploaded_file_extention) == -1) {
 						let error_id = `#attachment_error_${q_id}`;
-						$(error_id).html("Please chose a valid file formate");
+						$(error_id).html("Please choose a valid file format");
 						return;
 					}else{
 						$('#attachment_error_'+q_id).text("");
