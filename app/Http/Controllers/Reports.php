@@ -353,6 +353,9 @@ class Reports extends Controller{
 
         // $subforms = DB::table('sub_forms')->where('parent_form_id', $form_id)->pluck('id');
 
+        $company_id= Auth::User()->client_id;
+        $company = DB::table('users')->where('id', $company_id)->select('name')->first();
+
         $client_id=Auth::user()->client_id;
 
         
@@ -390,10 +393,10 @@ class Reports extends Controller{
         
         // dd($remediation_plans);
         if($request->Segment(1)=="dash"){
-            return view("reports.reme_report_dash", compact('remediation_plans', 'client_id', 'group_id', 'group'));
+            return view("reports.reme_report_dash", compact('remediation_plans', 'client_id', 'group_id', 'group', 'company'));
         }
                 
-        return view("reports.one_remediation_report", compact('remediation_plans', 'client_id', 'group_id', 'group'));
+        return view("reports.one_remediation_report", compact('remediation_plans', 'client_id', 'group_id', 'group', 'company'));
 
     }
 

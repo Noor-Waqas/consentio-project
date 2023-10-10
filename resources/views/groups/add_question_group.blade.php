@@ -193,6 +193,19 @@
                                                 @break
                                             @default
                                         @endswitch
+                                                @php 
+                                                    $accepted_formates = ['Images', '.docs', '.pdf', '.xlxs , .csv', '.zip'];
+                                                    $formats =json_decode($question->accepted_formates);
+                                                @endphp 
+                                                @if($formats)
+                                                        <p style="font-size:14px;">
+															@foreach($formats as $format)
+																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+															@endforeach
+															Allowed Format
+														</p>
+                                                <input type="file" class="dropify" disabled>
+                                                @endif
                                     </div>
                                 </div>
                             </div>
@@ -242,22 +255,22 @@
 
                             <div class="form-group">
                                 <label for="question_title" class="col-form-label">Add English Question <strong style="color: red">*</strong></label>
-                                <textarea rows="4" name="question_title" class="form-control" onkeyup="$('#qmodel_main_q').val($(this).val())"></textarea>
+                                <textarea rows="4" name="question_title" class="form-control" id="qmodel_main_q_en" onkeyup="$('#qmodel_main_q').val($(this).val())"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="question_title_fr" class="col-form-label">Add French Question<strong style="color: red">*</strong></label>
-                                <textarea rows="4" name="question_title_fr" class="form-control fr_field" id="qmodel_main_q"></textarea>
+                                <textarea rows="4" name="question_title_fr" class="form-control fr_field" id="qmodel_main_q" onkeyup="document.getElementById('qmodel_main_q_en').onkeyup=null"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="question_title" class="col-form-label">Add Question English Short Title  <strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short" class="form-control" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
+                                <input type="text" name="question_title_short" class="form-control" id="q_simple_model_main_en" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
                             </div>
 
                             <div class="form-group">
                                 <label for="question_title_fr" class="col-form-label">Add Question French Short Title<strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr">
+                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup=null">
                             </div>
 
                             <div class="form-group">
@@ -383,11 +396,11 @@
                                     '<label for="question_options" class="col-form-label">Add (,) Separated English options <strong style="color:  red">*</strong></label>'+
                                     '<textarea onkeyup="$(`#question_options_fr`).val($(this).val())" type="text" class="form-control" name="question_options" id="question_options"></textarea>'+
                                     '<label for="question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>'+
-                                    '<textarea type="text" class="form-control fr_field" id="question_options_fr" name="question_options_fr"></textarea>'+
+                                    '<textarea type="text" class="form-control fr_field" id="question_options_fr" onkeyup="document.getElementById(`question_options`).onkeyup = null" name="question_options_fr"></textarea>'+
                                     '<label for="question_comment" class="col-form-label">Add English Question Comment (Optional)</label>'+
                                     '<textarea type="text" class="form-control" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
                                     '<label for="question_comment_fr" class="col-form-label">Add Question Comment French (Optional)</label>'+
-                                    '<textarea type="text" class="form-control fr_field" name="question_coment_fr" id="question_comment_fr"></textarea>'+
+                                    '<textarea type="text" class="form-control fr_field" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
                                     '<div class="d-flex pt-3">'+
                                         '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box">&nbsp; Allow Attachments &nbsp;&nbsp;'+
                                     '</div>'+
@@ -400,11 +413,11 @@
                                     '<label for="question_options" class="col-form-label">Add (,) Separated English options <strong style="color:  red">*</strong></label>'+
                                     '<textarea onkeyup="$(`#question_options_fr`).val($(this).val())" type="text" class="form-control" name="question_options" id="question_options"></textarea>'+
                                     '<label for="question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>'+
-                                    '<textarea type="text" class="form-control fr_field" id="question_options_fr" name="question_options_fr"></textarea>'+
+                                    '<textarea type="text" class="form-control fr_field" id="question_options_fr" onkeyup="document.getElementById(`question_options`).onkeyup = null" name="question_options_fr"></textarea>'+
                                     '<label for="question_comment" class="col-form-label">Add English Question Comment (Optional)</label>'+
                                     '<textarea type="text" class="form-control" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
                                     '<label for="question_comment_fr" class="col-form-label">Add Question Comment French (Optional)</label>'+
-                                    '<textarea type="text" class="form-control fr_field" name="question_coment_fr" id="question_comment_fr"></textarea>'+
+                                    '<textarea type="text" class="form-control fr_field" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
                                     '<div class="d-flex pt-3">'+
                                         '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box">&nbsp; Allow Attachments &nbsp;&nbsp;'+
                                     '</div>'+
@@ -417,7 +430,7 @@
                                     '<label for="question_comment" class="col-form-label">Add English Question Comment (Optional)</label>'+
                                     '<textarea type="text" class="form-control fr_field" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
                                     '<label for="question_comment_fr" class="col-form-label">Add Question Comment French (Optional)</label>'+
-                                    '<textarea type="text" class="form-control" name="question_coment_fr" id="question_comment_fr"></textarea>'+
+                                    '<textarea type="text" class="form-control" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
                                     '<div class="d-flex pt-3">'+
                                         '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box">&nbsp; Allow Attachments &nbsp;&nbsp;'+
                                     '</div>'+
@@ -444,7 +457,7 @@
                                 '<label for="question_comment" class="col-form-label">Add English Question Comment (Optional)</label>'+
                                 '<textarea type="text" class="form-control" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
                                 '<label for="question_comment_fr" class="col-form-label">Add Question Comment French (Optional)</label>'+
-                                '<textarea type="text" class="form-control" name="question_coment_fr" id="question_comment_fr"></textarea>'+
+                                '<textarea type="text" class="form-control" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
                             '</div>'+
                         '</div>';
                         break;
@@ -463,7 +476,7 @@
                                     '<label for="question_comment" class="col-form-label">Add English Question Comment (Optional)</label>'+
                                     '<textarea type="text" class="form-control" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
                                     '<label for="question_comment_fr" class="col-form-label">Add Question Comment French (Optional)</label>'+
-                                    '<textarea type="text" class="form-control fr_field" name="question_coment_fr" id="question_comment_fr"></textarea>'+
+                                    '<textarea type="text" class="form-control fr_field" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
                                     '<div class="d-flex pt-3">'+
                                         '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box">&nbsp; Allow Attachments &nbsp;&nbsp;'+
                                     '</div>'+

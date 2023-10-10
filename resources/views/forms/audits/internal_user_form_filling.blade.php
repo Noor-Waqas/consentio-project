@@ -466,22 +466,25 @@
 															@endforeach
 															Allowed Format
 														</p>
-														
-														<input type="file" name="img-{{ $question->id }}" q_id="{{ $question->id }}" id="file-upload-{{$question->id}}" class="attachment_file" {{ isset($question->responses->attachment) ? "data-default-file=".URL::to('public/'.$question->responses->attachment):''}}>
+														@if($user_form_link_info->is_locked == 1)
+															<input type="file" name="img-{{ $question->id }}" q_id="{{ $question->id }}" id="file-upload-{{$question->id}}" class="attachment_file" {{ isset($question->responses->attachment) ? "data-default-file=".URL::to('public/'.$question->responses->attachment):''}} disabled>
+														@else
+															<input type="file" name="img-{{ $question->id }}" q_id="{{ $question->id }}" id="file-upload-{{$question->id}}" class="attachment_file" {{ isset($question->responses->attachment) ? "data-default-file=".URL::to('public/'.$question->responses->attachment):''}}>
+														@endif
 														<p id="attachment_format_{{$question->id}}"></p>
 														<p id="attachment_error_{{$question->id}}" style="color:red;"></p>
 													</form> 
 												</div>
 											@endif
-											@if(Auth::user()->role != 2)
+											@if($user_form_link_info->is_locked == 1)
 											<div class="col-md-12 p-0 py-3">
 												<label>Additional Comment</label>
-												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
+												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}" disabled>@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 											</div>
 											@else
 											<div class="col-md-12 p-0 py-3">
 												<label>Additional Comment</label>
-												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}" disabled>@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
+												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 											</div>
 											@endif
 											<div id="bar_{{$question->id}}" class="d-none filling_bar w-100"></div>

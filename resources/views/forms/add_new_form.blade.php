@@ -266,7 +266,7 @@
           method: 'GET',
           success: function(response) {
               console.log(response);
-              let html = '<label class="form-control-label">Question Group</label> <select class="form-control" name="group_id" >';
+              let html = '<label class="form-control-label">Question Group</label> <select class="form-control" name="group_id" ><option value="">---Select Question Group---</option>';
               $.each(response, function(i, data) {
                   html += `<option value="${data.id}">${data.group_name}</option>`;
               });

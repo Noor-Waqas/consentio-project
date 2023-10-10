@@ -162,6 +162,19 @@
 													@break
 												@default
 											@endswitch
+											@if($question->attachment_allow)
+														@php
+															$formats = json_decode($question->accepted_formates);
+														@endphp
+														
+														<p style="font-size:14px;">
+															@foreach($formats as $format)
+																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+															@endforeach
+															Allowed Format
+														</p>
+														<input type="file" class="attachment_file" disabled>
+											@endif
 										</div>
 									</div>
 								</div>

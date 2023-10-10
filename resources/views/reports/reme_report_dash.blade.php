@@ -150,7 +150,7 @@
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" style="max-height: 70px;max-width:280px;" alt="logo">
-            <p class="d-none" id="date">{{ now() }}</p>
+            <p class="d-none" id="date">Report Date: {{ now()->format('d-m-Y') }}</p>
             <a class="report-change mr-1" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Audit Report</button></a>
             <button id="screenshotButton" class="buton mr-1">Download</button>
             <div>
