@@ -658,12 +658,13 @@
 													<input type="hidden" name="form-link-id" value="{{ $questions[0]->form_link_id }}">
 													<input type="hidden" name="user-id" value="{{ $questions[0]->user_id }}">
 													<input type="hidden" name="subform-id" value="{{ $questions[0]->sub_form_id }}">
+													<input type="hidden" name="attachment" value="0">
 													<input type="hidden" name="question-id" value={{ $question->q_id }}>
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
 													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }}>
-													<span id="image_error"></span>
+													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 												@if($showcomment)
 												<div class="col-md-12 d-flex justify-content-end py-3">
@@ -711,12 +712,13 @@
 													<input type="hidden" name="form-link-id" value="{{ $questions[0]->form_link_id }}">
 													<input type="hidden" name="user-id" value="{{ $questions[0]->user_id }}">
 													<input type="hidden" name="subform-id" value="{{ $questions[0]->sub_form_id }}">
+													<input type="hidden" name="attachment" value="1">
 													<input type="hidden" name="question-id" value={{ $question->q_id }}>
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
 													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response'][0]) && !empty($filled[$question->form_key]['question_response'][0]))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'][0])):('') }}>
-													<span id="image_error"></span>
+													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 										@endif
 									</div>
@@ -1424,10 +1426,11 @@
 					var uploaded_file_extention = event.target.files[0].name.split('.')[1];
 
 					if (accepted_extentions.indexOf(uploaded_file_extention) == -1) {
-						$('#image_error').text("Invalid File Formate");
+						let error_id = `#image_error_${q_id}`;
+						$(error_id).html("Please choose a valid file format");
 						return;
 					}
-					$('#image_error').text("");
+					$('#image_error_'+q_id).text("");
 
 					$.ajax({
 							url:'{{route('ajax_int_user_submit_form')}}',
