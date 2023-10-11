@@ -1,6 +1,7 @@
 @extends (('admin.layouts.admin_app'))
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{ url('public/custom_form/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
     <style>
         .switch {
             position: relative;
@@ -680,7 +681,8 @@
                         @if ($attachments != '')
                             @for ($i = 1; $i <= 5; $i++)
                                 <input type="checkbox" name="attachment[]" id="img"
-                                    {{ in_array($i, $attachments) ? 'checked=true' : '' }} />{{ $att[$i - 1] }}
+                                    {{ in_array($i, $attachments) ? 'checked=true' : '' }} disabled />
+                                    {{ $att[$i - 1] }}
                                 &nbsp;&nbsp;
                             @endfor
                         @endif
@@ -707,6 +709,22 @@
 								break;	
 						endswitch; 
 					?>
+                                            @if($question->attachment_allow==1)
+                                                @php 
+                                                    $accepted_formates = ['Images', '.docs', '.pdf', '.xlxs , .csv', '.zip'];
+                                                    $attachment = DB::table('questions')->where('id',$question->question_id)->first();
+                                                    $formats =json_decode($attachment->attachments);
+                                                @endphp 
+                                                @if($formats)
+                                                        <p style="font-size:14px;">
+															@foreach($formats as $format)
+																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+															@endforeach
+															Allowed Format
+														</p>
+                                                <input type="file" class="dropify" disabled>
+                                                @endif
+                                            @endif
                     <br><br>
                 </div>
                 <!--  -->
@@ -812,10 +830,10 @@
                             <h5 class="modal-title" id="exampleModalLabel">Select Question Type</h5>
                         </div>
                         <div class="row">
-                            <a onclick="render_questions(this.id,'qmodel-type')" id="mcc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Add Multiple Choice Question</a>
-                            <a onclick="render_questions(this.id,'qmodel-type')" id="scc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Add Single Select Question</a>
-                            <a onclick="render_questions(this.id,'qmodel-type')" id="qac" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Add Text Question</a>
-                            <a onclick="render_questions(this.id,'qmodel-type')" id="imc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Attachment Upload Option</a>
+                            <a onclick="render_questions(this.id,'qmodel-type')" id="mc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button qmc">Add Multiple Choice Question</a>
+                            <a onclick="render_questions(this.id,'qmodel-type')" id="sc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button qsc">Add Single Select Question</a>
+                            <a onclick="render_questions(this.id,'qmodel-type')" id="qa" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button qqa">Add Text Question</a>
+                            <a onclick="render_questions(this.id,'qmodel-type')" id="im" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button qim">Attachment Upload Option</a>
                             <!-- <a onclick="render_questions(this.id,'special_question-type')" data-toggle="modal" data-target="#specialQuestionModel" id="cc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Design custom question with multiple fields</a> -->
                             <a onclick="render_questions(this.id,'special_question-type')" data-toggle="modal" data-target="#specialQuestionModel" id="parent" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Design Multi Level Question</a>
                             <a onclick="render_questions(this.id,'special_question-type')" data-toggle="modal" data-target="#specialQuestionModel" id="data" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Data Inventory Questions</a>
@@ -933,6 +951,36 @@
     <script type="text/javascript" src="{{ url('public/custom_form/js/popper.min.js') }}"></script>
     <script src="{{ url('public/custom_form/js/easySelectable.js') }}"></script>
     <script type="text/javascript" src="{{ url('public/custom_form/js/cust_js.js') }}"></script>
+    <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.dropify').dropify();
+            $('.qmc').click(function(){
+                $('.qmc').addClass('selected');
+                $('.qsc').removeClass('selected');
+                $('.qqa').removeClass('selected');
+                $('.qim').removeClass('selected');
+            })
+            $('.qsc').click(function(){
+                $('.qmc').removeClass('selected');
+                $('.qsc').addClass('selected');
+                $('.qqa').removeClass('selected');
+                $('.qim').removeClass('selected');
+            })
+            $('.qqa').click(function(){
+                $('.qmc').removeClass('selected');
+                $('.qsc').removeClass('selected');
+                $('.qqa').addClass('selected');
+                $('.qim').removeClass('selected');
+            })
+            $('.qim').click(function(){
+                $('.qmc').removeClass('selected');
+                $('.qsc').removeClass('selected');
+                $('.qqa').removeClass('selected');
+                $('.qim').addClass('selected');
+            })
+        })
+    </script>
 
     <script type="text/javascript">
         function check_is_check(c) {

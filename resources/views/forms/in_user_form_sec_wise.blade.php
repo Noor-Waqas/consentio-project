@@ -692,6 +692,33 @@
 											</div>
 											<?php	
 										endif; ?>
+										@if($question->attachment_allow==1)
+												@php
+                                                    $formats =json_decode($question->attachments);
+                                                @endphp 
+                                                @if($formats)
+                                                        <p style="font-size:14px;">
+															@foreach($formats as $format)
+																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+															@endforeach
+															Allowed Format
+														</p>
+                                                @endif
+												<form id="upload_form-{{ $question->q_id }}" enctype="multipart/form-data" method="POST">
+													<input type="hidden" name="_token" value="{{ csrf_token()}}">
+													<input type="hidden" name="user-form-id" value="{{ $questions[0]->uf_id }}">
+													<input type="hidden" name="form-id" value="{{ $questions[0]->form_id }}">
+													<input type="hidden" name="form-link-id" value="{{ $questions[0]->form_link_id }}">
+													<input type="hidden" name="user-id" value="{{ $questions[0]->user_id }}">
+													<input type="hidden" name="subform-id" value="{{ $questions[0]->sub_form_id }}">
+													<input type="hidden" name="question-id" value={{ $question->q_id }}>
+													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
+													<!-- dev -->
+													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
+													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response'][0]) && !empty($filled[$question->form_key]['question_response'][0]))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'][0])):('') }}>
+													<span id="image_error"></span>
+												</form> 
+										@endif
 									</div>
 									<?php 
 									endforeach; ?>

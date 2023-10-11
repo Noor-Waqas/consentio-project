@@ -1,6 +1,7 @@
 @extends ((($user_type == 'admin')?('admin.layouts.admin_app'):('admin.client.client_app')), ['load_admin_css' => true])
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{ url('public/custom_form/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
     <style>
         .section-heading-edit {
             display: none;
@@ -458,6 +459,22 @@
 									break;									
 						endswitch; 
 					?>
+                                            @if($question->attachment_allow==1)
+                                                @php 
+                                                    $accepted_formates = ['Images', '.docs', '.pdf', '.xlxs , .csv', '.zip'];
+                                                    $attachment = DB::table('questions')->where('id',$question->question_id)->first();
+                                                    $formats =json_decode($attachment->attachments);
+                                                @endphp 
+                                                @if($formats)
+                                                        <p style="font-size:14px;">
+															@foreach($formats as $format)
+																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+															@endforeach
+															Allowed Format
+														</p>
+                                                <input type="file" class="dropify" disabled>
+                                                @endif
+                                            @endif
                 </div>
                 <!--</div>-->
                 <?php endforeach; ?>
@@ -470,6 +487,13 @@
     <script type="text/javascript" src="{{ url('public/custom_form/js/popper.min.js') }}"></script>
     <script src="{{ url('public/custom_form/js/easySelectable.js') }}"></script>
     <script type="text/javascript" src="{{ url('public/custom_form/js/cust_js.js') }}"></script>
+    <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.dropify').dropify();
+        })
+    </script>
 
     <script>
         $(document).ready(function() {

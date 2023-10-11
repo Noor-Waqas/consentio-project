@@ -130,8 +130,16 @@
                   @endif
                   @if(Request::is('Forms/AdminFormsList'))
                     <td><a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> <i class="far fa-eye"></i> View Form</a></td></td>
+                    @php
+                     $check=DB::table('sub_forms')->where('parent_form_id', $form_info->form_id)->count();
+                     echo $check;
+                    @endphp
                     <td>
+                    @if($check > 0 || $form_info->form_id < 14)
+                      <a href="{{ url('Forms/'.$form_info->form_id.'/add/questions') }}" class="btn btn-sm btn-success pull-right disabled" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Questions</a>
+                    @else
                       <a href="{{ url('Forms/'.$form_info->form_id.'/add/questions') }}" class="btn btn-sm btn-success pull-right " style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Questions</a>
+                    @endif
                     </td>
                   @else
                     <td><a href={{ url('audit/form/'.$form_info->form_id) }}> <i class="far fa-eye"></i> View Form</a></td></td>

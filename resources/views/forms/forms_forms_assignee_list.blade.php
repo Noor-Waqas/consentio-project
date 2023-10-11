@@ -40,9 +40,15 @@
   	<?php foreach ($client_list as $client): ?>
 
     <tr>
+	@if(DB::table('sub_forms')->where('parent_form_id', $form_id)->where('client_id', $client->id)->count() > 0)
 	
-	   <td><input type="checkbox" onclick="checkfu({{$client->id}})" class="cbox" name="row{{$client->id}}" id="row{{$client->id}}" value="{{$client->id}}" <?php if (in_array($client->id, $assigned_client_ids)) echo 'checked'; ?> ></td>
+	   <td><input type="checkbox" onclick="checkfu({{$client->id}})" class="cbox" name="row{{$client->id}}" id="row{{$client->id}}" value="{{$client->id}}" <?php if (in_array($client->id, $assigned_client_ids)) echo 'checked'; ?> disabled ></td>
 	
+   @else
+
+		<td><input type="checkbox" onclick="checkfu({{$client->id}})" class="cbox" name="row{{$client->id}}" id="row{{$client->id}}" value="{{$client->id}}" <?php if (in_array($client->id, $assigned_client_ids)) echo 'checked'; ?> ></td>
+	
+	@endif
       <td>{{ $client->company }}</td>
 
     </tr>
