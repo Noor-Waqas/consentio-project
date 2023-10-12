@@ -500,7 +500,11 @@
 												$options = explode(', ', $question->options); 
 												if (!empty($options)): ?>
 													<section class="options"> 
+														@if($question->is_locked==1)
+														<ul id="easySelectable" class="">
+														@else
 														<ul id="easySelectable" class="easySelectable">
+														@endif
 															<?php 
 																if($question->is_assets_question == 1){
 																	$client_id = Auth::user()->client_id;
@@ -526,7 +530,11 @@
 																		</li>
 																	<?php
 																	else:?>
+																		@if($question->is_locked==1)
+																		<li class="es-selectable {{ $selected_class }}" name="{{ $question->q_id.(($type=='mc')?('[]'):('')) }}" q-id="{{$question->q_id}}" value="" type="{{ $type }}" {{($question->question_assoc_type == 2 && $question->form_id == '2')?("assoc=1"):('')}} disabled=""> {{ ucfirst(strtolower(trim($option))) }}</li>
+																		@else
 																		<li {{ $attr }} class="es-selectable {{ $selected_class }}" name="{{ $question->form_key.'_'.$question->q_id.(($type=='mc')?('[]'):('')) }}" q-id="{{$question->q_id}}" value="{{ $option }}" type="{{ $type }}" {{($question->question_assoc_type == 2 && $question->form_id == '2')?("assoc=1"):('')}}> {{ ucfirst(strtolower(trim($option))) }}</li>
+																		@endif
 																		<?php
 																		if ($question->question_assoc_type == '2' && $question->form_id == '2'):?>
 																		<script>
@@ -637,7 +645,11 @@
 																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" style="margin-bottom:20px;max-height:35px;overflow:hidden"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
 														<?php
 															else:?>
+															@if($question->is_locked==1)
+																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" rows="4" cols="50" disabled><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
+															@else
 																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" rows="4" cols="50"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
+															@endif
 														<?php 
 															endif;?>
 														@if($showcomment)
@@ -663,7 +675,11 @@
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
+													@if($question->is_locked==1)
+													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }} disabled>
+													@else
 													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }}>
+													@endif
 													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 												@if($showcomment)
@@ -717,7 +733,11 @@
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
+													@if($question->is_locked==1)
+													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['attachment']) && !empty($filled[$question->form_key]['attachment']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['attachment'])):('') }} disabled>
+													@else
 													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['attachment']) && !empty($filled[$question->form_key]['attachment']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['attachment'])):('') }}>
+													@endif
 													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 										@endif
@@ -754,7 +774,7 @@
 						}
 					?>
 					<div class="col col-md-6">
-						<button class="btn btn-primary btn-lg prev" sec-num="{{$curr_sec - 1}}" <?php if ($curr_sec - 1 < 1) echo 'disabled'; ?>>
+						<button onclick="topFunction()" class="btn btn-primary btn-lg prev" sec-num="{{$curr_sec - 1}}" <?php if ($curr_sec - 1 < 1) echo 'disabled'; ?>>
 							< {{ __('Previous') }}
 						</button>
 					</div>

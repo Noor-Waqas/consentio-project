@@ -32,13 +32,29 @@ class UsersController extends Controller
             ->get();
 
         $section = DB::table("sections")->get();
-        $dc_result = DB::table("data_classifications")->get();
+        $dc_result = DB::table("data_classifications")->where('organization_id', null)->get();
+        // dd($dc_result);
 
         return view("admin.users.data_element", [
             "data" => $data,
             "section" => $section,
             "dc_result" => $dc_result,
         ]);
+    }
+
+    public function data_element_group(Request $req)
+    {
+        $req->validate([
+            "name" => "required",
+            "element_group" => "required",
+            "d_c_name" => "required",
+        ]);
+        DB::table("assets_data_elements")->insert([
+            "name" => $req->name,
+            "section_id" => $req->element_group,
+            "d_classification_id" => $req->d_c_name,
+        ]);
+        return redirect("/data_element")->with("message", "Data Element Has Successfully Added");
     }
 
     public function edit_data_element_group($id)
@@ -48,7 +64,7 @@ class UsersController extends Controller
             ->join("sections as s", "ade.section_id", "s.id")->join("data_classifications as dc", "ade.d_classification_id", "dc.id")->where("ade.id", $id)->orderby('id', "desc")
             ->get();
         $section = DB::table("sections")->get();
-        $dc_result = DB::table("data_classifications")->get();
+        $dc_result = DB::table("data_classifications")->where('organization_id', null)->get();
         return view('admin.users.edit_data_element_group', [
             "data" => $data,
             "section" => $section,
@@ -67,7 +83,7 @@ class UsersController extends Controller
             "section_id" => $req->element_group,
             "d_classification_id" => $req->d_c_name,
         ]);
-        return redirect("/data_element")->with("success", "Data Has Successfully Updated");
+        return redirect("/data_element")->with("message", "Data Element Has Successfully Updated");
     }
 
     public function permissions($id)

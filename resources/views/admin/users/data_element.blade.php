@@ -41,7 +41,7 @@
 							       		{{ csrf_field() }}
 							       		<div class="form-group">
 							       			<label for="#">New Element</label>
-							       			<input type="text" name="new_element" class="form-control" placeholder="New Element">
+							       			<input type="text" name="name" class="form-control" placeholder="New Element">
 							       		</div>
 							       		<div class="form-group">
 							       			<label for="#">Data Element Group</label>
@@ -51,14 +51,14 @@
 							       				@endforeach
 							       			</select>
 							       		</div>
-                        {{--<div class="form-group">
+                        <div class="form-group">
                           <label for="#">Data Classification name</label>
                           <select name="d_c_name" id="" class="form-control">
                             @foreach($dc_result as $dc)
-                              <option value="{{$dc->id}}" >{{$dc->classificaion_name_en}}</option>
+                              <option value="{{$dc->id}}" >{{$dc->classification_name_en}}</option>
                             @endforeach
                           </select>
-                        </div>--}}
+                        </div>
 								  </div>
 								      <div class="modal-footer">
 								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
