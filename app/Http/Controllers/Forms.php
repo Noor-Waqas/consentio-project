@@ -549,10 +549,10 @@ class Forms extends Controller{
         }
 
         $filled_info = DB::table('user_form_links')
-            ->join('user_responses', 'user_form_links.user_id', '=', DB::raw('user_responses.user_id AND user_form_links.sub_form_id = user_responses.sub_form_id'))
-            ->join('questions', 'questions.id', '=', 'user_responses.question_id')
+            ->join('internal_users_filled_response', 'user_form_links.user_id', '=', DB::raw('internal_users_filled_response.user_id AND user_form_links.sub_form_id = internal_users_filled_response.sub_form_id'))
+            ->join('questions', 'questions.id', '=', 'internal_users_filled_response.question_id')
             ->where('user_form_links.form_link_id', '=', $form_link_id)
-            ->select('question_key', 'question_response', 'question_id', 'additional_comment', 'additional_info', 'questions.type', 'custom_case')->get();
+            ->select('question_key', 'question_response', 'question_id', 'additional_comment', 'additional_info', 'questions.type', 'custom_case', 'internal_users_filled_response.attachment')->get();
         $custom_responses = [];
 
 
@@ -573,6 +573,7 @@ class Forms extends Controller{
                 'question_comment' => $user_response->additional_comment,
                 'question_type' => $user_response->type,
                 'additional_resp' => $user_response->additional_info,
+                'attachment' => $user_response->attachment,
             ];
         }
 
@@ -795,6 +796,7 @@ class Forms extends Controller{
                 $hidden_pb = true;
             }
         }
+        // dd($question_key_index);
         if (count($form_info) > 0) {
             return view('forms.in_user_form_sec_wise', [
                 'form_type'     => $form_type,
@@ -838,7 +840,8 @@ class Forms extends Controller{
 
             $file_path = $img_dir_path . $img_name;
 
-            DB::table('internal_users_filled_response')
+            if($req->attachment==1){
+                DB::table('internal_users_filled_response')
                 ->updateOrInsert(
                     [
                         'user_form_id'     => $user_form_id,
@@ -849,22 +852,52 @@ class Forms extends Controller{
                         'user_id'          => $user_id,
                         // 'user_email'       => 0,
                     ],
-                    ['question_response' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
+                    ['attachment' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
                 );
             
-            DB::table('user_responses')
-                ->updateOrInsert(
-                    [
-                        'user_form_id'      => $user_form_id,
-                        'form_id'           => $form_id,
-                        'sub_form_id'       => $subform_id,
-                        'question_id'       => $question_id,
-                        'question_key'      => $question_key,
-                        'user_id'           => $user_id ],
-                    [   'question_response' => $file_path, "is_internal" => 1, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
-                );
+                DB::table('user_responses')
+                    ->updateOrInsert(
+                        [
+                            'user_form_id'      => $user_form_id,
+                            'form_id'           => $form_id,
+                            'sub_form_id'       => $subform_id,
+                            'question_id'       => $question_id,
+                            'question_key'      => $question_key,
+                            'user_id'           => $user_id ],
+                        [   'attachment' => $file_path, "is_internal" => 1, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
+                    );
 
-            return;
+                return;
+            }
+            else{
+                DB::table('internal_users_filled_response')
+                    ->updateOrInsert(
+                        [
+                            'user_form_id'     => $user_form_id,
+                            'form_id'          => $form_id,
+                            'sub_form_id'      => $subform_id,
+                            'question_id'      => $question_id,
+                            'question_key'     => $question_key,
+                            'user_id'          => $user_id,
+                            // 'user_email'       => 0,
+                        ],
+                        ['question_response' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
+                    );
+                
+                DB::table('user_responses')
+                    ->updateOrInsert(
+                        [
+                            'user_form_id'      => $user_form_id,
+                            'form_id'           => $form_id,
+                            'sub_form_id'       => $subform_id,
+                            'question_id'       => $question_id,
+                            'question_key'      => $question_key,
+                            'user_id'           => $user_id ],
+                        [   'question_response' => $file_path, "is_internal" => 1, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
+                    );
+
+                return;
+            }
         }
 
         $user_form_id = $req->input('user-form-id');

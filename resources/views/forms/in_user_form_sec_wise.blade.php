@@ -717,7 +717,7 @@
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
-													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response'][0]) && !empty($filled[$question->form_key]['question_response'][0]))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'][0])):('') }}>
+													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['attachment']) && !empty($filled[$question->form_key]['attachment']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['attachment'])):('') }}>
 													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 										@endif
