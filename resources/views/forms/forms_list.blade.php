@@ -132,7 +132,7 @@
                     <td><a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> <i class="far fa-eye"></i> View Form</a></td></td>
                     @php
                      $check=DB::table('sub_forms')->where('parent_form_id', $form_info->form_id)->count();
-                     echo $check;
+                     
                     @endphp
                     <td>
                     @if($check > 0 || $form_info->form_id < 14)

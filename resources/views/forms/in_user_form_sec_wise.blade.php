@@ -286,12 +286,14 @@
 					<?php echo $expiry_note; ?>
 				</div>
 			@endif
+			@if($questions[0]->is_locked!=1)
 			<div id="perc-bar" class="barfiller">
 				<div class="tipWrap">
 					<span class="tip"></span>
 				</div>
 				<span class="fill" id="fill-bar" data-percentage="0"></span>
 			</div>
+			@endif
 
 			<!---------------main-panel----------->
 			<div class="main-panel">
@@ -469,6 +471,7 @@
 												$options = explode(', ', $question->options); 
 												if (!empty($options)):
 												?>
+												
 													<select {{ $attr }} class="form form-control select_for_js" name="{{ $question->form_key.'_'.$question->q_id}}" q-id="{{$question->q_id}}" style="margin-bottom:20px">
 														<?php
 															foreach ($options as $option):
@@ -532,11 +535,9 @@
 																		</li>
 																	<?php
 																	else:?>
-																		@if($question->is_locked==1)
-																		<li class="es-selectable {{ $selected_class }}" name="{{ $question->q_id.(($type=='mc')?('[]'):('')) }}" q-id="{{$question->q_id}}" value="" type="{{ $type }}" {{($question->question_assoc_type == 2 && $question->form_id == '2')?("assoc=1"):('')}} disabled=""> {{ ucfirst(strtolower(trim($option))) }}</li>
-																		@else
+																		
 																		<li {{ $attr }} class="es-selectable {{ $selected_class }}" name="{{ $question->form_key.'_'.$question->q_id.(($type=='mc')?('[]'):('')) }}" q-id="{{$question->q_id}}" value="{{ $option }}" type="{{ $type }}" {{($question->question_assoc_type == 2 && $question->form_id == '2')?("assoc=1"):('')}}> {{ ucfirst(strtolower(trim($option))) }}</li>
-																		@endif
+																		
 																		<?php
 																		if ($question->question_assoc_type == '2' && $question->form_id == '2'):?>
 																		<script>
@@ -597,6 +598,7 @@
 														$dynmc_values_dropdown = DB::table("asset_tier_matrix")->select('id', 'tier_value AS name')->get();
 														break;
 												} ?>
+												
 												<select  class="form form-control select_for_js" name="{{ $question->form_key.'_'.$question->q_id}}" q-id="{{$question->q_id}}" style="margin-bottom:20px">
 
 													@if(session('locale')=='fr') 
@@ -647,11 +649,9 @@
 																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" style="margin-bottom:20px;max-height:35px;overflow:hidden"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
 														<?php
 															else:?>
-															@if($question->is_locked==1)
-																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" rows="4" cols="50" disabled><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
-															@else
+															
 																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" rows="4" cols="50"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
-															@endif
+															
 														<?php 
 															endif;?>
 														@if($showcomment)
@@ -688,11 +688,9 @@
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
-													@if($question->is_locked==1)
-													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }} disabled>
-													@else
+													
 													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }}>
-													@endif
+													
 													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 												@if($showcomment)
@@ -746,11 +744,9 @@
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
-													@if($question->is_locked==1)
-													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['attachment']) && !empty($filled[$question->form_key]['attachment']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['attachment'])):('') }} disabled>
-													@else
+													
 													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['attachment']) && !empty($filled[$question->form_key]['attachment']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['attachment'])):('') }}>
-													@endif
+													
 													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 										@endif
@@ -941,6 +937,32 @@
 		<script src="{{ url('backend/js/jquery.datetimepicker.js') }}"></script>
 		<!-- <script src="{{ url('public/dropify/js/dropify.min.js') }}" type="text/javascript"></script> -->
 		<script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+		@if($questions[0]->is_locked==1)
+		<script>
+			// Function to disable textareas, input tags, and select elements
+			function disableFormElements() {
+				var inputs = document.getElementsByTagName('input');
+				var textareas = document.getElementsByTagName('textarea');
+				var selects = document.getElementsByTagName('select');
+				
+				for (var i = 0; i < inputs.length; i++) {
+					inputs[i].disabled = true;
+				}
+				
+				for (var i = 0; i < textareas.length; i++) {
+					textareas[i].disabled = true;
+				}
+				
+				for (var i = 0; i < selects.length; i++) {
+					selects[i].disabled = true;
+				}
+			}
+			
+			// Call the function on page load
+			window.addEventListener('load', disableFormElements);
+		</script>
+		@endif
+
 		<script>
 			$(function(){
 				$(".open_add_comment_model_btn").on('click', function (event) {
