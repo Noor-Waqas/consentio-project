@@ -367,12 +367,14 @@
 										$close_body_sec_div = 0; 
 										?>
 										<!--  -->
+										@if($question->is_locked!=1)
 										<div class="alert alert-success hidden submit-msg" id="submit-msg" style="margin-top:20px;margin-bottom:10px">
 											<h4>{{ __('Almost Done') }}!</h4>
 											{{ __('Please review your answers before submitting form and click') }} 
 											<button class="btn btn-success btn-lg submit">{{ __('Submit') }}</button> 
 											{{ __('once finalized.') }}
 										</div>
+										@endif
 										<div class="alert alert-warning  danger-msg" id="danger-msg" style="margin-top:20px;margin-bottom:10px">
 											<h4>{{ __('All fields are required to proceed') }}</h4>
 										</div>
@@ -663,6 +665,17 @@
 													<?php
 												break;
 											case('im'): ?>
+												@php
+                                                    $formate =json_decode($question->attachments);
+                                                @endphp 
+                                                @if($formate)
+                                                        <p style="font-size:14px;">
+															@foreach($formate as $format)
+																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+															@endforeach
+															Allowed Format
+														</p>
+                                                @endif
 												<form id="upload_form-{{ $question->q_id }}" enctype="multipart/form-data" method="POST">
 													<input type="hidden" name="_token" value="{{ csrf_token()}}">
 													<input type="hidden" name="user-form-id" value="{{ $questions[0]->uf_id }}">
@@ -744,11 +757,13 @@
 									</div>
 									<?php 
 									endforeach; ?>
+									@if($question->is_locked!=1)
 									<div class="alert alert-success hidden submit-msg" id="submit-msg" style="margin-top:20px;margin-bottom:10px">
 										<h4>{{ __('Almost Done') }}!</h4>
 										{{ __('Please review your answers before submitting form and click') }} <button class="btn btn-success btn-lg submit">{{ __('Submit') }}</button> 
 										{{ __('once finalized') }}.
 									</div>
+									@endif
 									<div class="alert alert-warning  danger-msg " id="danger-msg" style="margin-top:20px;margin-bottom:10px">
 										<h4>{{ __('All fields are required to proceed') }}</h4>
 									</div>
