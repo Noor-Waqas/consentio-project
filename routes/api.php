@@ -594,7 +594,7 @@
                 $table->datetime('expiry_time')->nullable();
                 $table->timestamps();
             });
-            return "ok";
+            return "subforms created";
         } catch (\Exception $th) {
             return $th->getMessage();
         }
