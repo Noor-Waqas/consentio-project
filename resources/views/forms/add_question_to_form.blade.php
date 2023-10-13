@@ -1184,9 +1184,9 @@
                             '<input type="text" ' +property + ' id="main-' + created_div_id + '" name="s_question_title_fr[]" class="form-control fr_field" >'+
                             '<div class="form-group">'+
                                 '<label for="question_title" class="col-form-label">Add Question Short Title English <strong style="color: red">*</strong></label>'+
-                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" onkeyup="updateValue(this)">'+
+                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" onkeyup="$(\'#main-s-' +created_div_id +'\').val($(this).val())">'+
                                 '<label for="question_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>'+
-                                '<input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="qm_main_q">'+
+                                '<input type="text" ' +property + ' name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="main-s-' + created_div_id + '">'+
                             '</div>';
 
             html = '<input  type="hidden" name="s_q_type[]" value="' + type + '">';
@@ -1301,14 +1301,14 @@
             $('#' + created_div_id + 'another_question').hide();
             $('.button_div').hide();
             var questions = '<label for="question_title" class="col-form-label">Add Sub Question Title English  <strong style="color:  red">*</strong></label>'+
-                            '<input type="text" name="s_question_title[]" id="mainen-' + created_div_id +'" onkeyup="$(\'#main-' +created_div_id +'\').val($(this).val())" class="form-control" >'+
+                            '<input type="text" name="s_question_title[]" id="mainen-' + created_div_id +'" onkeyup="$(\'#mainen-fr-' +created_div_id +'\').val($(this).val())" class="form-control" >'+
                             '<label for="question_title_fr" class="col-form-label fr_group">Add Sub Question Title French  <strong style="color:  red">*</strong></label>'+
-                            '<input type="text" ' +property + ' name="s_question_title_fr[]" onkeyup="document.getElementById(\'mainen-' +created_div_id +'\').onkeyup = null" id="main-' + created_div_id +'"  class="form-control fr_field" >'+
+                            '<input type="text" ' +property + ' name="s_question_title_fr[]" onkeyup="document.getElementById(\'mainen-' +created_div_id +'\').onkeyup = null" id="mainen-fr-' + created_div_id +'" class="form-control fr_field" >'+
                             '<div class="form-group">'+
                                 '<label for="question_title" class="col-form-label">Add Question Short Title English <strong style="color: red">*</strong></label>'+
-                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" id="q_main_q_en" onkeyup="updateVal(this)">'+
+                                '<input type="text" name="question_title_short" maxlength="20" class="form-control" id="mainen-s-' + created_div_id +'" onkeyup="$(\'#mainfr-s-' +created_div_id +'\').val($(this).val())">'+
                                 '<label for="question_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>'+
-                                '<input type="text" name="question_title_short_fr" maxlength="20"  onkeyup="document.getElementById(\'q_main_q_en\').onkeyup = null" class="form-control fr_field" id="q_main_q">'+
+                                '<input type="text" ' +property + ' name="question_title_short_fr" maxlength="20"  onkeyup="document.getElementById(\'mainen-s-' +created_div_id +'\').onkeyup = null" class="form-control fr_field" id="mainfr-s-' + created_div_id +'">'+
                             '</div>';
             html = '<input type="hidden" name="s_q_type[]" value="' + type + '">';
             switch (type) {
@@ -1691,14 +1691,14 @@
                         '<textarea onkeyup="check_is_type_sc_for_datepicker(this.value,this),$(\'#options-\').val($(this).val())" id="optionsen-" type="text"  class="form-control" name="question_options"></textarea>' +
                         '<label for="' + type +
                         '_question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
-                        '<textarea onkeyup="check_is_type_sc_for_datepicker(this.value,this),document.getElementById(\'optionsen-\').onkeyup = null" type="text"  class="form-control" id="options-" name="question_options_fr" ' +
+                        '<textarea onkeyup="check_is_type_sc_for_datepicker(this.value,this),document.getElementById(\'optionsen-\').onkeyup = null" type="text"  class="form-control fr_field" id="options-" name="question_options_fr" ' +
                         property + ' ></textarea>' +
                         '<label for="' + type +
                         '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
                         '<textarea type="text"  class="form-control" name="question_coment" id="commenten-" onkeyup="$(\'#comment-\').val($(this).val())" ></textarea>' +
                         '<label for="' + type +
                         '_question_options_fr" class="col-form-label">Add Question Comment French (Optional)</label>' +
-                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control" name="question_coment_fr" ' + property +'id="comment-" ></textarea>'+
+                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +'id="comment-" ></textarea>'+
                         '<div class="pt-2">'+
                             '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
                             '<div class="options"></div>'+
@@ -1716,14 +1716,14 @@
                         '<textarea onkeyup="check_is_date_picker_is_single(this.value,this),$(\'#options-\').val($(this).val())" id="optionsen-" type="text"  class="form-control" name="question_options" ></textarea>' +
                         '<label for="' + type +
                         '_question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
-                        '<textarea onkeyup="check_is_date_picker_is_single(this.value,this),document.getElementById(\'optionsen-\').onkeyup = null" type="text"  class="form-control" id="options-" name="question_options_fr" ' +
+                        '<textarea onkeyup="check_is_date_picker_is_single(this.value,this),document.getElementById(\'optionsen-\').onkeyup = null" type="text"  class="form-control fr_field" id="options-" name="question_options_fr" ' +
                         property + ' ></textarea>' +
                         '<label for="' + type +
                         '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
                         '<textarea type="text"  class="form-control" name="question_coment" id="commenten-" onkeyup="$(\'#comment-\').val($(this).val())" ></textarea>' +
                         '<label for="' + type +
                         '_question_options_fr" class="col-form-label">Add Question Comment French (Optional)</label>' +
-                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control" name="question_coment_fr" ' + property +
+                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>'+
                         '<div class="pt-2">'+
                             '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
@@ -1740,7 +1740,7 @@
                         '<textarea type="text" onkeyup="$(\'#comment-\').val($(this).val())" id="commenten-" class="form-control" name="question_coment"></textarea>' +
                         '<label for="' + type +
                         '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
-                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control" name="question_coment_fr" ' + property +
+                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         '  id="comment-"></textarea>' +
                         '<br/>' +
                         '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
@@ -1756,7 +1756,7 @@
                         '<textarea type="text"  class="form-control" name="question_coment" id="commenten-" onkeyup="$(\'#comment-\').val($(this).val())"  ></textarea>' +
                         '<label for="' + type +
                         '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
-                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control" name="question_coment_fr" ' + property +
+                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>' +
                         '<div class="col-md-6">' +
                         '<label for="inputCity" class="form-label">Select Attachment:</label>' +
