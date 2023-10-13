@@ -128,12 +128,12 @@
                     <td><a href="{{ url('Forms/FormAssignees/'.$form_info->form_id) }}"> <i class="fas fa-tasks"></i> Form Assignees</a></td></td>
                     <?php endif; ?>
                   @endif
-                  @if(Request::is('Forms/AdminFormsList'))
-                    <td><a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> <i class="far fa-eye"></i> View Form</a></td></td>
-                    @php
+                  @php
                      $check=DB::table('sub_forms')->where('parent_form_id', $form_info->form_id)->count();
                      
                     @endphp
+                  @if(Request::is('Forms/AdminFormsList'))
+                    <td><a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> <i class="far fa-eye"></i> View Form</a></td></td>
                     <td>
                     @if($check > 0 || $form_info->form_id < 14)
                       <a href="{{ url('Forms/'.$form_info->form_id.'/add/questions') }}" class="btn btn-sm btn-success pull-right disabled" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Questions</a>
@@ -151,7 +151,11 @@
                   <td>{{ $form_info->subforms_count }}</td>
                   <?php endif; ?>
                   <?php if (Auth::user()->role == 1): ?>
+                  @if($check > 0 || $form_info->form_id < 14)
+                  <td><a href="" style="pointer-events: none;color:grey;"> <i class="fas fa-pencil-alt"></i> Edit Name</a></td>
+                  @else
                   <td><a href="{{ url('edit_form/'.$form_info->form_id) }}"> <i class="fas fa-pencil-alt"></i> Edit Name</a></td>
+                  @endif
                   <?php endif; ?>
                   
                 </tr>

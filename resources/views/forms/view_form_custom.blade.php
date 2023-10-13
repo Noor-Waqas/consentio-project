@@ -449,11 +449,18 @@
                     <label><b>{{ __('Attachment Message') }}</b></label>
 
                     @if ($attachments != '')
-                        @for ($i = 1; $i <= 5; $i++)
+                            <p style="font-size:14px;">
+                                @foreach($attachments as $format)
+                                    @if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+                                @endforeach
+                                Allowed Format
+                            </p>
+                            <input type="file" class="dropify" disabled>
+                        <!-- @for ($i = 1; $i <= 5; $i++)
                             @if (in_array($i, $attachments))
                                 <span>{{ $att[$i - 1] }} &nbsp;&nbsp;</span>
                             @endif
-                        @endfor
+                        @endfor -->
                     @endif
                     <?php	
 									break;									
