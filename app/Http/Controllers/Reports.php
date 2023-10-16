@@ -1377,7 +1377,10 @@ class Reports extends Controller{
                     ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
                     ->join('questions', 'questions.form_id', 'forms.id')
                     ->where('sub_forms.client_id', $client_id)
-                    ->where('questions.question', 'What assets are used to process the data for this activity?')
+                    ->where(function ($query) {
+                        $query->where('questions.question', 'What assets are used to process the data for this activity?')
+                              ->orWhere('questions.question', 'What assets are used to store and process data for this activity?');
+                    })
                     ->pluck('form_key');
                     // dd($as_id);
                     if(count($ac_id)>0){
@@ -1433,7 +1436,10 @@ class Reports extends Controller{
                     ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
                     ->join('questions', 'questions.form_id', 'forms.id')
                     ->where('sub_forms.client_id', $client_id)
-                    ->where('questions.question', 'What assets are used to process the data for this activity?')
+                    ->where(function ($query) {
+                        $query->where('questions.question', 'What assets are used to process the data for this activity?')
+                              ->orWhere('questions.question', 'What assets are used to store and process data for this activity?');
+                    })
                     ->pluck('form_key');
                     // dd($as_id);
                     
