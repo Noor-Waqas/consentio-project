@@ -688,12 +688,12 @@
                             </p>
                             <input type="file" class="dropify" disabled>
                                                 
-                            @for ($i = 1; $i <= 5; $i++)
+                            <!-- @for ($i = 1; $i <= 5; $i++)
                                 <input type="checkbox" name="attachment[]" id="img"
                                     {{ in_array($i, $attachments) ? 'checked=true' : '' }} disabled />
                                     {{ $att[$i - 1] }}
                                 &nbsp;&nbsp;
-                            @endfor
+                            @endfor -->
                         @endif
 
                     </div>
@@ -718,22 +718,22 @@
 								break;	
 						endswitch; 
 					?>
-                                            @if($question->attachment_allow==1)
-                                                @php 
-                                                    $accepted_formates = ['Images', '.docs', '.pdf', '.xlxs , .csv', '.zip'];
-                                                    $attachment = DB::table('questions')->where('id',$question->question_id)->first();
-                                                    $formats =json_decode($attachment->attachments);
-                                                @endphp 
-                                                @if($formats)
-                                                        <p style="font-size:14px;">
-															@foreach($formats as $format)
-																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
-															@endforeach
-															Allowed Format
-														</p>
-                                                <input type="file" class="dropify" disabled>
-                                                @endif
-                                            @endif
+                            @if($question->attachment_allow==1)
+                                @php 
+                                    $accepted_formates = ['Images', '.docs', '.pdf', '.xlxs , .csv', '.zip'];
+                                    $attachment = DB::table('questions')->where('id',$question->question_id)->first();
+                                    $formats =json_decode($attachment->attachments);
+                                @endphp 
+                                @if($formats)
+                                        <p style="font-size:14px;">
+                                            @foreach($formats as $format)
+                                                @if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+                                            @endforeach
+                                            Allowed Format
+                                        </p>
+                                <input type="file" class="dropify" disabled>
+                                @endif
+                            @endif
                     <br><br>
                 </div>
                 <!--  -->

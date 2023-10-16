@@ -446,7 +446,7 @@
 								break;									
 							case ('im'):
 								$attachments =json_decode($question->attachments);?>
-                    <label><b>{{ __('Attachment Message') }}</b></label>
+                    <!-- <label><b>{{ __('Attachment Message') }}</b></label> -->
 
                     @if ($attachments != '')
                             <p style="font-size:14px;">

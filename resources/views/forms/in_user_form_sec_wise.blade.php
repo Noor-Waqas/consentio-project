@@ -1471,8 +1471,9 @@
 					// file types which will accepted o this question pecified by admin 
 
 					let accepted_file_types = JSON.parse($(`#accepted_types_${q_id}`).val()).map(function(str) { return parseInt(str)});
+					// console.log(accepted_file_types);
 					// All possible Extention for these file types 
-					const all_extentions = ["", ["jpg", "png", "jpeg", "gif", "JPG", "PNG", "JPEG", "GIF"], ['docs'], ['pdf'] , ['xlxs' ,'csv'], ['zip']];
+					const all_extentions = ["", ["jpg", "png", "jpeg", "gif", "JPG", "PNG", "JPEG", "GIF"], ['docx', 'doc'], ['pdf'] , ['xlsx' ,'csv'], ['zip']];
 					// Extentions for Current Question
 					let accepted_extentions  = [];
 
@@ -1483,8 +1484,11 @@
 							}
 						}
 					}
+					console.log(accepted_extentions);
 					// Uploaded file whose we have to check extention upported or not 
-					var uploaded_file_extention = event.target.files[0].name.split('.')[1];
+					var uploaded_file_extention = event.target.files[0].name.split('.').pop();
+					// var uploaded_file_extension = event.target.files[0].name.split('.')[1];
+					console.log(uploaded_file_extention);
 
 					if (accepted_extentions.indexOf(uploaded_file_extention) == -1) {
 						let error_id = `#image_error_${q_id}`;
