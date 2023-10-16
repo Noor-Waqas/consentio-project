@@ -189,6 +189,20 @@
 									<span id='message'></span>
 								</div>
 							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-labe form-control-label">{{ __('User Blocked')}}</label><br>
+								 <div class="col-md-8">
+									<label class="switch"> 
+										@if($user->is_blocked=="Yes")
+							  				<input name="is_blocked" type="checkbox" checked>
+							  			@else
+							  				<input name="is_blocked" type="checkbox">
+							  			@endif
+										<span class="slider round"></span>
+									</label>
+									<span id='message'></span>
+								</div>
+							</div>
 						</div>
 						<div class="col-md-8">
                             <div class="profile_info">
