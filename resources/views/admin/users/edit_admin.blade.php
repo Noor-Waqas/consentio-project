@@ -317,6 +317,26 @@ input:checked + .slider:before {
 
 						</div>
 
+
+						<div class="col-sm-6 col-md-4">
+
+							<div class="form-group">
+
+								<label class="form-control-label">Blocked</label>
+
+								<select name="is_blocked" id="is_blocked" class="form-control">
+
+						   			<option {{$user->is_blocked=="Yes"? 'Selected' : ""}} value="Yes">Yes</option>
+									<option {{$user->is_blocked=="No"? 'Selected' : ""}} value="No">No</option>
+								
+								</select>
+
+								<span id='message'></span>
+
+							</div>
+
+						</div>
+
 					
 
 						</div>

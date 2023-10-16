@@ -299,6 +299,7 @@ class Admin extends Controller
             $record = array(
            "name" => $request->input('name'),
            "image_name" => $imgname,
+           "is_blocked" => $request->input('is_blocked'),
         );
         if($request->input('password')) { 
             $record['password'] = bcrypt($request->input('password'));
@@ -362,6 +363,7 @@ class Admin extends Controller
             $record = array(
                "name" => $request->input('name'),
                "image_name" => $imgname,
+               "is_blocked" => $request->input('is_blocked'),
                "tfa" => 0,           
             );
 
