@@ -253,6 +253,7 @@ Route::get("assets_data_elements", "AssetsController@asset_data_elements")->name
 Route::post("data-element-group", "AssetsController@dataElementGroup");
 Route::get('elements-data', "AssetsController@element_data");
 Route::get("edit-data-element/{id}", "AssetsController@edit_data_element");
+Route::post("save_assets_data_elements", "AssetsController@save_asset_data_elements");
 Route::post("update_data_element", "AssetsController@update_data_element");
 Route::get('import-element-data', "AssetsController@import_data_element")->name("import-data-element");
 Route::post('import-element-data', "AssetsController@import_data_element")->name("import-data-element");
