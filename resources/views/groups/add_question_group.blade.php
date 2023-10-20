@@ -265,12 +265,14 @@
 
                             <div class="form-group">
                                 <label for="question_title" class="col-form-label">Add Question English Short Title  <strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short" class="form-control" id="q_simple_model_main_en" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
+                                <input type="text" name="question_title_short" class="form-control" id="q_simple_model_main_en" maxlength="20" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
+                                <span style="color:red;">Maximum 20 Characters</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="question_title_fr" class="col-form-label">Add Question French Short Title<strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup=null">
+                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr" maxlength="20" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup=null">
+                                <span style="color:red;">Maximum 20 Characters</span>
                             </div>
 
                             <div class="form-group">
@@ -428,9 +430,9 @@
                         html +='<div class="form-group" id="qmodel-type">'+
                                     '<input type="hidden" value="'+type+'" name="type">'+
                                     '<label for="question_comment" class="col-form-label">Add English Question Comment (Optional)</label>'+
-                                    '<textarea type="text" class="form-control fr_field" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
+                                    '<textarea type="text" class="form-control" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
                                     '<label for="question_comment_fr" class="col-form-label">Add Question Comment French (Optional)</label>'+
-                                    '<textarea type="text" class="form-control" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
+                                    '<textarea type="text" class="form-control fr_field" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
                                     '<div class="d-flex pt-3">'+
                                         '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box">&nbsp; Allow Attachments &nbsp;&nbsp;'+
                                     '</div>'+
@@ -457,7 +459,7 @@
                                 '<label for="question_comment" class="col-form-label">Add English Question Comment (Optional)</label>'+
                                 '<textarea type="text" class="form-control" name="question_coment" onkeyup="$( `#question_comment_fr`).val($(this).val())" id="question_comment"></textarea>'+
                                 '<label for="question_comment_fr" class="col-form-label">Add Question Comment French (Optional)</label>'+
-                                '<textarea type="text" class="form-control" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
+                                '<textarea type="text" class="form-control fr_field" name="question_coment_fr" onkeyup="document.getElementById(`question_comment`).onkeyup = null" id="question_comment_fr"></textarea>'+
                             '</div>'+
                         '</div>';
                         break;

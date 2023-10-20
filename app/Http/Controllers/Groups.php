@@ -34,6 +34,17 @@ class Groups extends Controller
                 'group_name'    => 'required|max:255',
                 'group_name_fr' => 'required|max:255'
             ]);
+
+            $groupName = $request->input('group_name');
+            $groupNameFr = $request->input('group_name_fr');
+
+            $group = Group::where('group_name', $groupName)
+                ->orWhere('group_name_fr', $groupNameFr)
+                ->get();
+            
+            if($group->isNotEmpty()){
+                return redirect()->back()->with('message', 'Group Name Already Exist');
+            }
     
             $group = new Group;
             $group->insert([
@@ -43,7 +54,7 @@ class Groups extends Controller
             return redirect('group/list')->with('msg', 'New Group Successfully Added');
     
         } catch (\Exception $ex) {
-            return redirect()->back()->with('msg', $ex->getMessage());
+            return redirect()->back()->with('message', $ex->getMessage());
         }
     }
 
@@ -62,6 +73,22 @@ class Groups extends Controller
                 'group_name'    => 'required|max:255',
                 'group_name_fr' => 'required|max:255'
             ]);
+
+            $groupName = $request->input('group_name');
+            $groupNameFr = $request->input('group_name_fr');
+            $idToExclude = $id;
+
+            $group = Group::where(function ($query) use ($groupName, $groupNameFr) {
+                $query->where('group_name', $groupName)
+                      ->orWhere('group_name_fr', $groupNameFr);
+            })
+            ->whereNotIn('id', [$idToExclude])
+            ->get();
+            
+            if($group->isNotEmpty()){
+                return redirect()->back()->with('msg', 'Group Name Already Exist');
+            }
+
             $group = Group::find($id);
             $group->group_name      = $request->group_name;
             $group->group_name_fr   = $request->group_name_fr;

@@ -769,7 +769,7 @@
                             <input type="text" name="section_title_fr" class="form-control fr_field" id="section_title_fr" onkeyup="document.getElementById('section_title').onkeyup = null;">
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input d_cehckbox" id="smodel-same" type="checkbox" onclick="check_is_check(this)" value="" id="flexCheckChecked">
+                            <input class="form-check-input d_cehckbox" id="smodel-same" type="checkbox" onclick="check_is_check(document.getElementById('smodel-same'), 'addSectionModel')" value="" id="flexCheckChecked">
                             <label class="form-check-label danger" for="flexCheckChecked"> Same For English</label>
                             <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
                             <div class="same_for_fr" style="color: green; display:none;">All french data will be saved same as english</div>
@@ -866,7 +866,7 @@
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input d_cehckbox" onclick="check_is_check(this)" id="qmodel-same" type="checkbox" value="" id="flexCheckChecked">
+                            <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('qmodel-same'), 'addQuestionModel')" id="qmodel-same" type="checkbox" value="" id="flexCheckChecked">
                             <label class="form-check-label" for="flexCheckChecked"> Only For English </label>
                             <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
                             <div class="same_for_fr" style="color: green; display: none;">
@@ -931,7 +931,7 @@
                                 <span style="color:red;">Maximum 20 Characters</span>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input d_cehckbox" onclick="check_is_check(this)"  id="special_question-same" type="checkbox" value="" id="flexCheckChecked">
+                                <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('special_question-same'), 'specialQuestionModel')"  id="special_question-same" type="checkbox" value="" id="flexCheckChecked">
                                 <label class="form-check-label" for="flexCheckChecked"> Only For English</label>
                                 <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
                                 <div class="same_for_fr" style="color:green; display: none;">All french data will be saved same as english</div>
@@ -992,21 +992,33 @@
     </script>
 
     <script type="text/javascript">
-        function check_is_check(c) {
+
+        function check_is_check(c, modalId) {
             if (c.checked) {
-                $('.fr_field').attr('readonly', true);
-                // $('.fr_group').addClass('d-none');
-                // $('.fr_field').addClass('d-none');
-                $('.not_same_for_fr').hide();
-                $('.same_for_fr').show();
+                $(`#${modalId} .fr_field`).attr('readonly', true);
+                $(`#${modalId} .not_same_for_fr`).hide();
+                $(`#${modalId} .same_for_fr`).show();
             } else {
-                $('.fr_field').attr('readonly', false);
-                // $('.fr_group').removeClass('d-none');
-                // $('.fr_field').removeClass('d-none');
-                $('.not_same_for_fr').show();
-                $('.same_for_fr').hide();
+                $(`#${modalId} .fr_field`).attr('readonly', false);
+                $(`#${modalId} .not_same_for_fr`).show();
+                $(`#${modalId} .same_for_fr`).hide();
             }
         }
+        // function check_is_check(c) {
+        //     if (c.checked) {
+        //         $('.fr_field').attr('readonly', true);
+        //         // $('.fr_group').addClass('d-none');
+        //         // $('.fr_field').addClass('d-none');
+        //         $('.not_same_for_fr').hide();
+        //         $('.same_for_fr').show();
+        //     } else {
+        //         $('.fr_field').attr('readonly', false);
+        //         // $('.fr_group').removeClass('d-none');
+        //         // $('.fr_field').removeClass('d-none');
+        //         $('.not_same_for_fr').show();
+        //         $('.same_for_fr').hide();
+        //     }
+        // }
 
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
@@ -1882,6 +1894,7 @@
                         ' id="comment-"></textarea>' +
                         '<label for="' + type + '_question_options" class="col-form-label">Dynamic Items</label>' +
                         '<select type="text"  class="form-control" name="dropdown_value_from">' +
+                        '<option value="0">CUSTOM ACTIVITY QUESTION</option>' +
                         '<option value="1">DATA-ELEMENTS-OF-ORGANIZATION-WITH-SECTIONS</option>' +
                         '<option value="2">ASSETS-OF-ORGANIZATION</option>' +
                         '<option value="3">COUNTRIES</option>' +

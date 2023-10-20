@@ -4509,6 +4509,84 @@ class Forms extends Controller{
             'question_id' => $question_id,
             'sort_order' => $sord_order_num,
         ]);
+        $sord_order_num=$sord_order_num+0.005;
+
+        if($request->q_type=="dc" && $request->dropdown_value_from==1){
+            DB::table('questions')->where('id', $question_id)->update([
+                'is_parent' => 1,
+                'question_assoc_type' => 1,
+                'type' => null,
+                'is_data_inventory_question' => 1,
+                'question_category' => 2,
+            ]);
+            $sections=DB::table('sections')->get();
+            // dd($sections);
+            foreach($sections as $section){
+                $elements=DB::table('assets_data_elements')->where('section_id', $section->id)->where('owner_id', null)->pluck('name')->toArray();
+                $elements = implode(', ', $elements);
+                // dd($elements);
+
+                $question_array = [
+                    'question'              => $section->section_name,
+                    'question_fr'           => $section->section_name,
+                    'options'               => $elements,
+                    'options_fr'            => $elements,
+                    'question_section'      => '',
+                    'question_section_id'   => $request->this_section_id,
+                    'question_assoc_type'   => 2,
+                    'is_data_inventory_question'   => 1,
+                    'parent_q_id'           => $question_id,
+                    'question_category'     => 2,
+                    'form_id'               => $request->form_id,
+                    'type'                  => 'mc',
+                ];
+
+                $q_id = DB::table('questions')->insertGetId($question_array);
+
+                DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
+
+                // $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->orderBy('id', 'desc')->pluck('sec_num')->first();
+                // $__sec_num = $section_num - 1;
+                // $sord_order_num = $__sec_num + ($current_order / 100);
+                DB::table('form_questions')->insert([
+                    'form_id' => $request->form_id,
+                    'question_id' => $q_id,
+                    'sort_order' => $sord_order_num,
+                ]);
+            }
+        }
+        if($request->q_type=="dc" && $request->dropdown_value_from==0){
+            DB::table('questions')->where('id', $question_id)->update([
+                'is_parent' => 1,
+                'question_assoc_type' => 1,
+                'type' => null,
+                'question_category' => 2,
+            ]);
+
+            $question_array = [
+                'question'              => 'What activity are you assessing?',
+                'question_fr'           => 'What activity are you assessing?',
+                'question_section_id'   => $request->this_section_id,
+                'question_assoc_type'   => 2,
+                'parent_q_id'           => $question_id,
+                'question_category'     => 2,
+                'form_id'               => $request->form_id,
+                'type'                  => 'qa',
+            ];
+
+            $q_id = DB::table('questions')->insertGetId($question_array);
+
+            DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
+
+            // $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->orderBy('id', 'desc')->pluck('sec_num')->first();
+            // $__sec_num = $section_num - 1;
+            // $sord_order_num = $__sec_num + ($current_order / 100);
+            DB::table('form_questions')->insert([
+                'form_id' => $request->form_id,
+                'question_id' => $q_id,
+                'sort_order' => $sord_order_num,
+            ]);
+        }
 
         return redirect()->back()->with('success', __('Successfully Added Section'));
 
