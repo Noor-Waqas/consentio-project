@@ -508,13 +508,13 @@
                 </a>
             </li>
             @endif
-            @if (in_array('Data Elements', $data))
+            <!-- @if (in_array('Data Elements', $data))
             <li class="{{ Request::is('assets_data_elements') ? 'active' : '' }}">
                 <a href="{{ route('asset_data_elements') }}">
                 <span>{{ __('Data Elements') }}</span>
                 </a>
             </li>
-            @endif
+            @endif -->
             @if (in_array('Data Classification', $data))
             <li class="{{ Request::is('front/data-classification') ? 'active' : '' }}">
                 <a href="{{ url('front/data-classification') }}">

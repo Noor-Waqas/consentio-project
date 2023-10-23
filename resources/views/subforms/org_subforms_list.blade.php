@@ -33,6 +33,7 @@
               <th style="vertical-align: middle;" scope="col">{{ __('FORM LINKS') }}</th>
               <th style="vertical-align: middle;" scope="col">{{ __('EMAIL') }}</th>
               <th style="vertical-align: middle;" scope="col">{{ __('USER TYPE') }}</th>
+              <th style="vertical-align: middle;" scope="col">{{ __('SUBFORM NAME') }}</th>
               <th style="vertical-align: middle;" scope="col">{{ __('FORM NAME') }}</th>
               <th style="vertical-align: middle;" scope="col">{{ __('SENT DATE') }}</th>
               <th style="vertical-align: middle;" scope="col">{{ __('TOTAL DAYS') }}</th>
@@ -85,6 +86,15 @@
                   </td>
                   <td>{{ isset($form_info->email)?($form_info->email):($form_info->user_email) }}</td>
                   <td>{!! $user_type !!}</td>
+                  @php
+                   $subform = DB::table('sub_forms')->where('id', $form_info->sub_form_id)->select('title', 'title_fr')->get();
+                  @endphp
+                  <td>  @if(session('locale') == 'fr' && $subform[0]->title_fr != null)
+                    <?php echo $subform[0]->title_fr; ?>
+                    @else
+                    <?php echo $subform[0]->title; ?>
+                    @endif
+                  </td>
                   <td>
                     @if($form_info->title_fr != null && session('locale')=='fr')
                       {{ $form_info->title_fr }}

@@ -1893,19 +1893,20 @@
                         '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>' +
                         '<label for="' + type + '_question_options" class="col-form-label">Dynamic Items</label>' +
-                        '<select type="text"  class="form-control" name="dropdown_value_from">' +
-                        '<option value="0">CUSTOM ACTIVITY QUESTION</option>' +
-                        '<option value="1">DATA-ELEMENTS-OF-ORGANIZATION-WITH-SECTIONS</option>' +
-                        '<option value="2">ASSETS-OF-ORGANIZATION</option>' +
+                        '<select type="text"  class="form-control" name="dropdown_value_from" required>' +
+                        '<option value="">--- Select Dynamic Item ---</option>' +
+                        '<option value="0">PROCESSING ACTIVITY</option>' +
+                        '<option value="1">DATA ELEMENTS WITH SECTIONS</option>' +
+                        '<option value="2">ASSETS LIST</option>' +
                         '<option value="3">COUNTRIES</option>' +
-                        '<option value="4">TYPE OF DATA CLASSIFICATION</option>' +
-                        '<option value="5">ASSETS COMBINED IMPACT</option>' +
-                        '<option value="6">ASSETS TIER</option>' +
+                        // '<option value="4">TYPE OF DATA CLASSIFICATION</option>' +
+                        // '<option value="5">ASSETS COMBINED IMPACT</option>' +
+                        // '<option value="6">ASSETS TIER</option>' +
                         '</select>' +
                         '<br/>' +
                         '<div class="pt-2">'+
-                            '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
-                            '<input type="checkbox" onclick=$(this).val($(this).prop("checked")) value="false"  name="add_not_sure_box"> Add (Not Sure) Option'+
+                            // '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
+                            // '<input type="checkbox" onclick=$(this).val($(this).prop("checked")) value="false"  name="add_not_sure_box"> Add (Not Sure) Option'+
                             '<div class="options"></div>'+
                         '</div>';
                     $('#' + render_div).html(html);

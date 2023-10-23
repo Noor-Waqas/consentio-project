@@ -275,7 +275,14 @@
 
                             <?php
 										$pia_form_check = false;
-										if( ($question->question  == 'What assets are used to process the data for this activity?' || $question->question  ==  'What assets are used to collect store and process the data'  || $question->question  ==  'What assets are used to process the data for this activity?' ||    $question->question  == 'What is the name of the asset you are assessing?') && ($question->question_num == '6.1' || $question->question_num == '4.1' || $question->question_num == '2.1' || $question->question_num == '1.1'))
+										if( ($question->question  == 'What assets are used to process the data for this activity?' || $question->question  ==  'What assets are used to collect store and process the data'  || $question->question  ==  'What assets are used to process the data for this activity?' ||    $question->question  == 'What is the name of the asset you are assessing?' || $question->question  == 'What assets are used to store and process data for this activity?') && ($question->question_num == '6.1' || $question->question_num == '4.1' || $question->question_num == '2.1' || $question->question_num == '1.1'))
+											{    
+												$client_id = Auth::user()->client_id;
+												$options =  DB::table('assets')->where('client_id' , $client_id)->get();
+												$pia_form_check = true;
+												$selected_class = 'es-selected';
+											}
+                                            if( ($question->question  == 'What assets are used to process the data for this activity?' || $question->question  ==  'What assets are used to collect store and process the data'  || $question->question  ==  'What assets are used to process the data for this activity?' ||    $question->question  == 'What is the name of the asset you are assessing?') && ($question->dropdown_value_from==2))
 											{    
 												$client_id = Auth::user()->client_id;
 												$options =  DB::table('assets')->where('client_id' , $client_id)->get();

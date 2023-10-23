@@ -240,8 +240,8 @@
                                 <a onclick="get_html('qa')" id="qa" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Text Question</a>
                                 <!-- <a onclick="get_html('im')" id="im" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Attachment Upload Option</a>
                                 <a onclick="get_html('sp')" id="sp" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Design Multi Level Question</a>
-                                <a onclick="get_html('da')" id="da" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Data Inventory Questions</a> -->
-                                <a onclick="get_html('dc')" id="dc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Dynamic Control Question</a>
+                                <a onclick="get_html('da')" id="da" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Data Inventory Questions</a>
+                                <a onclick="get_html('dc')" id="dc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Dynamic Control Question</a> -->
                             </div>
 
                             <div class="form-check py-2">

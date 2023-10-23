@@ -4587,6 +4587,42 @@ class Forms extends Controller{
                 'sort_order' => $sord_order_num,
             ]);
         }
+        if($request->q_type=="dc" && $request->dropdown_value_from==2){
+            DB::table('questions')->where('id', $question_id)->update([
+                'is_parent' => 1,
+                'question_assoc_type' => 1,
+                'type' => null,
+                'question_category' => 2,
+            ]);
+
+            $question_array = [
+                'question'              => 'What assets are used to process the data for this activity?',
+                'question_fr'           => 'What assets are used to process the data for this activity?',
+                'question_section_id'   => $request->this_section_id,
+                'question_assoc_type'   => 2,
+                'parent_q_id'           => $question_id,
+                'question_category'     => 2,
+                'is_assets_question'    => 1,
+                'form_id'               => $request->form_id,
+                'dropdown_value_from'   => 2,
+                'type'                  => 'mc',
+                'options'               => 'Not Sure, Not Applicable',
+                'options_fr'            => 'Not Sure, Not Applicable',
+            ];
+
+            $q_id = DB::table('questions')->insertGetId($question_array);
+
+            DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
+
+            // $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->orderBy('id', 'desc')->pluck('sec_num')->first();
+            // $__sec_num = $section_num - 1;
+            // $sord_order_num = $__sec_num + ($current_order / 100);
+            DB::table('form_questions')->insert([
+                'form_id' => $request->form_id,
+                'question_id' => $q_id,
+                'sort_order' => $sord_order_num,
+            ]);
+        }
 
         return redirect()->back()->with('success', __('Successfully Added Section'));
 
