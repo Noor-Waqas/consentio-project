@@ -4447,6 +4447,24 @@ class Forms extends Controller{
             'question_options_fr.min'           => __('Please provide atleast one French option to proceed'),
             'q_type.required'                   => __('No Question is selected.'),
         ]);
+        if($request->dropdown_value_from == 0){
+            $activity_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 0)->count();
+            if($activity_exist>0){
+                return redirect()->back()->with('message', __('Activity Question Already Exist in the Assessment'));
+            }
+        }
+        if($request->dropdown_value_from == 1){
+            $element_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 1)->count();
+            if($element_exist>0){
+                return redirect()->back()->with('message', __('Data Element Question Already Exist in the Assessment'));
+            }
+        }
+        if($request->dropdown_value_from == 2){
+            $asset_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 2)->count();
+            if($asset_exist>0){
+                return redirect()->back()->with('message', __('Asset Question Already Exist in the Assessment'));
+            }
+        }
 
         $allow_attach = 0;
         if ($request->add_attachments_box){
@@ -4509,7 +4527,6 @@ class Forms extends Controller{
             'question_id' => $question_id,
             'sort_order' => $sord_order_num,
         ]);
-        $sord_order_num=$sord_order_num+0.005;
 
         if($request->q_type=="dc" && $request->dropdown_value_from==1){
             DB::table('questions')->where('id', $question_id)->update([
@@ -4545,9 +4562,8 @@ class Forms extends Controller{
 
                 DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
 
-                // $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->orderBy('id', 'desc')->pluck('sec_num')->first();
-                // $__sec_num = $section_num - 1;
-                // $sord_order_num = $__sec_num + ($current_order / 100);
+                $sord_order_num=$sord_order_num+0.0001;
+                
                 DB::table('form_questions')->insert([
                     'form_id' => $request->form_id,
                     'question_id' => $q_id,
@@ -4578,9 +4594,8 @@ class Forms extends Controller{
 
             DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
 
-            // $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->orderBy('id', 'desc')->pluck('sec_num')->first();
-            // $__sec_num = $section_num - 1;
-            // $sord_order_num = $__sec_num + ($current_order / 100);
+            $sord_order_num=$sord_order_num+0.005;
+
             DB::table('form_questions')->insert([
                 'form_id' => $request->form_id,
                 'question_id' => $q_id,
@@ -4614,9 +4629,8 @@ class Forms extends Controller{
 
             DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
 
-            // $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->orderBy('id', 'desc')->pluck('sec_num')->first();
-            // $__sec_num = $section_num - 1;
-            // $sord_order_num = $__sec_num + ($current_order / 100);
+            $sord_order_num=$sord_order_num+0.005;
+
             DB::table('form_questions')->insert([
                 'form_id' => $request->form_id,
                 'question_id' => $q_id,
@@ -4624,7 +4638,7 @@ class Forms extends Controller{
             ]);
         }
 
-        return redirect()->back()->with('success', __('Successfully Added Section'));
+        return redirect()->back()->with('success', __('Successfully Added Question'));
 
     }
 
