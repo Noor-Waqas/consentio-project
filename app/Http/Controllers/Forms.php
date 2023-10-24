@@ -4447,19 +4447,19 @@ class Forms extends Controller{
             'question_options_fr.min'           => __('Please provide atleast one French option to proceed'),
             'q_type.required'                   => __('No Question is selected.'),
         ]);
-        if($request->dropdown_value_from == 0){
+        if($request->q_type=="dc" && $request->dropdown_value_from == 0){
             $activity_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 0)->count();
             if($activity_exist>0){
                 return redirect()->back()->with('message', __('Activity Question Already Exist in the Assessment'));
             }
         }
-        if($request->dropdown_value_from == 1){
+        if($request->q_type=="dc" && $request->dropdown_value_from == 1){
             $element_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 1)->count();
             if($element_exist>0){
                 return redirect()->back()->with('message', __('Data Element Question Already Exist in the Assessment'));
             }
         }
-        if($request->dropdown_value_from == 2){
+        if($request->q_type=="dc" && $request->dropdown_value_from == 2){
             $asset_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 2)->count();
             if($asset_exist>0){
                 return redirect()->back()->with('message', __('Asset Question Already Exist in the Assessment'));
