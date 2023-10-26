@@ -62,9 +62,16 @@
 								@endif
     </td>
     <td>{{$user->forms_count}}</td>
+	@php
+		$check=DB::table('user_form_links')->where('sub_form_id', last(request()->segments()))->where('user_id', $user->id)->where('is_locked', 1)->count();
+	@endphp
     <td>
-		<input type="checkbox" value="{{ $user->id}}" class="assign-users" id="user-{{ $user->id}}" <?php if (in_array($user->id, $assigned_users)) echo 'checked'; ?> >
-	  </td>
+		@if($check > 0)
+			<input type="checkbox" value="{{ $user->id}}" class="assign-users" id="user-{{ $user->id}}" <?php if (in_array($user->id, $assigned_users)) echo 'checked'; ?> disabled>
+		@else
+			<input type="checkbox" value="{{ $user->id}}" class="assign-users" id="user-{{ $user->id}}" <?php if (in_array($user->id, $assigned_users)) echo 'checked'; ?> >
+		@endif
+	</td>
 
     </tr>
 
