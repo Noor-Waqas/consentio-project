@@ -12,7 +12,7 @@
     <div class="row align-items-end">
         <input type="hidden" class="group" value="{{ $group_id }}">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Remediation Plan</b></h4>
+            <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Remediation Report</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">

@@ -12,7 +12,7 @@
 <div class="container-fluid" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Security Assessment</b></h4>
+            <h4 class="mt-3" style="color:black;"><b>{{$group[0]->group_name}} - Audit Report</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
