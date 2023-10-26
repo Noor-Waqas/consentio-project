@@ -3423,6 +3423,10 @@ class Forms extends Controller{
             if($check>0){
                 return redirect()->back()->with('alert', __('Audit with this Name Already Exist'));
             }
+            $check=DB::table('forms')->where('type', 'audit')->where('group_id', $request['group_id'])->count();
+            if($check>0){
+                return redirect()->back()->with('alert', __('Question Group Already Assigned to Form'));
+            }
         }
         
         $response = DB::table('forms')->insertGetId([
