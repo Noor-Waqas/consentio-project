@@ -3412,6 +3412,15 @@ class Forms extends Controller{
         $now = Carbon::now();
 
         $request['date_created'] = $request['date_updated'] = $now;
+        if($request->type == "assessment"){
+            $check=DB::table('forms')->where('type', 'assessment')->where('title', $request['title'])->orwhere('title_fr', $request['title_fr'])->count();
+            return redirect()->back()->with('alert', __('Assessment with this Name Already Exist'));
+        }
+        if($request->type == "audit"){
+            $check=DB::table('forms')->where('type', 'audit')->where('title', $request['title'])->orwhere('title_fr', $request['title_fr'])->count();
+            return redirect()->back()->with('alert', __('Audit with this Name Already Exist'));
+        }
+        
         $response = DB::table('forms')->insertGetId([
             'title'     => $request['title'],
             'title_fr'  => $request['title_fr'],
