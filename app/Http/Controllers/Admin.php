@@ -38,6 +38,35 @@ class Admin extends Controller
         $validatedData = $request->validate([
                 'name' => 'required',
         ]); 
+
+        $form_type=DB::table('forms')->where('id', $id)->pluck('type');
+        // dd($form_type);
+        if($form_type[0]=="audit"){
+            // dd('ok');
+            $check = DB::table('forms')->where(function ($query) use ($title, $title_fr) {
+                $query->where('title', $title)
+                      ->orWhere('title_fr', $title_fr);
+            })
+            ->whereIn('type', ['audit'])
+            ->whereNotIn('id', [$id])
+            ->get();
+            // dd($check);
+            if($check->isNotEmpty()){
+                return redirect()->back()->with('alert', 'Audit with this Name Already Exist');
+            }
+        }
+        if($form_type[0]=="assessment"){
+            $check = DB::table('forms')->where(function ($query) use ($title, $title_fr) {
+                $query->where('title', $title)
+                      ->orWhere('title_fr', $title_fr);
+            })
+            ->whereIn('type', ['assessment'])
+            ->whereNotIn('id', [$id])
+            ->get();
+            if($check->isNotEmpty()){
+                return redirect()->back()->with('alert', 'Assessment with this Name Already Exist');
+            }
+        }
         
         DB::table('forms')
             ->where('id', $id)
