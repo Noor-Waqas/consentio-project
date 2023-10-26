@@ -650,7 +650,7 @@
 					// file types which will accepted o this question pecified by admin 
 					let accepted_file_types = JSON.parse($(`#file_accepted_types_${q_id}`).val()).map(function(str) { return parseInt(str)});
 					// All possible Extention for these file types 
-					const all_extentions = ["", ["jpg", "png", "jpeg", "gif", "JPG", "PNG", "JPEG", "GIF"], ['docs'], ['pdf'] , ['xlxs' ,'csv'], ['zip']];
+					const all_extentions = ["", ["jpg", "png", "jpeg", "gif", "JPG", "PNG", "JPEG", "GIF"], ['docs', 'docx'], ['pdf'] , ['xlsx' ,'csv'], ['zip']];
 					// Extentions for Current Question
 					let accepted_extentions  = [];
 					for (let i =0; i < all_extentions.length; i++){
