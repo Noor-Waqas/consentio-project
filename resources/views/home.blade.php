@@ -362,10 +362,11 @@
                                         <div id="carouselExampleControls" class="carousel slide" data-interval="false">
                                             <!-- Carousel Indicators (Dropdown) -->
                                             <select id="carousel-indicators" style="max-width:20%;margin:0 auto;" class="form-control">
-                                                @foreach($group_id as $group)
-                                                @if($loop->iteration == 1)
                                                 <option value="" selected>---Select Report---</option>
-                                                @endif
+                                                @foreach($group_id as $group)
+                                                <!-- @if($loop->iteration == 1)
+                                                <option value="" selected>---Select Report---</option>
+                                                @endif -->
                                                     <option value="{{ $group->group_id }}" >{{ $group->group_name }}</option>
                                                 @endforeach
                                             </select>
