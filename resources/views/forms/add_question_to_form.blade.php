@@ -392,8 +392,8 @@
                                     id="delete-parent-{{ $question->question_id }}" data-title=""
                                     onclick="delete_question(this.id , 'All of his child questions will also be deleted!')"
                                     class="pull-right btn btn-sm btn-danger ">
-                                    <i class="fa fa-trash-o"
-                                        style="font-size: 23px;margin-right: 1px;vertical-align: initial;"
+                                    <i class="fa fa-trash"
+                                        style="font-size: 18px;margin-right: 1px;vertical-align: initial;"
                                         aria-hidden="true"></i>
                                 </p>
                             @elseif($question->parent_q_id != null && $question->is_parent == 0)
@@ -403,8 +403,8 @@
                                     onclick="delete_question(this.id , 'This operation cannot be undone')"
                                     class="pull-right btn btn-sm"
                                     style="color: #FFF !important;    background-color: #17a2b8 !important; border-color: #0f75bd !important;">
-                                    <i class="fa fa-trash-o"
-                                        style="font-size: 23px;margin-right: 1px;vertical-align: initial;"
+                                    <i class="fa fa-trash"
+                                        style="font-size: 18px;margin-right: 1px;vertical-align: initial;"
                                         aria-hidden="true"></i>
                                 </p>
                             @elseif($question->parent_q_id == null && $question->is_parent == 0)
@@ -414,8 +414,8 @@
                                     onclick="delete_question(this.id , 'This operation cannot be undone')"
                                     class="pull-right btn btn-sm btn-danger "
                                     style="color: #FFF !important;background-color: #6c757d !important;border-color: #6c757d !important;">
-                                    <i class="fa fa-trash-o"
-                                        style="font-size: 23px;margin-right: 1px;vertical-align: initial;"
+                                    <i class="fa fa-trash"
+                                        style="font-size: 18px;margin-right: 1px;vertical-align: initial;"
                                         aria-hidden="true"></i>
                                 </p>
                             @endif
