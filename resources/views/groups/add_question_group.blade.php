@@ -277,7 +277,7 @@
 
                             <div class="form-group">
                                 <label for="control_id" class="col-form-label">Control ID <strong style="color: red">*</strong></label>
-                                <input type="text" name="control_id" class="form-control" id="control_id">
+                                <input type="text" name="control_id" maxlength="10" class="form-control" id="control_id">
                             </div>
                             
                             <div class="form-group" id="qmodel-type" style="display: none"></div>
