@@ -90,7 +90,7 @@
                                     <div class="content p-3 py-4">
                                         <div class="d-flex justify-content-between">
                                             <span>
-                                                Sort Order: <input type="text" id="" style="width:50px;height:20px;1px solid #000;color:#000" value="{{ $question->question_num }}"><a href="javascript:;" class="updatesorting">Update Sorting</a>
+                                                Sort Order: <input type="text" id="sort_order_{{ $question->id }}" style="width:50px;height:20px;1px solid #000;color:#000" value="{{ $question->question_num }}"><a href="javascript:;" class="updatesorting" id="{{ $question->id }}">Update Sorting</a>
                                             </span>
                                             <!-- <span>
                                                 <i class=" edit_enable">
@@ -954,6 +954,30 @@
                 }
             });
         }
+
+        $(".updatesorting").click(function() {
+            var id = this.id;
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '{{ url('auditupdateSorting') }}',
+                type: 'POST',
+                data: {
+                    'fq_id': id,
+                    'sort_order': $('#sort_order_' + id).val(),
+                    'group_id': $('#group_id').val()
+
+                },
+                success: function(data) {
+                    if (data.status) {
+                        swal('', data.msg, 'success');
+                    } else {
+                        swal('', data.msg, 'error');
+                    }
+                }
+            });
+        });
 
     </script>
 @endpush

@@ -2051,4 +2051,31 @@ class AuditFormsController extends Controller{
             'form_id' => $form_id,
             'client_list' => $client_list]);
     }
+
+    public function updateSorting(Request $request){
+        $id = $request->fq_id;
+        $sort_order = $request->sort_order;
+        $group_id = $request->group_id;
+
+        $included = DB::table('group_questions')
+            ->join('group_section', 'group_section.id', 'group_questions.section_id')
+            ->where('group_section.group_id', $group_id)
+            ->where('group_questions.id', "!=", $id)
+            ->where('question_num', $sort_order)
+            ->count();
+        if ($included > 0) {
+            return response()->json([
+                "msg" => "Sorting Already Exist!",
+            ]);
+        } else {
+            DB::table('group_questions')->where('id', $id)
+                ->update([
+                    'question_num' => $sort_order,
+                ]);
+            return response()->json([
+                "status" => 200,
+                "msg" => "Sort Order Updated Successfully!",
+            ]);
+        }
+    }
 }

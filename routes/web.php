@@ -220,6 +220,7 @@ Route::middleware(['auth', '2fa', 'is_email_varified'])->group(function () {
     Route::get('/Forms/SecCategory/{id}', 'Forms@section_category');
     Route::post('/Forms/UpdateFormSection/', 'Forms@ajax_update_form_section_heading')->name('update_form_section_heading');
     Route::post('/updateSorting', 'Forms@updateSorting')->name('updateSorting');
+    Route::post('/auditupdateSorting', 'AuditFormsController@updateSorting')->name('updateSorting');
     Route::post('/Forms/AsgnSecCategory/', 'Forms@assign_section_category');
     Route::post('/Forms/AsgnSecCategory/', 'Forms@assign_section_category')->name('asgn_sec_ctgry');
 });
