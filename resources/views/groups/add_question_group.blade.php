@@ -265,19 +265,20 @@
 
                             <div class="form-group">
                                 <label for="question_title" class="col-form-label">Add Question English Short Title  <strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short" class="form-control" id="q_simple_model_main_en" maxlength="20" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
-                                <span style="color:red;">Maximum 20 Characters</span>
+                                <input type="text" name="question_title_short" class="form-control" id="q_simple_model_main_en" maxlength="24" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
+                                <span style="color:red;">Maximum 24 Characters</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="question_title_fr" class="col-form-label">Add Question French Short Title<strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr" maxlength="20" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup=null">
-                                <span style="color:red;">Maximum 20 Characters</span>
+                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr" maxlength="24" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup=null">
+                                <span style="color:red;">Maximum 24 Characters</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="control_id" class="col-form-label">Control ID <strong style="color: red">*</strong></label>
                                 <input type="text" name="control_id" maxlength="10" class="form-control" id="control_id">
+                                <span style="color:red;">Maximum 10 Characters</span>
                             </div>
                             
                             <div class="form-group" id="qmodel-type" style="display: none"></div>
