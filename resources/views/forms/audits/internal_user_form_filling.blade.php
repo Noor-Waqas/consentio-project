@@ -696,10 +696,16 @@
 
 			const name = event.target.getAttribute('name');
 			const type = event.target.getAttribute('type');
+			const check= event.target.getAttribute('check');
 			var options = [];
 			if (type == 'mc') {
-				$(event.target).attr('check', '1'); 
-				$(event.target).attr('class', 'es-selectable es-selected');
+				if (check == 1) {
+					$(event.target).attr('check', '0');
+					$(event.target).removeClass('es-selected');
+				} else {
+					$(event.target).attr('check', '1'); 
+					$(event.target).attr('class', 'es-selectable es-selected');
+				}
 				$.each($(`li[name=${name}]`), function(){
 					if($(this).attr('check') == 1){
 						options.push($(this).attr('value'))
