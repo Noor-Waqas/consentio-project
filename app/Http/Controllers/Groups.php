@@ -170,7 +170,7 @@ class Groups extends Controller
                     'data'      => null
                 ], 200);
             }
-            $dublicate=GroupSection::where('section_title', strtoupper($request->section_title))->count();
+            $dublicate=GroupSection::where('section_title', strtoupper($request->section_title))->where('group_id', $request->group_id)->count();
             // dd($dublicate);
             if($dublicate > 0){
                 return response()->json([
