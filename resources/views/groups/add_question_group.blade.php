@@ -97,6 +97,16 @@
                                                     <span class="fa fa-edit"></span>
                                                 </i>
                                             </span> -->
+                                            <p data-toggle="tooltip" data-placement="left" title="Delete Question"
+                                                id="delete-normal-{{ $question->id }}"
+                                                data-title="This operation cannot be undone"
+                                                onclick="delete_question(this.id , 'This operation cannot be undone')"
+                                                class="pull-right btn btn-sm btn-danger "
+                                                style="color: #FFF !important;">
+                                                <i class="fa fa-trash"
+                                                    style="font-size: 18px;margin-right: 1px;vertical-align: initial;"
+                                                    aria-hidden="true"></i>
+                                            </p>
                                         </div>
 
                                         <h6 id="display_english_question_{{$question->id}}">
@@ -979,6 +989,48 @@
                 }
             });
         });
+
+        function delete_question(id, title) {
+            var data = id.split("-");
+            var question_type = data[1];
+            var question_id = data[2];
+            var qtype = question_type;
+            if (qtype == 'normal') {
+                qtype = '';
+            }
+            swal({
+                    title: 'Delete ' + qtype + ' question',
+                    text: title,
+                    type: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#F79426',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes',
+                    showLoaderOnConfirm: true
+                },
+                function() {
+                    // swal('Question Deleted Successfully','' , 'success');
+                    var post_data = {};
+                    post_data['_token'] = '{{ csrf_token() }}';
+                    post_data['question_id'] = question_id;
+                    post_data['question_type'] = question_type;
+                    $.ajax({
+                        url: "/group/question/delete/"+question_id,
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: post_data,
+                        success: function(response) {
+
+                            swal('Question Deleted Successfully', '', 'success');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        }
+                    });
+                });
+        }
 
     </script>
 @endpush
