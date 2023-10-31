@@ -162,6 +162,11 @@ class HomeController extends Controller
                     'is_email_varified' => 1
                 ]);
             }
+            if(Auth::user()->role==1 && App::getLocale()=='fr'){
+                // dd('ok');
+                $lang = "en";
+                \Session::put('locale', $lang);
+            }
             return redirect('/dashboard');
 
         }else{
