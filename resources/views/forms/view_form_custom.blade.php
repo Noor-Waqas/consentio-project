@@ -240,6 +240,7 @@
             <div class="margin" id="section-{{ $section }}-body" num="{{ $section }}"
                 class="sec-heading-detail" style="margin: 20px 30px; display: block;">
                 <?php endif;?>
+                @if(Auth::user()->role != 1)
                 <div class="content">
                     {{-- BARI START --}}
                     <h6>
@@ -254,6 +255,37 @@
                     <small>{{-- $question->question_comment --}}</small>
                     <?php endif; ?>
                 </div>
+                @else
+                <div class="content">
+                    {{-- BARI START --}}
+                    <h6 class="font-weight-bold">
+                            {{ $question->question_num }}
+                    </h6>
+                    <h6>
+                    <span class="font-weight-bold">En</span> - {{ $question->question }}
+                    </h6>
+                    <h6>
+                    <span class="font-weight-bold">Fr</span> - {{ $question->question_fr }}
+                    </h6>
+                    @if($question->question_short)
+                    <h6>
+                    <span class="font-weight-bold">En</span> - {{ $question->question_short }}
+                    </h6>
+                    @endif
+                    @if($question->question_short_fr)
+                    <h6>
+                    <span class="font-weight-bold">Fr</span> - {{ $question->question_short_fr }}
+                    </h6>
+                    @endif
+                    {{-- BARI END --}}
+                    <?php if ($question->question_comment != null && $question->question_comment != ''): ?>
+                    <small>{{-- $question->question_comment --}}</small>
+                    <?php endif; ?>
+                    <?php if ($question->question_comment_fr != null && $question->question_comment_fr != ''): ?>
+                    <small>{{-- $question->question_comment_fr --}}</small>
+                    <?php endif; ?>
+                </div>
+                @endif
                 <div id="wrap" class="wrap-content">
                     <?php if ($question->question_comment != null && $question->question_comment != ''): ?>
                     <h6 class="question-comment"><?php echo $question->question_comment; ?></h6>
@@ -323,6 +355,65 @@
 									?>
                         </ul>
                     </section>
+                    @if(Auth::user()->role == 1)
+                    @php
+                    $options = explode(', ', $question->options_fr);
+                    @endphp
+                    <section class="options">
+                        <ul id="easySelectable" class="easySelectable">
+
+                            <?php
+										$pia_form_check = false;
+										if( ($question->question  == 'What assets are used to process the data for this activity?' || $question->question  ==  'What assets are used to collect store and process the data'  || $question->question  ==  'What assets are used to process the data for this activity?' ||    $question->question  == 'What is the name of the asset you are assessing?' || $question->question  == 'What assets are used to store and process data for this activity?') && ($question->question_num == '6.1' || $question->question_num == '4.1' || $question->question_num == '2.1' || $question->question_num == '1.1'))
+											{    
+												$client_id = Auth::user()->client_id;
+												$options =  DB::table('assets')->where('client_id' , $client_id)->get();
+												$pia_form_check = true;
+												$selected_class = 'es-selected';
+											}
+                                            if( ($question->question  == 'What assets are used to process the data for this activity?' || $question->question  ==  'What assets are used to collect store and process the data'  || $question->question  ==  'What assets are used to process the data for this activity?' ||    $question->question  == 'What is the name of the asset you are assessing?') && ($question->dropdown_value_from==2))
+											{    
+												$client_id = Auth::user()->client_id;
+												$options =  DB::table('assets')->where('client_id' , $client_id)->get();
+												$pia_form_check = true;
+												$selected_class = 'es-selected';
+											}
+											//echo request()->segment(3).'--------------';
+											foreach ($options as $option):
+												$selected_class = '';
+
+												if(request()->segment(3)==10 || request()->segment(3)==8 || request()->segment(3)==14)
+												$option = str_replace('.',',',$option);
+												
+												if (isset($filled[$question->form_key]))
+												{
+													if ($type == 'sc' && trim($filled[$question->form_key]['question_response']) == trim($option))
+													{
+														$selected_class = 'es-selected';
+													}
+													if ($type == 'mc' && in_array(trim($option), $filled[$question->form_key]['question_response']))
+													{
+														$selected_class = 'es-selected';			
+													}
+												}
+																
+									
+										?>
+                            @if ($pia_form_check == 'true')
+                                <li class="es-selectable {{ $selected_class }}" name=""
+                                    value="{{ $option->name }}" type="{{ $type }}">{{ $option->name }}</li>
+                            @elseif($pia_form_check == 'false' || isset($pia_form_check) == 'false')
+                                <li class="es-selectable {{ $selected_class }}" name=""
+                                    value="{{ $option }}" type="{{ $type }}">{{ $option }}</li>
+                            @endif
+
+                            <?php
+													endforeach;
+									?>
+                        </ul>
+                    </section>
+                    @endif
+
                     <?php endif;	
 								break;
 							case ('bl'):
