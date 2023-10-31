@@ -251,9 +251,15 @@
                         @endif
                     </h6>
                     {{-- BARI END --}}
-                    <?php if ($question->question_comment != null && $question->question_comment != ''): ?>
-                    <small>{{-- $question->question_comment --}}</small>
+                    @if (session('locale') == 'fr')
+                    <?php if ($question->question_comment_fr != null && $question->question_comment_fr != ''): ?>
+                        <h6 class="question-comment"><?php echo $question->question_comment_fr; ?></h6>
                     <?php endif; ?>
+                    @else
+                    <?php if ($question->question_comment != null && $question->question_comment != ''): ?>
+                        <h6 class="question-comment"><?php echo $question->question_comment; ?></h6>
+                    <?php endif; ?>
+                    @endif
                 </div>
                 @else
                 <div class="content">
@@ -279,17 +285,14 @@
                     @endif
                     {{-- BARI END --}}
                     <?php if ($question->question_comment != null && $question->question_comment != ''): ?>
-                    <small>{{-- $question->question_comment --}}</small>
+                        <h6 class="question-comment"><?php echo $question->question_comment; ?></h6>
                     <?php endif; ?>
                     <?php if ($question->question_comment_fr != null && $question->question_comment_fr != ''): ?>
-                    <small>{{-- $question->question_comment_fr --}}</small>
+                        <h6 class="question-comment"><?php echo $question->question_comment_fr; ?></h6>
                     <?php endif; ?>
                 </div>
                 @endif
                 <div id="wrap" class="wrap-content">
-                    <?php if ($question->question_comment != null && $question->question_comment != ''): ?>
-                    <h6 class="question-comment"><?php echo $question->question_comment; ?></h6>
-                    <?php endif; ?>
                     <?php
 						$type = $question->type;	
 						switch ($type): 
