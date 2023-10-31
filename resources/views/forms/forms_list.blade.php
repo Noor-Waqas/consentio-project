@@ -169,7 +169,7 @@
     <script>
       $(document).ready(function(){
           $('#forms-table').DataTable({
-                  "order": [[ 0, "desc" ]]
+                  "order": []
           });
 
           $(function () {

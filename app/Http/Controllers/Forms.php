@@ -1559,9 +1559,10 @@ class Forms extends Controller{
             $forms_info = DB::table('forms')
             ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
             ->where('forms.type', $type)->select('title', 'title_fr', 'group_name', 'forms.id as form_id', 'forms.date_created')
+            ->orderBy('forms.date_created', 'desc')
             ->get();
         } else {
-            $forms_info = DB::table('forms')->where('type',"!=", 'audit')->select('title', 'title_fr', 'forms.id as form_id', 'forms.date_created')->get();
+            $forms_info = DB::table('forms')->where('type',"!=", 'audit')->select('title', 'title_fr', 'forms.id as form_id', 'forms.date_created')->orderBy('forms.date_created', 'desc')->get();
         }
         // dd($forms_info);
         return view('forms.forms_list', ['user_type' => 'admin', 'forms_list' => $forms_info, 'type' => $type]);
