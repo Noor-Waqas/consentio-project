@@ -72,7 +72,9 @@
 @push('scripts')
     <script>
         $(function(){
-            $('#group-table').DataTable();
+            $('#group-table').DataTable({
+                order: []
+            });
         });
 
         function submitDelete(url){

@@ -13,7 +13,7 @@ class Groups extends Controller
     
     public function list(){
         try {
-            $groups = Group::get();
+            $groups = Group::orderBy('id', 'desc')->get();
             return view("groups.group_list", compact('groups'));
         } catch (\Exception $ex) {
             return redirect()->back()->with('msg', $ex->getMessage());
