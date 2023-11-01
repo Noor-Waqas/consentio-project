@@ -274,7 +274,7 @@
 
         <li class="nav-item">
             <a onclick="toggleCollapse('assessment-register-nav');" class="nav-link collapsed component {{ strpos(url()->current(), 'Forms/') !== false ? 'active' : '' }}" data-bs-target="#assessment-register-nav" data-bs-toggle="collapse" href="{{ url('Forms/FormsList') }}">
-            <img src="{{ url('assets-new/img/a-r.png') }}"  alt="Assessment Register"><div class="border__bottom"><span>Assessment Register</span></div>
+            <img src="{{ url('assets-new/img/a-r.png') }}"  alt="Assessment Register"><div class="border__bottom"><span>{{__('Assessment Register')}}</span></div>
             </a>
 
             @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3)
