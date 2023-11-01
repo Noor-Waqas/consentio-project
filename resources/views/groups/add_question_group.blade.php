@@ -154,18 +154,37 @@
                                                         $options    = explode(',', $question->options);
                                                         $options_fr = explode(',', $question->options_fr);
                                                     @endphp
-                                                    <label for="easySelectable">Englih Options</label>
-                                                    <ul id="easySelectable" class="easySelectable">
-                                                        @foreach($options as $option)
-                                                        <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
-                                                        @endforeach
-                                                    </ul>
+                                                    <label for="easySelectable">English Options</label>
+                                                        <p data-toggle="tooltip" data-placement="top"
+                                                        title="Click here to edit english question options"
+                                                        class="pull-right btn btn-sm btn-warning"
+                                                        id="edit_en_o_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->options}}" type="en_option"
+                                                        onclick="edit_question_ajax(event)">
+                                                        Edit English Options</p>
+                                                    <div class="mr-3" id="display_en_option_{{$question->id}}">
+                                                        <ul id="easySelectable" class="easySelectable">
+                                                            @foreach($options as $option)
+                                                            <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                    <div class="d-flex align-items-end" id="append_div_to_edit_en_option_{{$question->id}}"></div>
+
                                                     <label for="easySelectable">French Options</label>
-                                                    <ul id="easySelectable" class="easySelectable">
-                                                        @foreach($options_fr as $option)
-                                                        <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
-                                                        @endforeach
-                                                    </ul>
+                                                    <p data-toggle="tooltip" data-placement="top"
+                                                        title="Click here to edit French question options"
+                                                        class="pull-right btn btn-sm btn-warning"
+                                                        id="edit_fr_o_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->options_fr}}" type="fr_option"
+                                                        onclick="edit_question_ajax(event)">
+                                                        Edit French Options</p>
+                                                    <div class="mr-3" id="display_fr_option_{{$question->id}}">
+                                                        <ul id="easySelectable" class="easySelectable">
+                                                            @foreach($options_fr as $option)
+                                                            <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                    <div class="d-flex align-items-end" id="append_div_to_edit_fr_option_{{$question->id}}"></div>
                                                 </section>
                                                 @break
                                             @case('sc')
@@ -174,18 +193,38 @@
                                                         $options    = explode(',', $question->options);
                                                         $options_fr = explode(',', $question->options_fr);
                                                     @endphp
-                                                    <label for="easySelectable">Englih Options</label>
-                                                    <ul id="easySelectable" class="easySelectable">
-                                                        @foreach($options as $option)
-                                                        <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
-                                                        @endforeach
-                                                    </ul>
+                                                    <label for="easySelectable">English Options</label>
+                                                    <p data-toggle="tooltip" data-placement="top"
+                                                        title="Click here to edit english question options"
+                                                        class="pull-right btn btn-sm btn-warning"
+                                                        id="edit_en_o_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->options}}" type="en_option"
+                                                        onclick="edit_question_ajax(event)">
+                                                        Edit English Options</p>
+                                                    <div class="mr-3" id="display_en_option_{{$question->id}}">
+                                                        <ul id="easySelectable" class="easySelectable">
+                                                            @foreach($options as $option)
+                                                            <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                    <div class="d-flex align-items-end" id="append_div_to_edit_en_option_{{$question->id}}"></div>
+                                                    
                                                     <label for="easySelectable">French Options</label>
-                                                    <ul id="easySelectable" class="easySelectable">
-                                                        @foreach($options_fr as $option)
-                                                        <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
-                                                        @endforeach
-                                                    </ul>
+                                                    <p data-toggle="tooltip" data-placement="top"
+                                                        title="Click here to edit French question options"
+                                                        class="pull-right btn btn-sm btn-warning"
+                                                        id="edit_fr_o_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->options_fr}}" type="fr_option"
+                                                        onclick="edit_question_ajax(event)">
+                                                        Edit French Options</p>
+                                                    <div class="mr-3" id="display_fr_option_{{$question->id}}">
+                                                        <ul id="easySelectable" class="easySelectable">
+                                                            @foreach($options_fr as $option)
+                                                            <li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                    <div class="d-flex align-items-end" id="append_div_to_edit_fr_option_{{$question->id}}"></div>
+                                                    
                                                 </section>
                                                 @break
                                             @case('im')
@@ -663,6 +702,13 @@
                                     `<span class="edit_fr_comment" onclick="edit_question_ajax(event)" id="edit_fr_c_${q_id}" q_id="${q_id}" q_val="${val}" type="fr_comment" value="${val}">${val}</span>`
                                 );
                                 break;
+                            case "en_option":
+                                location.reload();
+                                break;
+                            case "fr_option":
+                                location.reload();
+                                break;
+                            
                             default:
                                 break;
                         }
@@ -714,6 +760,25 @@
                         </button>`
                     );
                     break;
+                case "en_option":
+                    $(`#display_en_option_${q_id}`).html("");
+                    $(`#append_div_to_edit_en_option_${q_id}`).append(
+                        `<textarea id="edit_en_o_${q_id}" type="${type}" q_id="${q_id}" name="edit_en_o" class="mr-2" rows="3">${q_val}</textarea>
+                        <button class="btn btn-success" onclick=update_question(edit_en_o_${q_id})>  
+                            <i class="fas fa-check-circle m-0"></i>
+                        </button>`
+                    );
+                    break;
+                case "fr_option":
+                    $(`#display_fr_option_${q_id}`).html("");
+                    $(`#append_div_to_edit_fr_option_${q_id}`).append(
+                        `<textarea id="edit_fr_o_${q_id}" type="${type}" q_id="${q_id}" name="edit_fr_o" class="mr-2" rows="3">${q_val}</textarea>
+                        <button class="btn btn-success" onclick=update_question(edit_fr_o_${q_id})>  
+                            <i class="fas fa-check-circle m-0"></i>
+                        </button>`
+                    );
+                    break;
+
                 default:
                     break;
             }

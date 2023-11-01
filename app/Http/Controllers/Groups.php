@@ -376,6 +376,12 @@ class Groups extends Controller
                 case 'edit_fr_c':
                     $question->question_comment_fr = $request->val;
                     break;
+                case 'edit_en_o':
+                    $question->options = $request->val;
+                    break;
+                case 'edit_fr_o':
+                    $question->options_fr = $request->val;
+                    break;
                 default:
                     break;
             }
