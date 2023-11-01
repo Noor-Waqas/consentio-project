@@ -75,6 +75,9 @@
             @if(Session::has('message'))
               <p class="alert alert-info">{{ Session::get('message') }}</p>
             @endif
+            @if(Session::has('alert'))
+              <p class="alert alert-danger">{{ Session::get('alert') }}</p>
+            @endif
 
             @if(Request::is('Forms/AdminFormsList/audit'))
               <h3 class="tile-title">Audit Forms <a href="{{ route('add_new_form') }}" class="btn btn-sm btn-success pull-right cust_color" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add New Form</a></h3>
@@ -152,9 +155,15 @@
                   <?php endif; ?>
                   <?php if (Auth::user()->role == 1): ?>
                   @if($check > 0 || $form_info->form_id < 14)
-                  <td><a href="" style="pointer-events: none;color:grey;"> <i class="fas fa-pencil-alt"></i> Edit Name</a></td>
+                  <td class="text-center d-flex justify-content-around">
+                    <a href="" style="pointer-events: none;color:grey;"> <i class="fas fa-pencil-alt"></i></a>
+                    <a href="" style="pointer-events: none;color:grey;"><i class="fas fa-trash"></i></a>
+                  </td>
                   @else
-                  <td><a href="{{ url('edit_form/'.$form_info->form_id) }}"> <i class="fas fa-pencil-alt"></i> Edit Name</a></td>
+                  <td class="text-center d-flex justify-content-around">
+                    <a href="{{ url('edit_form/'.$form_info->form_id) }}"> <i class="fas fa-pencil-alt"></i></a>
+                    <a href="javascript:" id="delete_item" onclick="submitDelete('delete_form/{{$form_info->form_id}}')"> <i class="fas fa-trash"></i></a>
+                  </td>
                   @endif
                   <?php endif; ?>
                   
@@ -176,6 +185,24 @@
           $('[data-toggle="tooltip"]').tooltip()
         })
       })
+
+      function submitDelete(url){
+            swal({
+                title:"Are you sure?",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#05DD6B",
+                confirmButtonText: "YES",
+                cancelButtonText: "NO",
+                closeOnConfirm: false
+            }, function(val){
+                if (val){
+                    $('#delete_item').attr('href', url);
+                    document.getElementById('delete_item').click();
+                }
+                swal.close();
+            })
+        }
     </script> 
   @endif
 

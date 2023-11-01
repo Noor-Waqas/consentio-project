@@ -78,6 +78,13 @@ class Admin extends Controller
         return redirect('Forms/AdminFormsList');
         
     }  
+    ///Delete Form
+    public function delete_form($form_id)
+    {
+        $form = DB::table('forms')->where('id', $form_id)->delete();
+      //  echo "<pre>";print_r($form);exit;
+        return redirect()->back()->with('alert', 'Form Successfully Deleted');
+    }
      // classification data edit form
 
      public function edit_classification ($id)
