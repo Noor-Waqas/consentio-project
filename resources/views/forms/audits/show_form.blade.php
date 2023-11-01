@@ -185,7 +185,7 @@
 																$options    = explode(',', $question->options);
 																$options_fr = explode(',', $question->options_fr);
 															@endphp
-															<label for="easySelectable">Englih Options</label>
+															<label for="easySelectable">English Options</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
@@ -205,7 +205,7 @@
 																$options_fr = explode(',', $question->options_fr);
 															@endphp
 															@if (session('locale') == 'en')
-															<label for="easySelectable">Englih Options</label>
+															<label for="easySelectable">English Options</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
@@ -229,7 +229,7 @@
 																$options    = explode(',', $question->options);
 																$options_fr = explode(',', $question->options_fr);
 															@endphp
-															<label for="easySelectable">Englih Options</label>
+															<label for="easySelectable">English Options</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
@@ -249,7 +249,7 @@
 																$options_fr = explode(',', $question->options_fr);
 															@endphp
 															@if (session('locale') == 'en')
-															<label for="easySelectable">Englih Options</label>
+															<label for="easySelectable">English Options</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
