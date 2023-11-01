@@ -346,13 +346,13 @@
                                 <div class="center-tabs mt-2">
                                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                                         <li class="nav-item favor">
-                                            <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Favorites</a>
+                                            <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">{{__('Favorites')}}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Audit Reports</a>
+                                            <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">{{__('Audit Reports')}}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Global Remediation</a>
+                                            <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">{{__('Global Remediation')}}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -362,7 +362,7 @@
                                         <div id="carouselExampleControls" class="carousel slide" data-interval="false">
                                             <!-- Carousel Indicators (Dropdown) -->
                                             <select id="carousel-indicators" style="max-width:20%;margin:0 auto;" class="form-control">
-                                                <option value="" selected>---Select Report---</option>
+                                                <option value="" selected>---{{__('Select Report')}}---</option>
                                                 @foreach($group_id as $group)
                                                 <!-- @if($loop->iteration == 1)
                                                 <option value="" selected>---Select Report---</option>
@@ -972,7 +972,7 @@ $(document).ready(function () {
                     // Add a default "Select Report" option
                     var defaultOption = $('<option>', {
                         value: '', // No value for the default option
-                        text: '---Select Report---' // Text for the default option
+                        text: '---{{__('Select Report')}}---' // Text for the default option
                     });
                     $('#carousel-indicator').append(defaultOption);
 
