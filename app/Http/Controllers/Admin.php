@@ -194,7 +194,7 @@ class Admin extends Controller
         }
         if (Auth::user()->role == 1)
         {
-            $users = User::where('role',1)->get();
+            $users = User::where('role',1)->orderBy('created_at', 'desc')->get();
             
             return view('admin.users.site_admins', compact('users'));
         }

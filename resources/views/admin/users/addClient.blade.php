@@ -213,7 +213,7 @@ input:checked + .slider:before {
                                                         <div class="form-group row">
 								<label class="form-control-label">Phone<span style="color:red;">*</span></label>
 								<div class="">
-									<input id="phone_" type="number" class="form-control" name="phone" value="{{ old('phone') }}" required autofocus> 
+									<input id="phone_" type="text" class="form-control" name="phone" maxlength="13" value="{{ old('phone') }}" required autofocus> 
 								</div>
 							</div>
 							<div class="line"></div>
