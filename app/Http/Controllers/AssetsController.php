@@ -207,7 +207,7 @@ class AssetsController extends Controller
             $asset_list = DB::table('assets')
                             ->join('data_classifications', 'data_classifications.id', 'assets.data_classification_id')
                             ->join('impact', 'impact.id', 'assets.impact_id')
-                            ->whereNotNull('name')->where('client_id', $client_id)->orderBy('assets.asset_number','ASC')
+                            ->whereNotNull('name')->where('client_id', $client_id)->orderBy('assets.id','DESC')
                             ->select(
                                 'assets.id',
                                 'assets.client_id',

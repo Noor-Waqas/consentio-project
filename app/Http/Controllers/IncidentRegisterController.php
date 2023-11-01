@@ -50,12 +50,12 @@ class IncidentRegisterController extends Controller
     	$currentuserid = Auth::user()->id;
     	if ($user_type == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3){
     		$incident_front = Incident::where('organization_id',Auth::user()->client_id)
-    		->orderBy('date_discovered', 'DESC')
+    		->orderBy('created_at', 'DESC')
     		->get();
     	}
     	else {
     		$incident_front = Incident::where('created_by',$currentuserid)
-    		->orderBy('date_discovered', 'DESC')
+    		->orderBy('created_at', 'DESC')
     		->get();
 
     	}

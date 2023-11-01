@@ -3177,10 +3177,13 @@ class Forms extends Controller{
 
         $sub_forms = DB::table('sub_forms')
             ->join("forms", "sub_forms.parent_form_id", "forms.id")
-            ->leftjoin('user_form_links', 'sub_forms.id', '=', 'user_form_links.sub_form_id')
+            ->join('user_form_links', 'sub_forms.id', '=', 'user_form_links.sub_form_id')
             ->where('user_form_links.user_id', $user_id)
             ->where('type', 'assessment')
+            ->select('sub_forms.title', 'sub_forms.title_fr', 'forms.*', 'sub_forms.*', 'user_form_links.*')
+            ->orderBy('user_form_links.created', 'desc')
             ->get();
+            // dd($sub_forms);
 
         return view('client_subform', ['sub_forms' => $sub_forms]);
 
