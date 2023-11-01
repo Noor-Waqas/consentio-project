@@ -29,6 +29,7 @@ class UsersController extends Controller
             ->select("ade.*", "s.section_name", "dc.classification_name_en")
             ->join("sections as s", "ade.section_id", "s.id")->join("data_classifications as dc", "ade.d_classification_id", "dc.id")->orderby('id', "desc")
             ->whereNull('ade.owner_id')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $section = DB::table("sections")->get();
