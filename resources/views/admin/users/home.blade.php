@@ -93,7 +93,9 @@
 <script type="text/javascript">
     $(document).ready(function() {
         
-       $('#org-users').DataTable();
+       $('#org-users').DataTable({
+			order: []
+	   });
 
 
     	

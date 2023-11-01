@@ -147,7 +147,7 @@ class UsersController extends Controller
     public function index()
     {
         if (Auth::user()->role == 1) {
-            $users = User::where('role', 2)->get();
+            $users = User::where('role', 2)->orderBy('created_at', 'desc')->get();
             return view('admin.users.home', compact("users"));
 
         } elseif (Auth::user()->role == 2 || (Auth::user()->role == 3 && Auth::user()->user_type == 1)) {
