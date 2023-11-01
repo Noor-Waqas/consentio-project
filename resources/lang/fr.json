@@ -1026,5 +1026,10 @@
     "AUDIT FORM CREATED"    : "AUDIT FORM CREATED",
     "NO ASSET SELECTED TO ADD AUDIT FORM"   : "NO ASSET SELECTED TO ADD AUDIT FORM",
     "NO ASSET TO ADD AUDIT FORM"            : "NO ASSET TO ADD AUDIT FORM",
-    "AUDIT FORM CREATED SUCCESSFULLY"       : "FORMULAIRE D'AUDIT CRÉÉ AVEC SUCCÈS"
+    "AUDIT FORM CREATED SUCCESSFULLY"       : "FORMULAIRE D'AUDIT CRÉÉ AVEC SUCCÈS",
+
+
+    "Privacy Policy"            : "politique de confidentialité",
+    "Terms & Conditions"        : "termes et conditions",
+    "Copyright © 2023 Consentio Inc. All rights reserved."       : "Droits d'auteur © 2023 Consentio Inc. Tous droits réservés."
 }

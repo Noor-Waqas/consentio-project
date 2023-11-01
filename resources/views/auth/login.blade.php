@@ -130,10 +130,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-6">
-                    <a href="#" style="color:#424245;opacity:1;">Privacy Policy</a> | <a href="#" style="color:#424245;">Terms &amp; Conditions</a>
+                    <a href="#" style="color:#424245;opacity:1;">{{__('Privacy Policy')}}</a> | <a href="#" style="color:#424245;">{{__('Terms & Conditions')}}</a>
                 </div>
                 <div class="col-6 text-right" style="color:#424245;opacity:1;">
-                    Copyright © 2023 Consentio Inc. All rights reserved.
+                    {{__('Copyright © 2023 Consentio Inc. All rights reserved.')}}
                 </div>
             </div>
         </div>
