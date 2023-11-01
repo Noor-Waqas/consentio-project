@@ -1218,7 +1218,7 @@ class UsersController extends Controller
             return abort('404');
         }
         //$users = User::where('role',4)->get();
-        $users = DB::table('users')->where('role', 4)->get()->toArray();
+        $users = DB::table('users')->where('role', 4)->orderBy('created_at', 'desc')->get()->toArray();
         // get number of users against each company
         $users_count = DB::select('SELECT   c.id, c.company, u.role, count(u.role) as role_count
                                   FROM     users u JOIN users c ON u.client_id = c.id

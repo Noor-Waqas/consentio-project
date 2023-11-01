@@ -80,7 +80,9 @@
     $(document).ready(function(){
         
         
-        $('#orgs').DataTable();
+        $('#orgs').DataTable({
+			order:[]
+		});
         
     	
     	$( "body" ).on( "click", "#change_status", function () {
