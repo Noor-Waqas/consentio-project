@@ -174,7 +174,7 @@
         <div class="col-md-5 pt-2">
             <div class="row">
             <div class="col">
-                <span style="font-size: 14px;"><b>Data Classification</b></span><br>
+                <span style="font-size: 14px;"><b>{{__('Data Classification')}}</b></span><br>
                 @php
                     $existingUnits = [];
                 @endphp
@@ -191,7 +191,7 @@
                 @endforeach
             </div>
             <div class="col">
-                <span style="font-size: 14px;"><b>Impact</b></span><br>
+                <span style="font-size: 14px;"><b>{{__('Impact')}}</b></span><br>
                 @php
                 $existingUnits = [];
                 $counter = 1;
@@ -212,7 +212,7 @@
                 @endforeach
             </div>
             <div class="col">
-                <span style="font-size: 14px;"><b>Business Unit</b></span><br>
+                <span style="font-size: 14px;"><b>{{__('Business Unit')}}</b></span><br>
                 @php
                 $existingUnits = [];
                 @endphp
@@ -244,8 +244,8 @@
             <table id="datatable" class="table table-striped table-sm text-dark border" width="100%">
                 <thead>
                     <tr class="border">
-                        <th>Asset Name</th>
-                        <th>Asset Tier</th>
+                        <th>{{__('Asset Name')}}</th>
+                        <th>{{__('Asset Tier')}}</th>
                         @foreach($data as $question)
                         <th>C{{$loop->iteration}} - {{$question->question_short}}</th>
                         @endforeach
@@ -521,7 +521,7 @@ $(document).ready(function() {
         var data = google.visualization.arrayToDataTable(dynamicData);
 
         var options = {
-            title: 'Assets Tier',
+            title: '{{__('Asset Tier')}}',
             titleTextStyle: {
                 fontSize: 14
             },
@@ -558,7 +558,7 @@ $(document).ready(function() {
         var data = google.visualization.arrayToDataTable(dynamicData);
 
         var options = {
-            title: 'Hosting Type',
+            title: '{{__('Hosting Type')}}',
             titleTextStyle: {
                 fontSize: 14
             },
@@ -595,7 +595,7 @@ $(document).ready(function() {
         var data = google.visualization.arrayToDataTable(dynamicData);
 
         var options = {
-            title: 'Asset Hosting Location',
+            title: '{{__('Asset Hosting Location')}}',
             titleTextStyle: {
                 fontSize: 14
             },
