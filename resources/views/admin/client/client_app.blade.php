@@ -225,7 +225,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ url('/profile/' . Auth::user()->id) }}">
                 <i class="bi bi-person"></i>
-                <span>My Account</span>
+                <span>{{__('My Account')}}</span>
               </a>
             </li>
             <li>
@@ -244,7 +244,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ url('logout') }}">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>{{__('Logout')}}</span>
               </a>
             </li>
 
@@ -527,7 +527,7 @@
         <li class="nav-item logout">
             <a class="nav-link" href="{{ __('logout') }}">
             <img src="{{ url('assets-new/img/logout.png') }}" alt="Logout">
-            <span>Logout</span>
+            <span>{{__('Logout')}}</span>
             </a>
         </li> 
         </ul>   
