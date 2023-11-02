@@ -144,13 +144,13 @@
 <div class="container-fluid mt-5" style="background-color: white;" id="myDiv">
     <div class="row align-items-end">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - Audit Report</b></h4>
+            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - {{__('Audit Report')}}</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" style="max-height: 70px;max-width:280px;" alt="logo">
-            <p class="d-none" id="date">Report Date: {{ now()->format('d-m-Y') }}</p>
-            <a class="report-change mr-1" href="{{ url('/dash/remediation/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Remediation Reprot</button></a>
-            <button id="screenshotButton" class="buton mr-1">Download</button>
+            <p class="d-none" id="date">{{__('Report Date')}}: {{ now()->format('d-m-Y') }}</p>
+            <a class="report-change mr-1" href="{{ url('/dash/remediation/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">{{__('Remediation Report')}}</button></a>
+            <button id="screenshotButton" class="buton mr-1">{{__('Download')}}</button>
             <div>
                 <input type="hidden" id="fav_id" name="fav_id" value="{{$group_id}}">
                 @php

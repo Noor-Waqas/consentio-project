@@ -39,7 +39,7 @@ class AuditFormsController extends Controller{
                 ->where('type', 'audit')
                 ->selectRaw('audit_questions_groups.group_name_fr as group_name, forms.title_fr as title, count(sub_forms.id) as subforms_count, user_id, forms.id as form_id, forms.group_id as group_id, forms.date_created')
                 ->groupBy('forms.id')
-                ->orderBy('date_created', 'DESC')
+                ->orderBy('client_forms.client_form_id', 'DESC')
                 ->get();
         }else{
             $audit_forms = DB::table('forms')
@@ -50,7 +50,7 @@ class AuditFormsController extends Controller{
                 ->where('type', 'audit')
                 ->selectRaw('audit_questions_groups.group_name as group_name, forms.title, count(sub_forms.id) as subforms_count, user_id, forms.id as form_id, forms.group_id as group_id, forms.date_created')
                 ->groupBy('forms.id')
-                ->orderBy('date_created', 'DESC')
+                ->orderBy('client_forms.client_form_id', 'DESC')
                 ->get();
         }
         // echo "<pre>";
