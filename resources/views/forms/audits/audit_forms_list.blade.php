@@ -32,7 +32,7 @@
                                         <td>{{ $form_info->group_name }}</td>
                                         <td>
                                             <a href="{{ route('view_audit_form', $form_info->form_id) }}">
-                                                <img src="{{url('assets-new/img/solar_eye-bold.png')}}">{{ __(' View Form') }}
+                                                <img src="{{url('assets-new/img/solar_eye-bold.png')}}">{{ __('View Form') }}
                                             </a>
                                         </td>
                                         <?php if (Auth::user()->role != 1): ?>
