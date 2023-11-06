@@ -91,7 +91,8 @@
                     {{$val->classification_name_en}}
                   </td>
                    <td>
-                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-primary" >Edit</a>        
+                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-info" ><i class="fa fa-edit"></i></a>        
+                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-danger" ><i class="fa fa-trash"></i></a>        
                   </td>
                 </tr>
               @endforeach
