@@ -92,7 +92,7 @@
                   </td>
                    <td>
                       <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-info" ><i class="fa fa-edit"></i></a>        
-                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-danger" ><i class="fa fa-trash"></i></a>        
+                      <a href="{{url('delete-data-element-group/'.$val->id)}}" class="btn btn-danger" ><i class="fa fa-trash"></i></a>        
                   </td>
                 </tr>
               @endforeach

@@ -308,6 +308,7 @@ Route::group(["middleware" => 'admin'], function () {
     Route::get("data_element", "UsersController@data_element");
     Route::post('admin-data-element-group', 'UsersController@data_element_group');
     Route::get('edit-data-element-group/{id}', "UsersController@edit_data_element_group");
+    Route::get('delete-data-element-group/{id}', "UsersController@delete_data_element_group");
     Route::post('update_data_element_group', "UsersController@update_data_element_group");
     Route::get('/company', 'UsersController@company')->middleware(['auth']);
 

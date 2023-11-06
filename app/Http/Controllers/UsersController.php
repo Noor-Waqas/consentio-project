@@ -87,6 +87,26 @@ class UsersController extends Controller
         return redirect("/data_element")->with("message", "Data Element Has Successfully Updated");
     }
 
+    public function delete_data_element_group($id)
+    {
+        $data = DB::table("assets_data_elements")
+            ->where("assets_data_elements.id", $id)
+            ->first();
+        $check= DB::table("assets_data_elements")
+        ->where("assets_data_elements.section_id", $data->section_id)
+        ->where("assets_data_elements.owner_id", NULL)
+        ->count();
+        if($check==1){
+            return redirect("/data_element")->with("message", "This Section has only one Element");
+        }
+        else{
+            DB::table("assets_data_elements")
+            ->where("assets_data_elements.id", $id)
+            ->delete();
+            return redirect("/data_element")->with("message", "Data Element Deleted Successfully");
+        }
+    }
+
     public function permissions($id)
     {
         $granted_permissions;
