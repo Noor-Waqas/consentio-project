@@ -239,7 +239,7 @@
             </li>              
             <li>
               <hr class="dropdown-divider">
-            </li>           -->
+            </li> -->
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ url('logout') }}">
@@ -645,7 +645,20 @@
             "order": [],
             "language": {
                 "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Mostrar _MENU_ Entrées",
+                "sZeroRecords":   "No se encontraron resultados",
+                "sEmptyTable":    "Ningún dato disponible en esta tabla",
+                "sInfo":          "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
+                "oPaginate": {
+                    "sNext":    "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
                 "searchPlaceholder": "Search Here"
+                @endif
+                
             }
         });
     });
