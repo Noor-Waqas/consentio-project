@@ -649,7 +649,7 @@
                 "sLengthMenu":    "Mostrar _MENU_ Entrées",
                 "sZeroRecords":   "No se encontraron resultados",
                 "sEmptyTable":    "Ningún dato disponible en esta tabla",
-                "sInfo":          "Mostrando del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfo":          "Mostrando del _START_ al _END_ de un total de _TOTAL_ Entrées",
                 "oPaginate": {
                     "sNext":    "Siguiente",
                     "sPrevious": "Anterior"
