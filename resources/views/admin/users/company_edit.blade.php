@@ -179,7 +179,7 @@ input:checked + .slider:before {
 
 								<label class="form-control-label">Phone</label>
 
-								<input id="name" type="text" class="form-control" name="phone" value="{{ $user->phone }}" required autofocus>
+								<input id="name" type="text" class="form-control" name="phone" maxlength="13" onkeyup="this.value = this.value.replace(/[^0-9+]/g, '')" value="{{ $user->phone }}" required autofocus>
 
 							</div>                                                    
  
@@ -376,7 +376,7 @@ $( "body" ).on( "click", ".removePartner", function () {
     			id: task_id
     		};
     		swal( {
-    				title: "@lang('users.delete_user')",
+    				title: "@lang('users.delete_org')",
     				text: "@lang('users.delete_user_msg')",
     				type: 'info',
     				showCancelButton: true,
