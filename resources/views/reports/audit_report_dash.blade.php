@@ -467,9 +467,22 @@ $busData = [
         $('#datatable').DataTable({
             "order": [],
             "language": {
-            "search": "",
-            "searchPlaceholder": "Search Here"
-        }
+                "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "oPaginate": {
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
+                "searchPlaceholder": "Search Here"
+                @endif
+                
+            }
         });
     }
 </script>
@@ -643,7 +656,20 @@ $(document).ready(function() {
             "order": [],
             "language": {
                 "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "oPaginate": {
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
                 "searchPlaceholder": "Search Here"
+                @endif
+                
             }
         });
 

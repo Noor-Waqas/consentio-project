@@ -646,13 +646,13 @@
             "language": {
                 "search": "",
                 @if(session('locale')=='fr')
-                "sLengthMenu":    "Mostrar _MENU_ Entrées",
-                "sZeroRecords":   "No se encontraron resultados",
-                "sEmptyTable":    "Ningún dato disponible en esta tabla",
-                "sInfo":          "Mostrando del _START_ al _END_ de un total de _TOTAL_ Entrées",
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
                 "oPaginate": {
-                    "sNext":    "Siguiente",
-                    "sPrevious": "Anterior"
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
                 },
                 "searchPlaceholder": "Cherche ici"
                 @else
