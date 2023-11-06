@@ -115,6 +115,7 @@ input:checked + .slider:before {
 					<div class="tile-footer col-sm-12 text-right">
 
 						<button type="button" class="btn btn-primary" id="updateButton">Update</button>
+						<a href="{{ url('evaluation_rating') }}" class="btn btn-secondary">Cancel</a>
 
 					</div>
 
