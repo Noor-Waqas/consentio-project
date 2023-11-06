@@ -97,13 +97,19 @@ class UsersController extends Controller
         ->where("assets_data_elements.owner_id", NULL)
         ->count();
         if($check==1){
-            return redirect("/data_element")->with("message", "This Section has only one Element");
+            return response()->json([
+                'status'=> '201',
+                'msg'=> 'This Section has only one Data Element'
+            ]);
         }
         else{
             DB::table("assets_data_elements")
             ->where("assets_data_elements.id", $id)
             ->delete();
-            return redirect("/data_element")->with("message", "Data Element Deleted Successfully");
+            return response()->json([
+                'status'=> '200',
+                'msg'=> 'Data Element Deleted Successfully'
+            ]);
         }
     }
 

@@ -91,8 +91,8 @@
                     {{$val->classification_name_en}}
                   </td>
                    <td>
-                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-info" ><i class="fa fa-edit"></i></a>        
-                      <a href="{{url('delete-data-element-group/'.$val->id)}}" class="btn btn-danger" ><i class="fa fa-trash"></i></a>        
+                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-info" ><i class="fa fa-edit"></i></a>      
+                      <a id="{{$val->id}}" class="btn btn-danger delete-button" ><i class="fa fa-trash"></i></a>        
                   </td>
                 </tr>
               @endforeach
@@ -103,6 +103,44 @@
     </div>
   </div>
 </div> 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+  $('.delete-button').on('click', function(){
+    var id=this.id;
+    console.log(id);
+    Swal.fire({
+            title: 'Are you sure?',
+            text: 'You are Deleting the Data Element.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+          if(result.isConfirmed){
+            $.ajax({
+              url: "delete-data-element-group/" + id,
+              method: "GET",
+              success: function(response){
+                console.log(response)
+                if(response.status==200){
+                  Swal.fire('Data Element is Deleted', '', 'success');
+                  setTimeout( function () {
+                    location.reload();
+                  }, 2000 );
+                }
+                else{
+                  Swal.fire('Section has only one Data Element', '', 'error');
+                }
+              },
+            });
+          }
+        });
+    
+  });
+</script>
  <script>
     $(document).ready(function(){
         $('#forms-table').DataTable({
