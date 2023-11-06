@@ -1676,6 +1676,11 @@
 
         //this function hits when ever any button clicked
         function render_questions(type, render_div) {
+
+            document.getElementById('qmodel_main_q_en').disabled = false; // Enable the input
+            document.getElementById('qmodel_main_q_fr').disabled = false; 
+            document.getElementById('q_simple_model_main_en').disabled = false; 
+            document.getElementById('q_simple_model_main_fr').disabled = false; 
             
             var is_same = render_div.split("-");
             is_same = is_same[0];
@@ -1893,7 +1898,7 @@
                         '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>' +
                         '<label for="' + type + '_question_options" class="col-form-label">Dynamic Items</label>' +
-                        '<select type="text"  class="form-control" name="dropdown_value_from" required>' +
+                        '<select type="text"  class="form-control" name="dropdown_value_from" onchange="disable()" required>' +
                         '<option value="">--- Select Dynamic Item ---</option>' +
                         '<option value="0">PROCESSING ACTIVITY</option>' +
                         '<option value="1">DATA ELEMENTS WITH SECTIONS</option>' +
@@ -2284,6 +2289,26 @@
         function updateVal(input) {
             var value = input.value;
             $("#q_main_q").val(value);
+        }
+        function disable() {
+            var select = document.querySelector('select[name="dropdown_value_from"]');
+            var selectedValue = select.options[select.selectedIndex].value;
+            // console.log('Selected Value:', selectedValue);
+            if (selectedValue == '0' || selectedValue == '2') { 
+                document.getElementById('qmodel_main_q_en').value = ""; // clear Text from the input
+                document.getElementById('qmodel_main_q_fr').value = ""; 
+                document.getElementById('q_simple_model_main_en').value = ""; 
+                document.getElementById('q_simple_model_main_fr').value = ""; 
+                document.getElementById('qmodel_main_q_en').disabled = true; // Disable the input
+                document.getElementById('qmodel_main_q_fr').disabled = true; 
+                document.getElementById('q_simple_model_main_en').disabled = true; 
+                document.getElementById('q_simple_model_main_fr').disabled = true; 
+            } else {
+                document.getElementById('qmodel_main_q_en').disabled = false; // Enable the input
+                document.getElementById('qmodel_main_q_fr').disabled = false; 
+                document.getElementById('q_simple_model_main_en').disabled = false; 
+                document.getElementById('q_simple_model_main_fr').disabled = false; 
+            }
         }
 </script>
 @endsection
