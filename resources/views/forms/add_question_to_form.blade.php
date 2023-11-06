@@ -1890,7 +1890,7 @@
                         '<textarea type="text" id="commenten-" class="form-control" name="question_coment" onkeyup="$(\'#comment-\').val($(this).val())"  ></textarea>' +
                         '<label for="' + type +
                         '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
-                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control" name="question_coment_fr" ' + property +
+                        '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>' +
                         '<label for="' + type + '_question_options" class="col-form-label">Dynamic Items</label>' +
                         '<select type="text"  class="form-control" name="dropdown_value_from" required>' +
