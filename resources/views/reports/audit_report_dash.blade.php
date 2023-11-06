@@ -473,6 +473,9 @@ $busData = [
                 "sZeroRecords":   "Aucun résultat trouvé",
                 "sEmptyTable":    "aucune donnée disponible",
                 "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "sInfoEmpty":     "Présentation de 0 à 0 d'un total de 0 Entrées",
+                "sInfoFiltered": "(filtré à partir de _MAX_ nombre total d'entrées)",
+                "sInfoPostFix":  "",
                 "oPaginate": {
                     "sNext":    "Suivant",
                     "sPrevious": "Précédent"
@@ -661,6 +664,9 @@ $(document).ready(function() {
                 "sZeroRecords":   "Aucun résultat trouvé",
                 "sEmptyTable":    "aucune donnée disponible",
                 "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "sInfoEmpty":     "Présentation de 0 à 0 d'un total de 0 Entrées",
+                "sInfoFiltered": "(filtré à partir de _MAX_ nombre total d'entrées)",
+                "sInfoPostFix":  "",
                 "oPaginate": {
                     "sNext":    "Suivant",
                     "sPrevious": "Précédent"

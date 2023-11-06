@@ -496,9 +496,25 @@
         $('#datatable').DataTable({
             "order": [],
             "language": {
-            "search": "",
-            "searchPlaceholder": "Search Here"
-        }
+                "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "sInfoEmpty":     "Présentation de 0 à 0 d'un total de 0 Entrées",
+                "sInfoFiltered": "(filtré à partir de _MAX_ nombre total d'entrées)",
+                "sInfoPostFix":  "",
+                "oPaginate": {
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
+                "searchPlaceholder": "Search Here"
+                @endif
+                
+            }
         });
     }
 </script>
@@ -675,11 +691,27 @@ $(document).ready(function() {
     // Initialize DataTable
     var dataTable = $("#datatable").DataTable({
         // Configure DataTable options and settings here
-        "order": [],
-        "language": {
-            "search": "",
-            "searchPlaceholder": "Search Here"
-        }
+            "order": [],
+            "language": {
+                "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "sInfoEmpty":     "Présentation de 0 à 0 d'un total de 0 Entrées",
+                "sInfoFiltered": "(filtré à partir de _MAX_ nombre total d'entrées)",
+                "sInfoPostFix":  "",
+                "oPaginate": {
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
+                "searchPlaceholder": "Search Here"
+                @endif
+                
+            }
     });
 
     // js code for report favorite
