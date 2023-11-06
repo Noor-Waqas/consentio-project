@@ -4451,24 +4451,31 @@ class Forms extends Controller{
     }
 
     public function add_question_to_form(Request $request){
-        $this->validate($request, [
-            'question_title'        => 'required',
-            'question_title_fr'     => 'required',
-            'question_options'      => 'required_if:q_type,mc|min:1',
-            'question_options_fr'   => 'required_if:q_type,mc|min:1',
-            'question_options'      => 'required_if:q_type,sc|min:1',
-            'question_options_fr'   => 'required_if:q_type,sc|min:1',
-            'q_type'                => 'required',
-         ], [
-            'question_title.required'           => __('English Question Can Not Be Empty.'),
-            'question_title_fr.required'        => __('French Question Can Not Be Empty.'),
-            'question_options.required_if'      => __('English Question Options Can Not Be Empty.'),
-            'question_options_fr.required_if'   => __('French Question Options Can Not Be Empty.'),
-            'question_options.min'              => __('Please provide atleast one English option to proceed'),
-            'question_options_fr.min'           => __('Please provide atleast one French option to proceed'),
-            'q_type.required'                   => __('No Question is selected.'),
-        ]);
+        // dd($request->all());
+        if($request->dropdown_value_from != 0 && $request->dropdown_value_from != 2){
+            $this->validate($request, [
+                'question_title'        => 'required',
+                'question_title_fr'     => 'required',
+                'question_options'      => 'required_if:q_type,mc|min:1',
+                'question_options_fr'   => 'required_if:q_type,mc|min:1',
+                'question_options'      => 'required_if:q_type,sc|min:1',
+                'question_options_fr'   => 'required_if:q_type,sc|min:1',
+                'q_type'                => 'required',
+            ], [
+                'question_title.required'           => __('English Question Can Not Be Empty.'),
+                'question_title_fr.required'        => __('French Question Can Not Be Empty.'),
+                'question_options.required_if'      => __('English Question Options Can Not Be Empty.'),
+                'question_options_fr.required_if'   => __('French Question Options Can Not Be Empty.'),
+                'question_options.min'              => __('Please provide atleast one English option to proceed'),
+                'question_options_fr.min'           => __('Please provide atleast one French option to proceed'),
+                'q_type.required'                   => __('No Question is selected.'),
+            ]);
+        }
         if($request->q_type=="dc" && $request->dropdown_value_from == 0){
+            $request->question_title        = "ab";
+            $request->question_title_fr     = "ab";
+            $request->question_options      = "q";
+            $request->question_options_fr   = "q";
             $activity_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 0)->count();
             if($activity_exist>0){
                 return redirect()->back()->with('message', __('Activity Question Already Exist in the Assessment'));
@@ -4481,6 +4488,10 @@ class Forms extends Controller{
             }
         }
         if($request->q_type=="dc" && $request->dropdown_value_from == 2){
+            $request->question_title        = "ab";
+            $request->question_title_fr     = "ab";
+            $request->question_options      = "q";
+            $request->question_options_fr   = "q";
             $asset_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 2)->count();
             if($asset_exist>0){
                 return redirect()->back()->with('message', __('Asset Question Already Exist in the Assessment'));
@@ -4594,68 +4605,23 @@ class Forms extends Controller{
         }
         if($request->q_type=="dc" && $request->dropdown_value_from==0){
             DB::table('questions')->where('id', $question_id)->update([
-                'is_parent' => 1,
-                'question_assoc_type' => 1,
-                'type' => null,
-                'question_category' => 2,
-            ]);
-
-            $question_array = [
                 'question'              => 'What activity are you assessing?',
                 'question_fr'           => 'What activity are you assessing?',
-                'question_section_id'   => $request->this_section_id,
-                'question_assoc_type'   => 2,
-                'parent_q_id'           => $question_id,
-                'question_category'     => 2,
-                'form_id'               => $request->form_id,
                 'type'                  => 'qa',
-            ];
-
-            $q_id = DB::table('questions')->insertGetId($question_array);
-
-            DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
-
-            $sord_order_num=$sord_order_num+0.005;
-
-            DB::table('form_questions')->insert([
-                'form_id' => $request->form_id,
-                'question_id' => $q_id,
-                'sort_order' => $sord_order_num,
+                'question_category'     => 2,
+                'dropdown_value_from'   => 0,
             ]);
         }
         if($request->q_type=="dc" && $request->dropdown_value_from==2){
             DB::table('questions')->where('id', $question_id)->update([
-                'is_parent' => 1,
-                'question_assoc_type' => 1,
-                'type' => null,
-                'question_category' => 2,
-            ]);
-
-            $question_array = [
                 'question'              => 'What assets are used to process the data for this activity?',
                 'question_fr'           => 'What assets are used to process the data for this activity?',
-                'question_section_id'   => $request->this_section_id,
-                'question_assoc_type'   => 2,
-                'parent_q_id'           => $question_id,
-                'question_category'     => 2,
-                'is_assets_question'    => 1,
-                'form_id'               => $request->form_id,
-                'dropdown_value_from'   => 2,
-                'type'                  => 'mc',
                 'options'               => 'Not Sure, Not Applicable',
                 'options_fr'            => 'Not Sure, Not Applicable',
-            ];
-
-            $q_id = DB::table('questions')->insertGetId($question_array);
-
-            DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
-
-            $sord_order_num=$sord_order_num+0.005;
-
-            DB::table('form_questions')->insert([
-                'form_id' => $request->form_id,
-                'question_id' => $q_id,
-                'sort_order' => $sord_order_num,
+                'type'                  => 'mc',
+                'question_category'     => 2,
+                'is_assets_question'    => 1,
+                'dropdown_value_from'   => 2,
             ]);
         }
 
