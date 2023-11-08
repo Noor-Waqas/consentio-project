@@ -1048,6 +1048,9 @@
                 success: function(data) {
                     if (data.status) {
                         swal('', data.msg, 'success');
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
                     } else {
                         swal('', data.msg, 'error');
                     }
