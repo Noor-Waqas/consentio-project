@@ -109,6 +109,12 @@
                                             </p>
                                         </div>
 
+                                        <h6 id="display_control_id_{{$question->id}}">
+                                            <strong class="mr-3">Control ID: </strong>
+                                            <span class="edit_control_id" onclick="edit_question_ajax(event)" id="edit_con_id_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->control_id}}" value="{{$question->control_id}}" type="control">{{$question->control_id}}</span> 
+                                        </h6>
+                                        <div class="d-flex align-items-end" id="append_div_to_edit_control_{{$question->id}}"></div>
+
                                         <h6 id="display_english_question_{{$question->id}}">
                                             <strong class="mr-3">En Q: </strong>
                                             <span class="edit_question_english" onclick="edit_question_ajax(event)" id="edit_en_q_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->question}}" value="{{$question->question}}" type="english">{{$question->question}}</span> 
