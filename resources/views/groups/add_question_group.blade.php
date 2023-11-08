@@ -115,12 +115,12 @@
                                         </h6>
                                         <div class="d-flex align-items-end" id="append_div_to_edit_english_{{$question->id}}"></div>
 
-                                        @if($question->question_comment)
+                                        
                                             <h6 class="question-comment" data-toggle="tooltip" data-placement="left" title="" data-original-title="Click To Edit English Question Comment">
-                                                <small class="d-flex" id="display_english_comment_{{$question->id}}"> En Comment:&nbsp;&nbsp;<span class="edit_english_comment" onclick="edit_question_ajax(event)" id="edit_en_c_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->question_comment}}" type="en_comment" value="{{$question->question_comment}}">{{ $question->question_comment }}</span></small>
+                                                <small class="d-flex" id="display_english_comment_{{$question->id}}"> En Comment:&nbsp;&nbsp;<span class="edit_english_comment" onclick="edit_question_ajax(event)" id="edit_en_c_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->question_comment}}" type="en_comment" value="{{$question->question_comment}}">{{$question->question_comment ? $question->question_comment : '#'}}</span></small>
                                             </h6>
                                             <div class="d-flex align-items-end" id="append_div_to_edit_en_comment_{{$question->id}}"></div>
-                                        @endif
+                                        
 
                                         <h6 id="display_fr_question{{$question->id}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="Question Title French">
                                             <strong class="mr-3">Fr Q: </strong>
@@ -128,14 +128,14 @@
                                         </h6>
                                         <div class="d-flex align-items-end" id="append_div_to_edit_fr_{{$question->id}}"></div>
 
-                                        @if($question->question_comment_fr)
+                                        
                                             <h6 class="question-comment " data-toggle="tooltip" data-placement="left" title="" data-original-title="Click To Edit French Question Comment">
                                                 <small class="mr-3" id="display_fr_comment{{$question->id}}">Fr Comment: 
-                                                    <span class="edit_fr_comment" onclick="edit_question_ajax(event)" id="edit_fr_c_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->question_comment_fr}}" type="fr_comment" value="{{$question->question_comment_fr}}">{{ $question->question_comment_fr }}</span>
+                                                    <span class="edit_fr_comment" onclick="edit_question_ajax(event)" id="edit_fr_c_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->question_comment_fr}}" type="fr_comment" value="{{$question->question_comment_fr}}">{{$question->question_comment_fr ? $question->question_comment_fr : '#'}}</span>
                                                 </small>
                                             </h6>
                                             <div class="d-flex align-items-end" id="append_div_to_edit_fr_comment_{{$question->id}}"></div>
-                                        @endif
+                                        
 
                                         @switch($question->type)
                                             @case('qa')
