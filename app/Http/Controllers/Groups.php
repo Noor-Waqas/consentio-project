@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\GroupSection;
 use App\Question;
 use App\Group;
+use DB;
 
 class Groups extends Controller
 {
@@ -364,6 +365,24 @@ class Groups extends Controller
         try {
             $question = Question::find($request->q_id);
             switch ($request->name) {
+                case 'edit_con_id':
+                    $group = GroupSection::find($question->section_id);
+                    $check = DB::table('group_questions')
+                    ->join('group_section', 'group_section.id', 'group_questions.section_id')
+                    ->where('group_section.group_id', $group->group_id)
+                    ->whereNotIn('group_questions.id', [$request->q_id])
+                    ->pluck('control_id')
+                    ->toArray();
+                    if (in_array($request->val, $check)) {
+                        return response()->json([
+                            'status'  => true,
+                            'code'    => 200,
+                            'success' => "Control Id Exists",
+                        ], 200);
+                    }
+                    // dd($check);
+                    $question->control_id = $request->val;
+                    break;
                 case 'edit_en_q':
                     $question->question = $request->val;
                     break;

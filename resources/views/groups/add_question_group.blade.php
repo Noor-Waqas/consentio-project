@@ -320,20 +320,20 @@
 
                             <div class="form-group">
                                 <label for="question_title" class="col-form-label">Add Question English Short Title  <strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short" class="form-control" id="q_simple_model_main_en" maxlength="24" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
-                                <span style="color:red;">Maximum 24 Characters</span>
+                                <input type="text" name="question_title_short" class="form-control" id="q_simple_model_main_en" maxlength="30" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
+                                <span style="color:red;">Maximum 30 Characters</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="question_title_fr" class="col-form-label">Add Question French Short Title<strong style="color: red">*</strong></label>
-                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr" maxlength="24" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup=null">
-                                <span style="color:red;">Maximum 24 Characters</span>
+                                <input type="text" name="question_title_short_fr" class="form-control fr_field" id="q_simple_model_main_fr" maxlength="30" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup=null">
+                                <span style="color:red;">Maximum 30 Characters</span>
                             </div>
 
                             <div class="form-group">
                                 <label for="control_id" class="col-form-label">Control ID <strong style="color: red">*</strong></label>
-                                <input type="text" name="control_id" maxlength="10" class="form-control" id="control_id">
-                                <span style="color:red;">Maximum 10 Characters</span>
+                                <input type="text" name="control_id" maxlength="30" class="form-control" id="control_id">
+                                <span style="color:red;">Maximum 30 Characters</span>
                             </div>
                             
                             <div class="form-group" id="qmodel-type" style="display: none"></div>
@@ -682,6 +682,12 @@
                     console.log("res", res);
                     if (res.status) {
                         switch (type) {
+                            case "control":
+                                $(`#append_div_to_edit_control_${q_id}`).html("");
+                                $(`#display_control_id_${q_id}`).append(
+                                    `<span class="edit_control_id" onclick=edit_question_ajax(event) id="edit_con_id_${q_id}" q_id="${q_id}" q_val="${val}" value="${val}" type="control">${val}</span> `
+                                );
+                                break;
                             case "english":
                                 $(`#append_div_to_edit_english_${q_id}`).html("");
                                 $(`#display_english_question_${q_id}`).append(
@@ -718,7 +724,16 @@
                             default:
                                 break;
                         }
-                        swal('', res.success, 'success');
+                        if(res.code == 200){
+                            swal('', res.success, 'warning');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
+                        }
+                        else{
+                            swal('', res.success, 'success');
+                        }
+                        
                     }else{
                         swal('', res.error, 'warning');
                     }
@@ -734,6 +749,14 @@
             let id    = $(e.target).attr('id');
             let type  = $(e.target).attr('type');
             switch (type) {
+                case "control":
+                    $(`#append_div_to_edit_control_${q_id}`).append(
+                        `<textarea id="edit_con_id_${q_id}" type="${type}" q_id="${q_id}" name="edit_con_id" class="mr-2" maxlength="30" rows="3">${q_val}</textarea>
+                        <button class="btn btn-success" onclick=update_question(edit_con_id_${q_id})>  
+                            <i class="fas fa-check-circle m-0"></i>
+                        </button>`
+                    );
+                    break;
                 case "english":
                     $(`#append_div_to_edit_english_${q_id}`).append(
                         `<textarea id="edit_en_q_${q_id}" type="${type}" q_id="${q_id}" name="edit_en_q" class="mr-2" rows="3">${q_val}</textarea>
