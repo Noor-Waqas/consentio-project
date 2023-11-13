@@ -41,7 +41,11 @@
 							       		{{ csrf_field() }}
 							       		<div class="form-group">
 							       			<label for="#">New Element</label>
-							       			<input type="text" name="name" class="form-control" placeholder="New Element">
+							       			<input type="text" name="name" class="form-control" placeholder="New Element" required>
+							       		</div>
+                         <div class="form-group">
+							       			<label for="#">New Element French</label>
+							       			<input type="text" name="name_fr" class="form-control" placeholder="New Element French" required>
 							       		</div>
 							       		<div class="form-group">
 							       			<label for="#">Data Element Group</label>
@@ -74,6 +78,7 @@
             <tr>
               
               <th scope="col" col-span="2" >Element Name </th>
+              <th scope="col" col-span="2" >Element Name French</th>
               <th scope="col" col-span="2" >Data Element Group </th>
               <th scope="col" col-span="2" >Data Classification Name </th>
               <th scope="col">Actions</th>
@@ -84,6 +89,7 @@
               @foreach($data as $val)
                 <tr>
                   <td class="w-25">{{$val->name}}</td>
+                  <td class="w-25">{{$val->name_fr}}</td>
                   <td>
                       {{$val->section_name}}       
                   </td>

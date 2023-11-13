@@ -47,11 +47,13 @@ class UsersController extends Controller
     {
         $req->validate([
             "name" => "required",
+            "name_fr" => "required",
             "element_group" => "required",
             "d_c_name" => "required",
         ]);
         DB::table("assets_data_elements")->insert([
             "name" => $req->name,
+            "name_fr" => $req->name_fr,
             "section_id" => $req->element_group,
             "d_classification_id" => $req->d_c_name,
         ]);
@@ -76,11 +78,13 @@ class UsersController extends Controller
     {
         $req->validate([
             "name" => "required",
+            "name_fr" => "required",
             "element_group" => "required",
             "d_c_name" => "required",
         ]);
         DB::table("assets_data_elements")->where("id", $req->id)->update([
             "name" => $req->name,
+            "name_fr" => $req->name_fr,
             "section_id" => $req->element_group,
             "d_classification_id" => $req->d_c_name,
         ]);

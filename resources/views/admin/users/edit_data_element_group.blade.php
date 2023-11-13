@@ -94,9 +94,13 @@ input:checked + .slider:before {
 						<div class="row">
 						<div class="col-sm-6 col-md-4">
                 			<input id="id"   type="hidden" class="form-control" name="id"  value="{{$val->id}}">
-							<div class="form-group">
-								<label class="form-control-label">Asset Element</label>
-								<input id="name" type="text"   class="form-control" name="name" value="{{$val->name}}" required autofocus>
+                      <div class="form-group">
+                        <label class="form-control-label">Asset Element</label>
+                        <input id="name" type="text"   class="form-control" name="name" value="{{$val->name}}" required autofocus>
+	               			</div>
+                      <div class="form-group">
+                        <label class="form-control-label">Asset Element French</label>
+                        <input id="name_fr" type="text"   class="form-control" name="name_fr" value="{{$val->name_fr}}" required autofocus>
 	               			</div>
 			               <div class="form-group">
 				       			<label for="#">Data Element Group</label>
