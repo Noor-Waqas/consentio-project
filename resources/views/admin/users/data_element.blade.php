@@ -51,7 +51,7 @@
 							       			<label for="#">Data Element Group</label>
 							       			<select name="element_group" id="" class="form-control">
 							       				@foreach($section as $val)
-							       					<option value="{{$val->id}}" >{{$val->section_name}}</option>
+							       					<option value="{{$val->id}}" >{{$val->section_name}} ({{$val->section_name_fr}})</option>
 							       				@endforeach
 							       			</select>
 							       		</div>
@@ -59,7 +59,7 @@
                           <label for="#">Data Classification name</label>
                           <select name="d_c_name" id="" class="form-control">
                             @foreach($dc_result as $dc)
-                              <option value="{{$dc->id}}" >{{$dc->classification_name_en}}</option>
+                              <option value="{{$dc->id}}" >{{$dc->classification_name_en}}({{$dc->classification_name_fr}})</option>
                             @endforeach
                           </select>
                         </div>
@@ -77,10 +77,12 @@
           <thead class="back_blue">
             <tr>
               
-              <th scope="col" col-span="2" >Element Name </th>
-              <th scope="col" col-span="2" >Element Name French</th>
-              <th scope="col" col-span="2" >Data Element Group </th>
-              <th scope="col" col-span="2" >Data Classification Name </th>
+              <th scope="col" col-span="2" >Element Name</th>
+              <th scope="col" col-span="2" >Nom de l'élément</th>
+              <th scope="col" col-span="2" >Group</th>
+              <th scope="col" col-span="2" >Groupe</th>
+              <th scope="col" col-span="2" >Classification</th>
+              <th scope="col" col-span="2" >Classification</th>
               <th scope="col">Actions</th>
 
             </tr>
@@ -90,15 +92,13 @@
                 <tr>
                   <td class="w-25">{{$val->name}}</td>
                   <td class="w-25">{{$val->name_fr}}</td>
-                  <td>
-                      {{$val->section_name}}       
-                  </td>
-                  <td>
-                    {{$val->classification_name_en}}
-                  </td>
-                   <td>
-                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="btn btn-info" ><i class="fa fa-edit"></i></a>      
-                      <a id="{{$val->id}}" class="btn btn-danger delete-button" ><i class="fa fa-trash"></i></a>        
+                  <td>{{$val->section_name}}</td>
+                  <td>{{$val->section_name_fr}}</td>
+                  <td>{{$val->classification_name_en}}</td>
+                  <td>{{$val->classification_name_fr}}</td>
+                   <td class="d-flex justify-content-around">
+                      <a href="{{url('edit-data-element-group/'.$val->id)}}" class="" ><i class="fa fa-edit"></i></a>      
+                      <a id="{{$val->id}}" class="delete-button text-danger" ><i class="fa fa-trash"></i></a>        
                   </td>
                 </tr>
               @endforeach

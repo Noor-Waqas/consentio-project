@@ -26,7 +26,7 @@ class UsersController extends Controller
     {
 
         $data = DB::table("assets_data_elements as ade")
-            ->select("ade.*", "s.section_name", "dc.classification_name_en")
+            ->select("ade.*", "s.section_name","s.section_name_fr", "dc.classification_name_en", "dc.classification_name_fr")
             ->join("sections as s", "ade.section_id", "s.id")->join("data_classifications as dc", "ade.d_classification_id", "dc.id")->orderby('id', "desc")
             ->whereNull('ade.owner_id')
             ->orderBy('created_at', 'desc')
@@ -34,7 +34,7 @@ class UsersController extends Controller
 
         $section = DB::table("sections")->get();
         $dc_result = DB::table("data_classifications")->where('organization_id', null)->get();
-        // dd($dc_result);
+        // dd($data);
 
         return view("admin.users.data_element", [
             "data" => $data,
