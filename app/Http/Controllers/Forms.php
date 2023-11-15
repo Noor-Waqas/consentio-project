@@ -4573,13 +4573,15 @@ class Forms extends Controller{
             foreach($sections as $section){
                 $elements=DB::table('assets_data_elements')->where('section_id', $section->id)->where('owner_id', null)->pluck('name')->toArray();
                 $elements = implode(', ', $elements);
+                $elements_fr=DB::table('assets_data_elements')->where('section_id', $section->id)->where('owner_id', null)->pluck('name_fr')->toArray();
+                $elements_fr = implode(', ', $elements_fr);
                 // dd($elements);
 
                 $question_array = [
                     'question'              => $section->section_name,
-                    'question_fr'           => $section->section_name,
+                    'question_fr'           => $section->section_name_fr,
                     'options'               => $elements,
-                    'options_fr'            => $elements,
+                    'options_fr'            => $elements_fr,
                     'question_section'      => '',
                     'question_section_id'   => $request->this_section_id,
                     'question_assoc_type'   => 2,
@@ -4606,7 +4608,7 @@ class Forms extends Controller{
         if($request->q_type=="dc" && $request->dropdown_value_from==0){
             DB::table('questions')->where('id', $question_id)->update([
                 'question'              => 'What activity are you assessing?',
-                'question_fr'           => 'What activity are you assessing?',
+                'question_fr'           => 'Quelle activité évaluez-vous ?',
                 'type'                  => 'qa',
                 'question_category'     => 2,
                 'dropdown_value_from'   => 0,
@@ -4615,9 +4617,9 @@ class Forms extends Controller{
         if($request->q_type=="dc" && $request->dropdown_value_from==2){
             DB::table('questions')->where('id', $question_id)->update([
                 'question'              => 'What assets are used to process the data for this activity?',
-                'question_fr'           => 'What assets are used to process the data for this activity?',
+                'question_fr'           => 'Quels sont les actifs utilisés pour traiter les données dans le cadre de cette activité ?',
                 'options'               => 'Not Sure, Not Applicable',
-                'options_fr'            => 'Not Sure, Not Applicable',
+                'options_fr'            => 'Pas sûr, pas applicable',
                 'type'                  => 'mc',
                 'question_category'     => 2,
                 'is_assets_question'    => 1,
