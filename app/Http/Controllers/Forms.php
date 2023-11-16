@@ -1657,7 +1657,7 @@ class Forms extends Controller{
             ->where('type', 'assessment')
             ->selectRaw('forms.title, count(sub_forms.id) as subforms_count, user_id, forms.id as form_id, forms.date_created')
             ->groupBy('forms.id')
-            ->orderBy('date_created')
+            ->orderBy('date_created', 'DESC')
             ->get();
 
         if (session('locale') == 'fr') {
@@ -1668,7 +1668,7 @@ class Forms extends Controller{
                 ->where('type', 'assessment')
                 ->selectRaw('forms.title_fr as title, count(sub_forms.id) as subforms_count, user_id, forms.id as form_id, forms.date_created')
                 ->groupBy('forms.id')
-                ->orderBy('date_created')
+                ->orderBy('date_created', 'DESC')
                 ->get();
         }
 
