@@ -24,6 +24,9 @@
         @if(Session::has('message'))
            <p class="alert alert-info">{{ Session::get('message') }}</p>
         @endif
+        @if(Session::has('alert'))
+           <p class="alert alert-danger">{{ Session::get('alert') }}</p>
+        @endif
         <h3 class="tile-title">Data Element
           <button data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-success pull-right cust_color" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true" ></i>Add New Element</button>
         </h3>
@@ -65,8 +68,8 @@
                         </div>
 								  </div>
 								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 								      </div>
 							    	</form>  
 							    </div>

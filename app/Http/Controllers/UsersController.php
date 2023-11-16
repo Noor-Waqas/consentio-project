@@ -51,6 +51,15 @@ class UsersController extends Controller
             "element_group" => "required",
             "d_c_name" => "required",
         ]);
+        $exist = DB::table('assets_data_elements')->where('owner_id', NULL)->pluck('name');
+        $exist_fr = DB::table('assets_data_elements')->where('owner_id', NULL)->pluck('name_fr');
+        $check=$exist->merge($exist_fr)->toArray();
+        if(in_array($req->name, $check)){
+            return redirect("/data_element")->with("alert", "Data Element Already Exist with this Name");
+        }
+        if(in_array($req->name_fr, $check)){
+            return redirect("/data_element")->with("alert", "Data Element Already Exist with this Name");
+        }
         DB::table("assets_data_elements")->insert([
             "name" => $req->name,
             "name_fr" => $req->name_fr,
