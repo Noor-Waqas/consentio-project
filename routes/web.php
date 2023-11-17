@@ -293,6 +293,7 @@ Route::group(["middleware" => 'admin'], function () {
     Route::get('edit_form/{id}', 'Admin@edit_form')->name('edit_form_info');
     Route::post('edit_form/{id}', 'Admin@edit_form_act')->name('edit_form_info_act');
     Route::get('Forms/delete_form/{id}', 'Admin@delete_form')->name('delete_form_info_act');
+    Route::get('Forms/AdminFormsList/delete_form/{id}', 'Admin@delete_form')->name('delete_form_info_act');
     Route::get("evaluation_rating", "Admin@evaluation_rating")->name('evaluation_rating');
     Route::get("edit-evaluation/{id}", "Admin@edit_evaluation")->name('edit_evaluation');
     Route::post("update_evaluation", "Admin@update_evaluation");
