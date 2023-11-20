@@ -4517,12 +4517,14 @@ class Forms extends Controller{
         $question_number = $section_num . '.' . $last_question_num;
         $pre_sort_order = DB::table('form_questions')->where('form_id', $request->form_id)->orderBy('sort_order', 'desc')->first();
 
-        $opt = explode(",", $request->question_options);
-        $opt_fr = explode(",", $request->question_options_fr);
-        $count = count($opt);
-        $count_fr = count($opt_fr);
-        if($count != $count_fr){
-            return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
+        if(isset($request->question_options) && isset($request->question_options_fr)){
+            $opt = explode(",", $request->question_options);
+            $opt_fr = explode(",", $request->question_options_fr);
+            $count = count($opt);
+            $count_fr = count($opt_fr);
+            if($count != $count_fr){
+                return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
+            }
         }
 
         $question_array = [
@@ -4555,6 +4557,21 @@ class Forms extends Controller{
         $question_id = DB::table('questions')->insertGetId($question_array);
 
         DB::table('questions')->where('id', $question_id)->update(['form_key' => 'q-' . $question_id]);
+
+        ////option link
+        if(isset($request->question_options) && isset($request->question_options_fr)){
+            $opt = explode(",", $request->question_options);
+            $opt_fr = explode(",", $request->question_options_fr);
+            foreach($opt as $index => $op){
+                DB::table('options_link')->insert([
+                    'option_en'     => $op,
+                    'option_fr'     => $opt_fr[$index],
+                    'question_id'   => $question_id,
+                    'form_id'       => $request->form_id,
+                ]);
+            }
+        }
+        /////
 
         $__sec_num = $section_num - 1;
         $sord_order_num = $__sec_num + ($current_order / 100);
@@ -4599,6 +4616,19 @@ class Forms extends Controller{
                 $q_id = DB::table('questions')->insertGetId($question_array);
 
                 DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
+
+                if(isset($elements) && isset($elements_fr)){
+                    $opt = explode(",", $elements);
+                    $opt_fr = explode(",", $elements_fr);
+                    foreach($opt as $index => $op){
+                        DB::table('options_link')->insert([
+                            'option_en'     => $op,
+                            'option_fr'     => $opt_fr[$index],
+                            'question_id'   => $q_id,
+                            'form_id'       => $request->form_id,
+                        ]);
+                    }
+                }
 
                 $sord_order_num=$sord_order_num+0.0001;
                 
