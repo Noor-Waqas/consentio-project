@@ -4521,6 +4521,14 @@ class Forms extends Controller{
         $question_number = $section_num . '.' . $last_question_num;
         $pre_sort_order = DB::table('form_questions')->where('form_id', $request->form_id)->orderBy('sort_order', 'desc')->first();
 
+        $opt = explode(",", $request->question_options);
+        $opt_fr = explode(",", $request->question_options_fr);
+        $count = count($opt);
+        $count_fr = count($opt_fr);
+        if($count != $count_fr){
+            return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
+        }
+
         $question_array = [
             'question'              => $request->question_title,
             'question_fr'           => $request->question_title_fr,
