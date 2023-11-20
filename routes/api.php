@@ -658,6 +658,24 @@
         }
     });
 
+    Route::get('add/options_link', function(){
+        try {
+            Schema::dropIfExists('options_link');
+            Schema::create('options_link', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('option_en')->nullable();
+                $table->string('option_fr')->nullable();
+                $table->unsignedBigInteger('question_id')->nullable();
+                $table->unsignedBigInteger('form_id')->nullable();
+                $table->timestamps();
+            });
+            return "Table <b>Options_link</b> Successfully Created";
+        } 
+        catch (\Exception $th) {
+            return $th->getMessage();
+        }
+    });
+
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
