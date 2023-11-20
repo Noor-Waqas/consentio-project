@@ -4472,10 +4472,8 @@ class Forms extends Controller{
             ]);
         }
         if($request->q_type=="dc" && $request->dropdown_value_from == 0){
-            $request->question_title        = "ab";
-            $request->question_title_fr     = "ab";
-            $request->question_options      = "q";
-            $request->question_options_fr   = "q";
+            $request->question_title        = "What activity are you assessing?";
+            $request->question_title_fr     = "Quelle activité évaluez-vous ?";
             $activity_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 0)->count();
             if($activity_exist>0){
                 return redirect()->back()->with('message', __('Activity Question Already Exist in the Assessment'));
@@ -4488,10 +4486,8 @@ class Forms extends Controller{
             }
         }
         if($request->q_type=="dc" && $request->dropdown_value_from == 2){
-            $request->question_title        = "ab";
-            $request->question_title_fr     = "ab";
-            $request->question_options      = "q";
-            $request->question_options_fr   = "q";
+            $request->question_title        = "What assets are used to process the data for this activity?";
+            $request->question_title_fr     = "Quels sont les actifs utilisés pour traiter les données dans le cadre de cette activité ?";
             $asset_exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 2)->count();
             if($asset_exist>0){
                 return redirect()->back()->with('message', __('Asset Question Already Exist in the Assessment'));
