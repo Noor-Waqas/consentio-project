@@ -4643,8 +4643,8 @@ class Forms extends Controller{
                 DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
 
                 if(isset($elements) && isset($elements_fr)){
-                    $opt = explode(",", $elements);
-                    $opt_fr = explode(",", $elements_fr);
+                    $opt = explode(", ", $elements);
+                    $opt_fr = explode(", ", $elements_fr);
                     foreach($opt as $index => $op){
                         DB::table('options_link')->insert([
                             'option_en'     => $op,
@@ -4702,30 +4702,42 @@ class Forms extends Controller{
 
     public function update_options(Request $request){
         // dd($request->all());
-        $option_fr = DB::table('questions')->where('id', $request->question_id)->pluck('options_fr');
+        $question = DB::table('questions')->where('id', $request->question_id)->first();
             $opt = explode(",", $request->updated_options);
-            $opt_fr = explode(",", $option_fr);
+            $opt_fr = explode(", ", $question->options_fr);
+            // dd($opt_fr);
             $count = count($opt);
             $count_fr = count($opt_fr);
             if($count != $count_fr){
                 return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
             }
         DB::table('questions')->where('id', $request->question_id)->update(['options' => str_replace(",", ", ", $request->updated_options)]);
+            foreach($opt_fr as $index => $op){
+                DB::table('options_link')->where('question_id', $request->question_id)->where('option_fr', $op)->update([
+                    'option_en'     => $opt[$index],
+                ]);
+            }
         return redirect()->back()->with('message', __('English Options Updated Successfully'));
 
     }
 
     public function update_options_fr(Request $request){
         // dd($request->all());
-        $option = DB::table('questions')->where('id', $request->question_id)->pluck('options');
-            $opt = explode(",", $option);
+        $question = DB::table('questions')->where('id', $request->question_id)->first();
+            $opt = explode(", ", $question->options);
             $opt_fr = explode(",", $request->updated_options_fr);
+            // dd($opt_fr);
             $count = count($opt);
             $count_fr = count($opt_fr);
             if($count != $count_fr){
                 return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
             }
         DB::table('questions')->where('id', $request->question_id)->update(['options_fr' => str_replace(",", ", ", $request->updated_options_fr)]);
+            foreach($opt as $index => $op){
+                DB::table('options_link')->where('question_id', $request->question_id)->where('option_en', $op)->update([
+                    'option_fr'     => $opt_fr[$index],
+                ]);
+            }
         return redirect()->back()->with('message', __('French Options Updated Successfully'));
 
     }
