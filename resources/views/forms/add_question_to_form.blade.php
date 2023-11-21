@@ -511,11 +511,13 @@
                     @if (!empty($options))
                         @if ($form_id > 14 || true)
                             @if ($can_update || true)
+                                @if($question->dropdown_value_from !=1 && $question->dropdown_value_from !=2)
                                 <p data-toggle="tooltip" data-placement="top"
                                     title="Click here to edit english question options"
                                     class="pull-right btn btn-sm btn-warning"
                                     onclick="$('#textarea-{{ $question->question_id }}').show(300) , $('#select-{{ $question->question_id }}').hide(600) ">
                                     Edit English Options</p>
+                                @endif
                                 <div id="textarea-{{ $question->question_id }}" style="display: none">
                                     <form action="{{ url('update_options') }}" method="POST">
                                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
@@ -579,11 +581,13 @@
                         {{-- ********************************* --}}
                         @if ($form_id > 14 || true)
                             @if ($can_update || true)
+                                @if($question->dropdown_value_from !=1 && $question->dropdown_value_from !=2)
                                 <p data-toggle="tooltip" data-placement="top"
                                     title="Click here to edit french question options"
                                     class="pull-right btn btn-sm btn-warning"
                                     onclick="$('#frtextarea-{{ $question->question_id }}').show(300) , $('#frselect-{{ $question->question_id }}').hide(600) ">
                                     Edit French Options</p>
+                                @endif
                                 <div id="frtextarea-{{ $question->question_id }}" style="display: none">
                                     <form action="{{ url('update_options_fr') }}" method="POST">
                                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">

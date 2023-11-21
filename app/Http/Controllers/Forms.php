@@ -4632,6 +4632,7 @@ class Forms extends Controller{
                     'question_section_id'   => $request->this_section_id,
                     'question_assoc_type'   => 2,
                     'is_data_inventory_question'   => 1,
+                    'dropdown_value_from'   => $request->dropdown_value_from,
                     'parent_q_id'           => $question_id,
                     'question_category'     => 2,
                     'form_id'               => $request->form_id,
