@@ -552,14 +552,77 @@ class Forms extends Controller{
             ->join('internal_users_filled_response', 'user_form_links.user_id', '=', DB::raw('internal_users_filled_response.user_id AND user_form_links.sub_form_id = internal_users_filled_response.sub_form_id'))
             ->join('questions', 'questions.id', '=', 'internal_users_filled_response.question_id')
             ->where('user_form_links.form_link_id', '=', $form_link_id)
-            ->select('question_key', 'question_response', 'question_id', 'additional_comment', 'additional_info', 'questions.type', 'custom_case', 'internal_users_filled_response.attachment')->get();
+            ->select('question_key', 'questions.form_id', 'question_response', 'question_id', 'additional_comment', 'additional_info', 'questions.type', 'custom_case', 'internal_users_filled_response.attachment')->get();
         $custom_responses = [];
+        // dd($filled_info);
 
 
         $question_key_index = [];
         foreach ($filled_info as $key => $user_response) {
+            if ($user_response->type == 'sc') {
+                if(session('locale') == 'fr'){
+                    
+                        $Translation=DB::table('options_link')
+                        ->where('form_id', $filled_info[0]->form_id)
+                        ->where('option_en', $user_response->question_response)
+                        ->orWhere('option_fr', $user_response->question_response)
+                        ->pluck('option_fr')->first();
+
+                        // dd($Translation);
+                        if ($Translation) {
+                            // Update the array value with the French translation
+                            $user_response->question_response = $Translation;
+                        }
+                    // dd($user_response->question_response);
+                }
+                if(session('locale') == 'en'){
+                    
+                    $Translation=DB::table('options_link')
+                    ->where('form_id', $filled_info[0]->form_id)
+                    ->where('option_en', $user_response->question_response)
+                    ->orWhere('option_fr', $user_response->question_response)
+                    ->pluck('option_en')->first();
+
+                    // dd($Translation);
+                    if ($Translation) {
+                        // Update the array value with the French translation
+                        $user_response->question_response = $Translation;
+                    }
+                // dd($user_response->question_response);
+            }
+            }
             if ($user_response->type == 'mc') {
                 $user_response->question_response = explode(', ', $user_response->question_response);
+                if(session('locale') == 'fr'){
+                    foreach($user_response->question_response as $index=>$value){
+                        $Translation=DB::table('options_link')
+                        ->where('form_id', $filled_info[0]->form_id)
+                        ->where('option_en', $value)
+                        ->orWhere('option_fr', $value)
+                        ->pluck('option_fr')->first();
+                        // dd($frenchTranslation);
+                        if ($Translation) {
+                            // Update the array value with the French translation
+                            $user_response->question_response[$index] = $Translation;
+                        }
+                    }
+                    // dd($user_response->question_response);
+                }
+                if(session('locale') == 'en'){
+                    foreach($user_response->question_response as $index=>$value){
+                        $Translation=DB::table('options_link')
+                        ->where('form_id', $filled_info[0]->form_id)
+                        ->where('option_en', $value)
+                        ->orWhere('option_fr', $value)
+                        ->pluck('option_en')->first();
+                        // dd($frenchTranslation);
+                        if ($Translation) {
+                            // Update the array value with the French translation
+                            $user_response->question_response[$index] = $Translation;
+                        }
+                    }
+                    // dd($user_response->question_response);
+                }
             }
 
             if ($user_response->custom_case == '1') {
