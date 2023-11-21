@@ -3950,7 +3950,7 @@ class Forms extends Controller{
 
     public function add_special_question_to_form(Request $request){
 
-        // return $request->all();
+        // dd($request->all());
         $attachments = $request->add_attachments_box;
         if($attachments==null){
             for ($i = 0; $i < sizeof($request->s_question_title); $i++){ 
@@ -4005,6 +4005,18 @@ class Forms extends Controller{
 
                 ]
             );
+
+            if(isset($request->s_question_options) && isset($request->s_question_options_fr)){
+                $allElements = implode(',', $request->s_question_options);
+                $countOfElements = count(explode(',', $allElements));
+                $allElements_fr = implode(',', $request->s_question_options_fr);
+                $countOfElements_fr = count(explode(',', $allElements_fr));
+                if($countOfElements != $countOfElements_fr){
+                    return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
+                }
+                // dd('ok');
+            }
+
             $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->pluck('sec_num')->first();
             $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->count();
 
@@ -4056,9 +4068,11 @@ class Forms extends Controller{
                 'question_id' => $parent_question_id,
                 'sort_order' => $parent_sord_order_num,
             ]);
+            // dd($request->s_q_type);
 
             if (is_array($request->s_q_type)) {
                 foreach ($request->s_q_type as $key => $question_type) {
+                    // dd($request->s_q_type);
                     $allow_attach = 0;
                     $accepted_files = "";
                     if ($attachments[$key]){
@@ -4131,6 +4145,22 @@ class Forms extends Controller{
                         $child_question_id = DB::table('questions')->insertGetId($child_question_array);
 
                         DB::table('questions')->where('id', $child_question_id)->update(['form_key' => 'q-' . $child_question_id]);
+                        // dd($request->s_question_options[$key]);
+
+                        ////option link
+                        if(isset($request->s_question_options[$key]) && isset($request->s_question_options_fr[$key])){
+                            $opt = explode(",", $request->s_question_options[$key]);
+                            $opt_fr = explode(",", $request->s_question_options_fr[$key]);
+                            foreach($opt as $index => $op){
+                                DB::table('options_link')->insert([
+                                    'option_en'     => $op,
+                                    'option_fr'     => $opt_fr[$index],
+                                    'question_id'   => $child_question_id,
+                                    'form_id'       => $request->form_id,
+                                ]);
+                            }
+                        }
+                        /////
 
                         $__sec_num = $section_num - 1;
                         $child_sord_order_num = $__sec_num + ($last_question_num / 100);
@@ -4177,6 +4207,21 @@ class Forms extends Controller{
                     }
 
                     $child_question_id = DB::table('questions')->insertGetId($child_question_array);
+
+                    ////option link
+                    if(isset($request->s_question_options[$key]) && isset($request->s_question_options_fr[$key])){
+                        $opt = explode(",", $request->s_question_options[$key]);
+                        $opt_fr = explode(",", $request->s_question_options_fr[$key]);
+                        foreach($opt as $index => $op){
+                            DB::table('options_link')->insert([
+                                'option_en'     => $op,
+                                'option_fr'     => $opt_fr[$index],
+                                'question_id'   => $child_question_id,
+                                'form_id'       => $request->form_id,
+                            ]);
+                        }
+                    }
+                    /////
 
                     DB::table('questions')->where('id', $child_question_id)->update(['form_key' => 'q-' . $child_question_id]);
 
@@ -4236,6 +4281,16 @@ class Forms extends Controller{
 
             ]
         );
+
+        if(isset($request->s_question_options) && isset($request->s_question_options_fr)){
+            $allElements = implode(',', $request->s_question_options);
+            $countOfElements = count(explode(',', $allElements));
+            $allElements_fr = implode(',', $request->s_question_options_fr);
+            $countOfElements_fr = count(explode(',', $allElements_fr));
+            if($countOfElements != $countOfElements_fr){
+                return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
+            }
+        }
 
         // dd('in array section' , $request->all());
 
@@ -4521,6 +4576,22 @@ class Forms extends Controller{
 
         // dd($question_array);
         $question_id = DB::table('questions')->insertGetId($question_array);
+
+        ////option link
+        if(isset($request->question_options) && isset($request->question_options_fr)){
+            $opt = explode(",", $request->question_options);
+            $opt_fr = explode(",", $request->question_options_fr);
+            foreach($opt as $index => $op){
+                DB::table('options_link')->insert([
+                    'option_en'     => $op,
+                    'option_fr'     => $opt_fr[$index],
+                    'question_id'   => $question_id,
+                    'form_id'       => $request->form_id,
+                ]);
+            }
+        }
+        /////
+
         DB::table('questions')->where('id', $question_id)->update(['form_key' => 'q-' . $question_id]);
 
         $__sec_num = $section_num - 1;
