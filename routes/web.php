@@ -333,6 +333,7 @@ Route::group(["middleware" => 'admin'], function () {
     Route::get('Forms/AdminFormsList/{type?}', 'Forms@all_forms_list')->name('admin_forms_list')->middleware(['auth']);
 
     Route::get('Forms/Add-new-form', 'Forms@add_new_form')->name('add_new_form')->middleware(['auth']);
+    Route::get('Forms/Add-audit-form', 'Forms@add_new_form')->name('add_audit_form')->middleware(['auth']);
     Route::post('Forms/Add-new-form', 'Forms@store_new_form')->name('store_new_form')->middleware(['auth']);
     Route::get('Forms/{form_id}/add/questions', 'Forms@add_form_questions')->name('add_form_questions')->middleware(['auth']);
 
