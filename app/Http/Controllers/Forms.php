@@ -3781,6 +3781,16 @@ class Forms extends Controller{
             ]
         );
 
+        if(isset($request->question_options) && isset($request->question_options_fr)){
+            $opt = explode(",", $request->question_options);
+            $opt_fr = explode(",", $request->question_options_fr);
+            $count = count($opt);
+            $count_fr = count($opt_fr);
+            if($count != $count_fr){
+                return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
+            }
+        }
+
         $allow_attach = 0;
         if ($request->add_attachments_box){
             $allow_attach = 1;
@@ -3838,6 +3848,21 @@ class Forms extends Controller{
         ]);
 
         DB::table('questions')->where('id', $question_id)->update(['form_key' => 'q-' . $question_id]);
+
+        ////option link
+        if(isset($request->question_options) && isset($request->question_options_fr)){
+            $opt = explode(",", $request->question_options);
+            $opt_fr = explode(",", $request->question_options_fr);
+            foreach($opt as $index => $op){
+                DB::table('options_link')->insert([
+                    'option_en'     => $op,
+                    'option_fr'     => $opt_fr[$index],
+                    'question_id'   => $question_id,
+                    'form_id'       => $request->form_id,
+                ]);
+            }
+        }
+        /////
 
         // DB::table('form_questions')->insert([
         //     'form_id' => $request->form_id,
