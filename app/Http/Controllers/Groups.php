@@ -267,6 +267,7 @@ class Groups extends Controller
                 'question_options'      => 'required_if:type,sc|min:1',
                 'question_options_fr'   => 'required_if:type,sc|min:1',
                 'section_id'            => 'required',
+                'control_id'            => 'required',
                 ],[
                 'question_title.required'           => __('English Question Can Not Be Empty.'),
                 'question_title_fr.required'        => __('French Question Can Not Be Empty.'),
@@ -275,7 +276,8 @@ class Groups extends Controller
                 'question_options.min'              => __('Please provide at least one English option to proceed'),
                 'question_options_fr.min'           => __('Please provide at least one French option to proceed'),
                 'q_type.required'                   => __('No Question is selected.'),
-                'type.required'                     => __('Please select question type.')
+                'type.required'                     => __('Please select question type.'),
+                'control_id.required'               => __('Control ID Can Not Be Empty.')
             ]);
 
             if('control_id'){}
@@ -292,6 +294,19 @@ class Groups extends Controller
                     'status' => false,
                     'error' => $validator->errors()->first(),
                 ], 200);
+            }
+
+            if(isset($request->question_options) && isset($request->question_options_fr)){
+                $opt = explode(",", $request->question_options);
+                $opt_fr = explode(",", $request->question_options_fr);
+                $count = count($opt);
+                $count_fr = count($opt_fr);
+                if($count != $count_fr){
+                    return response()->json([
+                        'status'    => false,
+                        'error'     => 'English & French Options Count Doesn`t Match.',
+                    ], 200);
+                }
             }
 
             $allow_attach = 0;
@@ -328,6 +343,22 @@ class Groups extends Controller
                 $question->control_id   = $request->control_id;
             }
             $question->save();
+
+            ////option link
+            if(isset($question->options) && isset($question->options_fr)){
+                $opt = explode(", ", $question->options);
+                $opt_fr = explode(", ", $question->options_fr);
+                foreach($opt as $index => $op){
+                    DB::table('options_link')->insert([
+                        'option_en'     => $op,
+                        'option_fr'     => $opt_fr[$index],
+                        'question_id'   => $question->id,
+                        'form_id'       => $question->section_id,
+                    ]);
+                }
+            }
+            /////
+
             return response()->json([
                 'status' => true,
                 'success' => "Question Successfully Added",
@@ -396,15 +427,49 @@ class Groups extends Controller
                     $question->question_comment_fr = $request->val;
                     break;
                 case 'edit_en_o':
-                    $question->options = $request->val;
+                    $question->options = str_replace(",", ", ", implode(",",array_map('trim', explode(',', $request->val))));
                     break;
                 case 'edit_fr_o':
-                    $question->options_fr = $request->val;
+                    $question->options_fr = str_replace(",", ", ", implode(",",array_map('trim', explode(',', $request->val))));
                     break;
                 default:
                     break;
             }
+            
+            if($request->name == "edit_en_o" || $request->name == "edit_fr_o"){
+                $opt = explode(", ", $question->options);
+                $opt_fr = explode(", ", $question->options_fr);
+                $count = count($opt);
+                $count_fr = count($opt_fr);
+                if($count != $count_fr){
+                    return response()->json([
+                        'status' => true,
+                        'code' => 200,
+                        'success' => "English & French Option Count Doesn`t Match.",
+                    ], 200);
+                }
+            }
             $question->save();
+            ////option link
+            if($request->name == "edit_en_o"){
+                $opt = explode(", ", $question->options);
+                $opt_fr = explode(", ", $question->options_fr);
+                foreach($opt_fr as $index => $op){
+                    DB::table('options_link')->where('question_id', $question->id)->where('option_fr', $op)->update([
+                        'option_en'     => $opt[$index],
+                    ]);
+                }
+            }
+            if($request->name == "edit_fr_o"){
+                $opt = explode(", ", $question->options);
+                $opt_fr = explode(", ", $question->options_fr);
+                foreach($opt as $index => $op){
+                    DB::table('options_link')->where('question_id', $question->id)->where('option_en', $op)->update([
+                        'option_fr'     => $opt_fr[$index],
+                    ]);
+                }
+            }
+            /////
             return response()->json([
                 'status' => true,
                 'success' => "Successfully Updated",

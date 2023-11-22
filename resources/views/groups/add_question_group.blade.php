@@ -157,8 +157,10 @@
                                             @case('mc')
                                                 <section class="options" id="">
                                                     @php 
-                                                        $options    = explode(',', $question->options);
-                                                        $options_fr = explode(',', $question->options_fr);
+                                                        $options    = explode(', ', $question->options);
+                                                        $options_fr = explode(', ', $question->options_fr);
+                                                        $question->options=str_replace(', ', ',', $question->options);
+                                                        $question->options_fr=str_replace(', ', ',', $question->options_fr);
                                                     @endphp
                                                     <label for="easySelectable">English Options</label>
                                                         <p data-toggle="tooltip" data-placement="top"
@@ -715,10 +717,14 @@
                                 );
                                 break;
                             case "en_option":
-                                location.reload();
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1500);
                                 break;
                             case "fr_option":
-                                location.reload();
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1500);
                                 break;
                             
                             default:
