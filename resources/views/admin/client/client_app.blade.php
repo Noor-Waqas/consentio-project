@@ -481,7 +481,7 @@
 
         @if (in_array('Activities List', $data))
         <li class="nav-item">
-            <a class="nav-link collapsed"   href="{{ route('activity_list') }}">
+            <a class="nav-link collapsed {{ Request::segment(1) == 'activities' ? 'active' : '' }}" href="{{ route('activity_list') }}">
             <img src="{{ url('assets-new/img/activities.png') }}" alt="Activities List"><div class="border__bottom"><span>{{ __('Activities List') }}</span></div>
             </a> 
         </li><!-- End Icons Nav -->
