@@ -50,6 +50,9 @@
             .user-name{
                 display:none;
             }
+            #main {
+                margin-top:55px !important;
+            }
         }
         @media screen and (max-width: 767px){
             .dataTables_wrapper .dataTables_paginate {
