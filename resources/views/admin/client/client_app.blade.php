@@ -130,6 +130,11 @@
             .logo img {
                 height: 30px !important;
             }
+            .btn{
+                padding: 0.25rem 0.5rem !important;
+                font-size: .650rem !important;
+                line-height: 1.5 !important;
+            }
         }
         
         

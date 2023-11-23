@@ -318,7 +318,7 @@ $(document).ready(function() {
         counter++;
         console.log("test");
         $('#sub-form-area').append( '<div class="row" style="">'+ 
-                                      '<div class="col-6" style="">'+
+                                      '<div class="col-lg-8 offset-lg-2 p-3 mb-3" style="">'+
                                         '<div class="card" style="">'+
                                         '<div class="card-body" style="">'+
                                           '<div>'+
