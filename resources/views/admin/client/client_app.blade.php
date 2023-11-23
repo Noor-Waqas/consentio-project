@@ -34,6 +34,28 @@
             float: right !important;
             margin-right: 10px;
         }
+        @media screen and (max-width: 640px){
+            .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
+                float: none;
+                text-align: center;
+                display: contents !important;
+            }
+            .dataTables_wrapper .dataTables_length select{
+                width: 60px !important;
+                height: 50px !important;
+            }
+            #datatable_filter input {
+                padding: 12px 33px !important;
+            }
+            .user-name{
+                display:none;
+            }
+        }
+        @media screen and (max-width: 767px){
+            .dataTables_wrapper .dataTables_paginate {
+                margin: 1rem;
+            }
+        }
         .dataTables_wrapper .dataTables_length select{
             border-radius: 20px;
             border: 1px solid #DADADA;
@@ -197,7 +219,7 @@
         @elseif(session('locale')=='en')
         <li class="header-flag"><a href="{{ url('language/fr') }}" style="color:#0F75BD">Fr</a></li>
         @endif
-        <li class="" style="font-weight:600"><a href="{{ url('/profile/' . Auth::user()->id) }}" style="color:#0F75BD">{{Auth::user()->name}}</a></li>
+        <li class="user-name" style="font-weight:600"><a href="{{ url('/profile/' . Auth::user()->id) }}" style="color:#0F75BD">{{Auth::user()->name}}</a></li>
         <li class="nav-item dropdown pe-3"> 
         <?php
             $d_image = '_admin.png';
