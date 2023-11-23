@@ -42,6 +42,14 @@
                 -o-filter: grayscale(100%) !important;*/
       /*filter: grayscale(100%) !important;*/
   }
+  @media screen and (max-width:640px) {
+    .response{
+        display: inline-grid !important;
+    }
+    .buton{
+        margin: 1px !important;
+    }
+  }
 </style>
     @if (isset($data))
         
@@ -250,14 +258,14 @@
             {{ __('ASSETS LIST') }}
         @endsection
         <section class="assets_list">
-            <div class="row mb-2">
+            <div class="row mb-2 align-items-center">
                         
                         <div class="col">
                             <button type="button" data-toggle="modal" data-target="#myModal"
                                 class="buton mx-1" style="border: 1px solid #71BA4F; background: #71BA4F;">{{ __('ADD ASSET') }}</button>
                         </div>
 
-                        <div class="col text-right mt-2">
+                        <div class="col text-right mt-2 response">
                             <a class="buton mx-1" href="{{ route('export-asset', Auth::user()->client_id) }}">{{ __('EXPORT') }}</a>
                             <a class="buton mx-1" href="{{ url('import-asset') }}">{{ __('IMPORT_ASSETS') }}</a>
                         </div>
