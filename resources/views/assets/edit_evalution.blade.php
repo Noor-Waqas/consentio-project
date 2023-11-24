@@ -34,8 +34,8 @@
 							</div>
 							<div class="col-md-12">
 								<div class="form-group">
-									<a href="{{ url('evaluation_rate') }}" class="btn btn-secondary mt-3 ml-2 float-right" style="padding: 6px 30px;border-radius:30px;font-size:18px;"><b>Cancel</b></a>
-									<input type="submit" class="buton mt-3 float-right" value="Update" />
+									<a href="{{ url('evaluation_rate') }}" class="btn btn-secondary bg-dark p-2 px-5" style="border-radius:35px;"><b>Cancel</b></a>
+									<input type="submit" class="btn btn-info p-2 px-5 ml-1" style="border-radius:35px;background:#0f75bd;" value="Update" />
 								</div>
 							</div>
 						</div>

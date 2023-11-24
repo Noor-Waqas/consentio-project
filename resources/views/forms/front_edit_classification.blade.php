@@ -100,8 +100,8 @@
 
       <div class="row">
         <div class="tile-footer col-sm-12 text-right">
-          <a href="{{ url('front/data-classification') }}" class="btn btn-secondary mt-3 ml-2 float-right" style="padding: 6px 30px;border-radius:30px;font-size:18px;"><b>Cancel</b></a>					
-          <button type="submit" class="buton mt-3">Update</button>
+          <a href="{{ url('front/data-classification') }}" class="btn btn-secondary bg-dark p-2 px-5" style="border-radius:35px;"><b>Cancel</b></a>					
+          <button type="submit" class="btn btn-info p-2 px-5 ml-1" style="border-radius:35px;background:#0f75bd;">Update</button>
         </div>
       </div>
 

@@ -23,14 +23,14 @@
 		}
 		.icons .gj-icon {
 			position: absolute !important;
-			top: 6px !important;
+			top: 13px !important;
 			font-size: 15px;
 			width: 50%;
 			right: 35px !important;
 		}
 		.icons .gj-icon.clock{
 			position: absolute !important;
-			top: -27px !important;
+			top: -35px !important;
 			font-size: 15px;
 			width: 50%;
 			right: 12px !important;
@@ -189,19 +189,19 @@
 							<label for="email">{{ __('Date Occurred') }}</label>
 							<div class="icons"><input type="text" value="{{ old('date_occurred')}}" readonly="" name="date_occurred" class="form-control datePickera" style="width: 50%;"></div>
 							<div class="icons">
-								<input type="text" name="time_occured" readonly=""   class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -34px;"></div>
+								<input type="text" name="time_occured" readonly=""   class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -50px;"></div>
 							</div>
 							<div class="form-group">
 								<label for="email">{{ __('Date Discovered') }}</label>
 								<div class="icons"><input type="text" value="{{ old('date_discovered')}}" name="date_discovered" readonly="" class="form-control datePickerb" style="width: 50%;"></div>
 								<div class="icons">
-									<input type="text" id="timepickerb" readonly="" name="time_discovered" class="form-control" style="width: 48%;float: right;margin-top: -34px;"></div>
+									<input type="text" id="timepickerb" readonly="" name="time_discovered" class="form-control" style="width: 48%;float: right;margin-top: -50px;"></div>
 								</div>
 								<div class="form-group">
 									<label for="email">{{ __('Deadline Date') }}</label>
 									<div class="icons"><input name="deadline_date" value="{{ old('deadline_date')}}" type="text" readonly="" class="form-control datePickerc" style="width: 50%;"></div>
 									<div class="icons">
-										<input type="text" name="time_deadline" value="{{ old('time_deadline')}}"  id="timepickerc" readonly="" class="form-control" style="width: 48%;float: right;margin-top: -34px;"></div>
+										<input type="text" name="time_deadline" value="{{ old('time_deadline')}}"  id="timepickerc" readonly="" class="form-control" style="width: 48%;float: right;margin-top: -50px;"></div>
 									</div>
 									<div class="form-group">
 										<label for="comment">{{ __('Problem Description') }}</label>
@@ -233,8 +233,8 @@
 										</select>
 									</div>
 									<div class="buttons">
-										<a href="{{url('incident')}}" class="btn btn-secondary bg-dark mr-2" style="padding: 12px 30px;border-radius:30px;font-size:18px;">{{ __('Cancel') }}</a>
-										<button type="sumbit" class="btn btn-primary" style="width:140px;height:51px">{{ __('Add') }}</button>
+										<a href="{{url('incident')}}" class="btn btn-secondary bg-dark p-2 px-5" style="border-radius:35px;">{{ __('Cancel') }}</a>
+										<button type="sumbit" class="btn btn-info p-2 px-5 ml-1" style="border-radius:35px;background:#0f75bd;">{{ __('Add') }}</button>
 										</form>
 						</div>
 					</div>

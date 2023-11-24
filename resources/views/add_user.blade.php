@@ -281,9 +281,9 @@ input:checked + .slider:before {
 							
 
 							<div class="form-group row">
-								<div class="col-sm-12 text-right">
-									<a href="{{url('users_management')}}" class="btn btn-secondary bg-dark" style="padding: 12px 30px;border-radius:30px;font-size:18px;"> {{ __('Cancel')}}</a>
-									<button type="submit" id="sub_button" class="btn btn-sm btn-primary" style="width:145px;">{{ __('Save')}} </button>
+								<div class="col-sm-12 text-right d-flex justify-content-end">
+									<a href="{{url('users_management')}}" class="btn btn-secondary bg-dark p-2 px-5" style="border-radius:35px;"> {{ __('Cancel')}}</a>
+									<button type="submit" id="sub_button" class="btn btn-info p-2 px-5 ml-1" style="border-radius:35px;background:#0f75bd;">{{ __('Save')}} </button>
 								</div>
 							</div>
 				
