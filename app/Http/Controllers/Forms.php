@@ -4852,7 +4852,7 @@ class Forms extends Controller{
                     'option_en'     => $opt[$index],
                 ]);
             }
-        return redirect()->back()->with('message', __('English Options Updated Successfully'));
+        return redirect()->back()->with('success', __('English Options Updated Successfully'));
 
     }
 
@@ -4873,7 +4873,7 @@ class Forms extends Controller{
                     'option_fr'     => $opt_fr[$index],
                 ]);
             }
-        return redirect()->back()->with('message', __('French Options Updated Successfully'));
+        return redirect()->back()->with('success', __('French Options Updated Successfully'));
 
     }
 
