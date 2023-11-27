@@ -1168,10 +1168,52 @@ class Forms extends Controller{
                         'question_response' => 'Date Picker Option',
                         'created' => date('Y-m-d H:i:s')];
                     echo '<pre>';
-                    print_r($insert_data);exit;
                     DB::table('internal_users_filled_response')->insert($insert_data);
+                    print_r($insert_data);exit; 
                 }
             }   
+
+            if (strpos($post_key, 't-') !== false) {
+                $date_field = explode('-', $post_key);
+
+                $question_id = $date_field[1];
+                $question_key = 'q-' . $question_id;
+
+                if (DB::table('internal_users_filled_response')
+                    ->where([
+                        'user_form_id' => $user_form_id,
+                        'sub_form_id' => $subform_id,
+                        'form_id' => $form_id,
+                        'user_id' => $user_id,
+                        'question_id' => $question_id,
+                    ])
+                    ->exists()) {
+                    DB::table('internal_users_filled_response')
+                        ->where([
+                            'user_form_id' => $user_form_id,
+                            'sub_form_id' => $subform_id,
+                            'form_id' => $form_id,
+                            'user_id' => $user_id,
+                            'question_id' => $question_id,
+                        ])
+                        ->update(['additional_info' => $user_responses,
+                            'question_response' => 'Time Picker Option']);
+                } else {
+                    $insert_data = [
+                        'user_form_id' => $user_form_id,
+                        'sub_form_id' => $subform_id,
+                        'form_id' => $form_id,
+                        'question_id' => $question_id,
+                        'question_key' => $question_key,
+                        'user_id' => $user_id,
+                        'additional_info' => $user_responses,
+                        'question_response' => 'Time Picker Option',
+                        'created' => date('Y-m-d H:i:s')];
+                    echo '<pre>';
+                    DB::table('internal_users_filled_response')->insert($insert_data);
+                    print_r($insert_data);exit; 
+                }
+            }  
         }
     }
 
