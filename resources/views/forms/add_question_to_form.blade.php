@@ -1916,6 +1916,8 @@
                         '<option value="1">DATA ELEMENTS WITH SECTIONS</option>' +
                         '<option value="2">ASSETS LIST</option>' +
                         '<option value="3">COUNTRIES</option>' +
+                        '<option value="4">DATE PICKER</option>' +
+                        '<option value="5">TIME PICKER</option>' +
                         // '<option value="4">TYPE OF DATA CLASSIFICATION</option>' +
                         // '<option value="5">ASSETS COMBINED IMPACT</option>' +
                         // '<option value="6">ASSETS TIER</option>' +

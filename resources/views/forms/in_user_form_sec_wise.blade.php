@@ -531,7 +531,7 @@
 																	if (strtolower($option) == 'date picker option'):
 																	?>
 																		<li {{ $attr }} class="es-selectable {{ $selected_class }}" pickr-num-li="{{++$date_picker_count}}" name="li-{{ $question->q_id }}" id="date-picker-li-{{$date_picker_count}}">
-																			<input id="date-picker-{{$date_picker_count}}" onclick="validate_date()" class="date-picker" pickr-num="{{$date_picker_count}}" name="d-{{ $question->q_id }}" q-id="{{$question->q_id}}" placeholder="@if(session('locale')=='fr')Sélectionner une date @else Date Picker Option @endif" value="<?php if (isset($filled[$question->form_key]) && !empty($filled[$question->form_key]['additional_resp'])) echo $filled[$question->form_key]['additional_resp']; else 'Date Picker Option'; ?>" type="{{ $type }}">
+																			<input id="date-picker-{{$date_picker_count}}" onclick="validate_date()" class="date-picker" pickr-num="{{$date_picker_count}}" name="d-{{ $question->q_id }}" q-id="{{$question->q_id}}" placeholder="@if(session('locale')=='fr')Sélectionner une date @else Date Picker Option @endif" value="<?php if (isset($filled[$question->form_key]) && !empty($filled[$question->form_key]['additional_resp']) && strtolower($filled[$question->form_key]['question_response']) == 'date picker option') echo $filled[$question->form_key]['additional_resp']; else 'Date Picker Option'; ?>" type="{{ $type }}">
 																		</li>
 																	<?php
 																	else:?>
