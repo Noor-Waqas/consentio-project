@@ -3864,36 +3864,36 @@ class Forms extends Controller{
             [
                 'section_title' => 'required',
                 'section_title_fr' => 'required',
-                'question_title' => 'required',
-                'question_title_fr' => 'required',
-                'question_options' => 'required_if:q_type,mc|min:1',
-                'question_options_fr' => 'required_if:q_type,mc|min:1',
-                'question_options' => 'required_if:q_type,sc|min:1',
-                'question_options_fr' => 'required_if:q_type,sc|min:1',
-                'q_type' => 'required',
+                // 'question_title' => 'required',
+                // 'question_title_fr' => 'required',
+                // 'question_options' => 'required_if:q_type,mc|min:1',
+                // 'question_options_fr' => 'required_if:q_type,mc|min:1',
+                // 'question_options' => 'required_if:q_type,sc|min:1',
+                // 'question_options_fr' => 'required_if:q_type,sc|min:1',
+                // 'q_type' => 'required',
             ],
             [
                 'section_title.required' => __('English Section Title Can Not Be Empty.'),
                 'section_title_Fr.required' => __('French Section Title Can Not Be Empty.'),
-                'question_title.required' => __('English Question Title Can Not Be Empty.'),
-                'question_title_fr.required' => __('French Question Title Can Not Be Empty.'),
-                'question_options.required_if' => __('English Question Options Can Not Be Empty.'),
-                'question_options_fr.required_if' => __('French Question Options Can Not Be Empty.'),
-                'question_options.min' => __('Please provide atleast one English option to proceed'),
-                'question_options_fr.min' => __('Please provide atleast one French option to proceed'),
-                'q_type.required' => __('Atleast one Question is mendatory to create New Section.'),
+                // 'question_title.required' => __('English Question Title Can Not Be Empty.'),
+                // 'question_title_fr.required' => __('French Question Title Can Not Be Empty.'),
+                // 'question_options.required_if' => __('English Question Options Can Not Be Empty.'),
+                // 'question_options_fr.required_if' => __('French Question Options Can Not Be Empty.'),
+                // 'question_options.min' => __('Please provide atleast one English option to proceed'),
+                // 'question_options_fr.min' => __('Please provide atleast one French option to proceed'),
+                // 'q_type.required' => __('Atleast one Question is mendatory to create New Section.'),
             ]
         );
 
-        if(isset($request->question_options) && isset($request->question_options_fr)){
-            $opt = explode(",", $request->question_options);
-            $opt_fr = explode(",", $request->question_options_fr);
-            $count = count($opt);
-            $count_fr = count($opt_fr);
-            if($count != $count_fr){
-                return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
-            }
-        }
+        // if(isset($request->question_options) && isset($request->question_options_fr)){
+        //     $opt = explode(",", $request->question_options);
+        //     $opt_fr = explode(",", $request->question_options_fr);
+        //     $count = count($opt);
+        //     $count_fr = count($opt_fr);
+        //     if($count != $count_fr){
+        //         return redirect()->back()->with('message', __('French Options and English Options Count Does Not Match.'));
+        //     }
+        // }
 
         $allow_attach = 0;
         if ($request->add_attachments_box){
@@ -3920,6 +3920,10 @@ class Forms extends Controller{
             'form_id' => $request['form_id'],
             'sec_num' => $last_section_num + 1,
         ]);
+
+        return redirect()->back()->with('success', __('Successfully Added Section'));
+
+        ///////wasted
         $section_num = DB::table('admin_form_sections')->where('id', $section_id)->where('form_id', $request->form_id)->pluck('sec_num')->first();
         $last_question_num = DB::table('questions')->where('question_section_id', $section_id)->where('question_num', '!=', null)->count();
         if ($last_question_num == 0) {
@@ -4720,18 +4724,30 @@ class Forms extends Controller{
 
         $question_ids = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->pluck('id');
 
-        $last_sort_order = DB::table('form_questions')->whereIn('question_id', $question_ids)->orderby('sort_order', 'DESC')->get();
-        $last_sort_order = $last_sort_order[0]->sort_order;
-        $last_sort_order = (int) explode('.', $last_sort_order)[1];
+        if(count($question_ids)>0){
+            $last_sort_order = DB::table('form_questions')->whereIn('question_id', $question_ids)->orderby('sort_order', 'DESC')->get();
+            $last_sort_order = $last_sort_order[0]->sort_order;
+            $last_sort_order = (int) explode('.', $last_sort_order)[1];
+            // dd($last_sort_order);
+        }
+        else{
+            $last_sort_order=0;
+        }
         $current_order = $last_sort_order + 1;
         $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->orderBy('question_num', 'DESC')->pluck('question_num')->first();
-        $last_question_num = explode('.', $last_question_num)[1];
-
-        if ($last_question_num == 0) {
-            $last_question_num = 1;
-        } else {
+        if($last_question_num){
+            $last_question_num = explode('.', $last_question_num)[1];
             $last_question_num++;
         }
+        else{
+            $last_question_num = 1;
+        }
+        
+        // if ($last_question_num == 0) {
+        //     $last_question_num = 1;
+        // } else {
+        //     $last_question_num++;
+        // }
         $question_number = $section_num . '.' . $last_question_num;
         $pre_sort_order = DB::table('form_questions')->where('form_id', $request->form_id)->orderBy('sort_order', 'desc')->first();
 

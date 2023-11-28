@@ -302,7 +302,12 @@
                     @endif
                 </div>
             </div>
+            @foreach($form_sections as $section)
+            @if($loop->iteration == 1)
             <div class="collapseZero" id="form-body ">
+            @else
+            <div class="" id="form-body ">
+            @endif
                 @if (isset($questions[0]) && !empty($questions[0]->comments))
                     <div class="form-note">
                         <h5>
@@ -310,6 +315,62 @@
                         </h5>
                     </div>
                 @endif
+                
+                @php
+                            $sec_id          = $section->id;
+							$heading         = $section->section_title;
+							$sec_title_fr 	 = $section->section_title_fr;
+                            $section         = $section->sec_num;
+                @endphp
+                <div class="head sec-heading" id="{{ 'section-title-' . $sec_id }}" num="{{ $section }}">
+                    <ul>
+                        <li><span>{{ __('Section') }} {{ $section }}</span></li>
+                        <li><i class="fa fa-chevron-up"></i></li>
+                    </ul>
+                    <div class="section-heading" id="{{ 'section-heading-' . $sec_id }}" num="{{ $section }}">
+                        <h3>{{ $heading }}</h3>
+                    </div>
+                    <div id="{{ 'section-heading-edit-' . $sec_id }}" class="section-heading-edit container"
+                        style="width:20%">
+                        <div class="">
+                            <div class="row">
+                                <div class="form-control">
+                                    <label>En: </label>
+                                    <input id="{{ 'new-section-heading-' . $sec_id }}" type="text"
+                                        class="form form-control" value="{{ $heading }}"
+                                        old-value="{{ $heading }}" />
+                                    <label>Fr: </label>
+                                    <input id="{{ 'new-section-heading_fr-' . $sec_id }}" type="text"
+                                        class="form form-control" value="{{ $sec_title_fr ? $sec_title_fr : $heading }}"
+                                        old-value="{{ $sec_title_fr ? $sec_title_fr : $heading }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Auth::user()->role == 1)
+                        @if ($can_update || true)
+                            <div class="fork">
+                                <a href="#" class="change-heading-icon" id={{ 'heading-edit-' . $sec_id }}
+                                    sec-id="{{ $sec_id }}"><i class="fa fa-pencil"></i></a>
+                                <button class="btn btn-default change-heading-btn"
+                                    id="save-sec-heading-{{ $sec_id }}" sec-id="{{ $sec_id }}">Save</button>
+                            </div>
+                        @endif
+                    @endif
+
+                    @if ($form_id > 14 || true)
+                        @if ($can_update || true)
+                            <button class="btn btn-success btn-sm pull-right" style="margin-right: 9px;"
+                                onclick="$('.this_section_id').val('{{ $sec_id }}');$('#this_section_title').text('{{ $heading }}')"
+                                data-toggle="modal" data-target="#addQuestionModel">
+                                <i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>
+                                {{ __('Add New Question In This Section') }}
+                            </button>
+                        @endif
+                    @endif
+                </div>
+                
                 <?php
 						$heading_recs = [];
 						$section      = 0;
@@ -317,6 +378,9 @@
 						$close_body_sec_div   = 0;	
 
 						foreach ($questions as $key => $question):
+                if($question->afs_sec_id != $sec_id){
+                    continue;
+                        }
 							$sec_id          = $question->afs_sec_id;
 							$heading         = $question->admin_sec_title;
 							$sec_title_fr 	 = $question->section_title_fr;
@@ -330,55 +394,6 @@
 				?>
             </div>
             <?php endif; ?>
-            <div class="head sec-heading" id="{{ 'section-title-' . $sec_id }}" num="{{ $section }}">
-                <ul>
-                    <li><span>{{ __('Section') }} {{ $section }}</span></li>
-                    <li><i class="fa fa-chevron-up"></i></li>
-                </ul>
-                <div class="section-heading" id="{{ 'section-heading-' . $sec_id }}" num="{{ $section }}">
-                    <h3>{{ $heading }}</h3>
-                </div>
-                <div id="{{ 'section-heading-edit-' . $sec_id }}" class="section-heading-edit container"
-                    style="width:20%">
-                    <div class="">
-                        <div class="row">
-                            <div class="form-control">
-                                <label>En: </label>
-                                <input id="{{ 'new-section-heading-' . $sec_id }}" type="text"
-                                    class="form form-control" value="{{ $heading }}"
-                                    old-value="{{ $heading }}" />
-                                <label>Fr: </label>
-                                <input id="{{ 'new-section-heading_fr-' . $sec_id }}" type="text"
-                                    class="form form-control" value="{{ $sec_title_fr ? $sec_title_fr : $heading }}"
-                                    old-value="{{ $sec_title_fr ? $sec_title_fr : $heading }}" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                @if (Auth::user()->role == 1)
-                    @if ($can_update || true)
-                        <div class="fork">
-                            <a href="#" class="change-heading-icon" id={{ 'heading-edit-' . $sec_id }}
-                                sec-id="{{ $sec_id }}"><i class="fa fa-pencil"></i></a>
-                            <button class="btn btn-default change-heading-btn"
-                                id="save-sec-heading-{{ $sec_id }}" sec-id="{{ $sec_id }}">Save</button>
-                        </div>
-                    @endif
-                @endif
-
-                @if ($form_id > 14 || true)
-                    @if ($can_update || true)
-                        <button class="btn btn-success btn-sm pull-right" style="margin-right: 9px;"
-                            onclick="$('.this_section_id').val('{{ $question->question_section_id }}');$('#this_section_title').text('{{ $questions[0]->title }}')"
-                            data-toggle="modal" data-target="#addQuestionModel">
-                            <i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>
-                            {{ __('Add New Question In This Section') }}
-                        </button>
-                    @endif
-                @endif
-            </div>
-            <!-- clear upper -->
 
             <?php  endif;  ?>
 
@@ -386,6 +401,7 @@
 					$display_body_sec_div 	= 0;
 					$close_body_sec_div 	= 1;
 				?>
+                
             <div class="margin" id="section-{{ $section }}-body" num="{{ $section }}"
                 class="sec-heading-detail" style="margin: 20px 30px; display: block; ">
                 <?php endif; ?>
@@ -750,9 +766,14 @@
                 </div>
                 <!--  -->
                 <?php endforeach; ?>
+                
             </div>
+            @endforeach
+            
         </div>
+        
     </div>
+    
 
     <!-- Models Section -->
 
@@ -780,7 +801,7 @@
                             <label for="recipient-name" class="col-form-label">Section title French <strong style="color: red">*</strong></label>
                             <input type="text" name="section_title_fr" class="form-control fr_field" id="section_title_fr" onkeyup="document.getElementById('section_title').onkeyup = null;">
                         </div>
-                        <div class="form-check">
+                        <!-- <div class="form-check">
                             <input class="form-check-input d_cehckbox" id="smodel-same" type="checkbox" onclick="check_is_check(document.getElementById('smodel-same'), 'addSectionModel')" value="" id="flexCheckChecked">
                             <label class="form-check-label danger" for="flexCheckChecked"> Same For English</label>
                             <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
@@ -809,7 +830,7 @@
                             <label for="question_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>
                             <input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="qmodel_main_q" onkeyup="document.getElementById('qmodel_main_q_e').onkeyup = null;">
                             <span style="color:red;">Maximum 20 Characters</span>
-                        </div>
+                        </div> -->
 
                         <div class="form-group" id="smodel-type" style="display: none"></div>
                         <div class="form-group" id="smodel-custom_div" style="display: none"></div>
