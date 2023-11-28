@@ -184,7 +184,7 @@
           @endsection
           <div class="card">
           <div class="card-table">
-              <a id="add" type="button" class="button mb-3">{{ __('Back') }}</a>
+              <a id="add" href="{{ url('audit/list') }}" type="button" class="button mb-3">{{ __('Back') }}</a>
             <table class="table table-striped text-center" id="datatable">
               @if ($user_type == 'admin')
                 <thead class="back_blue">
