@@ -530,7 +530,7 @@ class AuditFormsController extends Controller{
             ->join('forms', 'forms.id', '=', 'sub_forms.parent_form_id')
             ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
             ->where('parent_form_id', '=', $form_id)
-            ->select('sub_forms.*', 'assets.name AS asset_name', 'assets.asset_number', 'forms.title as parent_form_title', 'audit_questions_groups.group_name', 'audit_questions_groups.group_name_fr');
+            ->select('sub_forms.*', 'assets.name AS asset_name', 'assets.asset_number', 'forms.title as parent_form_title', 'audit_questions_groups.group_name', 'audit_questions_groups.group_name_fr')->orderBy('sub_forms.id', 'DESC');
         if (Auth::user()->role == 1) {
             $subforms_list = $subforms_list->get();
         } else {
