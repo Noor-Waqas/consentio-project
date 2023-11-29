@@ -172,43 +172,43 @@
 							
 							<div class="form-group">
 								<label for="usr">{{ __('Incident Name') }}</label>
-								<input type="text" name="name" value="{{$data->name}}" class="form-control" placeholder="{{ __('Incident Name') }}">
+								<input type="text" name="name" value="{{$data->name}}" class="form-control" placeholder="{{ __('Incident Name') }}" required>
 								<input type="hidden" name="id" value="{{$data->id}}">
 								
 							</div>
 							<div class="form-group">
 								<label for="usr">{{ __('Assignee') }}</label>
-								<input type="text" name="assignee" value="{{$data->assignee}}" class="form-control" placeholder="{{ __('Select an Assignee') }}">
+								<input type="text" name="assignee" value="{{$data->assignee}}" class="form-control" placeholder="{{ __('Select an Assignee') }}" required>
 							</div>
 							<div class="form-group">
 								<label for="comment">{{ __('Root Cause') }}</label>
-								<textarea name="description" class="form-control" rows="5" placeholder="{{ __('Root Cause') }}">{{$data->description}}</textarea>
+								<textarea name="root_cause" class="form-control" rows="5" placeholder="{{ __('Root Cause') }}" required>{{$data->root_cause}}</textarea>
 							</div>
 							<div class="form-group">
 								<label for="email">{{ __('Date Occurred') }}</label>
-								<div class="icons"><input type="text" value="{{date('m/d/Y', strtotime($data->date_occurred))}}" name="date_occurred" class="form-control datePickera" style="width: 50%;"></div>
+								<div class="icons"><input type="text" value="{{date('m/d/Y', strtotime($data->date_occurred))}}" name="date_occurred" class="form-control datePickera" style="width: 50%;" required></div>
 								<div class="icons">
-									<input type="text" name="time_occured" value="{{$data->time_occured}}" class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -34px;"></div>
+									<input type="text" name="time_occured" value="{{$data->time_occured}}" class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -50px;" required></div>
 								</div>
 								<div class="form-group">
 									<label for="email">{{ __('Date Discovered') }}</label>
-									<div class="icons"><input type="text" value="{{date('m/d/Y', strtotime($data->date_discovered))}}" name="date_discovered" class="form-control datePickerb" style="width: 50%;"></div>
+									<div class="icons"><input type="text" value="{{date('m/d/Y', strtotime($data->date_discovered))}}" name="date_discovered" class="form-control datePickerb" style="width: 50%;" required></div>
 									<div class="icons">
-										<input type="text" id="timepickerb" value="{{$data->time_discovered}}"  name="time_discovered" class="form-control" style="width: 48%;float: right;margin-top: -34px;"></div>
+										<input type="text" id="timepickerb" value="{{$data->time_discovered}}"  name="time_discovered" class="form-control" style="width: 48%;float: right;margin-top: -50px;" required></div>
 									</div>
 									<div class="form-group">
 										<label for="email">{{ __('Deadline Date') }}</label>
-										<div class="icons"><input name="deadline_date" value="{{date('m/d/Y', strtotime($data->deadline_date))}}" type="text" class="form-control datePickerc" style="width: 50%;"></div>
+										<div class="icons"><input name="deadline_date" value="{{date('m/d/Y', strtotime($data->deadline_date))}}" type="text" class="form-control datePickerc" style="width: 50%;" required></div>
 										<div class="icons">
-											<input type="text" value="{{$data->time_deadline}}" name="time_deadline" id="timepickerc" class="form-control" style="width: 48%;float: right;margin-top: -34px;"></div>
+											<input type="text" value="{{$data->time_deadline}}" name="time_deadline" id="timepickerc" class="form-control" style="width: 48%;float: right;margin-top: -50px;" required></div>
 										</div>
 										<div class="form-group">
 											<label for="comment">{{ __('Problem Description') }}</label>
-											<textarea name="root_cause" class="form-control" rows="5" placeholder="{{ __('Problem Description') }}">{{$data->root_cause}}</textarea>
+											<textarea name="description" class="form-control" rows="5" placeholder="{{ __('Problem Description') }}" required>{{$data->description}}</textarea>
 										</div>
 										<div class="form-group">
 											<label for="comment">{{ __('Resolution') }}</label>
-											<textarea name="resolution" class="form-control" rows="5" placeholder="{{ __('Problem Description') }}">{{$data->resolution}}</textarea>
+											<textarea name="resolution" class="form-control" rows="5" placeholder="{{ __('Resolution') }}" required>{{$data->resolution}}</textarea>
 										</div>   
 										<div class="form-group">
 											<label for="sel1">{{ __('Status') }}</label>
@@ -232,8 +232,8 @@
 											</select>
 										</div>
 										<div class="buttons">
-											<a href="{{url('incident')}}" class="btn btn-secondary bg-dark mr-2" style="padding: 12px 30px;border-radius:30px;font-size:18px;">{{ __('Cancel') }}</a>
-											<button type="sumbit" class="add btn btn-primary">{{ __('Update') }}</button>
+											<a href="{{url('incident')}}" class="btn btn-secondary bg-dark p-2 px-5" style="border-radius:35px;">{{ __('Cancel') }}</a>
+											<button type="sumbit" class="add btn btn-info p-2 px-5 ml-1" style="border-radius:35px;background:#0f75bd;">{{ __('Update') }}</button>
 						</form>
 					</div>
 				</div>
