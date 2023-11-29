@@ -1314,11 +1314,11 @@
                 ')" id="qa" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Add Text Question</a>';
             // }
             // if(hide_items_array.includes('dd') == false  ){  
-            button_html += '<a onclick="get_html_for_multi_level(this.id,' + show_div +
-                ')" id="dd" class="dd btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Country Drop Down</a>';
+            // button_html += '<a onclick="get_html_for_multi_level(this.id,' + show_div +
+            //     ')" id="dd" class="dd btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Country Drop Down</a>';
 
-            button_html += '<a onclick="get_html_for_multi_level(this.id,' + show_div +
-                ')" id="im" class="im btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Attachment Upload</a>';
+            // button_html += '<a onclick="get_html_for_multi_level(this.id,' + show_div +
+            //     ')" id="im" class="im btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Attachment Upload</a>';
             // }
             button_html += '</div>';
             $('#' + render_div).append(button_html)
@@ -2012,8 +2012,8 @@
                         ')" id="qa" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Add Text Question</a>';
                     // }
                     // if(hide_items_array.includes('dd') == false ){  
-                    button_html += '<a onclick="get_html_for_multi_level(this.id,' + show_div +
-                        ')" id="dd" class="dd btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Country Drop Down</a>';
+                    // button_html += '<a onclick="get_html_for_multi_level(this.id,' + show_div +
+                    //     ')" id="dd" class="dd btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1">Country Drop Down</a>';
                     // }
                     button_html += '</div>';
                     $('#' + render_div).append(html);
