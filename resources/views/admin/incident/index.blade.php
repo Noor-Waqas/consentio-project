@@ -169,7 +169,7 @@
                             <!-- <td>{{$row->root_cause}}</td> -->
                             <td>
                               {{-- <a href="" class="btn btn-primary btn-sm nowrap_btn"  data-toggle="modal" data-val="{{$row->root_cause}}"  data-target='#practice_modal' ><i class="fa fa-eye mr-2"></i>See Detail</a></td> --}}
-                             <button type="button" data-toggle="modal" data-val="{{$row->root_cause}}"  data-target='#practice_modal' class="btn seet_detail_btn"><i class='bx bx-show-alt'></i> {{ __('See Detail') }}</button>
+                             <button type="button" data-toggle="modal" data-val="{{$row->root_cause}}"  data-target='#practice_modal' class="btn seet_detail_btn text-primary"><img src="{{url('assets-new/img/solar_eye-bold.png')}}"> {{ __('See Detail') }}</button>
 
                             <td>
                                 <!-- {{$row->date_discovered}} -->
