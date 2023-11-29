@@ -4980,7 +4980,7 @@ class Forms extends Controller{
                 $this->delete_update_question_num($question, $all_current_section_questions);
                 DB::table('questions')->where('id', $question->id)->delete();
                 DB::table('form_questions')->where('question_id', $question->id)->delete();
-                $this->del_section_if_there_is_no_question_in_id($question->question_section_id);
+                // $this->del_section_if_there_is_no_question_in_id($question->question_section_id);
                 break;
             //**********************************************************
             //**********************************************************
@@ -4990,7 +4990,7 @@ class Forms extends Controller{
                 DB::table('questions')->wherein('id', $child_ids)->delete();
                 DB::table('form_questions')->wherein('question_id', $child_ids)->delete();
                 DB::table('questions')->where('id', $question->id)->delete();
-                $this->del_section_if_there_is_no_question_in_id($question->question_section_id);
+                // $this->del_section_if_there_is_no_question_in_id($question->question_section_id);
 
                 break;
             //***********************************************************
@@ -4998,7 +4998,7 @@ class Forms extends Controller{
             case 'child':
                 DB::table('questions')->where('id', $question->id)->delete();
                 DB::table('form_questions')->where('question_id', $question->id)->delete();
-                $this->del_section_if_there_is_no_question_in_id($question->question_section_id);
+                // $this->del_section_if_there_is_no_question_in_id($question->question_section_id);
                 break;
             //***********************************************************
             //**********************************************************
