@@ -199,7 +199,7 @@
           @endif
           <tr>
             <th scope="col">{{ __('Form Name') }}</th>
-      @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || (Auth::user()->role == 3)): 
+      @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || (Auth::user()->role == 3)) 
             <th scope="col">{{ __('External Users') }}</th>     
             <th scope="col">{{ __('Internal Users') }}</th>     
             <th scope="col">{{ __('Sub Form Users') }}</th>
@@ -223,7 +223,7 @@
         $ex_link_title = '<i class="fas fa-link"></i> Open / <i class="fas fa-arrow-right"></i> Send';
         $in_link_title = 'Send / Show Forms';
       @endphp
-      @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3):
+      @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || Auth::user()->role == 3)
       <td>
           <?php
               $count = 0;
