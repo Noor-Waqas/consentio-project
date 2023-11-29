@@ -104,6 +104,14 @@ class IncidentRegisterController extends Controller
         ],
     );
 
+	$dateOccurred = date('Y-m-d', strtotime($request->date_occurred));
+	$dateDiscovered = date('Y-m-d', strtotime($request->date_discovered));
+	$deadlineDate = date('Y-m-d', strtotime($request->deadline_date));
+
+	if (!($dateOccurred < $dateDiscovered) && !($dateDiscovered < $deadlineDate)){
+		return redirect()->back()->withErrors(['error' => "Dates are not in the correct order."])->withInput();
+	}
+
 		    // dd($request);
         $update = 0;
         if($request->id){
