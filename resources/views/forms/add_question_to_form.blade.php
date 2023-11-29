@@ -535,7 +535,7 @@
                     @if (!empty($options))
                         @if ($form_id > 14 || true)
                             @if ($can_update || true)
-                                @if($question->dropdown_value_from !=1 && $question->dropdown_value_from !=2)
+                                @if($question->dropdown_value_from !=1 && $question->dropdown_value_from !=2 && $question->dropdown_value_from !=4 && $question->dropdown_value_from !=5)
                                 <p data-toggle="tooltip" data-placement="top"
                                     title="Click here to edit english question options"
                                     class="pull-right btn btn-sm btn-warning"
@@ -605,7 +605,7 @@
                         {{-- ********************************* --}}
                         @if ($form_id > 14 || true)
                             @if ($can_update || true)
-                                @if($question->dropdown_value_from !=1 && $question->dropdown_value_from !=2)
+                                @if($question->dropdown_value_from !=1 && $question->dropdown_value_from !=2 && $question->dropdown_value_from !=4 && $question->dropdown_value_from !=5)
                                 <p data-toggle="tooltip" data-placement="top"
                                     title="Click here to edit french question options"
                                     class="pull-right btn btn-sm btn-warning"
