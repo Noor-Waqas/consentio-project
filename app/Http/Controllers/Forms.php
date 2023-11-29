@@ -2041,7 +2041,7 @@ class Forms extends Controller{
         $subforms_list = DB::table('sub_forms')
             ->where('parent_form_id', '=', $form_id)
             ->join('forms', 'forms.id', '=', 'sub_forms.parent_form_id')
-            ->select('sub_forms.*', 'forms.title as parent_form_title');
+            ->select('sub_forms.*', 'forms.title as parent_form_title')->orderBy('sub_forms.id', 'DESC');
         //->get();
 
         if (Auth::user()->role == 1) {
