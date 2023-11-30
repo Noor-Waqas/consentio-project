@@ -1342,6 +1342,7 @@
                 property = '';
                 kup = '';
             }
+            created_div_id=created_div_id+1;
 
             $('#' + created_div_id + 'another_question').hide();
             $('.button_div').hide();
