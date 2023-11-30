@@ -542,7 +542,7 @@
 																	<?php
 																	else:?>
 																		
-																		<li {{ $attr }} class="es-selectable {{ $selected_class }}" name="{{ $question->form_key.'_'.$question->q_id.(($type=='mc')?('[]'):('')) }}" q-id="{{$question->q_id}}" value="{{ $option }}" type="{{ $type }}" {{($question->question_assoc_type == 2 && $question->form_id == '2')?("assoc=1"):('')}}> {{ ucfirst(strtolower(trim($option))) }}</li>
+																		<li {{ $attr }} class="es-selectable {{ $selected_class }}" name="{{ $question->form_key.'_'.$question->q_id.(($type=='mc')?('[]'):('')) }}" q-id="{{$question->q_id}}" value="{{ $option }}" type="{{ $type }}" {{($question->question_assoc_type == 2 && $question->form_id == '2')?("assoc=1"):('')}}>{{ ucfirst(strtolower(trim($option))) }}</li>
 																		
 																		<?php
 																		if ($question->question_assoc_type == '2' && $question->form_id == '2'):?>
