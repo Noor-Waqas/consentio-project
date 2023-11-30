@@ -561,28 +561,34 @@ class Forms extends Controller{
         foreach ($filled_info as $user_response) {
             if ($user_response->type == 'sc') {
                 if(session('locale') == 'fr'){
-                    
-                        $Translation=DB::table('options_link')
-                        ->where('form_id', $user_response->form_id)
-                        ->where('question_id', $user_response->question_id)
-                        ->where('option_en', $user_response->question_response)
-                        ->orWhere('option_fr', $user_response->question_response)
-                        ->pluck('option_fr')->first();
+                    $value=$user_response->question_response;
 
-                        // dd($Translation);
-                        if ($Translation) {
-                            // Update the array value with the French translation
-                            $user_response->question_response = $Translation;
-                        }
+                    $Translation=DB::table('options_link')
+                    ->where('form_id', $user_response->form_id)
+                    ->where('question_id', $user_response->question_id)
+                    ->where(function ($query) use ($value) {
+                        $query->where('option_en', $value)
+                                ->orWhere('option_fr', $value);
+                    })
+                    ->pluck('option_fr')->first();
+
+                    // dd($Translation);
+                    if ($Translation) {
+                        // Update the array value with the French translation
+                        $user_response->question_response = $Translation;
+                    }
                     // dd($user_response->question_response);
                 }
                 if(session('locale') == 'en'){
+                    $value=$user_response->question_response;
                     
                     $Translation=DB::table('options_link')
                     ->where('form_id', $user_response->form_id)
                     ->where('question_id', $user_response->question_id)
-                    ->where('option_en', $user_response->question_response)
-                    ->orWhere('option_fr', $user_response->question_response)
+                    ->where(function ($query) use ($value) {
+                        $query->where('option_en', $value)
+                              ->orWhere('option_fr', $value);
+                    })
                     ->pluck('option_en')->first();
 
                     // dd($Translation);
@@ -602,8 +608,10 @@ class Forms extends Controller{
                         $Translation=DB::table('options_link')
                         ->where('form_id', $user_response->form_id)
                         ->where('question_id', $user_response->question_id)
-                        ->where('option_en', $value)
-                        ->orWhere('option_fr', $value)
+                        ->where(function ($query) use ($value) {
+                            $query->where('option_en', $value)
+                                  ->orWhere('option_fr', $value);
+                        })
                         ->pluck('option_fr')->first();
                         // dd($Translation);
                         if ($Translation) {
@@ -618,8 +626,10 @@ class Forms extends Controller{
                         $Translation=DB::table('options_link')
                         ->where('form_id', $user_response->form_id)
                         ->where('question_id', $user_response->question_id)
-                        ->where('option_en', $value)
-                        ->orWhere('option_fr', $value)
+                        ->where(function ($query) use ($value) {
+                            $query->where('option_en', $value)
+                                  ->orWhere('option_fr', $value);
+                        })
                         ->pluck('option_en')->first();
                         // dd($Translation);
                         if ($Translation) {
