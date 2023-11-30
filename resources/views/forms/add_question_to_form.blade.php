@@ -373,7 +373,7 @@
                 
                 <?php
 						$heading_recs = [];
-						$section      = 0;
+						// $section      = 0;
 						$display_body_sec_div = 0;
 						$close_body_sec_div   = 0;	
 
@@ -386,7 +386,7 @@
 							$sec_title_fr 	 = $question->section_title_fr;
 			    			if ($heading != null && !in_array($heading, $heading_recs)):
 								$heading_recs[] = $heading;
-								$section++;
+								// $section++;
 								$display_body_sec_div = 1;	
 							?>
                 <?php if ($close_body_sec_div): // close 
@@ -470,13 +470,13 @@
 								data-toggle="tooltip" data-placement="left" title="Question Title French" @endif
                         @endif >
                         <strong class="mr-3">Fr: </strong>
-                        {{ $question->question_fr }}
+                        
                         <span
                             class="ml-1 
 							@if ($form_id > 14 || true) @if ($can_update || true) 
 									class_for_edit_question_js_call_fr @endif 
 							@endif"
-                            id="{{ $question->question_id }}-fr"></span>
+                            id="{{ $question->question_id }}-fr">{{ $question->question_fr }}</span>
                     </h6>
                     <hr>
                     {{-- BARI END --}}
@@ -1555,7 +1555,7 @@
 
         $(function() {
             $('.class_for_edit_question_js_call_fr').on('click', function() {
-                alert("clicked")
+                // alert("clicked")
                 var div = $(this);
                 var tb = div.find('input:text'); //get textbox, if exist
                 if (tb.length) { //text box already exist
