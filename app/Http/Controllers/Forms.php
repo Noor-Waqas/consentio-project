@@ -558,12 +558,13 @@ class Forms extends Controller{
 
 
         $question_key_index = [];
-        foreach ($filled_info as $key => $user_response) {
+        foreach ($filled_info as $user_response) {
             if ($user_response->type == 'sc') {
                 if(session('locale') == 'fr'){
                     
                         $Translation=DB::table('options_link')
-                        ->where('form_id', $filled_info[0]->form_id)
+                        ->where('form_id', $user_response->form_id)
+                        ->where('question_id', $user_response->question_id)
                         ->where('option_en', $user_response->question_response)
                         ->orWhere('option_fr', $user_response->question_response)
                         ->pluck('option_fr')->first();
@@ -578,7 +579,8 @@ class Forms extends Controller{
                 if(session('locale') == 'en'){
                     
                     $Translation=DB::table('options_link')
-                    ->where('form_id', $filled_info[0]->form_id)
+                    ->where('form_id', $user_response->form_id)
+                    ->where('question_id', $user_response->question_id)
                     ->where('option_en', $user_response->question_response)
                     ->orWhere('option_fr', $user_response->question_response)
                     ->pluck('option_en')->first();
@@ -592,15 +594,18 @@ class Forms extends Controller{
             }
             }
             if ($user_response->type == 'mc') {
+                // dd($user_response);
                 $user_response->question_response = explode(', ', $user_response->question_response);
                 if(session('locale') == 'fr'){
                     foreach($user_response->question_response as $index=>$value){
+                        // dd($user_response->question_id);
                         $Translation=DB::table('options_link')
-                        ->where('form_id', $filled_info[0]->form_id)
+                        ->where('form_id', $user_response->form_id)
+                        ->where('question_id', $user_response->question_id)
                         ->where('option_en', $value)
                         ->orWhere('option_fr', $value)
                         ->pluck('option_fr')->first();
-                        // dd($frenchTranslation);
+                        // dd($Translation);
                         if ($Translation) {
                             // Update the array value with the French translation
                             $user_response->question_response[$index] = $Translation;
@@ -611,11 +616,12 @@ class Forms extends Controller{
                 if(session('locale') == 'en'){
                     foreach($user_response->question_response as $index=>$value){
                         $Translation=DB::table('options_link')
-                        ->where('form_id', $filled_info[0]->form_id)
+                        ->where('form_id', $user_response->form_id)
+                        ->where('question_id', $user_response->question_id)
                         ->where('option_en', $value)
                         ->orWhere('option_fr', $value)
                         ->pluck('option_en')->first();
-                        // dd($frenchTranslation);
+                        // dd($Translation);
                         if ($Translation) {
                             // Update the array value with the French translation
                             $user_response->question_response[$index] = $Translation;
