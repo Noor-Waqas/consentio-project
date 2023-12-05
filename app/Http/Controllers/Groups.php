@@ -345,7 +345,7 @@ class Groups extends Controller
             $question->save();
 
             ////option link
-            if(isset($question->options) && isset($question->options_fr)){
+            if(isset($question->options) && isset($question->options_fr) && $question->type !="qa"){
                 $opt = explode(", ", $question->options);
                 $opt_fr = explode(", ", $question->options_fr);
                 foreach($opt as $index => $op){
