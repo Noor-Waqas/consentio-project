@@ -247,7 +247,25 @@
           <span style="color: black;margin-right: 0px;">|</span>
           <a class="fs-14" href="{{url('/Forms/OrgSubFormsList/'.$sub_forms[$i]->id)}}">   <span style="color: #5778ba;margin-right: 0px;">{{ __('SEND FORM') }}</span></a>
       </td>
+      @php
+      $count = DB::table('user_form_links')->where('sub_form_id', $sub_forms[$i]->id)->where('is_locked', 1)->count();
+      @endphp
+      @if($count>0)
       <td>
+
+        
+                  <div class="action_icons">
+                   {{--  <a data-toggle="modal" data-target="#edit-modal" class="fs-14 edit-sb" sb-id="{{$sub_forms[$i]->id}}" sb-name="{{ $sub_forms[$i]->title }}" href="#"> <i class="fas fa-pencil-alt"></i></a>
+
+                     <a class="fs-14 delete-sb" sb-id="{{$sub_forms[$i]->id}}" href="#"><i class="fas fa-minus-circle"></i></a>
+ --}}
+
+                          <a ><img style="filter: grayscale(100%);" src="{{url('assets-new/img/action-edit.png')}}" alt=""></a>
+                          <a ><img style="filter: grayscale(100%);" src="{{url('assets-new/img/action-delete.png')}}" alt=""></a>
+                        </div>
+       </td>
+       @else
+       <td>
 
         
                   <div class="action_icons">
@@ -259,7 +277,8 @@
                           <a data-toggle="modal" data-target="#edit-modal" class="edit-sb" sb-id="{{$sub_forms[$i]->id}}" sb-name="{{ $sub_forms[$i]->title }}"><img src="{{url('assets-new/img/action-edit.png')}}" alt=""></a>
                           <a sb-id="{{$sub_forms[$i]->id}}" class=" delete-sb"><img src="{{url('assets-new/img/action-delete.png')}}" alt=""></a>
                         </div>
-       </td>                 
+       </td>
+       @endif                 
       @endif
           </tr>
       @endfor
