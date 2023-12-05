@@ -34,6 +34,24 @@
             float: right !important;
             margin-right: 10px;
         }
+        table{
+            width:100% !important;
+        }
+        .dataTables_scrollBody thead tr[role="row"]{
+            visibility: collapse !important;
+        }
+        /* @if(!Request::segment(3)=='inventory')
+        .dataTables_scrollHead{
+            display: none;
+        }
+        @else
+        .dataTables_scrollbody thead{
+            display: none;
+        }
+        @endif*/
+        .dataTables_wrapper.no-footer .dataTables_scrollBody {
+            border-bottom: 0px solid #111 !important;
+        } 
         @media screen and (max-width: 640px){
             .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
                 float: none;
@@ -673,6 +691,8 @@
         
         $('#datatable').DataTable({
             "order": [],
+            "scrollX": true,
+            "ordering": false,
             "language": {
                 "search": "",
                 @if(session('locale')=='fr')
@@ -694,6 +714,7 @@
                 
             }
         });
+        // $('.dataTables_sizing').removeAttr('class').removeAttr('style');
     });
     </script>
 @endif
