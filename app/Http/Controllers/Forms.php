@@ -4978,6 +4978,10 @@ class Forms extends Controller{
         // dd($request->all());
         $question = DB::table('questions')->where('id', $request->question_id)->first();
             $opt = explode(",", $request->updated_options);
+            $trim_opt=array_map(function($item){ return trim($item); }, $opt);
+            $request->updated_options=implode(",", $trim_opt);
+            $opt = explode(",", $request->updated_options);
+
             $opt_fr = explode(", ", $question->options_fr);
             // dd($opt_fr);
             $count = count($opt);
@@ -4999,8 +5003,12 @@ class Forms extends Controller{
         // dd($request->all());
         $question = DB::table('questions')->where('id', $request->question_id)->first();
             $opt = explode(", ", $question->options);
+
             $opt_fr = explode(",", $request->updated_options_fr);
-            // dd($opt_fr);
+            $trim_opt=array_map(function($item){ return trim($item); }, $opt_fr);
+            $request->updated_options_fr=implode(",", $trim_opt);
+            $opt_fr = explode(",", $request->updated_options_fr);
+
             $count = count($opt);
             $count_fr = count($opt_fr);
             if($count != $count_fr){
