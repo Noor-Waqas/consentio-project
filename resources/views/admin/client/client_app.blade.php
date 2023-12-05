@@ -52,6 +52,10 @@
         .dataTables_wrapper.no-footer .dataTables_scrollBody {
             border-bottom: 0px solid #111 !important;
         } 
+        thead th{
+            border-bottom: 0px solid #111 !important;
+            border-top: 0px solid #111 !important;
+        } 
         @media screen and (max-width: 640px){
             .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
                 float: none;
