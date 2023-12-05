@@ -4175,6 +4175,23 @@ class Forms extends Controller{
 
                         $obj->dd = $data;
                         $obj_fr->dd = $data;
+                        dd("data Inventry");
+
+                        if(isset($request->s_question_options[$key]) && isset($request->s_question_options_fr[$key])){
+                            // trimming options
+                            $opt = explode(",", $request->s_question_options[$key]);
+                            $trim_opt=array_map(function($item){ return trim($item); }, $opt);
+                            $s_question_options = $request->input('s_question_options');
+                            $s_question_options[$key]=implode(",", $trim_opt);
+                            $request->merge(['s_question_options' => $s_question_options]);
+
+                            $opt = explode(",", $request->s_question_options_fr[$key]);
+                            $trim_opt_fr=array_map(function($item){ return trim($item); }, $opt);
+                            $s_question_options_fr = $request->input('s_question_options_fr');
+                            $s_question_options_fr[$key]=implode(",", $trim_opt_fr);
+                            $request->merge(['s_question_options_fr' => $s_question_options_fr]);
+                            // trimming end
+                        }
 
                         $child_question_array = array(
                             'question'              => $request->s_question_title[$key],
@@ -4232,6 +4249,23 @@ class Forms extends Controller{
                         ]);
                         continue;
                     } else {
+                        if(isset($request->s_question_options[$key]) && isset($request->s_question_options_fr[$key])){
+                            // trimming options
+                            // dd($request->s_question_options[$key]);
+                            $opt = explode(",", $request->s_question_options[$key]);
+                            $trim_opt=array_map(function($item){ return trim($item); }, $opt);
+                            $s_question_options = $request->input('s_question_options');
+                            $s_question_options[$key]=implode(",", $trim_opt);
+                            $request->merge(['s_question_options' => $s_question_options]);
+
+                            $opt = explode(",", $request->s_question_options_fr[$key]);
+                            $trim_opt_fr=array_map(function($item){ return trim($item); }, $opt);
+                            $s_question_options_fr = $request->input('s_question_options_fr');
+                            $s_question_options_fr[$key]=implode(",", $trim_opt_fr);
+                            $request->merge(['s_question_options_fr' => $s_question_options_fr]);
+                            // dd($request->s_question_options[$key]);
+                            // trimming end
+                        }
 
                         $child_question_array = array(
                             'question'              => $request->s_question_title[$key],
@@ -4768,6 +4802,17 @@ class Forms extends Controller{
         $pre_sort_order = DB::table('form_questions')->where('form_id', $request->form_id)->orderBy('sort_order', 'desc')->first();
 
         if(isset($request->question_options) && isset($request->question_options_fr)){
+            // trimming options
+            //Triming the options
+            $opt = explode(",", $request->question_options);
+            $trim_opt=array_map(function($item){ return trim($item); }, $opt);
+            $request->question_options=implode(",", $trim_opt);
+
+            $opt = explode(",", $request->question_options_fr);
+            $trim_opt_fr=array_map(function($item){ return trim($item); }, $opt);
+            $request->question_options_fr=implode(",", $trim_opt_fr);
+            // Trimming end
+            
             $opt = explode(",", $request->question_options);
             $opt_fr = explode(",", $request->question_options_fr);
             $count = count($opt);
@@ -4843,9 +4888,12 @@ class Forms extends Controller{
             // dd($sections);
             foreach($sections as $section){
                 $elements=DB::table('assets_data_elements')->where('section_id', $section->id)->where('owner_id', null)->pluck('name')->toArray();
-                $elements = implode(', ', $elements);
+                $element_fil=array_map(function($item){ return trim($item); }, $elements);
+                $elements = implode(', ', $element_fil);
+
                 $elements_fr=DB::table('assets_data_elements')->where('section_id', $section->id)->where('owner_id', null)->pluck('name_fr')->toArray();
-                $elements_fr = implode(', ', $elements_fr);
+                $element__fr_fil=array_map(function($item){ return trim($item); }, $elements_fr);
+                $elements_fr = implode(', ', $element__fr_fil);
                 // dd($elements);
 
                 $question_array = [
