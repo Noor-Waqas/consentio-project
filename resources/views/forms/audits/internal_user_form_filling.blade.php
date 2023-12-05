@@ -299,7 +299,11 @@
 							<li><strong>★</strong></li>
 							<li><i class="fa fa-chevron-up"></i></li>
 						</ul>
+						@if(session('locale')=='fr')
+						<h3>{{$form_details->title_fr}}</h3> 
+						@else
 						<h3>{{$form_details->title}}</h3> 
+						@endif
 					</div>
 				</div>
 			</div> 
@@ -315,7 +319,11 @@
 								<li><i class="fa fa-chevron-up" aria-hidden="true"></i></li>
 							</ul>
 							<div class="w-100 px-4 d-flex justify-content-between">
+							@if(session('locale')=='fr')
+								<h3 id="title">{{ $section->section_title_fr }}</h3>
+							@else
 								<h3 id="title">{{ $section->section_title }}</h3>
+							@endif
 							</div>
 						</div>
 					</span>
@@ -344,8 +352,13 @@
 													>@if(isset($question->responses)){{ $question->responses->question_response }}@endif</textarea>
 													@break
 												@case('mc')
-													@php  
+													@php
+													if(session('locale')=='fr'){
+														$options = explode(', ', $question->options_fr);
+													}
+													else{
 														$options = explode(', ', $question->options);
+													}
 													@endphp
 
 													@if(!empty($options))
@@ -370,7 +383,12 @@
 													@break
 												@case('sc')			
 													@php  
+													if(session('locale')=='fr'){
+														$options = explode(', ', $question->options_fr);
+													}
+													else{
 														$options = explode(', ', $question->options);
+													}
 													@endphp
 													
 													@if(!empty($options))
@@ -527,11 +545,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="p-4" style="margin-top:10px; background: #99e8f2">
-					<h4>Section List</h4>
+					<h4>{{__('Section List')}}</h4>
 					<div class="user-guide">
-						<p><span class="legend-green">■</span> Filled / Not Required Sections </p>
-						<p><span class="legend-red">■</span> Not Filled Sections </p>
-						<p>Please fill at least one question from each section in order to be considered filled. You can click the relevent section bullet to jump on that section</p>
+						<p><span class="legend-green">■</span> {{__('Filled / Not Required Sections')}} </p>
+						<p><span class="legend-red">■</span> {{__('Not Filled Sections')}} </p>
+						<p>{{__('Please fill at least one question from each section in order to be considered filled. You can click the relevent section bullet to jump on that section')}}</p>
 					</div>
 					<div>
 						<div class="text-white" style="margin-top:10px;">
@@ -773,13 +791,21 @@
 							if (section.total_questions == section.responded_questions) {
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else	
 										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}else{
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else
 										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}
@@ -787,13 +813,21 @@
 							if (section.total_questions == section.rated_questions) {
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else
 										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}else{
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else
 										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}
