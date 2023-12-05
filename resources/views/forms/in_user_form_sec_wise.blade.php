@@ -652,11 +652,11 @@
 														<label></label>
 														<?php
 															if (stripos($question->question, 'name') !== false || stripos($question->question, 'email') !== false || stripos($question->question, 'phone') !== false || stripos($question->question, 'city') !== false):?>
-																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" style="margin-bottom:20px;max-height:35px;overflow:hidden"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
+																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" oninput="this.value = this.value.trimStart()" q-id="{{$question->q_id}}" style="margin-bottom:20px;max-height:35px;overflow:hidden"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
 														<?php
 															else:?>
 															
-																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" q-id="{{$question->q_id}}" rows="4" cols="50"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
+																<textarea class="textarea_for_js" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" oninput="this.value = this.value.trimStart()" q-id="{{$question->q_id}}" rows="4" cols="50"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
 															
 														<?php 
 															endif;?>
