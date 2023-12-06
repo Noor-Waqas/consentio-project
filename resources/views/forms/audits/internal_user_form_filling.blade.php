@@ -347,7 +347,7 @@
 
 											@switch($question->type)
 												@case('qa')
-													<textarea class="textarea_for_js" question_key="qa-{{$question->id}}" q-id="{{ $question->id }}" type="{{ $question->type }}" rows="4"   
+													<textarea class="textarea_for_js" question_key="qa-{{$question->id}}" oninput="this.value = this.value.trimStart()" q-id="{{ $question->id }}" type="{{ $question->type }}" rows="4"   
 													@if($user_form_link_info->is_locked == 1) disabled = "true"@endif
 													>@if(isset($question->responses)){{ $question->responses->question_response }}@endif</textarea>
 													@break
