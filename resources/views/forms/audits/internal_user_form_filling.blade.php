@@ -541,6 +541,15 @@
 			</div>
 		</div>
 
+		<!-- Please Filled  -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="alert alert-warning danger-msg hidden" id="danger-msg" style="margin-top:20px;margin-bottom:10px">
+					<h4>{{__('All fields are required to proceed')}}</h4>
+				</div>
+			</div>
+		</div>
+
 		<!-- Question Sections Area -->
 		<div class="row">
 			<div class="col-md-12">
@@ -945,22 +954,67 @@
 			//     }
 		}
 
+		// function lock_form(){
+		// 	var data             = {};
+		// 	data['user_id']    	 = <?php echo Auth::user()->id ?>;
+		// 	data['user_type']    = 'in';
+		// 	data['sub_form_id']  = $('#form_details').attr('sub_form_id');
+		// 	$.ajax({
+		// 		url   :'{{route('ajax_lock_user_audit_form')}}',
+		// 		method:'POST',
+		// 		data  : data,
+		// 		success: function(response) {
+		// 			if (response == 1) {
+		// 				window.location.href = "{{route('show_audit_success_msg')}}";
+		// 			}
+		// 			console.log(response);
+		// 		}
+		// 	});	
+		// }
+
 		function lock_form(){
-			var data             = {};
-			data['user_id']    	 = <?php echo Auth::user()->id ?>;
-			data['user_type']    = 'in';
-			data['sub_form_id']  = $('#form_details').attr('sub_form_id');
-			$.ajax({
-				url   :'{{route('ajax_lock_user_audit_form')}}',
-				method:'POST',
-				data  : data,
-				success: function(response) {
-					if (response == 1) {
-						window.location.href = "{{route('show_audit_success_msg')}}";
+			var data 			= {};
+			data['user_id'] 	= <?php echo Auth::user()->id ?>;
+			data['user_type'] 	= 'in';
+			data['sub_form_id'] = $('#form_details').attr('sub_form_id');
+
+			// Fetching total and responded questions count
+			const group = $('#form_details').attr('group_id');
+			const sub_form_id = $('#form_details').attr('sub_form_id');
+			const locked = $('#form_details').attr('locked');
+
+			setTimeout(function() {
+            // Do something after the pause
+				$.ajax({
+					url: '/audit/count/' + group + '/' + sub_form_id, // Make sure to get the group and sub_form_id from appropriate sources
+					method: 'GET',
+					success: function(response) {
+
+						// Checking if responded questions are not equal to total questions
+						if (response.total_questions != response.responded_questions) {
+							console.log('Responded questions and total questions are not equal. Form cannot be locked.');
+							$("#danger-msg").removeClass('hidden');
+							return; // Stop execution if conditions are not met
+						}
+						else{
+							$.ajax({
+								url: '{{route('ajax_lock_user_audit_form')}}',
+								method: 'POST',
+								data: data,
+								success: function(response) {
+									if (response == 1) {
+										window.location.href = "{{route('show_audit_success_msg')}}";
+									}
+									console.log(response);
+								}
+							});
+						}
+
+						// If conditions are met, proceed with locking the fo
 					}
-					console.log(response);
-				}
-			});	
+				});
+        	}, 3000);
+			
 		}
 
 		function add_question_rating_in_db(event) {
