@@ -23,19 +23,19 @@
                             <thead class="">
                                 <tr>
                                     <th style="vertical-align: middle;"> # </th>
-                                    <th style="vertical-align: middle;"> Audit </th>
-                                    <th style="vertical-align: middle;"> Question Group </th>
-                                    <th style="vertical-align: middle;"> ITEM # </th>
-                                    <th style="vertical-align: middle;"> AUDIT ITEM </th>
-                                    <th style="vertical-align: middle;"> Action </th>
+                                    <th style="vertical-align: middle;"> {{__('Audit Form Name')}} </th>
+                                    <th style="vertical-align: middle;"> {{__('Group Name')}} </th>
+                                    <th style="vertical-align: middle;"> {{__('Asset Number')}} </th>
+                                    <th style="vertical-align: middle;"> {{__('Asset Name')}} </th>
+                                    <th style="vertical-align: middle;"> {{__('Action')}} </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($remediation_plans as $plan)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td> @if(true == false) {{ $plan->form_title_fr }}  @else {{ $plan->form_title }} @endif </td>
-                                        <td> @if(true == false) {{ $plan->group_name_fr }}  @else {{ $plan->group_name }} @endif </td>
+                                        <td> @if(session('locale')=='fr') {{ $plan->form_title_fr }}  @else {{ $plan->form_title }} @endif </td>
+                                        <td> @if(session('locale')=='fr') {{ $plan->group_name_fr }}  @else {{ $plan->group_name }} @endif </td>
                                         <td>
                                             @if($plan->type == "others")
                                                 N-
