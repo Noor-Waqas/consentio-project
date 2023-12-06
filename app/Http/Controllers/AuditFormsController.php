@@ -1157,9 +1157,87 @@ class AuditFormsController extends Controller{
         $subfirm_id = $user_form_link_info->sub_form_id;
 
         $form_details  = SubForm::with('form.group.sections.questions')->find($subfirm_id);
+        $group_id      = $form_details->form->group->id;
         foreach ($form_details->form->group->sections as $section) {
             foreach ($section->questions as  $question){
                 $question->responses = UserResponse::where('sub_form_id', $subfirm_id)->where('question_id',  $question->id)->first();
+                // dd($question->responses);
+                if($question->responses==null){
+                    continue;
+                }
+                if($question->type == 'sc'){
+                    if(session('locale')=='fr'){
+                        $value = $question->responses->question_response;
+
+                        $translation = DB::table('options_link')
+                            ->where('question_id', $question->id)
+                            ->where('form_id', $section->id)
+                            ->where( function($query) use ($value){
+                                $query->Where('option_en', $value)
+                                ->orWhere('option_fr', $value);
+                            })->pluck('option_fr')->first();
+                        
+                        if($translation){
+                            $question->responses->question_response = $translation;
+                        }
+                    }
+                    if(session('locale')=='en'){
+                        $value = $question->responses->question_response;
+
+                        $translation = DB::table('options_link')
+                            ->where('question_id', $question->id)
+                            ->where('form_id', $section->id)
+                            ->where( function($query) use ($value){
+                                $query->Where('option_en', $value)
+                                ->orWhere('option_fr', $value);
+                            })->pluck('option_en')->first();
+                        
+                        if($translation){
+                            $question->responses->question_response = $translation;
+                        }
+                    }
+                }
+                if($question->type == 'mc'){
+                    $value = $question->responses->question_response;
+                    $value = array_map('trim', explode(',', $value));
+                    // dd($value);
+                    if(session('locale')=='fr'){
+                        foreach($value as $index=>$val){
+                            $translation = DB::table('options_link')
+                            ->where('question_id', $question->id)
+                            ->where('form_id', $section->id)
+                            ->where( function($query) use ($val){
+                                $query->Where('option_en', $val)
+                                ->orWhere('option_fr', $val);
+                            })->pluck('option_fr')->first();
+                            // dd($translation);
+
+                            if($translation){
+                                $value[$index] = $translation;
+                            }
+                        }
+                        $question->responses->question_response = implode(",", $value); 
+                    }
+                    if(session('locale')=='en'){
+                        foreach($value as $index=>$val){
+                            $translation = DB::table('options_link')
+                            ->where('question_id', $question->id)
+                            ->where('form_id', $section->id)
+                            ->where( function($query) use ($val){
+                                $query->Where('option_en', $val)
+                                ->orWhere('option_fr', $val);
+                            })->pluck('option_en')->first();
+                            // dd($translation);
+
+                            if($translation){
+                                $value[$index] = $translation;
+                            }
+                        }
+                        $question->responses->question_response = implode(",", $value); 
+                    }
+                    
+                }
+                
             }
         }
 

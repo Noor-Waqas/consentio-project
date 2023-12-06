@@ -145,6 +145,21 @@ class Groups extends Controller
                     $question->question_comment_fr   = $old_questions->question_comment_fr;
                     $question->section_id            = $section_id;
                     $question->save();
+
+                    ////option link
+                    if(isset($question->options) && isset($question->options_fr) && $question->type !="qa"){
+                        $opt = explode(", ", $question->options);
+                        $opt_fr = explode(", ", $question->options_fr);
+                        foreach($opt as $index => $op){
+                            DB::table('options_link')->insert([
+                                'option_en'     => $op,
+                                'option_fr'     => $opt_fr[$index],
+                                'question_id'   => $question->id,
+                                'form_id'       => $question->section_id,
+                            ]);
+                        }
+                    }
+                    /////
                 }
             }
 

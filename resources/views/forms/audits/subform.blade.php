@@ -304,11 +304,21 @@
                           </span>
                         </a>
                       </td>
+                      @php
+                        $check=DB::table('user_form_links')->where('sub_form_id', $sub_forms[$i]->id)->where('is_locked', 1)->count();
+                      @endphp
                       <td>
+                        @if($check>0)
+                        <div class="action_icons">
+                          <a style="filter: grayscale(100%);"><img class="action-edit-right" src="{{url('assets-new/img/action-edit.png')}}"></a>
+                          <a style="filter: grayscale(100%);"><img class="action-edit-right" src="{{url('assets-new/img/action-delete.png')}}"></a>
+                        </div>
+                        @else
                         <div class="action_icons">
                           <a data-toggle="modal" data-target="#edit-modal" class="edit-sb" sb-id="{{$sub_forms[$i]->id}}" sb-name="{{ $sub_forms[$i]->title }}"><img class="action-edit-right" src="{{url('assets-new/img/action-edit.png')}}"></a>
                           <a sb-id="{{$sub_forms[$i]->id}}" class=" delete-sb"><img class="action-edit-right" src="{{url('assets-new/img/action-delete.png')}}"></a>
                         </div>
+                        @endif
                       </td>                 
                     @endif
                   </tr>
