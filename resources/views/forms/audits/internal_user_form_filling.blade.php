@@ -839,6 +839,10 @@
 						$("#submit_btn").removeClass('hidden');
 					}
 
+					if (response.total_questions != response.responded_questions && locked != 1) {
+						$("#submit_btn").addClass('hidden');
+					}
+
 					if (response.week_questions > 0 && response.remediation_added > 0 && locked == 1) {
 						$('#show_remediation_plan').html(`
 							<div class="row alert alert-success">
