@@ -349,6 +349,7 @@ Route::group(["middleware" => 'admin'], function () {
 
     Route::post('change_question_comment', 'Forms@change_question_comment')->name('change_question_comment')->middleware(['auth']);
     Route::post('delete_question', 'Forms@delete_question')->name('delete_question')->middleware(['auth']);
+    Route::get('duplicate/{id}', 'Forms@duplicate')->name('form_duplicate')->middleware(['auth']);
 
     // ------------------------------------------ Users -----------------------------------------------
     Route::get('/users/edit/{id}', 'UsersController@edit');

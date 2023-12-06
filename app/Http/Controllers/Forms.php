@@ -5034,6 +5034,150 @@ class Forms extends Controller{
         }
     }
 
+    public function duplicate($id){
+        try {
+            // Creating Form
+
+            $old_form       = DB::table('forms')->where('id', $id)->first();
+
+            // $new_form_id    = DB::table('forms')->insertGetId([
+            //     "title"         => $old_form->title.' - '.time(),
+            //     "title_fr"      => $old_form->title_fr.' - '.time(),
+            //     "type"          => "assessment",
+            //     "date_created"  => now()->format('Y-m-d H:i:s'),
+            //     "date_updated"  => now()->format('Y-m-d H:i:s'),
+            //     "is_fav"        => 0,
+            // ]);
+            // DB::table('forms')->where('id', $new_form_id)->update([
+            //     "code"  => "f".$new_form_id,
+            // ]);
+
+            // Form Created Successfully
+
+            // Create Sections
+            $old_sections = DB::table('admin_form_sections')->where('form_id', $old_form->id)->get();
+
+            foreach($old_sections as $old_section){
+                // Create Section
+
+                // $new_section_id = DB::table('admin_form_sections')->insertGetId([
+                //     "sec_num"           => $old_section->sec_num,
+                //     "section_title"     => $old_section->section_title,
+                //     "section_title_fr"  => $old_section->section_title_fr,
+                //     "form_id"           => $new_form_id,
+                // ]);
+
+                // Get Old Questions
+                $old_questions = DB::table("questions")->where('form_id', $old_form->id)->where('question_section_id', $old_section->id)->get();
+                dd($old_questions);
+                foreach($old_questions as $old_question){
+                    $new_question_id = DB::table('question')->insertGetId([
+                            "question"                      => $old_question->question,
+                            "question_fr"                   => $old_question->question_fr,
+                            "question_info"                 => $old_question->question_info,
+                            "question_info_fr"              => $old_question->question_info_fr,
+                            "question_num"                  => $old_question->question_num,
+                            "is_assets_question"            => $old_question->is_assets_question,
+                            "question_comment"              => $old_question->question_comment,
+                            "question_comment_fr"           => $old_question->question_comment_fr,
+                            "additional_comments"           => $old_question->additional_comments,
+                            "question_assoc_type"           => $old_question->question_assoc_type,
+                            "parent_question"               => $old_question->parent_question,
+                            "is_parent"                     => $old_question->is_parent,
+                            "parent_q_id"                   => $old_question->parent_q_id,
+                            "form_key"                      => $old_question->form_key,
+                            "type"                          => $old_question->type,
+                            "is_data_inventory_question"    => $old_question->is_data_inventory_question,
+                            "options"                       => $old_question->options,
+                            "options_fr"                    => $old_question->options_fr,
+                            "question_section"              => $old_question->question_section,
+                            "question_section_id"           => $new_section_id,
+                            "question_category"             => $old_question->question_category,
+                            "form_id"                       => $old_question->form_id,
+                            "created_at"                    => $old_question->created_at,
+                            "updated_at"                    => $old_question->updated_at,
+                            "display"                       => $old_question->display,
+                            "attachments"                   => $old_question->attachments,
+                            "dropdown_value_from"           => $old_question->dropdown_value_from,
+                            "not_sure_option"               => $old_question->not_sure_option,
+                            "question_short"                => $old_question->question_short,
+                            "question_short_fr"             => $old_question->question_short_fr,
+                            "attachment_allow"              => $old_question->attachment_allow,
+                    ]);
+
+                    ////option link
+                    if(isset($question->options) && isset($question->options_fr) && ($question->type =="mc" || $question->type =="sc")){
+                        $opt = explode(", ", $question->options);
+                        $opt_fr = explode(", ", $question->options_fr);
+                        foreach($opt as $index => $op){
+                            DB::table('options_link')->insert([
+                                'option_en'     => $op,
+                                'option_fr'     => $opt_fr[$index],
+                                'question_id'   => $new_question_id,
+                                'form_id'       => $new_section_id,
+                            ]);
+                        }
+                    }
+                    /////
+
+                }
+            }
+            dd($old_sections);
+
+
+
+            foreach ($old_group->sections as $old_section) {
+                $section = new GroupSection;
+                $section->section_title     = strtoupper($old_section->section_title);
+                $section->section_title_fr  = strtoupper($old_section->section_title_fr);
+                $section->group_id          = $group_id;
+                $section->number            = $old_section->number;
+                $section->save();
+                $section_id = $section->id;
+                foreach ($old_section->questions as $old_questions){
+                    $question                        = new Question;
+                    $question->question              = $old_questions->question;
+                    $question->question_fr           = $old_questions->question_fr;
+                    $question->question_short        = $old_questions->question_short;
+                    $question->question_short_fr     = $old_questions->question_short_fr;
+                    $question->question_num          = $old_questions->question_num;
+                    $question->type                  = $old_questions->type;
+                    $question->options               = $old_questions->options;
+                    $question->options_fr            = $old_questions->options_fr;
+                    $question->dropdown_value_from   = $old_questions->dropdown_value_from;
+                    $question->control_id            = $old_questions->control_id;
+                    $question->not_sure_option       = $old_questions->not_sure_option;
+                    $question->attachment_allow      = $old_questions->attachment_allow;
+                    $question->accepted_formates     = $old_questions->accepted_formates;
+                    $question->question_comment      = $old_questions->question_comment;
+                    $question->question_comment_fr   = $old_questions->question_comment_fr;
+                    $question->section_id            = $section_id;
+                    $question->save();
+
+                    ////option link
+                    if(isset($question->options) && isset($question->options_fr) && $question->type !="qa"){
+                        $opt = explode(", ", $question->options);
+                        $opt_fr = explode(", ", $question->options_fr);
+                        foreach($opt as $index => $op){
+                            DB::table('options_link')->insert([
+                                'option_en'     => $op,
+                                'option_fr'     => $opt_fr[$index],
+                                'question_id'   => $question->id,
+                                'form_id'       => $question->section_id,
+                            ]);
+                        }
+                    }
+                    /////
+                }
+            }
+
+            return redirect()->back()->with('msg', 'Group Deleted Successfully');   
+        } 
+        catch (\Exception $ex) {
+            return redirect()->back()->with('msg', $ex->getMessage());
+        }
+    }
+
     //*********************************************************************************************
     
     public function delete_question(Request $request){
