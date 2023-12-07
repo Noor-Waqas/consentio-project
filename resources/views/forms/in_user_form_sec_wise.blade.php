@@ -1828,17 +1828,20 @@
 					data['link_id']      = $('input[name="form-link-id"]').val();
 					data['_token']       = '{{csrf_token()}}';
 					
-					$.ajax({
-						url   :'{{route('ajax_lock_user_form')}}',
-						method:'POST',
-						data  : data,
-						success: function(response) {
-							if (response == 1) {
-								window.location.href = "{{route('show_success_msg')}}";
+					setTimeout(function() {
+						$.ajax({
+							url   :'{{route('ajax_lock_user_form')}}',
+							method:'POST',
+							data  : data,
+							success: function(response) {
+								if (response == 1) {
+									window.location.href = "{{route('show_success_msg')}}";
+								}
+								// console.log(response);
 							}
-							// console.log(response);
-						}
-					});	
+						});
+					}, 3000);
+						
 				});
 			
 				var review_sections_ul = '<div style="margin-top:10px;">';
