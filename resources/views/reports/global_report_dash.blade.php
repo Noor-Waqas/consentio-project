@@ -147,7 +147,7 @@
         </div>
         <div class="col d-flex justify-content-end download-btn">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" alt="logo">
-            <button id="screenshotButton" class="buton">Download Report</button>
+            <button id="screenshotButton" class="buton">{{__('Download Report')}}</button>
         </div>
     </div>
     <br>
@@ -159,7 +159,7 @@
             <div id="chart-container"></div>
         </div>
         <div class="col-md-1 p-2">
-            <span style="font-size: 14px;"><b>Business Unit</b></span>
+            <span style="font-size: 14px;"><b>{{__('Business Unit')}}</b></span>
             @php
                 $existingUnits = [];
             @endphp
@@ -178,7 +178,7 @@
             @endforeach
         </div>
         <div class="col-md-1 p-2">
-            <span style="font-size: 14px;"><b>Question Group</b></span>
+            <span style="font-size: 14px;"><b>{{__('Group Name')}}</b></span>
             @php
                 $existingUnits = [];
             @endphp
@@ -205,17 +205,17 @@
     <div class="row mt-3 overflow-auto">
         <table id="datatable" class="table table-striped table-bordered table-sm text-dark border" cellspacing="0" width="100%">
             <thead class="border">
-                    <th>Name</th>
-                    <th>Question Group</th>
-                    <th>Control Name</th>
-                    <th>Initial Rating</th>
-                    <th>POST Rating</th>
-                    <th>Proposed Remediation</th>
-                    <th>Completed Actions</th>
-                    <th>ETA</th>
-                    <th>Remediation status</th>
-                    <th>Person In Charge</th>
-                    <th>Business Unit</th>
+                    <th>{{__('Name')}}</th>
+                    <th>{{__('Group Name')}}</th>
+                    <th>{{__('Control Name')}}</th>
+                    <th>{{__('Initial Rating')}}</th>
+                    <th>{{__('POST Rating')}}</th>
+                    <th>{{__('Proposed Remediation')}}</th>
+                    <th>{{__('Completed Actions')}}</th>
+                    <th>{{__('ETA')}}</th>
+                    <th>{{__('Remediation status')}}</th>
+                    <th>{{__('Person In Charge')}}</th>
+                    <th>{{__('Business Unit')}}</th>
                 </thead>
             <tbody>
                 @foreach($remediation_plans as $plan)
@@ -493,9 +493,25 @@
         $('#datatable').DataTable({
             "order": [],
             "language": {
-            "search": "",
-            "searchPlaceholder": "Search Here"
-        }
+                "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "sInfoEmpty":     "Présentation de 0 à 0 d'un total de 0 Entrées",
+                "sInfoFiltered": "(filtré à partir de _MAX_ nombre total d'entrées)",
+                "sInfoPostFix":  "",
+                "oPaginate": {
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
+                "searchPlaceholder": "Search Here"
+                @endif
+                
+            }
         });
     }
 </script>
@@ -548,7 +564,7 @@ $(document).ready(function() {
         var data = google.visualization.arrayToDataTable(dynamicData);
 
         var options = {
-          title: 'Remediation Status',
+          title: '{{__('Remediation status')}}',
           titleTextStyle: { fontSize: 14 },
           pieHole: 0.4,
           backgroundColor: 'transparent',
@@ -586,7 +602,7 @@ $(document).ready(function() {
         }
 
         var options = {
-          title: 'Initial Rating',
+          title: '{{__('Initial Rating')}}',
           titleTextStyle: { fontSize: 14 },
         //   pieHole: 0.5,
         //   is3D: true,
@@ -630,7 +646,7 @@ $(document).ready(function() {
         }
 
         var options = {
-          title: 'Post Remediation Rating',
+          title: '{{__('Post Remediation Rating')}}',
           titleTextStyle: { fontSize: 14 },
         //   pieHole: 0.5,
         //   is3D: true,
@@ -660,7 +676,23 @@ $(document).ready(function() {
             "order": [],
             "language": {
                 "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "sInfoEmpty":     "Présentation de 0 à 0 d'un total de 0 Entrées",
+                "sInfoFiltered": "(filtré à partir de _MAX_ nombre total d'entrées)",
+                "sInfoPostFix":  "",
+                "oPaginate": {
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
                 "searchPlaceholder": "Search Here"
+                @endif
+                
             }
         });
 
