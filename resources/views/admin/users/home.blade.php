@@ -94,7 +94,9 @@
     $(document).ready(function() {
         
        $('#org-users').DataTable({
-			order: []
+			order: [],
+			"scrollX": true,
+			"autoWidth": false
 	   });
 
 

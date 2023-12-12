@@ -81,7 +81,9 @@
         
         
         $('#orgs').DataTable({
-			order:[]
+			order:[],
+			"scrollX": true,
+			"autoWidth": false
 		});
         
     	

@@ -68,10 +68,10 @@
   @endif
 
   @if(auth()->user()->role == 1) 
-    <div class="row" style="margin-left:10px;">
+    <div class="row">
       <div class="col-md-12">
         <div class="tile">
-          <div class="table-responsive cust-table-width">
+          <div class="table-responsive">
             @if(Session::has('message'))
               <p class="alert alert-info">{{ Session::get('message') }}</p>
             @endif
@@ -178,7 +178,9 @@
     <script>
       $(document).ready(function(){
           $('#forms-table').DataTable({
-                  "order": []
+                  "order": [],
+                  "scrollX": true,
+			            "autoWidth": false
           });
 
           $(function () {

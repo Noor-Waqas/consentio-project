@@ -70,5 +70,27 @@
             justify-content:end;
             align-items:center;
         }
+        @media screen and (max-width: 767px){
+            div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+                text-align: center;
+                /* display: inline-flex; */
+            }
+            .dataTables_paginate{
+                justify-content:center;
+                align-items:center;
+            }
+            .dataTables_info{
+                float:none;
+            }
+            div.dataTables_length{
+                float: none;
+            }
+            div.dataTables_filter{
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            }
+        }
+
     </style>
   </head>

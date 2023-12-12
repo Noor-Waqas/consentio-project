@@ -10,12 +10,12 @@
     </ul>
 </div>
 <a href="" id="delete_item"></a>
-<div class="row bg-white p-4">  
-    <div class="col-12 d-flex justify-content-between align-items-center">
+<div class="row bg-white py-3">  
+    <div class="col-md-12 d-flex justify-content-between align-items-center">
         <h3>{{ __('Question Groups') }}</h3>
         <a href="{{ route('group_add') }}"  class="btn btn-sm btn-primary"><i class="fa fa-plus mr-0"></i> {{ __('Add Group') }}</a>
     </div>  
-    <div class="col-12 p-5 " style="overflow-y: auto;">
+    <div class="col-md-12">
         <table class="table" id="group-table" style="min-width:720px">
             <thead class="back_blue">
                 <tr>
@@ -73,7 +73,9 @@
     <script>
         $(function(){
             $('#group-table').DataTable({
-                order: []
+                order: [],
+                "scrollX": true,
+			    "autoWidth": false
             });
         });
 
