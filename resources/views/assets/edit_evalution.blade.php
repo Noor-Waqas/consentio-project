@@ -11,13 +11,13 @@
 								<div class="form-group">
 									<label for="">Assessment</label>
 									<input type="hidden" name="id" id="id" class="form-control" placeholder="Assessment" value="{{$data->id}}">
-									<input type="text" name="assessment" id="Assessment" class="form-control" placeholder="Assessment" value="{{$data->assessment}}">
+									<input type="text" name="assessment" id="Assessment" class="form-control" placeholder="Assessment" value="{{$data->assessment}}" disabled>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="">Rating</label>
-									<input type="text" name="rating" id="rating" class="form-control" placeholder="Rating" value="{{$data->rating}}">
+									<input type="text" name="rating" id="rating" class="form-control" placeholder="Rating" value="{{$data->rating}}" disabled>
 								</div>
 							</div>
 							<div class="col-md-6">

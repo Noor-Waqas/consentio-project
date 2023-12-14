@@ -1052,12 +1052,18 @@
     "Audit Reports"         : "Rapports d'audit",
     "Global Remediation"    : "Remédiation globale",
     "Select Report"         : "Sélectionnez le rapport",
+    "Global Remediation Report"    : "Rapport mondial sur l'assainissement",
 
-    "Favorites"             : "Favoris",
-    "Favorites"             : "Favoris",
-    "Favorites"             : "Favoris",
-    "Favorites"             : "Favoris",
-    "Favorites"             : "Favoris",
+    "Good"                  : "Bonne",
+    "Satisfactory"          : "Satisfaisant",
+    "Marginal"              : "Marginale",
+    "Weak"                  : "Faible",
+    "N/A"                   : "N/A",
+
+    "Implemented & tested"           : "Mis en œuvre et testé",
+    "Fully implemented"              : "Entièrement mise en œuvre",
+    "Partially implemented"          : "Partiellement mise en œuvre",
+    "Not implemented"                : "Pas de mise en œuvre",
 
     "Audit Report"          : "Rapport d'audit",
     "Remediation Report"    : "Rapport de correction",

@@ -96,11 +96,11 @@ input:checked + .slider:before {
                 			<input id="id"   type="hidden" class="form-control" name="id"  value="{{$val->id}}">
 										<div class="form-group">
 											<label class="form-control-label">Assessment</label>
-											<input id="assessment" type="text"   class="form-control" name="assessment" value="{{$val->assessment}}" required autofocus>
+											<input id="assessment" type="text"   class="form-control" name="assessment" value="{{$val->assessment}}" required autofocus disabled>
 	               		</div>
 			               <div class="form-group">
 											<label class="form-control-label">Rating</label>
-											<input id="rating" type="text"   class="form-control" name="rating" value="{{$val->rating}}" required autofocus>
+											<input id="rating" type="text"   class="form-control" name="rating" value="{{$val->rating}}" required autofocus disabled>
 	               		</div>
 				       		  <div class="form-group">
 											<label class="form-control-label">Background Color</label>
