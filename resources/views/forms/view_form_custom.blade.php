@@ -243,13 +243,23 @@
                 @if(Auth::user()->role != 1)
                 <div class="content">
                     {{-- BARI START --}}
+                    @if($question->parent_q_id == null)
                     <h6>
                         @if (session('locale') == 'fr')
-                            {{ $question->question_num . ' ' . $question->question_fr }}
+                            {{ $question->question_num . ' - ' . $question->question_fr }}
                         @else
-                            {{ $question->question_num . ' ' . $question->question }}
+                            {{ $question->question_num . ' - ' . $question->question }}
                         @endif
                     </h6>
+                    @else
+                    <h6>
+                        @if (session('locale') == 'fr')
+                            {{ $question->question_fr }}
+                        @else
+                            {{ $question->question }}
+                        @endif
+                    </h6>
+                    @endif
                     {{-- BARI END --}}
                     @if (session('locale') == 'fr')
                     <?php if ($question->question_comment_fr != null && $question->question_comment_fr != ''): ?>

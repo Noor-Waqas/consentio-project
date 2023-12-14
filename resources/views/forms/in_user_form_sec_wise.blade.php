@@ -440,6 +440,7 @@
 								<!-- block -->
 								<div class="content">
 									<p></p>
+									@if($question->parent_q_id == null)
 									<h6 id="{{'ques-'.$question->form_key.'_'.$question->q_id}}">{{ $question->question_num}}
 										@if(session('locale')=='fr')
 											{{ $question->question_fr?$question->question_fr:$question->question }}
@@ -447,6 +448,15 @@
 											{{ $question->question }}
 										@endif
 									</h6>
+									@else
+									<h6 id="{{'ques-'.$question->form_key.'_'.$question->q_id}}">
+										@if(session('locale')=='fr')
+											{{ $question->question_fr?$question->question_fr:$question->question }}
+										@else
+											{{ $question->question }}
+										@endif
+									</h6>
+									@endif
 									<script>
 										all_q_ids.push(['<?php echo $question->q_id; ?>', '<?php echo $question->form_key.'_'.$question->q_id; ?>']);
 									</script>

@@ -159,7 +159,7 @@ class Forms extends Controller{
             $form_info = $form_info
 
                 ->select('*', 'afs.id as afs_sec_id', 'afs.section_title as admin_sec_title', 'questions.question_section_id as q_sec_id')
-                ->orderBy('form_questions.sort_order')
+                ->orderBy('questions.question_num')
                 ->get();
 
             $user_type = 'admin';
@@ -182,7 +182,7 @@ class Forms extends Controller{
                         'cfs.id as cfs_sec_id',
                         'cfs.section_title as client_sec_title',
                         'questions.question_section_id as q_sec_id')
-                    ->orderBy('form_questions.sort_order')
+                    ->orderBy('questions.question_num')
 
                     ->get();
             } else {
@@ -199,7 +199,7 @@ class Forms extends Controller{
                         'cfs.id as cfs_sec_id',
                         'cfs.section_title as client_sec_title',
                         'questions.question_section_id as q_sec_id')
-                    ->orderBy('form_questions.sort_order')
+                    ->orderBy('questions.question_num')
 
                     ->get();
             }
@@ -490,7 +490,7 @@ class Forms extends Controller{
                 ->leftJoin('client_form_sections as cfs', 'cfs.admin_form_sec_id', '=', DB::raw('afs.id AND cfs.client_id = ' . $client_id))
                 ->where('user_form_links.form_link_id', '=', $form_link_id)
                 ->where('form_questions.display_question', 'yes')
-                ->orderBy('sort_order')
+                ->orderBy('questions.question_num')
                 ->select('*',
                     'questions.options_fr as options',
                     // 'questions.question_fr as question',
@@ -518,7 +518,7 @@ class Forms extends Controller{
                 ->leftJoin('client_form_sections as cfs', 'cfs.admin_form_sec_id',  DB::raw('afs.id AND cfs.client_id = ' . $client_id))
                 ->where('user_form_links.form_link_id',  $form_link_id)
                 ->where('form_questions.display_question', 'yes')
-                ->orderBy('sort_order')
+                ->orderBy('questions.question_num')
                 ->select('*',
                     'user_form_links.client_id',
                     'user_form_links.id as uf_id',
@@ -3603,7 +3603,7 @@ class Forms extends Controller{
             ->join('questions', 'form_questions.question_id', '=', 'questions.id')
             ->where('forms.id', '=', $id)
             ->where('form_questions.display_question', 'yes')
-            ->orderBy('form_questions.sort_order')
+            ->orderBy('questions.question_num')
             ->leftJoin('admin_form_sections as afs', 'questions.question_section_id', '=', 'afs.id');
 
         $form_info = $form_info->select('*', 'afs.id as afs_sec_id', 'afs.section_title as admin_sec_title', 'questions.question_section_id as q_sec_id')->get();
@@ -3616,7 +3616,7 @@ class Forms extends Controller{
             ->join('forms', 'form_questions.form_id', '=', 'forms.id')
             ->join('questions', 'form_questions.question_id', '=', 'questions.id')
             ->where('forms.id', '=', $id)
-            ->orderBy('form_questions.sort_order')
+            ->orderBy('questions.question_num')
             ->select('*', 'questions.question_section_id as q_sec_id')
             ->get();
 
@@ -4079,14 +4079,28 @@ class Forms extends Controller{
             }
 
             $section_num = DB::table('admin_form_sections')->where('id', $request->this_section_id)->where('form_id', $request->form_id)->pluck('sec_num')->first();
-            $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->count();
+            // $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->count();
 
-            if ($last_question_num == 0) {
-                $last_question_num = 1;
-            } else {
-                $last_question_num++;
+            // if ($last_question_num == 0) {
+            //     $last_question_num = 1;
+            // } else {
+            //     $last_question_num++;
+            // }
+            // $question_number = $section_num . '.' . $last_question_num;
+
+            $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->where('parent_q_id', null)->orderBy('question_num', 'DESC')->pluck('question_num')->first();
+            if($last_question_num){
+                // $last_question_num = explode('.', $last_question_num)[1];
+                $last_question_num = $last_question_num + 1/100;
+                $question_number = $last_question_num;
+                $question_number = number_format($question_number, 2);    
+                // dd($last_question_num);
             }
-            $question_number = $section_num . '.' . $last_question_num;
+            else{
+                $last_question_num = 1/100;
+                $question_number = $section_num + $last_question_num;
+                $question_number = number_format($question_number, 2);
+            }
 
             $sort_order = DB::table('questions')->where('form_id', $request->form_id)->count();
 
@@ -4143,17 +4157,17 @@ class Forms extends Controller{
 
 
                     $section_num = DB::table('admin_form_sections')->where('id', $parent_question_array['question_section_id'])->where('form_id', $request->form_id)->pluck('sec_num')->first();
-                    $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->count();
+                    // $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->count();
 
-                    if ($last_question_num == 0) 
-                    {
-                        $last_question_num = 1;
-                    } 
-                    else {
-                        $last_question_num++;
-                    }
+                    // if ($last_question_num == 0) 
+                    // {
+                    //     $last_question_num = 1;
+                    // } 
+                    // else {
+                    //     $last_question_num++;
+                    // }
 
-                    $question_number = $section_num . '.' . $last_question_num;
+                    // $question_number = $section_num . '.' . $last_question_num;
 
                     $sort_order = DB::table('questions')->where('form_id', $request->form_id)->count();
 
@@ -4193,12 +4207,15 @@ class Forms extends Controller{
                             // trimming end
                         }
 
+                        $question_number = $question_number + 0.0001;
+                        $question_number = number_format($question_number, 4);
+
                         $child_question_array = array(
                             'question'              => $request->s_question_title[$key],
                             'question_fr'           => $request->s_question_title_fr[$key],
                             'question_short'        => $request->question_title_short,
                             'question_short_fr'     => $request->question_title_short_fr,
-                            'question_num'          => null,
+                            'question_num'          => $question_number,
                             'options'               => ($request->s_question_options[$key] != '0') ? str_replace(',', ', ', $request->s_question_options[$key]) : '',
                             'options_fr'            => ($request->s_question_options_fr[$key] != '0') ? str_replace(',', ', ', $request->s_question_options_fr[$key]) : '',
                             'question_section'      => null,
@@ -4267,12 +4284,15 @@ class Forms extends Controller{
                             // trimming end
                         }
 
+                        $question_number = $question_number + 0.0001;
+                        $question_number = number_format($question_number, 4);
+
                         $child_question_array = array(
                             'question'              => $request->s_question_title[$key],
                             'question_fr'           => $request->s_question_title_fr[$key],
                             'question_short'        => $request->question_title_short,
                             'question_short_fr'     => $request->question_title_short_fr,
-                            'question_num'          => null,
+                            'question_num'          => $question_number,
                             'options'               => ($request->s_question_options[$key] != '0') ? str_replace(',', ', ', $request->s_question_options[$key]) : '',
                             'options_fr'            => ($request->s_question_options_fr[$key] != '0') ? str_replace(',', ', ', $request->s_question_options_fr[$key]) : '',
                             'question_section'      => null,
@@ -4641,6 +4661,7 @@ class Forms extends Controller{
             $last_question_num++;
         }
         $question_number = $section_num . '.' . $last_question_num;
+        dd("ok");
 
         $sort_order = DB::table('questions')->where('form_id', $request->form_id)->count();
 
@@ -4784,13 +4805,18 @@ class Forms extends Controller{
             $last_sort_order=0;
         }
         $current_order = $last_sort_order + 1;
-        $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->orderBy('question_num', 'DESC')->pluck('question_num')->first();
+        $last_question_num = DB::table('questions')->where('question_section_id', $request->this_section_id)->where('question_num', '!=', null)->where('parent_q_id', null)->orderBy('question_num', 'DESC')->pluck('question_num')->first();
         if($last_question_num){
-            $last_question_num = explode('.', $last_question_num)[1];
-            $last_question_num++;
+            // $last_question_num = explode('.', $last_question_num)[1];
+            $last_question_num = $last_question_num + 1/100;
+            $question_number = $last_question_num; 
+            $question_number = number_format($question_number, 2);   
+            // dd($last_question_num);
         }
         else{
-            $last_question_num = 1;
+            $last_question_num = 1/100;
+            $question_number = $section_num + $last_question_num;
+            $question_number = number_format($question_number, 2);
         }
         
         // if ($last_question_num == 0) {
@@ -4798,7 +4824,8 @@ class Forms extends Controller{
         // } else {
         //     $last_question_num++;
         // }
-        $question_number = $section_num . '.' . $last_question_num;
+        // $question_number = $section_num + $last_question_num;
+        // dd($question_number);
         $pre_sort_order = DB::table('form_questions')->where('form_id', $request->form_id)->orderBy('sort_order', 'desc')->first();
 
         if(isset($request->question_options) && isset($request->question_options_fr)){
@@ -4884,6 +4911,7 @@ class Forms extends Controller{
                 'is_data_inventory_question' => 1,
                 'question_category' => 2,
             ]);
+            $question_number = $question_number+0.0001;
             $sections=DB::table('sections')->get();
             // dd($sections);
             foreach($sections as $section){
@@ -4901,6 +4929,7 @@ class Forms extends Controller{
                     'question_fr'           => $section->section_name_fr,
                     'options'               => $elements,
                     'options_fr'            => $elements_fr,
+                    'question_num'          => $question_number,
                     'question_section'      => '',
                     'question_section_id'   => $request->this_section_id,
                     'question_assoc_type'   => 2,
@@ -4915,6 +4944,9 @@ class Forms extends Controller{
                 $q_id = DB::table('questions')->insertGetId($question_array);
 
                 DB::table('questions')->where('id', $q_id)->update(['form_key' => 'q-' . $q_id]);
+
+                $question_number = $question_number+0.0001;
+                $question_number = number_format($question_number, 4);
 
                 if(isset($elements) && isset($elements_fr)){
                     $opt = explode(", ", $elements);
@@ -5040,17 +5072,17 @@ class Forms extends Controller{
 
             $old_form       = DB::table('forms')->where('id', $id)->first();
 
-            // $new_form_id    = DB::table('forms')->insertGetId([
-            //     "title"         => $old_form->title.' - '.time(),
-            //     "title_fr"      => $old_form->title_fr.' - '.time(),
-            //     "type"          => "assessment",
-            //     "date_created"  => now()->format('Y-m-d H:i:s'),
-            //     "date_updated"  => now()->format('Y-m-d H:i:s'),
-            //     "is_fav"        => 0,
-            // ]);
-            // DB::table('forms')->where('id', $new_form_id)->update([
-            //     "code"  => "f".$new_form_id,
-            // ]);
+            $new_form_id    = DB::table('forms')->insertGetId([
+                "title"         => $old_form->title.' - '.time(),
+                "title_fr"      => $old_form->title_fr.' - '.time(),
+                "type"          => "assessment",
+                "date_created"  => now()->format('Y-m-d H:i:s'),
+                "date_updated"  => now()->format('Y-m-d H:i:s'),
+                "is_fav"        => 0,
+            ]);
+            DB::table('forms')->where('id', $new_form_id)->update([
+                "code"  => "f".$new_form_id,
+            ]);
 
             // Form Created Successfully
 
@@ -5060,18 +5092,18 @@ class Forms extends Controller{
             foreach($old_sections as $old_section){
                 // Create Section
 
-                // $new_section_id = DB::table('admin_form_sections')->insertGetId([
-                //     "sec_num"           => $old_section->sec_num,
-                //     "section_title"     => $old_section->section_title,
-                //     "section_title_fr"  => $old_section->section_title_fr,
-                //     "form_id"           => $new_form_id,
-                // ]);
+                $new_section_id = DB::table('admin_form_sections')->insertGetId([
+                    "sec_num"           => $old_section->sec_num,
+                    "section_title"     => $old_section->section_title,
+                    "section_title_fr"  => $old_section->section_title_fr,
+                    "form_id"           => $new_form_id,
+                ]);
 
                 // Get Old Questions
-                $old_questions = DB::table("questions")->where('form_id', $old_form->id)->where('question_section_id', $old_section->id)->get();
-                dd($old_questions);
+                $old_questions = DB::table("questions")->where('form_id', $old_form->id)->where('question_section_id', $old_section->id)->orderBy('id', 'ASC')->get();
+                // dd($old_questions);
                 foreach($old_questions as $old_question){
-                    $new_question_id = DB::table('question')->insertGetId([
+                    $new_question_id = DB::table('questions')->insertGetId([
                             "question"                      => $old_question->question,
                             "question_fr"                   => $old_question->question_fr,
                             "question_info"                 => $old_question->question_info,
@@ -5093,7 +5125,7 @@ class Forms extends Controller{
                             "question_section"              => $old_question->question_section,
                             "question_section_id"           => $new_section_id,
                             "question_category"             => $old_question->question_category,
-                            "form_id"                       => $old_question->form_id,
+                            "form_id"                       => $new_form_id,
                             "created_at"                    => $old_question->created_at,
                             "updated_at"                    => $old_question->updated_at,
                             "display"                       => $old_question->display,
@@ -5104,6 +5136,20 @@ class Forms extends Controller{
                             "question_short_fr"             => $old_question->question_short_fr,
                             "attachment_allow"              => $old_question->attachment_allow,
                     ]);
+
+                    DB::table('questions')->where('id', $new_question_id)->update([
+                        'form_key' => 'q-' . $new_question_id
+                    ]);
+
+                    ////Multi Level
+                    if($old_question->is_parent == 1){
+                        $parent_question = $new_question_id;
+                    }
+                    if($old_question->parent_q_id != null){
+                        DB::table('questions')->where('id', $new_question_id)->update([
+                            'parent_q_id' => $parent_question
+                        ]);
+                    }
 
                     ////option link
                     if(isset($question->options) && isset($question->options_fr) && ($question->type =="mc" || $question->type =="sc")){
@@ -5120,11 +5166,17 @@ class Forms extends Controller{
                     }
                     /////
 
+                    DB::table('form_questions')->insert([
+                        'form_id' => $new_form_id,
+                        'question_id' => $new_question_id,
+                        'sort_order' => $old_question->question_num,
+                    ]);
+
                 }
             }
-            dd($old_sections);
+            return redirect('Forms/AdminFormsList')->with('message', __('Duplicate Form Generated Successfully'));
 
-
+////////////////////////////////////////
 
             foreach ($old_group->sections as $old_section) {
                 $section = new GroupSection;
@@ -5377,21 +5429,43 @@ class Forms extends Controller{
         $form_id = $request->form_id;
         $id = $request->fq_id;
         $sort_order = $request->sort_order;
+        // dd($id);
 
-        $included = DB::table('form_questions')
+        $included = DB::table('questions')
             ->where('form_id', $form_id)
-            ->where('fq_id', "!=", $id)
-            ->where('sort_order', $sort_order)
+            ->where('id', "!=", $id)
+            ->where('question_num', $sort_order)
             ->count();
         if ($included > 0) {
             return response()->json([
                 "msg" => "Sorting Already Exist!",
             ]);
         } else {
-            DB::table('form_questions')->where('fq_id', $id)
+            $question = DB::table('questions')->where('id', $id)->first();
+            if($question->parent_q_id){
+                $sort_order = $sort_order;
+            }
+            else{
+                $sort_order = number_format($sort_order, 2); 
+            }
+            DB::table('questions')->where('id', $id)
                 ->update([
-                    'sort_order' => $sort_order,
+                    'question_num' => $sort_order,
                 ]);
+
+            
+            if($question->is_parent == 1){
+                $child_questions = DB::table('questions')->where('parent_q_id', $id)->orderBy('question_num', 'ASC')->get();
+                foreach($child_questions as $que){
+                    $sort_order = $sort_order + 0.0001;
+                    $sort_order = number_format($sort_order, 4); 
+
+                    DB::table('questions')->where('id', $que->id)
+                    ->update([
+                        'question_num' => $sort_order,
+                    ]);
+                }
+            }
             return response()->json([
                 "status" => 200,
                 "msg" => "Sort Order Updated Successfully!",

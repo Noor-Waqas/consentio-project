@@ -328,8 +328,19 @@ class Groups extends Controller
             if($request->add_attachments_box) $allow_attach = 1;
             
             $section_number         = GroupSection::find( $request->section_id);
-            $question_number        = Question::where('section_id', $request->section_id)->count();
-            $final_question_number  = ($section_number->number) . ".". ($question_number + 1);
+            $question_number        = Question::where('section_id', $request->section_id)->orderBy('question_num', 'DESC')->pluck('question_num')->first();
+            
+            if($question_number){
+                $question_number = $question_number + 1/100;
+            }
+            else{
+                $question_number = 1/100;
+                $question_number = $section_number->number + $question_number;
+            }
+            // $question_number        = ($question_number + 1)/100;
+            // $final_question_number  = ($section_number->number + $question_number);
+            // $final_question_number  = number_format($final_question_number, 2);
+            $final_question_number  = number_format($question_number, 2);
             $question = new Question;
             $question->question              = $request->question_title;
             $question->question_fr           = $request->question_title_fr;
