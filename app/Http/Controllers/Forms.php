@@ -5176,7 +5176,7 @@ class Forms extends Controller{
             }
             return redirect('Forms/AdminFormsList')->with('message', __('Duplicate Form Generated Successfully'));
 
-////////////////////////////////////////
+        ////////////////////////////////////////
 
             foreach ($old_group->sections as $old_section) {
                 $section = new GroupSection;
