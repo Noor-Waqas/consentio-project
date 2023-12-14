@@ -367,7 +367,7 @@
                                                 <!-- @if($loop->iteration == 1)
                                                 <option value="" selected>---Select Report---</option>
                                                 @endif -->
-                                                    <option value="{{ $group->group_id }}" >{{ $group->group_name }}</option>
+                                                    <option value="{{ $group->group_id }}" >@if(session('locale')=='fr') {{ $group->group_name_fr }} @else {{ $group->group_name }} @endif</option>
                                                 @endforeach
                                             </select>
                                             

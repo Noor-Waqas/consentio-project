@@ -183,7 +183,7 @@ class Reports extends Controller{
 
         $group = DB::table('forms')
         ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
-        ->select('audit_questions_groups.group_name')
+        // ->select('audit_questions_groups.group_name')
         ->where('forms.group_id', $group_id)
         ->get();
         // dd($group);
