@@ -233,7 +233,7 @@
                             $check=DB::table('evaluation_rating')->where('rate_level', $plan->rating)->where('owner_id', $client_id)->first();
                         @endphp
                         <td style="background:{{$check->color}} !important;color:{{$check->text_color}} !important;">
-                            {{$check->rating}}
+                            {{__($check->rating)}}
                         </td>
                         <?php
                             $var = DB::table('evaluation_rating')->where('id', $plan->post_remediation_rating)->first();
@@ -247,11 +247,9 @@
                                 echo $var->text_color;
                             } 
                             ?> !important;">
-                        <?php
-                            if ($var) {
-                                echo $var->rating;
-                            }
-                            ?>
+                            @if($var)
+                                {{__($var->rating)}}
+                            @endif
                         </td>
                         <td>
                             @if($plan->proposed_remediation)
@@ -278,7 +276,7 @@
                             @if($plan->status == "0")
                                 <span style="margin-left:47%;">--</span>
                             @else
-                                {{$plan->status}}
+                                {{__($plan->status)}}
                             @endif
                         </td>
                         <td>{{$plan->user_name}}</td>
