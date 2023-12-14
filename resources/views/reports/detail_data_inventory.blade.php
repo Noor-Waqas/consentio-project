@@ -90,7 +90,7 @@
              @if(count($option_questions))
                  <th class="set_heading fixed">  {{ __('User') }} </th> 
                  <th class="set_heading fixed">  {{ __('Activity Name') }} </th> 
-                 <th class="set_heading fixed">  {{ __('Asset Name') }} </th> 
+                 <th class="set_heading fixed">  {{ __('Assets Name') }} </th> 
              @endif
               @foreach($option_questions as $quest_heading)
                 <th class="set_heading" colspan="{{$quest_heading['op_count']}}" >
