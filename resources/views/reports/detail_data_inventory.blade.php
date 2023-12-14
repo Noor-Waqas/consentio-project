@@ -65,6 +65,16 @@
       .print_exp {
         margin-bottom: .5rem;
       }
+      .dataTables_wrapper .dataTables_filter {
+            float: left !important;
+      }
+      #datatables_filter input {
+          /* Your styling properties go here */
+          border: 1px solid #ccc;
+          padding: 15px 50px;
+          border-radius: 35px;
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
   </style>
 
   <div class="export_btn" style="margin-bottom: 1rem;"> 
@@ -74,13 +84,13 @@
   <div class="card">
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-striped table-responsive-sm text-center" id="datatable">
+        <table class="table table-striped text-center" id="datatables">
           <thead>
             <tr>
              @if(count($option_questions))
                  <th class="set_heading fixed">  {{ __('User') }} </th> 
                  <th class="set_heading fixed">  {{ __('Activity Name') }} </th> 
-                 <th class="set_heading fixed">  {{ __('Assets Name') }} </th> 
+                 <th class="set_heading fixed">  {{ __('Asset Name') }} </th> 
              @endif
               @foreach($option_questions as $quest_heading)
                 <th class="set_heading" colspan="{{$quest_heading['op_count']}}" >
@@ -186,13 +196,32 @@
   </script>
   <script>
       $(document).ready(function() {
-          $('#datatable').DataTable({
+        $('#datatables').DataTable({
             "order": [],
             "language": {
-              "search": "",
-              "searchPlaceholder": "Search Here"
-            }
-          });
+                "search": "",
+                @if(session('locale')=='fr')
+                "sLengthMenu":    "Montrer _MENU_ Entrées",
+                "sZeroRecords":   "Aucun résultat trouvé",
+                "sEmptyTable":    "aucune donnée disponible",
+                "sInfo":          "Présentation de _START_ à _END_ d'un total de _TOTAL_ Entrées",
+                "sInfoEmpty":     "Présentation de 0 à 0 d'un total de 0 Entrées",
+                "sInfoFiltered": "(filtré à partir de _MAX_ nombre total d'entrées)",
+                "sInfoPostFix":  "",
+                "oPaginate": {
+                    "sNext":    "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "searchPlaceholder": "Cherche ici"
+                @else
+                "searchPlaceholder": "Search Here"
+                @endif
+                
+            },
+            "scrollX": true,
+            "responsive": true,
+            "autoWidth": false // Disable automatic column width calculation
+        });
           
       });
   </script>
