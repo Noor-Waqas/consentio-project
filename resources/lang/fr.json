@@ -1066,7 +1066,8 @@
     "Not implemented"                : "Pas de mise en œuvre",
 
     "Activity Name"                : "Nom de l'activité",
-    "Assets Name"                   : "Nom de l'actif",
+    "Assets Name"                  : "Nom de l'actif",
+    "Control Name"                 : "Nom du contrôle",
 
     "Audit Report"          : "Rapport d'audit",
     "Remediation Report"    : "Rapport de correction",

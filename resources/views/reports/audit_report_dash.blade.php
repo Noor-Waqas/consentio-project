@@ -260,7 +260,7 @@
                         <td>{{$plans[0]->name}}</td>
                         <td>{{$plans[0]->tier}}</td>
                         @foreach ($plans as $plan)
-                        <td style="color:{{$plan->text_color}} !important; background-color:{{$plan->color}} !important;">{{$plan->rating}}</td>
+                        <td style="color:{{$plan->text_color}} !important; background-color:{{$plan->color}} !important;">{{__($plan->rating)}}</td>
                         @endforeach
                     </tr>
                     @endforeach
