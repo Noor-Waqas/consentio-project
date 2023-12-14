@@ -101,6 +101,7 @@
                   <?php endif; ?>
                   <th scope="col">Show Form</th>
                   @if(Request::is('Forms/AdminFormsList'))
+                    <th scope="col">Dublicate</th>
                     <th scope="col">Add Questions</th>
                   @endif
                   <?php if (Auth::user()->role != 1): ?>
@@ -137,11 +138,12 @@
                     @endphp
                   @if(Request::is('Forms/AdminFormsList'))
                     <td><a href={{ url('Forms/ViewForm/'.$form_info->form_id) }}> <i class="far fa-eye"></i> View Form</a></td></td>
+                    <td><a class="btn btn-sm btn-primary" href={{ url('duplicate/'.$form_info->form_id) }}> Duplicate Form</a></td></td>
                     <td>
                     @if($check > 0 || $form_info->form_id < 14)
-                      <a href="{{ url('Forms/'.$form_info->form_id.'/add/questions') }}" class="btn btn-sm btn-success pull-right disabled" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Questions</a>
+                      <a href="{{ url('Forms/'.$form_info->form_id.'/add/questions') }}" class="btn btn-sm btn-success disabled" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Questions</a>
                     @else
-                      <a href="{{ url('Forms/'.$form_info->form_id.'/add/questions') }}" class="btn btn-sm btn-success pull-right " style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Questions</a>
+                      <a href="{{ url('Forms/'.$form_info->form_id.'/add/questions') }}" class="btn btn-sm btn-success" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i>Add Questions</a>
                     @endif
                     </td>
                   @else
