@@ -4772,19 +4772,19 @@ class Forms extends Controller{
             $request->question_options        = "Date Picker Option,Not Sure,Not Applicable";
             $request->question_options_fr     = "Date Picker Option,Pas certain,Non applicable";
             $request->q_type                  = "sc";
-            $exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 4)->count();
-            if($exist>0){
-                return redirect()->back()->with('message', __('Date Picker Question Already Exist in the Assessment'));
-            }
+            // $exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 4)->count();
+            // if($exist>0){
+            //     return redirect()->back()->with('message', __('Date Picker Question Already Exist in the Assessment'));
+            // }
         }
         if($request->q_type=="dc" && $request->dropdown_value_from == 5){
             $request->question_options        = "Time Picker Option,Not Sure,Not Applicable";
             $request->question_options_fr     = "Time Picker Option,Pas certain,Non applicable";
             $request->q_type                  = "sc";
-            $exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 5)->count();
-            if($exist>0){
-                return redirect()->back()->with('message', __('Time Picker Question Already Exist in the Assessment'));
-            }
+            // $exist=DB::table('questions')->where('form_id', $request->form_id)->where('dropdown_value_from', 5)->count();
+            // if($exist>0){
+            //     return redirect()->back()->with('message', __('Time Picker Question Already Exist in the Assessment'));
+            // }
         }
 
         $allow_attach = 0;
