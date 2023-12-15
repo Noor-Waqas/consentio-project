@@ -2,6 +2,7 @@
 namespace App\Imports;
 use App\Asset;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpClient\HttpClient;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -17,7 +18,7 @@ class AssetsImport implements ToModel
         //dd($row[7]);
        $client_id =  DB::table('users')->where('id', Auth::user()->client_id)->select('id')->get()->toArray();
        $row[10]= $client_id;
-       //dd($row[10]);
+    //    dd($row[10]);
         
         $data = ucwords($row[7]);
         $impact= DB::table('impact')->where('impact_name_en', $data)->get();
@@ -28,6 +29,30 @@ class AssetsImport implements ToModel
         $data_class= DB::table('data_classifications')->where('classification_name_en', $var)->where('organization_id', $row[10][0]->id)->get();
         //dd($data_class);
         $row[8]= $data_class;
+
+        $address = urlencode($row[4] . ' ' . $row[5]); // Concatenate city and country for the address
+
+        $client = HttpClient::create();
+        $response = $client->request('GET', 'https://maps.googleapis.com/maps/api/geocode/json', [
+            'query' => [
+                'address' => $address,
+                'key' => 'AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg', // Replace with your API key
+            ]
+        ]);
+        // dd($response);
+
+        if ($response->getStatusCode() === 200) {
+            $content = $response->toArray(); // Convert response to array
+            // dd($content);
+
+            if (isset($content['results'][0]['geometry']['location'])) {
+                $latitude = $content['results'][0]['geometry']['location']['lat'];
+                $longitude = $content['results'][0]['geometry']['location']['lng'];
+
+                // Now you can use $latitude and $longitude as needed
+            }
+
+        }
 
         
         $data1=1;
@@ -56,8 +81,10 @@ class AssetsImport implements ToModel
                 "business_owner" => $row[12],
                 "business_unit" => $row[13],
                 "internal_3rd_party" => $row[14],
-                "data_subject_volume" => $row[15],     
-                "asset_number" => $row[16][0]->asset_number+1,     
+                "data_subject_volume" => $row[15],
+                "asset_number" => $row[16][0]->asset_number+1,
+                "lat" => $latitude,
+                "lng" => $longitude,
             ]);
         }
         else{
@@ -77,8 +104,10 @@ class AssetsImport implements ToModel
                 "business_owner" => $row[12],
                 "business_unit" => $row[13],
                 "internal_3rd_party" => $row[14],
-                "data_subject_volume" => $row[15],     
-                "asset_number" => $data1,     
+                "data_subject_volume" => $row[15],
+                "asset_number" => $data1,
+                "lat" => $latitude,
+                "lng" => $longitude,
             ]);
 
         }

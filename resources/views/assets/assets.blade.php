@@ -874,16 +874,16 @@ function initialize() {
                 var country_select = document.getElementById('country_select').value;
                 var city1 = document.getElementById('city1').value;
                 //alert("ok")
-                // $.ajax({
-                //     url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_select + "+" + city1 +
-                //         "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
-                //     method: "GET",
-                //     success: function(response) {
-                //         window.locationData = response;
-                //         var lat = locationData.results[0].geometry.location.lat;
-                //         var lng = locationData.results[0].geometry.location.lng;
-                //         document.getElementById("latituede").value = lat;
-                //         document.getElementById("langutitude").value = lng;
+                $.ajax({
+                    url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_select + "+" + city1 +
+                        "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
+                    method: "GET",
+                    success: function(response) {
+                        window.locationData = response;
+                        var lat = locationData.results[0].geometry.location.lat;
+                        var lng = locationData.results[0].geometry.location.lng;
+                        document.getElementById("latituede").value = lat;
+                        document.getElementById("langutitude").value = lng;
 
                         document.getElementById("add_asset_loc").removeAttribute("onsubmit");
 
@@ -934,8 +934,8 @@ function initialize() {
 
                         return (lng);
 
-                //     }
-                // })
+                    }
+                })
             }
         </script>
     @endif
@@ -976,16 +976,16 @@ function initialize() {
             var country_selectz = document.getElementById('country_selectz').value;
             var cityz = document.getElementById('citiz').value;
 
-            // $.ajax({
-            //     url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_selectz + "+" + cityz +
-            //         "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
-            //     method: "GET",
-            //     success: function(response) {
-            //         window.locationData = response;
-            //         var lat = locationData.results[0].geometry.location.lat;
-            //         var lng = locationData.results[0].geometry.location.lng;
-            //         document.getElementById("latituedez").value = lat;
-            //         document.getElementById("langutitudez").value = lng;
+            $.ajax({
+                url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + country_selectz + "+" + cityz +
+                    "&key=AIzaSyDaCml5EZAy3vVRySTNP7_GophMR8Niqmg",
+                method: "GET",
+                success: function(response) {
+                    window.locationData = response;
+                    var lat = locationData.results[0].geometry.location.lat;
+                    var lng = locationData.results[0].geometry.location.lng;
+                    document.getElementById("latituedez").value = lat;
+                    document.getElementById("langutitudez").value = lng;
 
                     document.getElementById("update_asset_locz").removeAttribute("onsubmit");
 
@@ -1030,8 +1030,8 @@ function initialize() {
                         }
                     });
 
-            //     }
-            // })
+                }
+            })
         }
     </script>
 
