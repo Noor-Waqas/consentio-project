@@ -280,6 +280,7 @@ class Reports extends Controller{
         ->join('group_questions', 'group_questions.section_id', 'group_section.id')
         ->select('group_questions.question_short', 'group_questions.question_short_fr')
         ->where('group_section.group_id', $group_id)
+        ->orderBy('group_questions.question_num', 'asc')
         ->get();
         // dd($questions);
 
@@ -293,6 +294,7 @@ class Reports extends Controller{
         
         foreach ($subforms as $subform) {
             $plans = DB::table('user_responses')
+                ->join('group_questions', 'group_questions.id', 'user_responses.question_id')
                 ->join('evaluation_rating', 'evaluation_rating.rate_level', 'user_responses.rating')
                 ->join('sub_forms', 'sub_forms.id', 'user_responses.sub_form_id')
                 ->leftjoin('assets', 'assets.id', 'sub_forms.asset_id')
@@ -314,7 +316,7 @@ class Reports extends Controller{
                 'data_classifications.classification_name_en', 
                 'impact.impact_name_en', 
                 'user_responses.question_response')
-                ->orderBy('user_responses.question_id', 'ASC');
+                ->orderBy('group_questions.question_num', 'asc');
 
             if (!empty($class)) {
                 $plans->whereIn('data_classifications.classification_name_en', $class);
