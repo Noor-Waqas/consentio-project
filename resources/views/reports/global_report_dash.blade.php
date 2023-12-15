@@ -345,6 +345,23 @@
     @endif
 @endforeach
 
+@if(session('locale')=='fr')
+    @php
+        $chartStatus = array_map(function ($item) {
+            if ($item[0] == "Analysis in Progress") {
+                $item[0] = "Analyse en cours";
+            } elseif ($item[0] == "Remediation in Progress") {
+                $item[0] = "Assainissement en cours";
+            } elseif ($item[0] == "Remediation Applied") {
+                $item[0] = "Remédiation appliquée";
+            } elseif ($item[0] == "Risk Acceptance") {
+                $item[0] = "Acceptation des risques";
+            }
+            return $item;
+        }, $chartStatus);
+    @endphp
+@endif
+
 
 <!-- @php
     echo json_encode($chartStatus);
@@ -378,6 +395,25 @@
         @endif
     @endif
 @endforeach
+
+@if(session('locale')=='fr')
+    @php
+        $chartData = array_map(function ($item) {
+            if ($item[0] == "Marginal") {
+                $item[0] = "Marginale";
+            } elseif ($item[0] == "Weak") {
+                $item[0] = "Faible";
+            } elseif ($item[0] == "Good") {
+                $item[0] = "Bonne";
+            } elseif ($item[0] == "Satisfactory") {
+                $item[0] = "Satisfaisant";
+            } elseif ($item[0] == "N/A") {
+                $item[0] = "N/A";
+            }
+            return $item;
+        }, $chartData);
+    @endphp
+@endif
 
 <!-- @php
     echo json_encode($chartData);
@@ -415,6 +451,25 @@
         @endphp
     @endif
 @endforeach
+
+@if(session('locale')=='fr')
+    @php
+        $impData = array_map(function ($item) {
+            if ($item[0] == "Marginal") {
+                $item[0] = "Marginale";
+            } elseif ($item[0] == "Weak") {
+                $item[0] = "Faible";
+            } elseif ($item[0] == "Good") {
+                $item[0] = "Bonne";
+            } elseif ($item[0] == "Satisfactory") {
+                $item[0] = "Satisfaisant";
+            } elseif ($item[0] == "N/A") {
+                $item[0] = "N/A";
+            }
+            return $item;
+        }, $impData);
+    @endphp
+@endif
 
 
 
@@ -593,7 +648,9 @@ $(document).ready(function() {
         var colors = [];
         var colorMap = {
             'Weak': '#ED2938',
-            'Marginal': '#FF8C01'
+            'Marginal': '#FF8C01',
+            'Faible': '#ED2938',
+            'Marginale': '#FF8C01'
         }
         for (var i = 0; i < data.getNumberOfRows(); i++) {
             colors.push(colorMap[data.getValue(i, 0)]);
@@ -637,7 +694,12 @@ $(document).ready(function() {
             'Satisfactory': '#DEEE91',
             'Weak': '#ED2938',
             'Marginal': '#FF8C01',
-            'Blank': '#808080'
+            'Blank': '#808080',
+            'Bonne': '#037428',
+            'Satisfaisant': '#DEEE91',
+            'Faible': '#ED2938',
+            'Marginale': '#FF8C01',
+            'Blanc': '#808080',
         }
         for (var i = 0; i < data.getNumberOfRows(); i++) {
             colors.push(colorMap[data.getValue(i, 0)]);
@@ -731,17 +793,54 @@ $(document).ready(function() {
                     // Iterate over the response and append data to the table
                     $.each(response, function(index, plan) {
                         // Create a new table row
+                        var irate;
+                        var prate;
+                        var status;
+                        @if(session('locale')=='fr')
+                            if (plan.irating == "Marginal") {
+                                irate = "Marginale";
+                            } else if (plan.irating == "Weak") {
+                                irate = "Faible";
+                            }
+
+                            if (plan.prating == "Marginal") {
+                                prate = "Marginale";
+                            } else if (plan.prating == "Weak") {
+                                prate = "Faible";
+                            } else if (plan.prating == "Good") {
+                                prate = "Bonne";
+                            } else if (plan.prating == "Satisfactory") {
+                                prate = "Satisfaisant";
+                            } else if (plan.prating == "N/A") {
+                                prate = "N/A";
+                            }
+
+                            if (plan.status == "Analysis in Progress") {
+                                status = "Analyse en cours";
+                            } else if (plan.status == "Remediation in Progress") {
+                                status = "Assainissement en cours";
+                            } else if (plan.status == "Remediation Applied") {
+                                status = "Remédiation appliquée";
+                            } else if (plan.status == "Risk Acceptance") {
+                                status = "Acceptation des risques";
+                            }
+                        @else
+                            irate=plan.irating;
+                            prate=plan.prating;
+                            status=plan.status;
+                        @endif
+
                         var newRow = $("<tr>");
                         // Append table cells with data
                         newRow.append("<td>" + (plan.asset_name ? plan.asset_name : plan.other_id) + "</td>");
                         newRow.append("<td>" + plan.group_name + "</td>");
                         newRow.append("<td>" + plan.question_short + "</td>");
-                        newRow.append("<td style='background:" + plan.bg_icolor +" !important; color:" + plan.t_icolor + " !important'>" + (plan.irating ? plan.irating : '') + "</td>");
-                        newRow.append("<td style='background:" + plan.bg_pcolor +" !important; color:" + plan.t_pcolor + " !important'>" + (plan.prating ? plan.prating : '') + "</td>");
+                        newRow.append("<td style='background:" + plan.bg_icolor +" !important; color:" + plan.t_icolor + " !important'>" + (irate ? irate : '') + "</td>");
+                        newRow.append("<td style='background:" + plan.bg_pcolor +" !important; color:" + plan.t_pcolor + " !important'>" + (prate ? prate : '') + "</td>");
                         newRow.append("<td>" + (plan.proposed_remediation ? plan.proposed_remediation : "<span style='margin-left:47%;'>--</span>") + "</td>");
                         newRow.append("<td>" + (plan.completed_actions ? plan.completed_actions : "<span style='margin-left:47%;'>--</span>") + "</td>");
                         newRow.append("<td>" + (plan.eta ? plan.eta : "<span style='margin-left:47%;'>--</span>") + "</td>");
-                        newRow.append("<td>" + (plan.status == "0" ? "<span style='margin-left:47%;'>--</span>" : plan.status) + "</td>");
+                        newRow.append("<td>" + (plan.status == "0" ? "<span style='margin-left:47%;'>--</span>" : status) + "</td>");
                         newRow.append("<td>" + plan.user_name + "</td>");
                         newRow.append("<td>" + (plan.business_unit ? plan.business_unit : "<span style='margin-left:47%;'>--</span>") + "</td>");
                         // Append the new row to the DataTable
@@ -763,8 +862,13 @@ $(document).ready(function() {
                     $.each(response, function(key, value) {
                         ratings[`${value.irating}`] += 1;
                     });
+                    @if(session('locale')=='fr')
+                    preRatting.push(['Marginale', ratings.Marginal]);
+                    preRatting.push(['Faible', ratings.Weak]);
+                    @else
                     preRatting.push(['Marginal', ratings.Marginal]);
                     preRatting.push(['Weak', ratings.Weak]);
+                    @endif
                     // console.log(preRatting);
 
                     // For Post Rating
@@ -784,11 +888,19 @@ $(document).ready(function() {
                         const KeyVa = value.prating ? value?.prating : 'Blank';
                         postratings[`${KeyVa}`] += 1;
                     });
+                    @if(session('locale')=='fr')
+                    postRatting.push(['Marginale', postratings.Marginal, 'color: #FF8C01']);
+                    postRatting.push(['Faible', postratings.Weak, 'color: #ED2938']);
+                    postRatting.push(['Bonne', postratings.Good, 'color: #037428']);
+                    postRatting.push(['Satisfaisant', postratings.Satisfactory, 'color: #DEEE91']);
+                    postRatting.push(['Blanc', postratings.Blank, 'color: #e3e6f0']);
+                    @else
                     postRatting.push(['Marginal', postratings.Marginal, 'color: #FF8C01']);
                     postRatting.push(['Weak', postratings.Weak, 'color: #ED2938']);
                     postRatting.push(['Good', postratings.Good, 'color: #037428']);
                     postRatting.push(['Satisfactory', postratings.Satisfactory, 'color: #DEEE91']);
                     postRatting.push(['Blank', postratings.Blank, 'color: #e3e6f0']);
+                    @endif
                     console.log(postRatting);
 
                     // For Remediation Status
@@ -810,13 +922,21 @@ $(document).ready(function() {
                         const keyValue = updateStatuswithoutSpace == "0" ? 'Blank' : updateStatuswithoutSpace;
                         remstatus[keyValue] += 1;
                     });
-
+                    @if(session('locale')=='fr')
+                    rstatus.push(['Assainissement en cours', remstatus.RemediationinProgress]);
+                    rstatus.push(['Remédiation appliquée', remstatus.RemediationApplied]);
+                    rstatus.push(['Acceptation des risques', remstatus.RiskAcceptance]);
+                    rstatus.push(['Analyse en cours', remstatus.AnalysisinProgress]);
+                    rstatus.push(['Autres', remstatus.Other]);
+                    rstatus.push(['Blanc', remstatus.Blank]);
+                    @else
                     rstatus.push(['Remediation in Progress', remstatus.RemediationinProgress]);
                     rstatus.push(['Remediation Applied', remstatus.RemediationApplied]);
                     rstatus.push(['Risk Acceptance', remstatus.RiskAcceptance]);
                     rstatus.push(['Analysis in Progress', remstatus.AnalysisinProgress]);
                     rstatus.push(['Other', remstatus.Other]);
                     rstatus.push(['Blank', remstatus.Blank]);
+                    @endif
                     // console.log(rstatus);
 
                     // Redraw the charts
