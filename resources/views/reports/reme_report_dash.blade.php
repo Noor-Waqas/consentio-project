@@ -146,7 +146,7 @@
     <div class="row align-items-end">
         <input type="hidden" class="group" value="{{ $group_id }}">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - {{__('Remediation Report')}}</b></h4>
+            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>@if(session('locale')=='fr') {{$group[0]->group_name_fr}} @else {{$group[0]->group_name}} @endif - {{__('Remediation Report')}}</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" style="max-height: 70px;max-width:280px;" alt="logo">

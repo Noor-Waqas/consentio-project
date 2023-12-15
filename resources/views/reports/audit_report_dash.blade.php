@@ -181,7 +181,7 @@
                 @foreach ($remediation_plans as $subform => $plans)
                 @if (count($plans) > 0)
                 @if (!in_array($plans[0]->classification_name_en, $existingUnits) && $plans[0]->classification_name_en!=null)
-                <input type="checkbox" id="checkbox-group" class="class-group change" value="{{$plans[0]->classification_name_en}}"><span style="font-size: 14px;"> {{$plans[0]->classification_name_en}}</span><br>
+                <input type="checkbox" id="checkbox-group" class="class-group change" value="{{$plans[0]->classification_name_en}}"><span style="font-size: 14px;">@if(session('locale')=='fr') {{$plans[0]->classification_name_fr}} @else {{$plans[0]->classification_name_en}} @endif</span><br>
                 @php
                 $existingUnits[] = $plans[0]->classification_name_en;
                 @endphp
@@ -200,7 +200,7 @@
                 @if (count($plans) > 0)
                 @if($plans[0]->impact_name_en)
                 @if (!in_array($plans[0]->impact_name_en, $existingUnits) && $plans[0]->impact_name_en!=null)
-                <input type="checkbox" id="checkbox-group" class="impact-group change" value="{{$plans[0]->impact_name_en}}"><span style="font-size: 14px;"> {{$counter}} - {{$plans[0]->impact_name_en}}</span><br>
+                <input type="checkbox" id="checkbox-group" class="impact-group change" value="{{$plans[0]->impact_name_en}}"><span style="font-size: 14px;"> {{$counter}} - @if(session('locale')=='fr') {{$plans[0]->impact_name_fr}} @else {{$plans[0]->impact_name_en}} @endif</span><br>
                 @php
                 $existingUnits[] = $plans[0]->impact_name_en;
                 $counter++;

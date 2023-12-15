@@ -225,7 +225,9 @@ class Reports extends Controller{
                   'assets.business_owner', 
                   'assets.business_unit', 
                   'data_classifications.classification_name_en', 
+                  'data_classifications.classification_name_fr', 
                   'impact.impact_name_en', 
+                  'impact.impact_name_fr', 
                   'user_responses.question_response'
                   )
                 ->orderBy('group_questions.question_num', 'asc')
@@ -314,7 +316,9 @@ class Reports extends Controller{
                 'assets.country', 
                 'assets.business_unit', 
                 'data_classifications.classification_name_en', 
+                'data_classifications.classification_name_fr', 
                 'impact.impact_name_en', 
+                'impact.impact_name_fr', 
                 'user_responses.question_response')
                 ->orderBy('group_questions.question_num', 'asc');
 
@@ -347,7 +351,7 @@ class Reports extends Controller{
 
         $group = DB::table('forms')
         ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
-        ->select('audit_questions_groups.group_name')
+        // ->select('audit_questions_groups.group_name')
         ->where('forms.group_id', $group_id)
         ->get();
         // dd($group);
