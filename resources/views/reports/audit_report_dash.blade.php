@@ -814,7 +814,22 @@ $(document).ready(function() {
                         newRow.append("<td>" + plan[0].tier + "</td>");
 
                         $.each(plan, function(key, plans) {
-                            newRow.append("<td style='background:" + plans.color + " !important; color:" + plans.text_color + " !important'>" + plans.rating + "</td>");
+                            @if(session('locale')=='fr')
+                                if (plans.rating == "Marginal") {
+                                    rate = "Marginale";
+                                } else if (plans.rating == "Weak") {
+                                    rate = "Faible";
+                                } else if (plans.rating == "Good") {
+                                    rate = "Bonne";
+                                } else if (plans.rating == "Satisfactory") {
+                                    rate = "Satisfaisant";
+                                } else if (plans.rating == "N/A") {
+                                    rate = "N/A";
+                                }
+                            @else
+                                rate=plans.rating;
+                            @endif
+                            newRow.append("<td style='background:" + plans.color + " !important; color:" + plans.text_color + " !important'>" + rate + "</td>");
                         });
 
 
