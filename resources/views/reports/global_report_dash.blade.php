@@ -186,7 +186,7 @@
                 
                     @if (!in_array($plans->group_name, $existingUnits) && $plans->group_name!=null)
                         <div class="place">
-                            <input type="checkbox" class="checkbox-group groups" value="{{$plans->group_name}}"><span style="font-size: 14px;"> {{$plans->group_name}}</span><br>
+                            <input type="checkbox" class="checkbox-group groups" value="{{$plans->group_name}}"><span style="font-size: 14px;">@if(session('locale')=='fr') {{$plans->group_name_fr}} @else {{$plans->group_name}} @endif</span><br>
                         </div>
                         @php
                             $existingUnits[] = $plans->group_name;
@@ -227,7 +227,7 @@
                                 {{$plan->other_id}}
                             @endif
                         </td>
-                        <td>{{$plan->group_name}}</td>
+                        <td>@if(session('locale')=='fr') {{$plan->group_name_fr}} @else {{$plan->group_name}} @endif</td>
                         <td>{{$plan->question_short}}</td>
                         @php
                             $check=DB::table('evaluation_rating')->where('rate_level', $plan->rating)->where('owner_id', $client_id)->first();
@@ -796,6 +796,7 @@ $(document).ready(function() {
                         var irate;
                         var prate;
                         var status;
+                        var group;
                         @if(session('locale')=='fr')
                             if (plan.irating == "Marginal") {
                                 irate = "Marginale";
@@ -824,16 +825,19 @@ $(document).ready(function() {
                             } else if (plan.status == "Risk Acceptance") {
                                 status = "Acceptation des risques";
                             }
+
+                            group=plan.group_name_fr;
                         @else
                             irate=plan.irating;
                             prate=plan.prating;
                             status=plan.status;
+                            group=plan.group_name;
                         @endif
 
                         var newRow = $("<tr>");
                         // Append table cells with data
                         newRow.append("<td>" + (plan.asset_name ? plan.asset_name : plan.other_id) + "</td>");
-                        newRow.append("<td>" + plan.group_name + "</td>");
+                        newRow.append("<td>" + group + "</td>");
                         newRow.append("<td>" + plan.question_short + "</td>");
                         newRow.append("<td style='background:" + plan.bg_icolor +" !important; color:" + plan.t_icolor + " !important'>" + (irate ? irate : '') + "</td>");
                         newRow.append("<td style='background:" + plan.bg_pcolor +" !important; color:" + plan.t_pcolor + " !important'>" + (prate ? prate : '') + "</td>");
