@@ -146,13 +146,13 @@
     <div class="row align-items-end">
         <input type="hidden" class="group" value="{{ $group_id }}">
         <div class="col-6">
-            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - Remediation Report</b></h4>
+            <h4 class="mt-3" style="color:black;"><b><span id="client" class="d-none">{{$company->name}} - </span>{{$group[0]->group_name}} - {{__('Remediation Report')}}</b></h4>
         </div>
         <div class="col d-flex justify-content-end">
             <img class="d-none mb-3" id="report-logo" src="{{ url('img/' . $company_logo) }}" style="max-height: 70px;max-width:280px;" alt="logo">
             <p class="d-none" id="date">Report Date: {{ now()->format('d-m-Y') }}</p>
-            <a class="report-change mr-1" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">Audit Report</button></a>
-            <button id="screenshotButton" class="buton mr-1">Download</button>
+            <a class="report-change mr-1" href="{{ url('/dash/asset/' . $group_id) }}"><button class="btn btn-secondary" style="border-radius:30px;font-weight: 500;font-size: 15px;">{{__('Audit Report')}}</button></a>
+            <button id="screenshotButton" class="buton mr-1">{{__('Download')}}</button>
             <div>
                 <input type="hidden" id="fav_id" name="fav_id" value="{{$group_id}}">
                 @php
@@ -202,16 +202,16 @@
     <div class="row mt-3 overflow-auto">
         <table id="datatable" class="table table-striped table-sm text-dark border" cellspacing="0" width="100%">
             <thead class="border">
-                    <th>Name</th>
-                    <th>Control Name</th>
-                    <th>Initial Rating</th>
-                    <th>POST Rating</th>
-                    <th>Proposed Remediation</th>
-                    <th>Completed Actions</th>
-                    <th>ETA</th>
-                    <th>Remediation status</th>
-                    <th>Person In Charge</th>
-                    <th>Business Unit</th>
+                    <th>{{__('Name')}}</th>
+                    <th>{{__('Control Name')}}</th>
+                    <th>{{__('Initial Rating')}}</th>
+                    <th>{{__('POST Rating')}}</th>
+                    <th>{{__('Proposed Remediation')}}</th>
+                    <th>{{__('Completed Actions')}}</th>
+                    <th>{{__('ETA')}}</th>
+                    <th>{{__('Remediation status')}}</th>
+                    <th>{{__('Person In Charge')}}</th>
+                    <th>{{__('Business Unit')}}</th>
                 </thead>
             <tbody>
                 @foreach($remediation_plans as $plan)
@@ -228,7 +228,7 @@
                             $check=DB::table('evaluation_rating')->where('rate_level', $plan->rating)->where('owner_id', $client_id)->first();
                         @endphp
                         <td style="background:{{$check->color}} !important;color:{{$check->text_color}} !important;">
-                            {{$check->rating}}
+                            {{__($check->rating)}}
                         </td>
                         <?php
                             $var = DB::table('evaluation_rating')->where('id', $plan->post_remediation_rating)->first();
@@ -242,11 +242,9 @@
                                 echo $var->text_color;
                             }
                             ?> !important;">
-                        <?php
-                            if ($var) {
-                                echo $var->rating;
-                            }
-                            ?>
+                            @if($var)
+                                {{__($var->rating)}}
+                            @endif
                         </td>
                         <td>
                             @if($plan->proposed_remediation)
@@ -273,7 +271,7 @@
                             @if($plan->status == "0")
                                 <span style="margin-left:47%;">--</span>
                             @else
-                                {{$plan->status}}
+                                {{__($plan->status)}}
                             @endif
                         </td>
                         <td>{{$plan->user_name}}</td>
@@ -340,6 +338,23 @@
     @endif
 @endforeach
 
+@if(session('locale')=='fr')
+    @php
+        $chartStatus = array_map(function ($item) {
+            if ($item[0] == "Analysis in Progress") {
+                $item[0] = "Analyse en cours";
+            } elseif ($item[0] == "Remediation in Progress") {
+                $item[0] = "Assainissement en cours";
+            } elseif ($item[0] == "Remediation Applied") {
+                $item[0] = "Remédiation appliquée";
+            } elseif ($item[0] == "Risk Acceptance") {
+                $item[0] = "Acceptation des risques";
+            }
+            return $item;
+        }, $chartStatus);
+    @endphp
+@endif
+
 
 <!-- @php
     echo json_encode($chartStatus);
@@ -373,6 +388,25 @@
         @endif
     @endif
 @endforeach
+
+@if(session('locale')=='fr')
+    @php
+        $chartData = array_map(function ($item) {
+            if ($item[0] == "Marginal") {
+                $item[0] = "Marginale";
+            } elseif ($item[0] == "Weak") {
+                $item[0] = "Faible";
+            } elseif ($item[0] == "Good") {
+                $item[0] = "Bonne";
+            } elseif ($item[0] == "Satisfactory") {
+                $item[0] = "Satisfaisant";
+            } elseif ($item[0] == "N/A") {
+                $item[0] = "N/A";
+            }
+            return $item;
+        }, $chartData);
+    @endphp
+@endif
 
 <!-- @php
     echo json_encode($chartData);
@@ -410,6 +444,25 @@
         @endphp
     @endif
 @endforeach
+
+@if(session('locale')=='fr')
+    @php
+        $impData = array_map(function ($item) {
+            if ($item[0] == "Marginal") {
+                $item[0] = "Marginale";
+            } elseif ($item[0] == "Weak") {
+                $item[0] = "Faible";
+            } elseif ($item[0] == "Good") {
+                $item[0] = "Bonne";
+            } elseif ($item[0] == "Satisfactory") {
+                $item[0] = "Satisfaisant";
+            } elseif ($item[0] == "N/A") {
+                $item[0] = "N/A";
+            }
+            return $item;
+        }, $impData);
+    @endphp
+@endif
 
 
 
@@ -568,7 +621,7 @@ $(document).ready(function() {
         var data = google.visualization.arrayToDataTable(dynamicData);
 
         var options = {
-          title: 'Remediation Status',
+          title: '{{__('Remediation status')}}',
           titleTextStyle: { fontSize: 14 },
           pieHole: 0.4,
           backgroundColor: 'transparent',
@@ -599,14 +652,16 @@ $(document).ready(function() {
         var colors = [];
         var colorMap = {
             'Weak': '#ED2938',
-            'Marginal': '#FF8C01'
+            'Marginal': '#FF8C01',
+            'Faible': '#ED2938',
+            'Marginale': '#FF8C01'
         }
         for (var i = 0; i < data.getNumberOfRows(); i++) {
             colors.push(colorMap[data.getValue(i, 0)]);
         }
 
         var options = {
-          title: 'Initial Rating',
+          title: '{{__('Initial Rating')}}',
           titleTextStyle: { fontSize: 14 },
         //   pieHole: 0.5,
         //   is3D: true,
@@ -642,14 +697,19 @@ $(document).ready(function() {
             'Satisfactory': '#DEEE91',
             'Weak': '#ED2938',
             'Marginal': '#FF8C01',
-            'Blank': '#808080'
+            'Blank': '#808080',
+            'Bonne': '#037428',
+            'Satisfaisant': '#DEEE91',
+            'Faible': '#ED2938',
+            'Marginale': '#FF8C01',
+            'Blanc': '#808080',
         }
         for (var i = 0; i < data.getNumberOfRows(); i++) {
             colors.push(colorMap[data.getValue(i, 0)]);
         }
 
         var options = {
-          title: 'Post Remediation Rating',
+          title: '{{__('Post Remediation Rating')}}',
           titleTextStyle: { fontSize: 14 },
         //   pieHole: 0.5,
         //   is3D: true,
@@ -824,16 +884,53 @@ $(document).ready(function() {
                 // Iterate over the response and append data to the table
                 $.each(response, function(index, plan) {
                     // Create a new table row
+                    var irate;
+                    var prate;
+                    var status;
+                    @if(session('locale')=='fr')
+                        if (plan.irating == "Marginal") {
+                            irate = "Marginale";
+                        } else if (plan.irating == "Weak") {
+                            irate = "Faible";
+                        }
+
+                        if (plan.prating == "Marginal") {
+                            prate = "Marginale";
+                        } else if (plan.prating == "Weak") {
+                            prate = "Faible";
+                        } else if (plan.prating == "Good") {
+                            prate = "Bonne";
+                        } else if (plan.prating == "Satisfactory") {
+                            prate = "Satisfaisant";
+                        } else if (plan.prating == "N/A") {
+                            prate = "N/A";
+                        }
+
+                        if (plan.status == "Analysis in Progress") {
+                            status = "Analyse en cours";
+                        } else if (plan.status == "Remediation in Progress") {
+                            status = "Assainissement en cours";
+                        } else if (plan.status == "Remediation Applied") {
+                            status = "Remédiation appliquée";
+                        } else if (plan.status == "Risk Acceptance") {
+                            status = "Acceptation des risques";
+                        }
+                    @else
+                        irate=plan.irating;
+                        prate=plan.prating;
+                        status=plan.status;
+                    @endif
+
                     var newRow = $("<tr>");
                     // Append table cells with data
                     newRow.append("<td>" + (plan.asset_name ? plan.asset_name : plan.other_id) + "</td>");
                     newRow.append("<td>" + plan.question_short + "</td>");
-                    newRow.append("<td style='background:" + plan.bg_icolor +" !important; color:" + plan.t_icolor + " !important'>" + (plan.irating ? plan.irating : '') + "</td>");
-                    newRow.append("<td style='background:" + plan.bg_pcolor +" !important; color:" + plan.t_pcolor + " !important'>" + (plan.prating ? plan.prating : '') + "</td>");
+                    newRow.append("<td style='background:" + plan.bg_icolor +" !important; color:" + plan.t_icolor + " !important'>" + (irate ? irate : '') + "</td>");
+                    newRow.append("<td style='background:" + plan.bg_pcolor +" !important; color:" + plan.t_pcolor + " !important'>" + (prate ? prate : '') + "</td>");
                     newRow.append("<td>" + (plan.proposed_remediation ? plan.proposed_remediation : "<span style='margin-left:47%;'>--</span>") + "</td>");
                     newRow.append("<td>" + (plan.completed_actions ? plan.completed_actions : "<span style='margin-left:47%;'>--</span>") + "</td>");
                     newRow.append("<td>" + (plan.eta ? plan.eta : "<span style='margin-left:47%;'>--</span>") + "</td>");
-                    newRow.append("<td>" + (plan.status == "0" ? "<span style='margin-left:47%;'>--</span>" : plan.status) + "</td>");
+                    newRow.append("<td>" + (plan.status == "0" ? "<span style='margin-left:47%;'>--</span>" : status) + "</td>");
                     newRow.append("<td>" + plan.user_name + "</td>");
                     newRow.append("<td>" + (plan.business_unit ? plan.business_unit : "<span style='margin-left:47%;'>--</span>") + "</td>");
                     // Append the new row to the DataTable
@@ -854,8 +951,13 @@ $(document).ready(function() {
                 $.each(response, function(key, value) {
                     ratings[`${value.irating}`] += 1 
                 });
+                @if(session('locale')=='fr')
+                preRatting.push(['Marginale', ratings.Marginal]);
+                preRatting.push(['Faible', ratings.Weak]);
+                @else
                 preRatting.push(['Marginal', ratings.Marginal]);
                 preRatting.push(['Weak', ratings.Weak]);
+                @endif
                 // console.log(preRatting);
 
                 // For Post Rating
@@ -875,11 +977,20 @@ $(document).ready(function() {
                     const KeyVa = value.prating? value?.prating : 'Blank'
                     postratings[`${KeyVa}`] += 1 
                 });
+                
+                @if(session('locale')=='fr')
+                postRatting.push(['Marginale', postratings.Marginal]);
+                postRatting.push(['Faible', postratings.Weak]);
+                postRatting.push(['Bonne', postratings.Good]);
+                postRatting.push(['Satisfaisant', postratings.Satisfactory]);
+                postRatting.push(['Blanc', postratings.Blank,]);
+                @else
                 postRatting.push(['Marginal', postratings.Marginal]);
                 postRatting.push(['Weak', postratings.Weak]);
                 postRatting.push(['Good', postratings.Good]);
                 postRatting.push(['Satisfactory', postratings.Satisfactory]);
                 postRatting.push(['Blank', postratings.Blank]);
+                @endif
                 // console.log(postRatting);
 
                 // For Remediation Status
@@ -902,12 +1013,21 @@ $(document).ready(function() {
                 remstatus[keyValue] += 1;
                 });
 
+                @if(session('locale')=='fr')
+                rstatus.push(['Assainissement en cours', remstatus.RemediationinProgress]);
+                rstatus.push(['Remédiation appliquée', remstatus.RemediationApplied]);
+                rstatus.push(['Acceptation des risques', remstatus.RiskAcceptance]);
+                rstatus.push(['Analyse en cours', remstatus.AnalysisinProgress]);
+                rstatus.push(['Autres', remstatus.Other]);
+                rstatus.push(['Blanc', remstatus.Blank]);
+                @else
                 rstatus.push(['Remediation in Progress', remstatus.RemediationinProgress]);
                 rstatus.push(['Remediation Applied', remstatus.RemediationApplied]);
                 rstatus.push(['Risk Acceptance', remstatus.RiskAcceptance]);
                 rstatus.push(['Analysis in Progress', remstatus.AnalysisinProgress]);
                 rstatus.push(['Other', remstatus.Other]);
                 rstatus.push(['Blank', remstatus.Blank]);
+                @endif
                 // console.log(rstatus);
 
                 

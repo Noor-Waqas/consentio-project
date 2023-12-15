@@ -699,7 +699,7 @@ $(document).ready(function() {
             'Satisfaisant': '#DEEE91',
             'Faible': '#ED2938',
             'Marginale': '#FF8C01',
-            'Blanc': '#808080',
+            'Blanc': '#808080'
         }
         for (var i = 0; i < data.getNumberOfRows(); i++) {
             colors.push(colorMap[data.getValue(i, 0)]);
