@@ -15,19 +15,19 @@
           <thead class="back_blue">
             <tr>
               
-              <th style="vertical-align: middle;" scope="col" col-span="2" >Assessment</th>
-              <th style="vertical-align: middle;" scope="col" col-span="2" >Rating</th>
-              <th style="vertical-align: middle;" scope="col" col-span="2" >Background Color</th>
-              <th style="vertical-align: middle;" scope="col" col-span="2" >Text Color</th>
-              <th style="vertical-align: middle;" scope="col" col-span="2" >Action</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >{{__('Assessment')}}</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >{{__('Rating')}}</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >{{__('Background Color')}}</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >{{__('Text Color')}}</th>
+              <th style="vertical-align: middle;" scope="col" col-span="2" >{{__('Action')}}</th>
 
             </tr>
           </thead>
           <tbody>
             	@foreach($data as $val)
             	<tr>
-            		<td>{{$val->assessment}}</td>
-            		<td>{{$val->rating}}</td>
+            		<td>{{__($val->assessment)}}</td>
+            		<td>{{__($val->rating)}}</td>
             		<td>{{$val->color}}</td>
             		<td>{{$val->text_color}}</td>
                 <td><a href="{{url('edit-evalution/'.$val->id)}}" class=""><img src="{{url('assets-new/img/action-edit.png')}}" alt=""></a></td>

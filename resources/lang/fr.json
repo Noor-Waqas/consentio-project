@@ -1017,6 +1017,11 @@
     "Risk Acceptance"                :"Acceptation des risques",   
     "Select Assessment"              :"Sélectionner l'évaluation",   
 
+    "Assessment":"L'évaluation",
+    "Rating":"Evaluation",
+    "Background Color":"Couleur de fond",
+    "Text Color":"Couleur du texte",
+
     "Show Remediation plan" : "Show Remediation",
     "Manage Question Groups": "Manage Question Groups",
     "Question Groups List"  : "Question Groups List",
