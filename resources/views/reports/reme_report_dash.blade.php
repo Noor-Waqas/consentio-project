@@ -349,6 +349,8 @@
                 $item[0] = "Remédiation appliquée";
             } elseif ($item[0] == "Risk Acceptance") {
                 $item[0] = "Acceptation des risques";
+            } elseif ($item[0] == "Blank") {
+                $item[0] = "Blanc";
             }
             return $item;
         }, $chartStatus);
@@ -402,6 +404,8 @@
                 $item[0] = "Satisfaisant";
             } elseif ($item[0] == "N/A") {
                 $item[0] = "N/A";
+            } elseif ($item[0] == "Blank") {
+                $item[0] = "Blanc";
             }
             return $item;
         }, $chartData);
@@ -458,6 +462,8 @@
                 $item[0] = "Satisfaisant";
             } elseif ($item[0] == "N/A") {
                 $item[0] = "N/A";
+            } elseif ($item[0] == "Blank") {
+                $item[0] = "Blanc";
             }
             return $item;
         }, $impData);
