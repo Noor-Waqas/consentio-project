@@ -23,14 +23,14 @@
 		}
 		.icons .gj-icon {
 			position: absolute !important;
-			top: 6px !important;
+			top: 13px !important;
 			font-size: 15px;
 			width: 50%;
 			right: 35px !important;
 		}
 		.icons .gj-icon.clock{
 			position: absolute !important;
-    top: -27px !important;
+    top: -35px !important;
     font-size: 15px;
     width: 50%;
     right: 12px !important;

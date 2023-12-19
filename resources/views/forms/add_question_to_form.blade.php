@@ -1795,7 +1795,7 @@
                         '  id="comment-"></textarea>' +
                         '<br/>' +
                         '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
-                        '<input type="checkbox" onclick=$(this).val($(this).prop("checked")) value="false"  name="add_not_sure_box"> &nbsp; Add (Not Sure) Option &nbsp;&nbsp;&nbsp;' +
+                        // '<input type="checkbox" onclick=$(this).val($(this).prop("checked")) value="false"  name="add_not_sure_box"> &nbsp; Add (Not Sure) Option &nbsp;&nbsp;&nbsp;' +
                         '<div class="options"></div>';
                     $('#' + render_div).html(html);
                     $('#' + render_div).show();
