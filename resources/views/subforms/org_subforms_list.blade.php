@@ -60,14 +60,14 @@
                     $form_link = $form_info->form_link_id;
                     $url = $forms.'/CompanyUserForm/'.$form_link;
                     $int_user = __('Organization User');
-                    $user_type = '<span style="color:#5bc858">'.$int_user.'</span>';
+                    $user_type = '<span style="margin-right: 0px !important;color:#5bc858">'.$int_user.'</span>';
                     $lu_utype  = 'in';
                   }
                   if(isset($form_info->external)){
                     $form_link = $form_info->form_link;
                     $url = $forms.'/ExtUserForm/'.$form_link;
                     $ex_user = __('External User');
-                    $user_type = '<span style="color:#f88160">'.$ex_user.'</span>';
+                    $user_type = '<span style="margin-right: 0px !important;color:#f88160">'.$ex_user.'</span>';
                     $lu_utype  = 'ex';
                       
                   }
@@ -112,16 +112,16 @@
                     $total_days  = round($datediff / (60 * 60 * 24));
                   ?>      
                   <td>{{ $total_days }}</td>
-                  <td><span class="{{$expired}}">{{$rem_days }}</span></td>
+                  <td><span style="margin-right: 0px !important;" class="{{$expired}}">{{$rem_days }}</span></td>
                   <td>{{ date('Y-m-d', strtotime($form_info->uf_expiry_time)) }}</td> 
                   <td>
-                    <span style="color:#<?php echo ($form_info->is_locked)?('7bca94'):('f26924'); ?>">{{($form_info->is_locked)? __('Submitted'): __('Not Submitted') }}</span>
+                    <span style="margin-right: 0px !important;color:#<?php echo ($form_info->is_locked)?('7bca94'):('f26924'); ?>">{{($form_info->is_locked)? __('Submitted'): __('Not Submitted') }}</span>
                   </td>
                   <td>
                     <label class="switch switch-green">
                       <input type="checkbox"   class="switch-input"  onclick="lock_unlock('the_toggle_button-{{$key}}')"  @if(!$form_info->is_locked) checked="" @endif>
-                      <span class="switch-label" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" data-on="{{ __('on') }}" data-off="{{ __('Off') }}"></span>
-                      <span class="switch-handle" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}"></span>
+                      <span style="margin-right: 0px !important;" class="switch-label" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" data-on="{{ __('on') }}" data-off="{{ __('Off') }}"></span>
+                      <span style="margin-right: 0px !important;" class="switch-handle" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}"></span>
                     </label>
                   </td>
                   <div class="d-none"> <input style="display: none !important;" id="the_toggle_button-{{$key}}" type="checkbox"  title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" class="unlock-form " value="{{!$form_info->is_locked}}" u-type="{{$lu_utype}}" link="{{$form_link}}"></div>
