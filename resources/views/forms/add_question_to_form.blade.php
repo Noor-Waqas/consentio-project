@@ -1031,10 +1031,18 @@
         function check_is_check(c, modalId) {
             if (c.checked) {
                 $(`#${modalId} .fr_field`).attr('readonly', true);
+                // $(`#${modalId} .fr_field`).addClass('d-none');
+                // $(`#${modalId} .fr_group`).addClass('d-none');
+                // $(`#${modalId} .fr-label`).addClass('d-none');
+                // $(`#${modalId} .fr-msg`).addClass('d-none');
                 $(`#${modalId} .not_same_for_fr`).hide();
                 $(`#${modalId} .same_for_fr`).show();
             } else {
                 $(`#${modalId} .fr_field`).attr('readonly', false);
+                // $(`#${modalId} .fr_field`).removeClass('d-none');
+                // $(`#${modalId} .fr_group`).removeClass('d-none');
+                // $(`#${modalId} .fr-label`).removeClass('d-none');
+                // $(`#${modalId} .fr-msg`).removeClass('d-none');
                 $(`#${modalId} .not_same_for_fr`).show();
                 $(`#${modalId} .same_for_fr`).hide();
             }
@@ -1743,14 +1751,14 @@
                         '_question_options" class="col-form-label">Add (,) Separated English options <strong style="color:  red">*</strong></label>' +
                         '<textarea onkeyup="check_is_type_sc_for_datepicker(this.value,this),$(\'#options-\').val($(this).val())" id="optionsen-" type="text"  class="form-control" name="question_options"></textarea>' +
                         '<label for="' + type +
-                        '_question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
+                        '_question_options_fr" class="col-form-label fr-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
                         '<textarea onkeyup="check_is_type_sc_for_datepicker(this.value,this),document.getElementById(\'optionsen-\').onkeyup = null" type="text"  class="form-control fr_field" id="options-" name="question_options_fr" ' +
                         property + ' ></textarea>' +
                         '<label for="' + type +
                         '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
                         '<textarea type="text"  class="form-control" name="question_coment" id="commenten-" onkeyup="$(\'#comment-\').val($(this).val())" ></textarea>' +
                         '<label for="' + type +
-                        '_question_options_fr" class="col-form-label">Add Question Comment French (Optional)</label>' +
+                        '_question_options_fr" class="col-form-label fr-label">Add Question Comment French (Optional)</label>' +
                         '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +'id="comment-" ></textarea>'+
                         '<div class="pt-2">'+
                             '<input type="checkbox" onclick="add_attachment_box(event)" value="false"  name="add_attachments_box"> Allow Attachments &nbsp;&nbsp;'+
@@ -1768,14 +1776,14 @@
                         '_question_options" class="col-form-label">Add (,) Separated English options <strong style="color:  red">*</strong></label>' +
                         '<textarea onkeyup="check_is_date_picker_is_single(this.value,this),$(\'#options-\').val($(this).val())" id="optionsen-" type="text"  class="form-control" name="question_options" ></textarea>' +
                         '<label for="' + type +
-                        '_question_options_fr" class="col-form-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
+                        '_question_options_fr" class="col-form-label fr-label">Add (,) Separated French options <strong style="color:  red">*</strong></label>' +
                         '<textarea onkeyup="check_is_date_picker_is_single(this.value,this),document.getElementById(\'optionsen-\').onkeyup = null" type="text"  class="form-control fr_field" id="options-" name="question_options_fr" ' +
                         property + ' ></textarea>' +
                         '<label for="' + type +
                         '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
                         '<textarea type="text"  class="form-control" name="question_coment" id="commenten-" onkeyup="$(\'#comment-\').val($(this).val())" ></textarea>' +
                         '<label for="' + type +
-                        '_question_options_fr" class="col-form-label">Add Question Comment French (Optional)</label>' +
+                        '_question_options_fr" class="col-form-label fr-label">Add Question Comment French (Optional)</label>' +
                         '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>'+
                         '<div class="pt-2">'+
@@ -1792,7 +1800,7 @@
                         '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
                         '<textarea type="text" onkeyup="$(\'#comment-\').val($(this).val())" id="commenten-" class="form-control" name="question_coment"></textarea>' +
                         '<label for="' + type +
-                        '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
+                        '_question_options" class="col-form-label fr-label">Add French Question Comment (Optional)</label>' +
                         '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         '  id="comment-"></textarea>' +
                         '<br/>' +
@@ -1808,7 +1816,7 @@
                         '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
                         '<textarea type="text"  class="form-control" name="question_coment" id="commenten-" onkeyup="$(\'#comment-\').val($(this).val())"  ></textarea>' +
                         '<label for="' + type +
-                        '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
+                        '_question_options" class="col-form-label fr-label">Add French Question Comment (Optional)</label>' +
                         '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>' +
                         '<div class="col-md-6">' +
@@ -1930,7 +1938,7 @@
                         '_question_options" class="col-form-label">Add English Question Comment (Optional)</label>' +
                         '<textarea type="text" id="commenten-" class="form-control" name="question_coment" onkeyup="$(\'#comment-\').val($(this).val())"  ></textarea>' +
                         '<label for="' + type +
-                        '_question_options" class="col-form-label">Add French Question Comment (Optional)</label>' +
+                        '_question_options" class="col-form-label fr-label">Add French Question Comment (Optional)</label>' +
                         '<textarea type="text" onkeyup="document.getElementById(\'commenten-\').onkeyup = null" class="form-control fr_field" name="question_coment_fr" ' + property +
                         ' id="comment-"></textarea>' +
                         '<label for="' + type + '_question_options" class="col-form-label">Dynamic Items</label>' +
