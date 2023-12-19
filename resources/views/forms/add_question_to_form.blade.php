@@ -882,6 +882,17 @@
                             <a onclick="render_questions(this.id,'qmodel-type')" id="dc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Dynamic Controlled Items</a>
                         </div>
 
+                        <br>
+
+                        <div class="form-check">
+                            <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('qmodel-same'), 'addQuestionModel')" id="qmodel-same" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked"> English Only </label>
+                            <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
+                            <div class="same_for_fr" style="color: green; display: none;">
+                                All french data will be saved same as english
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="question_title" class="col-form-label">Add Question Title English <strong style="color: red">*</strong></label>
                             <input type="text" name="question_title" class="form-control" id="qmodel_main_q_en" onkeyup="$('#qmodel_main_q_fr').val($(this).val())">
@@ -896,15 +907,6 @@
                             <label for="question_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>
                             <input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="q_simple_model_main_fr" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup = null;">
                             <span style="color:red;">Maximum 20 Characters</span>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('qmodel-same'), 'addQuestionModel')" id="qmodel-same" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked"> Only For English </label>
-                            <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
-                            <div class="same_for_fr" style="color: green; display: none;">
-                                All french data will be saved same as english
-                            </div>
                         </div>
 
                         <div class="form-group" id="qmodel-type" style="display:
@@ -949,6 +951,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <div class="form-check">
+                                <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('special_question-same'), 'specialQuestionModel')"  id="special_question-same" type="checkbox" value="" id="flexCheckChecked">
+                                <label class="form-check-label" for="flexCheckChecked"> English Only </label>
+                                <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
+                                <div class="same_for_fr" style="color:green; display: none;">All french data will be saved same as english</div>
+                            </div>
                             <div class="form-group">
                                 <label for="question_title" class="col-form-label">Add Main Question Title English<strong style="color:red;">*</strong></label>
                                 <input type="text" name="question_title" class="form-control" id="data_inv_main_en" onkeyup="$('#data_inv_main').val($(this).val())">
@@ -962,12 +970,6 @@
                                 <label for="question_short_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>
                                 <input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="qmodel__short_fr" onkeyup="document.getElementById('qmodel__short_en').onkeyup = null;">
                                 <span style="color:red;">Maximum 20 Characters</span>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('special_question-same'), 'specialQuestionModel')"  id="special_question-same" type="checkbox" value="" id="flexCheckChecked">
-                                <label class="form-check-label" for="flexCheckChecked"> Only For English</label>
-                                <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
-                                <div class="same_for_fr" style="color:green; display: none;">All french data will be saved same as english</div>
                             </div>
                             <hr>
                             <div class="form-group" id="special_question-type"style="display:none;">
