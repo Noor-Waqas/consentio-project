@@ -480,14 +480,14 @@
                 
                 @if (in_array('Global Data Inventory', $data))
                 <li class="{{ Request::is('reports/global/inventory') ? 'active' : '' }}">
-                    <a href="{{ route('summary_reports_all') }}">
+                    <a @if(session('locale')=='fr') style="line-height: 30px !important;" @endif href="{{ route('summary_reports_all') }}">
                     <span>{{ __('Global Data Inventory') }}</span>
                     </a>
                 </li>
                 @endif
                 @if (in_array('Detailed Data Inventory', $data))
                 <li class="{{ Request::is('reports/detailed/inventory') ? 'active' : '' }}">
-                    <a href="{{ route('detail_data_inventory_report') }}">
+                    <a @if(session('locale')=='fr') style="line-height: 30px !important;" @endif href="{{ route('detail_data_inventory_report') }}">
                     <span>{{ __('Detailed Data Inventory') }}</span>
                     </a>
                 </li>
@@ -541,7 +541,7 @@
             <ul id="settings-nav" class="nav-content collapse {{ strpos(url()->current(), 'FormSettings') !== false ? 'show' : '' }} {{ Request::is('evaluation_rate') ? 'show' : '' }} {{ Request::is('assets_data_elements') ? 'show' : '' }} {{ Request::is('front/data-classification') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
             @if (in_array('Sub Forms Expiry Settings', $data))
             <li class="{{ Request::is('FormSettings/SubFormsExpirySettings') ? 'active' : '' }}">
-                <a href="{{ url('FormSettings/SubFormsExpirySettings') }}">
+                <a @if(session('locale')=='fr') style="line-height: 30px !important;" @endif href="{{ url('FormSettings/SubFormsExpirySettings') }}">
                 <span>{{ __('Sub Forms Expiry') }}</span>
                 </a>
             </li>
