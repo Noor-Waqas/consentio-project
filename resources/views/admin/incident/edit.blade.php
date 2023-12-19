@@ -30,19 +30,19 @@
 		}
 		.icons .gj-icon.clock{
 			position: absolute !important;
-    top: -35px !important;
-    font-size: 15px;
-    width: 50%;
-    right: 12px !important;
-    display: flex;
-    justify-content: flex-end;
+			top: -35px !important;
+			font-size: 15px;
+			width: 50%;
+			right: 12px !important;
+			display: flex;
+			justify-content: flex-end;
 		}
 		.gj-icon.clock:before {
 			font-size: 20px !important;
 		}
 		.buttons {
-			    display: flex;
-    justify-content: flex-end;
+			display: flex;
+    		justify-content: flex-end;
 		}
 		.Cancel {
 		border: none;
@@ -72,8 +72,8 @@
 	    border-color: #adadad;
 		}
 		.dropdown-toggle {
-			    background: white;
-    border: 2px solid #ced4da;
+		    background: white;
+    		border: 2px solid #ced4da;
 		}
 		.datepicker.dropdown-menu{
 			margin-top: 53px;
@@ -144,8 +144,8 @@
 							{{ __('EDIT INCIDENT') }}
 							@endsection
 							<div class="form-group">
-								<label for="sel1">{{ __('Incident type') }}</label>
-								<select name="incident_type" class="form-control selectpicker show-tick">
+								<label for="sel1">{{ __('Incident type') }}<span style="color:red;">*</span></label>
+								<select required name="incident_type" class="form-control selectpicker show-tick">
 									<option>{{ __('Select Incident Type') }}</option>
 									@foreach($incident_type as $incident)
 									<option <?php if($data->incident_type == $incident->id) echo "selected"; ?> value="{{$incident->id}}">{{$incident->name}}</option>
@@ -171,39 +171,41 @@
 							@endif
 							
 							<div class="form-group">
-								<label for="usr">{{ __('Incident Name') }}</label>
+								<label for="usr">{{ __('Incident Name') }}<span style="color:red;">*</span></label>
 								<input type="text" name="name" value="{{$data->name}}" class="form-control" placeholder="{{ __('Incident Name') }}" required>
 								<input type="hidden" name="id" value="{{$data->id}}">
 								
 							</div>
 							<div class="form-group">
-								<label for="usr">{{ __('Assignee') }}</label>
+								<label for="usr">{{ __('Assignee') }}<span style="color:red;">*</span></label>
 								<input type="text" name="assignee" value="{{$data->assignee}}" class="form-control" placeholder="{{ __('Select an Assignee') }}" required>
 							</div>
 							<div class="form-group">
 								<label for="comment">{{ __('Root Cause') }}</label>
-								<textarea name="root_cause" class="form-control" rows="5" placeholder="{{ __('Root Cause') }}" required>{{$data->root_cause}}</textarea>
+								<textarea name="root_cause" class="form-control" rows="5" placeholder="{{ __('Root Cause') }}">{{$data->root_cause}}</textarea>
 							</div>
 							<div class="form-group">
 								<label for="email">{{ __('Date Occurred') }}</label>
-								<div class="icons"><input type="text" value="{{date('m/d/Y', strtotime($data->date_occurred))}}" name="date_occurred" class="form-control datePickera" style="width: 50%;" required></div>
 								<div class="icons">
-									<input type="text" name="time_occured" value="{{$data->time_occured}}" class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -50px;" required></div>
+									<input type="text" value="{{date('m/d/Y', strtotime($data->date_occurred))}}" name="date_occurred" class="form-control datePickera" style="width: 50%;">
+								</div>
+								<div class="icons">
+									<input type="text" name="time_occured" value="{{$data->time_occured}}" class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -50px;"></div>
 								</div>
 								<div class="form-group">
-									<label for="email">{{ __('Date Discovered') }}</label>
+									<label for="email">{{ __('Date Discovered') }}<span style="color:red;">*</span></label>
 									<div class="icons"><input type="text" value="{{date('m/d/Y', strtotime($data->date_discovered))}}" name="date_discovered" class="form-control datePickerb" style="width: 50%;" required></div>
 									<div class="icons">
-										<input type="text" id="timepickerb" value="{{$data->time_discovered}}"  name="time_discovered" class="form-control" style="width: 48%;float: right;margin-top: -50px;" required></div>
+										<input type="text" id="timepickerb" value="{{$data->time_discovered}}"  name="time_discovered" class="form-control" style="width: 48%;float: right;margin-top: -50px;"></div>
 									</div>
 									<div class="form-group">
 										<label for="email">{{ __('Deadline Date') }}</label>
-										<div class="icons"><input name="deadline_date" value="{{date('m/d/Y', strtotime($data->deadline_date))}}" type="text" class="form-control datePickerc" style="width: 50%;" required></div>
+										<div class="icons"><input name="deadline_date" value="{{date('m/d/Y', strtotime($data->deadline_date))}}" type="text" class="form-control datePickerc" style="width: 50%;"></div>
 										<div class="icons">
-											<input type="text" value="{{$data->time_deadline}}" name="time_deadline" id="timepickerc" class="form-control" style="width: 48%;float: right;margin-top: -50px;" required></div>
+											<input type="text" value="{{$data->time_deadline}}" name="time_deadline" id="timepickerc" class="form-control" style="width: 48%;float: right;margin-top: -50px;"></div>
 										</div>
 										<div class="form-group">
-											<label for="comment">{{ __('Problem Description') }}</label>
+											<label for="comment">{{ __('Problem Description') }}<span style="color:red;">*</span></label>
 											<textarea name="description" class="form-control" rows="5" placeholder="{{ __('Problem Description') }}" required>{{$data->description}}</textarea>
 										</div>
 										<div class="form-group">
@@ -211,7 +213,7 @@
 											<textarea name="resolution" class="form-control" rows="5" placeholder="{{ __('Resolution') }}" required>{{$data->resolution}}</textarea>
 										</div>   
 										<div class="form-group">
-											<label for="sel1">{{ __('Status') }}</label>
+											<label for="sel1">{{ __('Status') }}<span style="color:red;">*</span></label>
 											<select required name="incident_status" class="form-control selectpicker show-tick">
 												<option value="" @if($data->incident_status == "") selected @endif>{{ __('Select Status') }}</option>
 												<option value="Reported" @if($data->incident_status == "Reported") selected @endif>{{ __('Reported') }}</option>
@@ -221,7 +223,7 @@
 											</select>
 										</div>
 										<div class="form-group">
-											<label for="sel1">{{ __('Severity') }}</label>
+											<label for="sel1">{{ __('Severity') }}<span style="color:red;">*</span></label>
 											<select required name="incident_severity" class="form-control selectpicker show-tick">
 												<option value="" @if($data->incident_severity == "") selected @endif>{{ __('Select Severity') }}</option>
 												<option value="Unknown" @if($data->incident_severity == "Unknown") selected @endif>{{ __('Unknown') }}</option>

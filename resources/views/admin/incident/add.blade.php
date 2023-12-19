@@ -147,7 +147,7 @@
 						{{ csrf_field() }}
 						
 						<div class="form-group">
-							<label for="sel1">{{ __('Incident type') }}</label>
+							<label for="sel1">{{ __('Incident type') }}<span style="color:red;">*</span></label>
 							<select required name="incident_type" class="form-control selectpicker show-tick">
 								<option value="">{{ __('Select Incident Type') }}</option>
 								@foreach($incident_type as $incident)
@@ -174,45 +174,51 @@
 						@endif
 						
 						<div class="form-group">
-							<label for="usr">{{ __('Incident Name') }}</label>
+							<label for="usr">{{ __('Incident Name') }}<span style="color:red;">*</span></label>
 							<input type="text" value="{{ old('name')}}" name="name" maxlength="50" class="form-control" placeholder="{{ __('Incident Name') }}" required>
 						</div>
 						<div class="form-group">
-							<label for="usr">{{ __('Assignee') }}</label>
+							<label for="usr">{{ __('Assignee') }}<span style="color:red;">*</span></label>
 							<input type="text" value="{{ old('assignee')}}" name="assignee" maxlength="100" class="form-control" placeholder="{{ __('Select an Assignee') }}" required>
 						</div>
 						<div class="form-group">
 							<label for="comment">{{ __('Root Cause') }}</label>
-							<textarea name="root_cause" class="form-control" rows="5" placeholder="{{ __('Root Cause') }}" required> {{ old('root_cause') }} </textarea>
+							<textarea name="root_cause" class="form-control" rows="5" placeholder="{{ __('Root Cause') }}"> {{ old('root_cause') }} </textarea>
 						</div>
 						<div class="form-group">
 							<label for="email">{{ __('Date Occurred') }}</label>
-							<div class="icons"><input type="text" value="{{ old('date_occurred')}}" readonly="" name="date_occurred" class="form-control datePickera" style="width: 50%;" required></div>
 							<div class="icons">
-								<input type="text" name="time_occured" value="{{ old('time_occured')}}" readonly=""   class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -50px;" required></div>
+								<input type="text" value="{{ old('date_occurred')}}" readonly="" name="date_occurred" class="form-control datePickera" style="width: 50%;">
+							</div>
+							<div class="icons">
+								<input type="text" name="time_occured" value="{{ old('time_occured')}}" readonly=""   class="form-control" id="timepickera" style="width: 48%;float: right;margin-top: -50px;"></div>
 							</div>
 							<div class="form-group">
-								<label for="email">{{ __('Date Discovered') }}</label>
-								<div class="icons"><input type="text" value="{{ old('date_discovered')}}" name="date_discovered" readonly="" class="form-control datePickerb" style="width: 50%;" required></div>
+								<label for="email">{{ __('Date Discovered') }}<span style="color:red;">*</span></label>
 								<div class="icons">
-									<input type="text" id="timepickerb" readonly="" name="time_discovered" value="{{ old('time_discovered')}}" class="form-control" style="width: 48%;float: right;margin-top: -50px;" required></div>
+									<input type="text" value="{{ old('date_discovered')}}" name="date_discovered" readonly="" class="form-control datePickerb" style="width: 50%;" required>
+								</div>
+								<div class="icons">
+									<input type="text" id="timepickerb" readonly="" name="time_discovered" value="{{ old('time_discovered')}}" class="form-control" style="width: 48%;float: right;margin-top: -50px;"></div>
 								</div>
 								<div class="form-group">
 									<label for="email">{{ __('Deadline Date') }}</label>
-									<div class="icons"><input name="deadline_date" value="{{ old('deadline_date')}}" type="text" readonly="" class="form-control datePickerc" style="width: 50%;" required></div>
 									<div class="icons">
-										<input type="text" name="time_deadline" value="{{ old('time_deadline')}}"  id="timepickerc" readonly="" class="form-control" style="width: 48%;float: right;margin-top: -50px;" required></div>
+										<input name="deadline_date" value="{{ old('deadline_date')}}" type="text" readonly="" class="form-control datePickerc" style="width: 50%;">
+									</div>
+									<div class="icons">
+										<input type="text" name="time_deadline" value="{{ old('time_deadline')}}"  id="timepickerc" readonly="" class="form-control" style="width: 48%;float: right;margin-top: -50px;"></div>
 									</div>
 									<div class="form-group">
-										<label for="comment">{{ __('Problem Description') }}</label>
+										<label for="comment">{{ __('Problem Description') }}<span style="color:red;">*</span></label>
 										<textarea name="description"  class="form-control" rows="5" placeholder="{{ __('Problem Description') }}" maxlength="255" required>{{ old('description') }}</textarea>
 									</div>
 									<div class="form-group">
 										<label for="comment">{{ __('Resolution') }}</label>
-										<textarea name="resolution" class="form-control" rows="5" placeholder="{{ __('Resolution') }}" required>{{ old('resolution') }}</textarea>
+										<textarea name="resolution" class="form-control" rows="5" placeholder="{{ __('Resolution') }}">{{ old('resolution') }}</textarea>
 									</div> 
 									<div class="form-group">
-										<label for="sel1">{{ __('Status') }}</label>
+										<label for="sel1">{{ __('Status') }}<span style="color:red;">*</span></label>
 										<select required name="incident_status" class="form-control selectpicker show-tick">
 											<option value="">{{ __('Select Status') }}</option>
 											<option value="Reported">{{ __('Reported') }}</option>
@@ -222,7 +228,7 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<label for="sel1">{{ __('Severity') }}</label>
+										<label for="sel1">{{ __('Severity') }}<span style="color:red;">*</span></label>
 										<select required name="incident_severity" class="form-control selectpicker show-tick">
 											<option value="">{{ __('Select Severity') }}</option>
 											<option value="Unknown">{{ __('Unknown') }}</option>
