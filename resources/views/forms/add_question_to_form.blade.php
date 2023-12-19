@@ -903,10 +903,10 @@
                         <div class="form-group">
                             <label for="question_title" class="col-form-label">Add Question Short Title English <strong style="color: red">*</strong></label>
                             <input type="text" name="question_title_short" maxlength="20" class="form-control"  id="q_simple_model_main_en" onkeyup="$('#q_simple_model_main_fr').val($(this).val())">
-                            <span style="color:red;">Maximum 20 Characters</span><br>
+                            <span class="en-msg" style="color:red;">Maximum 20 Characters</span><br>
                             <label for="question_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>
                             <input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="q_simple_model_main_fr" onkeyup="document.getElementById('q_simple_model_main_en').onkeyup = null;">
-                            <span style="color:red;">Maximum 20 Characters</span>
+                            <span class="fr-msg" style="color:red;">Maximum 20 Characters</span>
                         </div>
 
                         <div class="form-group" id="qmodel-type" style="display:
@@ -966,10 +966,10 @@
                             <div class="form-group">
                                 <label for="question_short_title" class="col-form-label">Add Question Short Title English <strong style="color: red">*</strong></label>
                                 <input type="text" name="question_title_short" maxlength="20" class="form-control" id="qmodel__short_en" onkeyup="$('#qmodel__short_fr').val($(this).val())">
-                                <span style="color:red;">Maximum 20 Characters</span><br>
+                                <span class="en-msg" style="color:red;">Maximum 20 Characters</span><br>
                                 <label for="question_short_title_fr" class="col-form-label fr_group">Add Question Short Title French <strong style="color: red">*</strong></label>
                                 <input type="text" name="question_title_short_fr" maxlength="20" class="form-control fr_field" id="qmodel__short_fr" onkeyup="document.getElementById('qmodel__short_en').onkeyup = null;">
-                                <span style="color:red;">Maximum 20 Characters</span>
+                                <span class="fr-msg" style="color:red;">Maximum 20 Characters</span>
                             </div>
                             <hr>
                             <div class="form-group" id="special_question-type"style="display:none;">
