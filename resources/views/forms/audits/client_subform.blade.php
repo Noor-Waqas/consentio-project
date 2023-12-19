@@ -29,9 +29,9 @@
                       <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td> @if(session('locale') == 'fr') {{$sub_form->sub_form_title_fr}} @else {{$sub_form->sub_form_title}}@endif</td>
-                        <td> <span class="fs-14"> @if(session('locale')=='fr') {{ $sub_form->title_fr ? $sub_form->group_name_fr : $sub_form->group_name }}  @else {{ $sub_form->group_name }} @endif </span> </td> 
+                        <td> <span style="margin-right: 0px; !important" class="fs-14"> @if(session('locale')=='fr') {{ $sub_form->title_fr ? $sub_form->group_name_fr : $sub_form->group_name }}  @else {{ $sub_form->group_name }} @endif </span> </td> 
                         <td> 
-                          <span class="fs-14"> 
+                          <span style="margin-right: 0px; !important" class="fs-14"> 
                             @if(empty($sub_form->other_number))
                               A-{{ $sub_form->client_id }}-{{ $sub_form->asset_number }}
                             @else
@@ -40,7 +40,7 @@
                           </span> 
                         </td> 
                         <td> 
-                          <span class="fs-14"> 
+                          <span style="margin-right: 0px; !important" class="fs-14"> 
                             @if(empty($sub_form->other_number))
                               {{ $sub_form->asset_name }} 
                             @else
