@@ -884,9 +884,18 @@
 
                         <br>
 
-                        <div class="form-check">
+                        <div class="form-check d-none">
                             <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('qmodel-same'), 'addQuestionModel')" id="qmodel-same" type="checkbox" value="" id="flexCheckChecked">
                             <label class="form-check-label" for="flexCheckChecked"> English Only </label>
+                            <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
+                            <div class="same_for_fr" style="color: green; display: none;">
+                                All french data will be saved same as english
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input d_cehckbox" onclick="enable_french('qmodel-same')" id="qmodel-samez" type="checkbox" value="" id="flexCheckCheckedz">
+                            <label class="form-check-label" for="flexCheckChecked"> Enable French </label>
                             <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
                             <div class="same_for_fr" style="color: green; display: none;">
                                 All french data will be saved same as english
@@ -951,9 +960,15 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-check">
+                            <div class="form-check d-none">
                                 <input class="form-check-input d_cehckbox" onclick="check_is_check(document.getElementById('special_question-same'), 'specialQuestionModel')"  id="special_question-same" type="checkbox" value="" id="flexCheckChecked">
                                 <label class="form-check-label" for="flexCheckChecked"> English Only </label>
+                                <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
+                                <div class="same_for_fr" style="color:green; display: none;">All french data will be saved same as english</div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input d_cehckbox" onclick="enable_french('special_question-same')"  id="special_question-same-d" type="checkbox" value="" id="flexCheckChecked-d">
+                                <label class="form-check-label" for="flexCheckChecked"> Enable French </label>
                                 <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div>
                                 <div class="same_for_fr" style="color:green; display: none;">All french data will be saved same as english</div>
                             </div>
@@ -998,6 +1013,16 @@
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            $('#addQuestionModel').on('shown.bs.modal', function () {
+                // Trigger a click event on a specific button (replace 'yourButtonID' with your actual button ID)
+                $('#qmodel-same').click();
+            });
+            $('#specialQuestionModel').on('shown.bs.modal', function () {
+                // Trigger a click event on a specific button (replace 'yourButtonID' with your actual button ID)
+                $('#special_question-same').click();
+            });
+
             $('.dropify').dropify();
             $('.qmc').click(function(){
                 $('.qmc').addClass('selected');
@@ -1046,6 +1071,15 @@
                 $(`#${modalId} .not_same_for_fr`).show();
                 $(`#${modalId} .same_for_fr`).hide();
             }
+        }
+        function enable_french(type) {
+            if(type=='qmodel-same'){
+                $('#qmodel-same').click();
+            }
+            else{
+                $('#special_question-same').click();
+            }
+            
         }
         // function check_is_check(c) {
         //     if (c.checked) {
