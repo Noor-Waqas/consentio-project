@@ -301,9 +301,18 @@
                                 <a onclick="get_html('dc')" id="dc" class="btn btn-warning btn-sm ml-1 mb-1 mr-1 mt-1 question-button">Dynamic Control Question</a> -->
                             </div>
 
-                            <div class="form-check py-2">
+                            <div class="form-check py-2 d-none">
                                 <input class="form-check-input d_cehckbox" onclick="disable_fr_options(this)" id="qmodel-same" type="checkbox" value="" id="flexCheckChecked">
                                 <label class="form-check-label" for="flexCheckChecked">English Only Form</label>
+                                <!-- <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div> -->
+                                <div class="same_for_fr" style="color: green; display: none;">
+                                    All french data will be the same as english
+                                </div>
+                            </div>
+
+                            <div class="form-check py-2">
+                                <input class="form-check-input d_cehckbox" onclick="enable_french()" id="qmodel-same-d" type="checkbox" value="" id="flexCheckChecked-d">
+                                <label class="form-check-label" for="flexCheckChecked">Enable French</label>
                                 <!-- <div class="not_same_for_fr" style="color: red;">You have to explicitly write all french data </div> -->
                                 <div class="same_for_fr" style="color: green; display: none;">
                                     All french data will be the same as english
@@ -427,6 +436,24 @@
 @push('scripts')
     <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#addQuestionModel').on('shown.bs.modal', function () {
+                // Trigger a click event on a specific button (replace 'yourButtonID' with your actual button ID)
+                if ($('#qmodel-same').is(':checked')){
+                    console.log("checked");
+                    $('#qmodel-same-d').prop('checked', false);
+                } 
+                else{
+                    $('#qmodel-same').click();
+                    $('#qmodel-same-d').prop('checked', false);
+                }
+            });
+        });
+        function enable_french(){
+            $('#qmodel-same').click();
+        }
+    </script>
     <script>
         var section_id = 0;
         $('.dropify').dropify();
@@ -571,6 +598,9 @@
                 }
 
                 $('#render_question_data').html(html);
+                if ($('#qmodel-same').is(':checked')){
+                    $('.fr_field').attr('readonly', true);
+                }
             }
         }
 

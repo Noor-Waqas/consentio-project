@@ -1016,11 +1016,25 @@
 
             $('#addQuestionModel').on('shown.bs.modal', function () {
                 // Trigger a click event on a specific button (replace 'yourButtonID' with your actual button ID)
-                $('#qmodel-same').click();
+                if ($('#qmodel-same').is(':checked')){
+                    console.log("checked");
+                    $('#qmodel-samez').prop('checked', false);
+                } 
+                else{
+                    $('#qmodel-same').click();
+                    $('#qmodel-samez').prop('checked', false);
+                }
             });
             $('#specialQuestionModel').on('shown.bs.modal', function () {
                 // Trigger a click event on a specific button (replace 'yourButtonID' with your actual button ID)
-                $('#special_question-same').click();
+                if ($('#special_question-same').is(':checked')){
+                    console.log("checked");
+                    $('#special_question-same-d').prop('checked', false);
+                } 
+                else{
+                    $('#special_question-same').click();
+                    $('#special_question-same-d').prop('checked', false);
+                }
             });
 
             $('.dropify').dropify();
