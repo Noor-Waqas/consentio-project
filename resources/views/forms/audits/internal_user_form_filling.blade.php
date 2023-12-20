@@ -510,7 +510,11 @@
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">
 														<label>Rating </label>
+														@if($question->responses && $question->responses->rating)
+														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}" disabled>
+														@else
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}">
+														@endif
 															{{-- @if($question->responses->rating == 0)
 															@endif --}}
 															<option value="0">-- SELECT Assessment --</option>
