@@ -12,9 +12,9 @@
                     <table class="table fixed_header manage-assessments-table" id="datatable">
                         <thead>
                             <tr>
-                                <th style="vertical-align: middle;" scope="col" col-span="2">Data Classification Name English </th>
-                                <th style="vertical-align: middle;" scope="col" col-span="2">Data Classification Name French </th>
-                                <th style="vertical-align: middle;" scope="col">Actions</th>
+                                <th style="vertical-align: middle;" scope="col" col-span="2">{{__('Data Classification')}} En</th>
+                                <th style="vertical-align: middle;" scope="col" col-span="2">{{__('Data Classification')}} Fr</th>
+                                <th style="vertical-align: middle;" scope="col">{{__('Action')}}</th>
                             </tr>
                         </thead>
                         <tbody class="btn-table">

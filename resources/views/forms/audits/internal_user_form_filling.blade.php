@@ -496,20 +496,20 @@
 											@endif
 											@if($user_form_link_info->is_locked == 1)
 											<div class="col-md-12 p-0 py-3">
-												<label>Additional Comment</label>
-												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}" disabled>@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
+												<label>{{__('Additional Comment')}}</label>
+												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}" disabled>@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 											</div>
 											@else
 											<div class="col-md-12 p-0 py-3">
-												<label>Additional Comment</label>
-												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
+												<label>{{__('Additional Comment')}}</label>
+												<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 											</div>
 											@endif
 											<div id="bar_{{$question->id}}" class="d-none filling_bar w-100"></div>
 											@if($user_form_link_info->is_locked == 1 && ((Auth::user()->role != 2 && $question->responses->rating != 0) || (Auth::user()->role == 2)))
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">
-														<label>Rating </label>
+														<label>{{__('Rating')}} </label>
 														@if($question->responses && $question->responses->rating)
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}" disabled>
 														@else
@@ -517,16 +517,16 @@
 														@endif
 															{{-- @if($question->responses->rating == 0)
 															@endif --}}
-															<option value="0">-- SELECT Assessment --</option>
+															<option value="0">-- {{__('SELECT Assessment')}} --</option>
 															@foreach($eval_ratings as $rate)
-																<option value="{{ $rate->rate_level }}" @if($question->responses && $question->responses->rating == $rate->rate_level) selected @endif>{{ $rate->assessment }}</option>
+																<option value="{{ $rate->rate_level }}" @if($question->responses && $question->responses->rating == $rate->rate_level) selected @endif>{{ __($rate->assessment) }}</option>
 															@endforeach
 														</select>
 													</div>
 												</div>
 												<div class="col-md-12 py-3">
-													<label>Review Comment</label>
-													<textarea rows="4"   class="form-control comment_for_question" placeholder="Comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->admin_comment}}@endif</textarea>
+													<label>{{__('Review Comment')}}</label>
+													<textarea rows="4"   class="form-control comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->admin_comment}}@endif</textarea>
 												</div>
 											@endif
 										</div>

@@ -985,6 +985,7 @@
     "Data Subject volume"   : "Volume des personnes concernées",
     "Impact"                : "Impacte",
     "Data Classification"   : "Classement des données",
+    "DATA CLASSIFICATION"   : "CLASSIFICATION DES DONNÉES",
     "Assessment Form"       : "Registre d'évaluation",
     "Manage Forms"          : "Gérer les évaluations",
     "My assigned Forms"     : "Formulaires assignés",
@@ -995,7 +996,10 @@
     "Assets Register"       : "Registre des actifs ",
     "Data Elements"         : "Éléments de données",
     "Evaluation Rating"     : "Note d'évaluation",
+    "EVALUATION RATING"     : "NOTE D'ÉVALUATION",
     "Remediation Plans"     :"Plans d'assainissement",
+    "Additional Comment"    :"Commentaire supplémentaire",
+    "SELECT Assessment"     :"Évaluation SELECT",
 
     "Control ID"            :"ID de contrôle",
     "Control Title"         :"Titre du contrôle",

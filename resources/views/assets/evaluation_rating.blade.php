@@ -1,7 +1,7 @@
 @extends('admin.client.client_app')
 @section('content')
 @section('page_title')
-  {{ __('EVAUATION RATING') }}
+  {{ __('EVALUATION RATING') }}
 @endsection
 <div class="row">
   <div class="col-12">
