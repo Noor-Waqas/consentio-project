@@ -348,6 +348,9 @@
 						foreach ($questions as $key => $question): 
 							if($question->question_num)
 								$parent_section = $question->question_num;
+								if($question->parent_q_id != null){
+									$parent_section = number_format($question->question_num, 2);    //// Fix Assessment Multi Level Question Counts afftecting Sorting
+								}
 								
 								if($parent_section=='1.8'){ 
 									//echo '<pre>';print_r($question); 
