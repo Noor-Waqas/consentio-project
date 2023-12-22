@@ -85,7 +85,12 @@
             background: #71BA4F;
             border: 1px solid #71BA4F;
         }
-        
+
+        #datatable th, td {
+            max-width: 210px; /* Adjust this value as needed */
+            word-wrap: break-word;
+            white-space: normal;
+        }
         
     </style>
     <title>
@@ -420,9 +425,18 @@ $busData = [
     });
 
     function captureScreenshot() {
+        // Get the target table element
+        const targetTable = document.getElementById('datatable');
+
+        // // Get the width of the table
+        // const tableWidth = targetTable.offsetWidth; // This gives the width in pixels
+
+        // // Use the table width as the screen width for the report download
+        // const screenWidth = tableWidth;
+        // console.log(screenWidth);
         // Get the screen dimensions
-        const screenWidth = 800;
-        const screenHeight = 450;
+        const screenWidth = 900;
+        const screenHeight = 550;
 
         // Specify the ID of the div you want to capture
         const divId = 'myDiv';
