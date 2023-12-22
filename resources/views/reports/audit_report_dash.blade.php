@@ -252,7 +252,7 @@
                         <th>{{__('Asset Name')}}</th>
                         <th>{{__('Asset Tier')}}</th>
                         @foreach($data as $question)
-                        <th>C{{$loop->iteration}} - {{$question->question_short}}</th>
+                        <th>C{{$loop->iteration}} - @if(session('locale')=='fr') {{$question->question_short_fr}} @else {{$question->question_short}} @endif</th>
                         @endforeach
                     </tr>
                 </thead>
