@@ -85,6 +85,11 @@
             background: #71BA4F;
             border: 1px solid #71BA4F;
         }
+        #datatable th, td {
+            max-width: 210px; /* Adjust this value as needed */
+            word-wrap: break-word;
+            white-space: normal;
+        }
         
         
     </style>
@@ -509,8 +514,8 @@
 
     function captureScreenshot() {
         // Get the screen dimensions
-        const screenWidth = 500;
-        const screenHeight = 650;
+        const screenWidth = 800;
+        const screenHeight = 550;
 
         // Specify the ID of the div you want to capture
         const divId = 'myDiv';
