@@ -351,7 +351,7 @@ class RemediationController extends Controller{
                                 ->join('evaluation_rating', 'evaluation_rating.id', 'user_responses.rating')
                                 ->where("user_responses.sub_form_id", $sub_form_id)
                                 ->whereIn('user_responses.rating', [3,4])
-                                ->select("group_questions.type", "group_questions.dropdown_value_from", "group_questions.id as q_id", "group_questions.question_short", "group_questions.question_short_fr", "user_responses.sub_form_id", "user_responses.sub_form_id", "user_responses.question_response", "user_responses.admin_comment", "evaluation_rating.rating")
+                                ->select("group_questions.type", "group_questions.dropdown_value_from", "group_questions.id as q_id", "group_questions.question_short", "group_questions.question_short_fr", "user_responses.sub_form_id", "user_responses.sub_form_id", "user_responses.question_response", "user_responses.admin_comment", "evaluation_rating.rating", "evaluation_rating.text_color", "evaluation_rating.color")
                                 ->get();
             $count = 0;
             foreach ($questions as $question) {

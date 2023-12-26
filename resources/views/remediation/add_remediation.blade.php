@@ -83,6 +83,25 @@
 
             questions.map((question, index)=>{
                 console.log("question", question);
+                @if(session('locale')=='fr')
+                if(question.rating=="Marginal"){
+                    question.rating="Marginale";
+                }
+                if(question.rating=="Weak"){
+                    question.rating="Faible";
+                }
+                $('#render_questions').append(`
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${question.question_short_fr}</td>
+                        <td>${question.question_response}</td>
+                        <td>${question.admin_comment}</td>
+                        <td><select class="form-control" name="remediation_user_id" index="${index}" onchange="add_current_val(event)">${options}<select></td>
+                        <td><textarea rows="3" class="form-control" name="proposed_remediation" index="${index}" onchange="add_current_val(event)">${question.proposed_remediation}</textarea></td>
+                        <td style="color:${question.text_color};background:${question.color};">${question.rating}</td>
+                    </tr>
+                `);
+                @else
                 $('#render_questions').append(`
                     <tr>
                         <td>${index + 1}</td>
@@ -91,9 +110,10 @@
                         <td>${question.admin_comment}</td>
                         <td><select class="form-control" name="remediation_user_id" index="${index}" onchange="add_current_val(event)">${options}<select></td>
                         <td><textarea rows="3" class="form-control" name="proposed_remediation" index="${index}" onchange="add_current_val(event)">${question.proposed_remediation}</textarea></td>
-                        <td>${question.rating}</td>
+                        <td style="color:${question.text_color};background:${question.color};">${question.rating}</td>
                     </tr>
                 `);
+                @endif
             });
         }
 
