@@ -37,12 +37,12 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Control Question</th>
-                            <th>User Response</th>
-                            <th>Review Comment</th>
-                            <th style="min-width: 200px">Person In Charge</th>
-                            <th style="min-width: 350px">Proposed Remediation</th>
-                            <th>Initial Rating</th>
+                            <th>{{__('Control Question')}}</th>
+                            <th>{{__('User Response')}}</th>
+                            <th>{{__('Review Comment')}}</th>
+                            <th style="min-width: 200px">{{__('Person In Charge')}}</th>
+                            <th style="min-width: 350px">{{__('Proposed Remediation')}}</th>
+                            <th>{{__('Initial Rating')}}</th>
                         </tr>
                     </thead>
                     <tbody id="render_questions"></tbody>
