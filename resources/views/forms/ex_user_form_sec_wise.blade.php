@@ -473,7 +473,6 @@
 									$total_questions++;
 									break;?>
 									<?php
-								case('sc'):
 								case ('dc'):
 									$total_questions++;
 									$value_from = $question->dropdown_value_from;
@@ -539,6 +538,7 @@
 									<?php
 									break;
 								
+								case('sc'):
 								case('mc'):
 									$total_questions++;
 									$options = explode(', ', $question->options); 
