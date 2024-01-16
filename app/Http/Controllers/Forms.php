@@ -2285,8 +2285,86 @@ class Forms extends Controller{
         $question_key_index = [];
 
         foreach ($filled_info as $key => $user_response) {
+            if ($user_response->type == 'sc') {
+                if(session('locale') == 'fr'){
+                    $value=$user_response->question_response;
+
+                    $Translation=DB::table('options_link')
+                    ->where('form_id', $user_response->form_id)
+                    ->where('question_id', $user_response->question_id)
+                    ->where(function ($query) use ($value) {
+                        $query->where('option_en', $value)
+                                ->orWhere('option_fr', $value);
+                    })
+                    ->pluck('option_fr')->first();
+
+                    // dd($Translation);
+                    if ($Translation) {
+                        // Update the array value with the French translation
+                        $user_response->question_response = $Translation;
+                    }
+                    // dd($user_response->question_response);
+                }
+                if(session('locale') == 'en'){
+                    $value=$user_response->question_response;
+                    
+                    $Translation=DB::table('options_link')
+                    ->where('form_id', $user_response->form_id)
+                    ->where('question_id', $user_response->question_id)
+                    ->where(function ($query) use ($value) {
+                        $query->where('option_en', $value)
+                              ->orWhere('option_fr', $value);
+                    })
+                    ->pluck('option_en')->first();
+
+                    // dd($Translation);
+                    if ($Translation) {
+                        // Update the array value with the French translation
+                        $user_response->question_response = $Translation;
+                    }
+                // dd($user_response->question_response);
+            }
+            }
             if ($user_response->type == 'mc') {
+                // dd($user_response);
                 $user_response->question_response = explode(', ', $user_response->question_response);
+                if(session('locale') == 'fr'){
+                    foreach($user_response->question_response as $index=>$value){
+                        // dd($user_response->question_id);
+                        $Translation=DB::table('options_link')
+                        ->where('form_id', $user_response->form_id)
+                        ->where('question_id', $user_response->question_id)
+                        ->where(function ($query) use ($value) {
+                            $query->where('option_en', $value)
+                                  ->orWhere('option_fr', $value);
+                        })
+                        ->pluck('option_fr')->first();
+                        // dd($Translation);
+                        if ($Translation) {
+                            // Update the array value with the French translation
+                            $user_response->question_response[$index] = $Translation;
+                        }
+                    }
+                    // dd($user_response->question_response);
+                }
+                if(session('locale') == 'en'){
+                    foreach($user_response->question_response as $index=>$value){
+                        $Translation=DB::table('options_link')
+                        ->where('form_id', $user_response->form_id)
+                        ->where('question_id', $user_response->question_id)
+                        ->where(function ($query) use ($value) {
+                            $query->where('option_en', $value)
+                                  ->orWhere('option_fr', $value);
+                        })
+                        ->pluck('option_en')->first();
+                        // dd($Translation);
+                        if ($Translation) {
+                            // Update the array value with the French translation
+                            $user_response->question_response[$index] = $Translation;
+                        }
+                    }
+                    // dd($user_response->question_response);
+                }
             }
 
             if ($user_response->custom_case == '1') {
