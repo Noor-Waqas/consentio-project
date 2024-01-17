@@ -358,7 +358,12 @@
                                                 @break
 											@case('mc')
                                                 @php  
-                                                    $options = explode(', ', $question->options);
+													if(session('locale')=='fr'){
+														$options = explode(', ', $question->options_fr);
+													}
+													else{
+														$options = explode(', ', $question->options);
+													}
                                                 @endphp
 
                                                 @if(!empty($options))
@@ -383,7 +388,12 @@
                                                 @break
 											@case('sc')			
 												@php  
-                                                    $options = explode(', ', $question->options);
+													if(session('locale')=='fr'){
+														$options = explode(', ', $question->options_fr);
+													}
+													else{
+														$options = explode(', ', $question->options);
+													}
                                                 @endphp
 												
                                                 @if(!empty($options))
@@ -694,13 +704,19 @@
 
 			const name = event.target.getAttribute('name');
 			const type = event.target.getAttribute('type');
+			const check= event.target.getAttribute('check');
+			var options = [];
 			if (type == 'mc') {
-				$(event.target).attr('check', '1'); 
-				$(event.target).attr('class', 'es-selectable es-selected');
-				var options = [];
+				if (check == 1) {
+					$(event.target).attr('check', '0');
+					$(event.target).removeClass('es-selected');
+				} else {
+					$(event.target).attr('check', '1'); 
+					$(event.target).attr('class', 'es-selectable es-selected');
+				}
 				$.each($(`li[name=${name}]`), function(){
 					if($(this).attr('check') == 1){
-						options.push($(this).val())
+						options.push($(this).attr('value'))
 					}
 				});
 			}else{
