@@ -346,6 +346,7 @@
 					$total_questions      = 0;
 					$question_count       = 0;
 					$date_picker_count    = 0;
+					$time_picker_count    = 0;
 					$display_body_sec_div = 0;
 					$close_body_sec_div   = 0;	
 					$parent_section='';
@@ -569,9 +570,13 @@
 													}
 												}
 												if (strtolower($option) == 'date picker option'):?>
-												<li {{ $attr }} class="es-selectable {{ $selected_class }}" pickr-num-li="{{++$date_picker_count}}" name="li-{{ $question->q_id }}" id="date-picker-li-{{$date_picker_count}}" >
-													<input id="date-picker-{{$date_picker_count}}" onclick="validate_date()"  class="date-picker" pickr-num="{{$date_picker_count}}" name="d-{{ $question->q_id }}" q-id="{{$question->q_id}}" placeholder="@if(session('locale')=='fr')Sélectionner une date @else Date Picker Option @endif" value="<?php if (isset($filled[$question->form_key]) && !empty($filled[$question->form_key]['additional_resp'])) echo $filled[$question->form_key]['additional_resp']; else 'Date Picker Option'; ?>" type="{{ $type }}">
-												</li>
+													<li {{ $attr }} class="es-selectable {{ $selected_class }}" pickr-num-li="{{++$date_picker_count}}" name="li-{{ $question->q_id }}" id="date-picker-li-{{$date_picker_count}}">
+														<input id="date-picker-{{$date_picker_count}}" onclick="validate_date()" class="date-picker" pickr-num="{{$date_picker_count}}" name="d-{{ $question->q_id }}" q-id="{{$question->q_id}}" placeholder="@if(session('locale')=='fr')Sélectionner une date @else Date Picker Option @endif" value="<?php if (isset($filled[$question->form_key]) && !empty($filled[$question->form_key]['additional_resp']) && strtolower($filled[$question->form_key]['question_response']) == 'date picker option') echo $filled[$question->form_key]['additional_resp']; else 'Date Picker Option'; ?>" type="{{ $type }}">
+													</li>
+												@elseif(strtolower($option) == 'time picker option')
+													<li {{ $attr }} class="es-selectable {{ $selected_class }}" pickr-num-li="{{++$time_picker_count}}" name="li-{{ $question->q_id }}" id="time-picker-li-{{$time_picker_count}}">
+														<input id="time-picker-{{$time_picker_count}}" onclick="validate_time()" class="time-picker" pickr-num="{{$time_picker_count}}" name="t-{{ $question->q_id }}" q-id="{{$question->q_id}}" placeholder="@if(session('locale')=='fr')Sélectionner une heure @else Time Picker Option @endif" value="<?php if (isset($filled[$question->form_key]) && !empty($filled[$question->form_key]['additional_resp']) && strtolower($filled[$question->form_key]['question_response']) == 'time picker option') echo $filled[$question->form_key]['additional_resp']; else 'Time Picker Option'; ?>" type="{{ $type }}">
+													</li>
 												<?php else: ?>
 												<li {{ $attr }} class="es-selectable {{ $selected_class }}" name="{{ $question->form_key.'_'.$question->q_id.(($type=='mc')?('[]'):('')) }}" q-id="{{$question->q_id}}" value="{{ $option }}" type="{{ $type }}" {{($question->question_assoc_type == 2 && $question->form_id == '2')?("assoc=1"):('')}}>{{ ucfirst(strtolower(trim($option))) }}</li>
 												<?php
@@ -1632,6 +1637,64 @@
 
 						$('#date-picker-<?php echo $dp_num; ?>').datetimepicker('show');
 					});	
+				<?php endfor; ?>
+
+				<?php for ($tp_num = 1; $tp_num <= $time_picker_count; $tp_num++): ?>
+					jQuery('#time-picker-<?php echo $tp_num; ?>').datetimepicker({
+						datepicker:false,
+					timeFormat: 'h:m', // Adjust the time format as needed
+					interval: 15, // Interval between times in minutes
+					// Additional configurations for the time picker plugin
+					onSelectTime: function (ti) {
+						console.log('ok');
+						// console.log(time);
+						$('#time-picker-li-<?php echo $tp_num; ?>').siblings().each(function (i, li) {
+							$(li).removeClass('es-selected');
+						});
+						$('#time-picker-li-<?php echo $tp_num; ?>').addClass('es-selected');
+
+						var selectedTime = ti.getHours() + ':' + (ti.getMinutes() < 10 ? '0' : '') + ti.getMinutes(); // Adjust the format based on the time picker API
+						console.log("tttttiiiiiiiiimmmmmeeeeee=",selectedTime);
+						$('#time-picker-<?php echo $tp_num; ?>').val(selectedTime?.split(':')[0]).text(selectedTime?.split(':')[1]);
+						// $('#time-picker-<?php echo $tp_num; ?>').val("").text("");
+
+						var type = $('#time-picker-<?php echo $tp_num; ?>').attr('type');
+						var id = $('#time-picker-<?php echo $tp_num; ?>').attr('q-id');
+						var question_key = 't-' + id;
+
+						// ... (remaining logic for post_data and form updates)
+						post_data[question_key] = selectedTime;
+						question_key 			= 'q-'+id;
+							
+						post_data['curr-form-sec'] = curr_sec;
+
+						console.log(post_data);
+						console.log('data post');
+
+						update_form_data_request(post_data);
+
+						if (post_data[question_key] != '' && key_list.indexOf(question_key) == -1) {
+							key_list.push(question_key);
+							completed_questions++;
+						}
+						update_progress_bar(completed_questions, id, locked);
+						delete post_data[question_key];
+					}
+				});
+
+				$('#time-picker-li-<?php echo $tp_num; ?>').click(function (event) {
+					event.preventDefault();
+					if ($('#time-picker-<?php echo $tp_num; ?>').val() != '') {
+						if (!$(this).hasClass('es-selected')) {
+							$(this).addClass('es-selected');
+						}
+					} else {
+						$(this).removeClass('es-selected');
+					}
+
+					$('#time-picker-<?php echo $tp_num; ?>').datetimepicker('show');
+				});
+
 				<?php endfor; ?>
 			});
 

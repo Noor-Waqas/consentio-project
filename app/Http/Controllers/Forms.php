@@ -1507,6 +1507,45 @@ class Forms extends Controller{
                     DB::table('external_users_filled_response')->insert($insert_data);
                 }
             }
+
+            if (strpos($post_key, 't-') !== false) {
+                $date_field = explode('-', $post_key);
+
+                $question_id = $date_field[1];
+                $question_key = 'q-' . $question_id;
+
+                if (DB::table('external_users_filled_response')
+                    ->where([
+                        'form_id' => $form_id,
+                        'user_email' => $user_email,
+                        'question_id' => $question_id,
+                        'external_user_form_id' => $req['user-form-id'],
+                    ])
+                    ->exists()) {
+
+                    DB::table('external_users_filled_response')
+                        ->where([
+                            'form_id' => $form_id,
+                            'user_email' => $user_email,
+                            'question_id' => $question_id,
+                        ])
+                        ->update(['additional_info' => $user_responses,
+                            'question_response' => 'Time Picker Option']);
+                } else {
+
+                    $insert_data = [
+                        'external_user_form_id' => $user_id,
+                        'form_id' => $form_id,
+                        'question_id' => $question_id,
+                        'question_key' => $question_key,
+                        'user_email' => $user_email,
+                        'additional_info' => $user_responses,
+                        'question_response' => 'Time Picker Option',
+                        'created' => date('Y-m-d H:i:s')];
+
+                    DB::table('external_users_filled_response')->insert($insert_data);
+                }
+            } 
         }
     }
 
@@ -2275,8 +2314,8 @@ class Forms extends Controller{
         }
 
         $filled_info = DB::table('user_form_links')
-            ->join('user_responses', 'user_form_links.id', '=', 'user_responses.user_form_id')
-            ->join('questions', 'questions.id', '=', 'user_responses.question_id')
+            ->join('external_users_filled_response', 'user_form_links.id', '=', 'external_users_filled_response.external_user_form_id')
+            ->join('questions', 'questions.id', '=', 'external_users_filled_response.question_id')
             ->where('user_form_links.form_link', '=', $form_link_id)
             ->get();
 
@@ -2678,6 +2717,7 @@ class Forms extends Controller{
                 $hidden_pb = true;
             }
         }
+        // dd($question_key_index);
         if (count($form_info) > 0) {
             return view('forms.ex_user_form_sec_wise', ['questions' => $form_info,
                 'hide_pb' => $hidden_pb,
