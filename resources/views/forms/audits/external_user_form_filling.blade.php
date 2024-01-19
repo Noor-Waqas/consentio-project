@@ -486,15 +486,19 @@
 										@endif
 										<div class="col-md-12 p-0 py-3">
 											<label>Additional Comment</label>
-											<textarea rows="4"   class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
+											<textarea rows="4"  class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 										</div>
 										<div id="bar_{{$question->id}}" class="d-none barfiller w-100"></div>
 										@if($user_form_link_info->is_locked == 1)
 											@if((!Auth::user() && $question->responses->rating != 0) || Auth::user())
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">
-														<label>Assessment </label>
+														<label>{{__('Rating')}} </label>
+														@if($question->responses && $question->responses->rating)
+														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}" disabled>
+														@else
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}">
+														@endif
 															@if($question->responses->rating == 0)
 																<option value="">-- SELECT Assessment --</option>
 															@endif
@@ -505,8 +509,12 @@
 													</div>
 												</div>
 												<div class="col-md-12 py-3">
-													<label>Review Comment</label>
+													<label>{{__('Review Comment')}}</label>
+													@if($question->responses && $question->responses->rating)
+													<textarea rows="4"   class="form-control comment_for_question" placeholder="Comment ..."  q-id="{{ $question->id }}" disabled="disabled">@if(isset($question->responses) ){{  $question->responses->admin_comment}}@endif</textarea>
+													@else
 													<textarea rows="4"   class="form-control comment_for_question" placeholder="Comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses) ){{  $question->responses->admin_comment}}@endif</textarea>
+													@endif
 												</div>
 											@endif
 										@endif
@@ -823,9 +831,9 @@
 					}
 
 					else if(response.total_questions == response.added_ratting && response.week_questions > 0 && locked == 1) {
-						if (page_loading != 1) {
-							toastr.info('Assessment completed,  You can Add remediation');
-						}
+						// if (page_loading != 1) {
+						// 	toastr.info('Assessment completed,  You can Add remediation');
+						// }
 						page_loading = 0;
 						
 						$('#show_remediation_plan').html(`
@@ -853,7 +861,8 @@
 					}
 
 					if (locked == 1 && $('#form_details').attr('admin') != 2) {
-						$('input, textarea, select').attr('disabled', 'true');
+						$('input').attr('disabled', 'true');
+						$('.additional_comment_for_question').attr('disabled', 'true');
 					}
 
 					if (locked != 1) {
