@@ -818,11 +818,6 @@ class Reports extends Controller{
         $question = DB::table('questions')->where('type', 'mc')
         ->wherein('form_id', $piaDpiaRop_ids)
         ->wherein('form_key', $filled_questions)
-            ->where(function ($query) {
-                return $query
-                    ->where('question_num', '=', null)
-                    ->orWhere('question_num', '=', '');
-            })
 		->get();
 
         // dd($question);
@@ -833,11 +828,6 @@ class Reports extends Controller{
 
         $new_data_inv_questions = DB::table('questions')->where('type', 'mc')->wherein('form_id', $data_inv_forms)->wherein('form_key', $filled_questions)
             ->where('is_data_inventory_question', 1)
-            ->where(function ($query) {
-                return $query
-                    ->where('question_num', '=', null)
-                    ->orWhere('question_num', '=', '');
-            })
         ->get();
 
         // dd($new_data_inv_questions);
@@ -941,21 +931,12 @@ class Reports extends Controller{
 
         $mc_ids = DB::table('questions')->where('type', 'mc')
         ->wherein('form_id', $piaDpiaRop_ids)
-		->where(function ($query) {
-			return $query
-				->where('question_num', '=', null)
-				->orWhere('question_num', '=', '');
-		})->pluck('form_key');
+        ->pluck('form_key');
 
         $data_inv_forms = DB::table('questions')->where('is_data_inventory_question', 1)->pluck('form_id')->unique()->toArray();
 
         $new_data_inv_mc_ids = DB::table('questions')->where('type', 'mc')->wherein('form_id', $data_inv_forms)
             ->where('is_data_inventory_question', 1)
-            ->where(function ($query) {
-                return $query
-                    ->where('question_num', '=', null)
-                    ->orWhere('question_num', '=', '');
-            })
         ->pluck('form_key');
 		
         $mc_ids = $mc_ids->merge($new_data_inv_mc_ids);
@@ -1130,22 +1111,14 @@ class Reports extends Controller{
                     ->where('type', 'mc')
                     ->wherein('form_id', $piaDpiaRop_ids)
                     ->wherein('form_key', $filled_questions)
-                    ->where(function ($query) {
-                        return $query
-                            ->where('question_num', '=', null)
-                            ->orWhere('question_num', '=', '');
-                    })->get();
+                    ->get();
 
         $data_inv_forms = DB::table('questions')->where('is_data_inventory_question', 1)->pluck('form_id')->unique()->toArray();
         // dd($data_inv_forms);
 
         $new_data_inv_questions = DB::table('questions')->where('type', 'mc')->wherein('form_id', $data_inv_forms)->wherein('form_key', $filled_questions)
 		->where('is_data_inventory_question', 1)
-		->where(function ($query) {
-			return $query
-				->where('question_num', '=', null)
-				->orWhere('question_num', '=', '');
-		})->get();
+		->get();
         // dd($new_data_inv_questions);
 
         $question = $question->merge($new_data_inv_questions);
@@ -1253,22 +1226,12 @@ class Reports extends Controller{
 		
         $mc_ids = DB::table('questions')->where('type', 'mc')
         ->wherein('form_id', $piaDpiaRop_ids)
-		->where(function ($query) {
-			return $query
-				->where('question_num', '=', null)
-				->orWhere('question_num', '=', '');
-		})
 		->pluck('form_key');
 
         $data_inv_forms = DB::table('questions')->where('is_data_inventory_question', 1)->pluck('form_id')->unique()->toArray();
 
         $new_data_inv_mc_ids = DB::table('questions')->where('type', 'mc')->wherein('form_id', $data_inv_forms)
 		->where('is_data_inventory_question', 1)
-		->where(function ($query) {
-			return $query
-				->where('question_num', '=', null)
-				->orWhere('question_num', '=', '');
-		})
 		->pluck('form_key');
 
         $mc_ids = $mc_ids->merge($new_data_inv_mc_ids);
