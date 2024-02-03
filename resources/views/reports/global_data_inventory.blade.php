@@ -80,10 +80,14 @@
               <thead>
                 <th colspan="2">
                   @if(session('locale') == 'fr') 
-                    @if(DB::table('questions')->where('question' , $row['question_string'])->pluck('question_fr')->first() != null)
-                      {{ DB::table('questions')->where('question' , $row['question_string'])->pluck('question_fr')->first() }}
+                  @php
+                    $string_fr = DB::table('sections')->where('section_name' , $row['question_string'])->pluck('section_name_fr')->first();
+                    
+                  @endphp
+                    @if($string_fr)
+                      {{ $string_fr }}
                     @else
-                      {{ $row['question_string'] }}
+                      {{ $row['question_string_fr'] }}
                     @endif
 
                   @else 
@@ -99,10 +103,17 @@
                   for($i = 0 ; $i <$option_questions[$key]['op_count']; $i++) { ?>
                         <tr>
                           <td class="green_td_glb">
-                            @if(session('locale') == 'fr')   
-                              {{$final_fr[$array_index]}}
+                            @if(session('locale') == 'fr') 
+                            @php
+                              $opt_fr = DB::table('assets_data_elements')->where('name' , $final[$array_index])->pluck('name_fr')->first();
+                            @endphp  
+                            @if($opt_fr)
+                              {{ $opt_fr }}
                             @else
-                              {{$final[$array_index]}}
+                              {{ $final[$array_index] }}
+                            @endif
+                            @else
+                              {{ $final[$array_index] }}
                             @endif
                           </td>
                           <td class="check_icon text-right">

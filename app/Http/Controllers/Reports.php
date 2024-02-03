@@ -797,7 +797,7 @@ class Reports extends Controller{
         $user   = Auth::user()->id;
         $client_id = Auth::user()->client_id;
         $option_questions = [];
-        $piaDpiaRop_ids = [2, 9, 12];
+        // $piaDpiaRop_ids = [2, 9, 12];
 
         $filled_questions = DB::table('user_form_links')->select('*')
             ->join('external_users_filled_response', 'user_form_links.id', '=', 'external_users_filled_response.external_user_form_id')
@@ -816,7 +816,8 @@ class Reports extends Controller{
         // dd($filled_questions);
 
         $question = DB::table('questions')->where('type', 'mc')
-        ->wherein('form_id', $piaDpiaRop_ids)
+        // ->wherein('form_id', $piaDpiaRop_ids)
+        ->where('is_data_inventory_question', 1)
         ->wherein('form_key', $filled_questions)
 		->get();
 
@@ -930,7 +931,8 @@ class Reports extends Controller{
         }
 
         $mc_ids = DB::table('questions')->where('type', 'mc')
-        ->wherein('form_id', $piaDpiaRop_ids)
+        // ->wherein('form_id', $piaDpiaRop_ids)
+        ->where('is_data_inventory_question', 1)
         ->pluck('form_key');
 
         $data_inv_forms = DB::table('questions')->where('is_data_inventory_question', 1)->pluck('form_id')->unique()->toArray();
@@ -1109,6 +1111,7 @@ class Reports extends Controller{
 
         $question = DB::table('questions')
                     ->where('type', 'mc')
+                    // ->where('is_data_inventory_question', 1)
                     ->wherein('form_id', $piaDpiaRop_ids)
                     ->wherein('form_key', $filled_questions)
                     ->get();
@@ -1226,6 +1229,7 @@ class Reports extends Controller{
 		
         $mc_ids = DB::table('questions')->where('type', 'mc')
         ->wherein('form_id', $piaDpiaRop_ids)
+        // ->where('is_data_inventory_question', 1)
 		->pluck('form_key');
 
         $data_inv_forms = DB::table('questions')->where('is_data_inventory_question', 1)->pluck('form_id')->unique()->toArray();
@@ -1235,6 +1239,7 @@ class Reports extends Controller{
 		->pluck('form_key');
 
         $mc_ids = $mc_ids->merge($new_data_inv_mc_ids);
+        
         $emails = DB::table('user_form_links')->select('*')
             ->join('external_users_filled_response', 'user_form_links.id', '=', 'external_users_filled_response.external_user_form_id')->where('user_form_links.client_id', $client_id)->wherein('question_key', $mc_ids)->get();
 
