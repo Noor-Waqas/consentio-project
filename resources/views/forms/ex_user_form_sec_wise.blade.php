@@ -795,6 +795,42 @@
 			}
 		</script>
 
+		@if(session('locale')=="fr")
+		<script>
+			window.onload = function() {
+				// Get the dropify message paragraph
+				var dropifyMessage = document.querySelector('.dropify-wrapper .dropify-message p');
+				var dropifyinfosMessage = document.querySelector('.dropify-infos-message');
+				var clearButton = document.querySelector('.dropify-clear');
+				if (dropifyMessage) {
+					console.log("Paragraph found:", dropifyMessage);
+					dropifyMessage.textContent = 'Glissez-déposez un fichier ici ou cliquez sur';
+				}
+				if (dropifyinfosMessage) {
+					console.log("Paragraph found:", dropifyinfosMessage);
+					dropifyinfosMessage.textContent = 'Glisser-déposer ou cliquer pour remplacer';
+				}
+				if (clearButton) {
+					// Set its display property to none
+					clearButton.style.display = 'none';
+				}
+			};
+		</script>
+		@endif
+		@if(session('locale')!="fr")
+		<script>
+			window.onload = function() {
+				// Get the dropify message paragraph
+				var clearButton = document.querySelector('.dropify-clear');
+				
+				if (clearButton) {
+					// Set its display property to none
+					clearButton.style.display = 'none';
+				}
+			};
+		</script>
+		@endif
+
 		<script>
 			$(document).ready(function(){
 				var input1 = $('#qa_name');
