@@ -1253,7 +1253,32 @@ class Forms extends Controller{
 
             $file->move($destinationpath, $img_name);
 
-            DB::table('external_users_filled_response')
+            if($req->attachment==1){
+                DB::table('external_users_filled_response')
+                ->updateOrInsert(
+                    [
+                        'external_user_form_id' => $user_id,
+                        'form_id' => $form_id,
+                        'question_id' => $question_id,
+                        'question_key' => $question_key,
+                        'user_email' => $user_email],
+                    ['attachment' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
+                );
+
+                DB::table('user_responses')
+                    ->updateOrInsert(
+                        [
+                            'user_form_id'  => $user_id,
+                            'form_id'       => $form_id,
+                            'question_id'   => $question_id,
+                            'question_key'  => $question_key,
+                            'user_email'    => $user_email],
+                        ['attachment' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
+                    );
+                return;
+            }
+            else{
+                DB::table('external_users_filled_response')
                 ->updateOrInsert(
                     [
                         'external_user_form_id' => $user_id,
@@ -1264,17 +1289,18 @@ class Forms extends Controller{
                     ['question_response' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
                 );
 
-            DB::table('user_responses')
-                ->updateOrInsert(
-                    [
-                        'user_form_id'  => $user_id,
-                        'form_id'       => $form_id,
-                        'question_id'   => $question_id,
-                        'question_key'  => $question_key,
-                        'user_email'    => $user_email],
-                    ['question_response' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
-                );
-            return;
+                DB::table('user_responses')
+                    ->updateOrInsert(
+                        [
+                            'user_form_id'  => $user_id,
+                            'form_id'       => $form_id,
+                            'question_id'   => $question_id,
+                            'question_key'  => $question_key,
+                            'user_email'    => $user_email],
+                        ['question_response' => $file_path, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
+                    );
+                return;
+            }
         }
 
         $form_id            = $req->input('form-id');
@@ -2245,7 +2271,7 @@ class Forms extends Controller{
                 ->leftJoin('admin_form_sections as afs', 'questions.question_section_id', '=', 'afs.id')
                 ->leftJoin('client_form_sections as cfs', 'cfs.admin_form_sec_id', '=', DB::raw('afs.id AND cfs.client_id = ' . $client_id))
                 ->where('user_form_links.form_link', '=', $form_link_id)
-                ->orderBy('sort_order')
+                ->orderBy('questions.question_num')
                 ->select('*',
                     'questions.options_fr as options',
                     'questions.question_info_fr as question_info',
@@ -2271,7 +2297,7 @@ class Forms extends Controller{
                 ->leftJoin('admin_form_sections as afs', 'questions.question_section_id', '=', 'afs.id')
                 ->leftJoin('client_form_sections as cfs', 'cfs.admin_form_sec_id', '=', DB::raw('afs.id AND cfs.client_id = ' . $client_id))
                 ->where('user_form_links.form_link', '=', $form_link_id)
-                ->orderBy('sort_order')
+                ->orderBy('questions.question_num')
                 ->select('*',
                     'form_questions.form_id as form_id',
                     'user_form_links.id as uf_id',
@@ -2417,6 +2443,7 @@ class Forms extends Controller{
                 'question_comment' => $user_response->additional_comment,
                 'question_type' => $user_response->type,
                 'additional_resp' => $user_response->additional_info,
+                'attachment' => $user_response->attachment,
             ];
         }
 

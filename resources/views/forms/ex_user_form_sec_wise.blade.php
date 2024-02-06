@@ -489,7 +489,13 @@
 											$dynmc_values_dropdown = DB::table("assets")->where('client_id', $client_id)->select('id', 'name')->get();
 											break;
 										case '3':
-											$dynmc_values_dropdown = DB::table("countries")->select('id', 'country_name AS name')->get();
+											if(session('locale')=='fr'){
+												$lang="fr";
+											}
+											else{
+												$lang="en";
+											}
+											$dynmc_values_dropdown = DB::table("countries")->where('lang_code', $lang)->select('id', 'country_name AS name')->get();
 											break;
 										case '4':
 											$dynmc_values_dropdown = DB::table("data_classifications")->where('organization_id', $client_id)->select('confidentiality_level as id', 'classification_name_en AS name', 'classification_name_fr AS name_fr')->get();
@@ -504,12 +510,12 @@
 									<select  class="form form-control select_for_js" name="{{ $question->form_key.'_'.$question->q_id}}" q-id="{{$question->q_id}}" style="margin-bottom:20px">
 
 										@if(session('locale')=='fr') 
-											<option value="">-- SELECT --</option>
+											<option>-- SELECT --</option>
 											@if($question->not_sure_option)
 												<option value="0">Not Sure</option>
 											@endif
 										@else
-											<option value="">-- SELECT --</option>
+											<option>-- SELECT --</option>
 											@if($question->not_sure_option)
 												<option value="0"
 												@if (isset($filled[$question->form_key]) && $filled[$question->form_key]['question_response'] == 0){
@@ -621,6 +627,17 @@
 									<?php
 									break;
 								case('im'): ?>
+									@php
+										$formate =json_decode($question->attachments);
+									@endphp 
+									@if($formate)
+											<p style="font-size:14px;">
+												@foreach($formate as $format)
+													@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+												@endforeach
+												Allowed Format
+											</p>
+                                    @endif
 									<form {{ $attr }} id="upload_form-{{ $question->q_id }}" enctype="multipart/form-data" method="POST">
 										<input type="hidden" name="_token" value="{{ csrf_token()}}">
 										<input type="hidden" name="form-id"      id="form-id"      value="{{ $questions[0]->form_id }}"> 
@@ -633,7 +650,13 @@
 										<input type="hidden" name="email"        id="email"        value="{{ $accoc_info['user_email'] }}">
 										<input type="hidden" name="question-id" value="{{ $question->q_id }}">
 										<input type="hidden" name="question-key" value="{{ $question->form_key }}">
-										<input {{ $attr }} type="file" name="img-{{ $question->q_id }}" id="file-upload" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }}>                                                            
+										<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
+										@if($question->is_locked==1)
+										<input {{ $attr }} type="file" name="img-{{ $question->q_id }}" id="file-upload" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }} disabled>                                                            
+										@else
+										<input {{ $attr }} type="file" name="img-{{ $question->q_id }}" id="file-upload" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }}> 
+										@endif  
+										<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>                                                         
 									</form>
 									<?php break;?>
 									<div id="{{"perc-bar-".$question->q_id}}" class="barfiller hidden">
@@ -654,6 +677,39 @@
 							</div>
 							<?php endif; 
 						?>
+						@if($question->attachment_allow==1)
+								@php
+									$formats =json_decode($question->attachments);
+								@endphp 
+								@if($formats)
+										<p style="font-size:14px;">
+											@foreach($formats as $format)
+												@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
+											@endforeach
+											Allowed Format
+										</p>
+								@endif
+								<form id="upload_form-{{ $question->q_id }}" enctype="multipart/form-data" method="POST">
+									<input type="hidden" name="_token" value="{{ csrf_token()}}">
+									<input type="hidden" name="user-form-id" value="{{ $questions[0]->uf_id }}">
+									<input type="hidden" name="form-id" value="{{ $questions[0]->form_id }}">
+									<input type="hidden" name="form-link-id" value="{{ $questions[0]->form_link }}">
+									<input type="hidden" name="user-id" value="{{ $accoc_info['user_id'] }}">
+									<input type="hidden" name="email" value="{{ $accoc_info['user_email'] }}">
+									<input type="hidden" name="subform-id" value="{{ $questions[0]->sub_form_id }}">
+									<input type="hidden" name="attachment" value="1">
+									<input type="hidden" name="question-id" value={{ $question->q_id }}>
+									<input type="hidden" name="question-key" value="{{ $question->form_key }}">
+									<!-- dev -->
+									<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
+									@if($question->is_locked==1)
+									<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['attachment']) && !empty($filled[$question->form_key]['attachment']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['attachment'])):('') }} disabled>
+									@else
+									<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['attachment']) && !empty($filled[$question->form_key]['attachment']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['attachment'])):('') }}>
+									@endif
+									<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
+								</form> 
+						@endif
 					</div>	<!--</div>-->
 					<?php endforeach; ?>
 					<div class="alert alert-success hidden submit-msg" id="submit-msg" style="margin-top:20px;margin-bottom:10px">	 
@@ -1212,9 +1268,38 @@
 				$('.dropify').dropify();
 				$('input.dropify').change(function(){
 					var q_id = this.name;
-							q_id =q_id.split("-");
-							q_id = q_id[1];
-							console.log(q_id);
+					q_id =q_id.split("-");
+					q_id = q_id[1];
+					console.log(q_id);
+					// file types which will accepted o this question pecified by admin 
+
+					let accepted_file_types = JSON.parse($(`#accepted_types_${q_id}`).val()).map(function(str) { return parseInt(str)});
+					// console.log(accepted_file_types);
+					// All possible Extention for these file types 
+					const all_extentions = ["", ["jpg", "png", "jpeg", "gif", "JPG", "PNG", "JPEG", "GIF"], ['docx', 'doc'], ['pdf'] , ['xlsx' ,'csv'], ['zip']];
+					// Extentions for Current Question
+					let accepted_extentions  = [];
+
+					for (let i =0; i < all_extentions.length; i++) {
+						if (accepted_file_types.indexOf(i) != -1) {
+							for (let j = 0; j < all_extentions[i].length; j++) {
+								accepted_extentions.push(all_extentions[i][j]);
+							}
+						}
+					}
+					console.log(accepted_extentions);
+					// Uploaded file whose we have to check extention upported or not 
+					var uploaded_file_extention = event.target.files[0].name.split('.').pop();
+					// var uploaded_file_extension = event.target.files[0].name.split('.')[1];
+					console.log(uploaded_file_extention);
+
+					if (accepted_extentions.indexOf(uploaded_file_extention) == -1) {
+						let error_id = `#image_error_${q_id}`;
+						$(error_id).html("Please choose a valid file format");
+						return;
+					}
+					$('#image_error_'+q_id).text("");
+
 					$.ajax({
 						url:'{{route('ajax_ext_user_submit_form')}}',
 						data:new FormData($("#upload_form-"+q_id)[0]),
@@ -1224,7 +1309,7 @@
 						processData: false,
 						contentType: false,
 						success:function(response){
-									// console.log(response);
+									console.log(response);
 								},
 							});
 				});

@@ -597,6 +597,7 @@
 												// 6 ASSETS TIER
 												$value_from = $question->dropdown_value_from;
 												$dynmc_values_dropdown = [];
+												
 												switch ($value_from) {
 													case '1':
 														$dynmc_values_dropdown = DB::table("assets_data_elements")->where('owner_id', Auth::user()->client_id)->select('id', 'name')->get()->toArray();
@@ -605,7 +606,13 @@
 														$dynmc_values_dropdown = DB::table("assets")->where('client_id', Auth::user()->client_id)->select('id', 'name')->get();
 														break;
 													case '3':
-														$dynmc_values_dropdown = DB::table("countries")->select('id', 'country_name AS name')->get();
+														if(session('locale')=='fr'){
+															$lang="fr";
+														}
+														else{
+															$lang="en";
+														}
+														$dynmc_values_dropdown = DB::table("countries")->where('lang_code', $lang)->select('id', 'country_name AS name')->get();
 														break;
 													case '4':
 														$dynmc_values_dropdown = DB::table("data_classifications")->where('organization_id', Auth::user()->client_id)->select('confidentiality_level as id', 'classification_name_en AS name', 'classification_name_fr AS name_fr')->get();
@@ -621,12 +628,12 @@
 												<select  class="form form-control select_for_js" name="{{ $question->form_key.'_'.$question->q_id}}" q-id="{{$question->q_id}}" style="margin-bottom:20px">
 
 													@if(session('locale')=='fr') 
-														<option value="">-- SELECT --</option>
+														<option>-- SELECT --</option>
 														@if($question->not_sure_option)
 															<option value="0">Not Sure</option>
 														@endif
 													@else
-														<option value="">-- SELECT --</option>
+														<option>-- SELECT --</option>
 														@if($question->not_sure_option)
 															<option value="0"
 															@if (isset($filled[$question->form_key]) && $filled[$question->form_key]['question_response'] == 0){
@@ -1053,7 +1060,7 @@
 			var not_filled = [];
 			function get_filled_questions_count (){
 				var count = 0;
-				//alert('get_filled_questions_count');
+				// alert('get_filled_questions_count');
 				$('li.es-selectable, .textarea_for_js, .select_for_js').each(function(){
 					var key = $(this).attr('name');
 					var tag = ($(this).prop('tagName')).toLowerCase(); 
@@ -1246,6 +1253,10 @@
 			function update_progress_bar (completed_questions, id_num = '', locked = false){
 				var total_questions     = {{ $total_questions }};
 				var percentage = Math.ceil((completed_questions/total_questions)*100);
+				console.log('completed====', completed_questions)
+				console.log('total ques====', total_questions)
+				console.log('percentage====', percentage)
+				console.log('id_num===', id_num)
 
 				if (id_num != '') {
 					var form_section_id     = $('[q-id="'+id_num+'"]').closest('div.form-section').attr('id');

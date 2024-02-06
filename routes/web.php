@@ -431,7 +431,7 @@ Route::post('/2faverify', function () {
 //          return "check email";
 //      });
 // });
-// Route::get('/test',                     'HomeController@test')->name('test');
+Route::get('/test',                     'HomeController@test')->name('test');
 // Route::get('/myredirect',               'HomeController@my_redirect')->name('myredirect');
 // Route::get('/login',                    'Auth/LoginController@login')->name('login');
 

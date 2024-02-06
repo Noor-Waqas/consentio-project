@@ -196,6 +196,18 @@ class HomeController extends Controller
     }
 
     public function test(){
+		
+		$countries = DB::table('countries')->get();
+		foreach($countries as $row){
+			$country_name = $row->country_name."-FR";
+			DB::table('countries')->insert([
+
+                    "country_code" => $row->country_code,
+                    "country_name" => $country_name,
+                    "lang_code" => 'fr'
+                ]);
+		}
+		echo 'DONE';exit;
         /*
             $users = DB::table('assets')->where('client_id','')->get();
             echo '<pre>';print_r($users);
@@ -204,7 +216,7 @@ class HomeController extends Controller
         //DB::table('form_questions')->where('fq_id', '641')->update(['sort_order' => '34']);
         //DB::table('questions')->where('question_section_id', '104')->update(['question_section_id' => '28','question_num' => '3.5']);
         //  DB::table('questions')->where('id', '640150')->update(['question' => 'To what extent has the risk to the data already been mitigated?','question_fr' => 'Dans quelle mesure le risque pour les données a-t-il déjà été atténué ?']);
-        DB::table('questions')->where('id', '640154')->update(['question_fr' => '']);
+        //DB::table('questions')->where('id', '640154')->update(['question_fr' => '']);
         exit;
 
         //exit;
