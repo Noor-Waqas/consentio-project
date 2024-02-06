@@ -1363,6 +1363,7 @@ class Reports extends Controller{
                     ->pluck('form_key');
                     // dd($as_id);
                     if(count($ac_id)>0){
+                        // $activity = Null;
                         $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
                         ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
                         ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
@@ -1370,11 +1371,23 @@ class Reports extends Controller{
                         ->where('user_form_links.client_id', $client_id)
                         ->where('internal_users_filled_response.question_key', $ac_id)
                         ->pluck('question_response')->first();
+                        
+                        if($activity == Null){
+                            $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                            ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                            ->join('external_users_filled_response', 'user_form_links.id', 'external_users_filled_response.external_user_form_id')
+                            ->where('user_form_links.user_id', NULL)
+                            ->where('user_form_links.client_id', $client_id)
+                            ->where('external_users_filled_response.question_key', $ac_id)
+                            ->pluck('question_response')->first();
+                        }
+                        // dd($activity);
                     }
                     else{
                         $activity=null;
                     }
                     if(count($as_id)>0){
+                        // $asset = Null;
                         $asset = DB::table('sub_forms')->where('sub_forms.id', $form_id)
                         ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
                         ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
@@ -1382,6 +1395,15 @@ class Reports extends Controller{
                         ->where('user_form_links.client_id', $client_id)
                         ->where('internal_users_filled_response.question_key', $as_id)
                         ->pluck('question_response')->first();
+                        if($asset == Null){
+                            $asset = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                            ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                            ->join('external_users_filled_response', 'user_form_links.id', 'external_users_filled_response.external_user_form_id')
+                            ->where('user_form_links.user_id', NULL)
+                            ->where('user_form_links.client_id', $client_id)
+                            ->where('external_users_filled_response.question_key', $as_id)
+                            ->pluck('question_response')->first();
+                        }
                     }
                     else{
                         $asset=null;
@@ -1423,6 +1445,7 @@ class Reports extends Controller{
                     // dd($as_id);
                     
                     if(count($ac_id)>0){
+                        // $activity = Null;
                         $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
                         ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
                         ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
@@ -1430,12 +1453,22 @@ class Reports extends Controller{
                         ->where('user_form_links.client_id', $client_id)
                         ->where('internal_users_filled_response.question_key', $ac_id)
                         ->pluck('question_response')->first();
+                        if($activity == Null){
+                            $activity = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                            ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                            ->join('external_users_filled_response', 'user_form_links.id', 'external_users_filled_response.external_user_form_id')
+                            ->where('user_form_links.user_id', NULL)
+                            ->where('user_form_links.client_id', $client_id)
+                            ->where('external_users_filled_response.question_key', $ac_id)
+                            ->pluck('question_response')->first();
+                        }
                     }
                     else{
                         $activity=null;
                     }
                     // dd($activity);
                     if(count($as_id)>0){
+                        // $asset = Null;
                         $asset = DB::table('sub_forms')->where('sub_forms.id', $form_id)
                         ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
                         ->join('internal_users_filled_response', 'user_form_links.id', 'internal_users_filled_response.user_form_id')
@@ -1443,6 +1476,15 @@ class Reports extends Controller{
                         ->where('user_form_links.client_id', $client_id)
                         ->where('internal_users_filled_response.question_key', $as_id)
                         ->pluck('question_response')->first();
+                        if($asset == Null){
+                            $asset = DB::table('sub_forms')->where('sub_forms.id', $form_id)
+                            ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+                            ->join('external_users_filled_response', 'user_form_links.id', 'external_users_filled_response.external_user_form_id')
+                            ->where('user_form_links.user_id', NULL)
+                            ->where('user_form_links.client_id', $client_id)
+                            ->where('external_users_filled_response.question_key', $as_id)
+                            ->pluck('question_response')->first();
+                        }
                     }
                     else{
                         $asset=null;
