@@ -1141,16 +1141,19 @@ class AuditFormsController extends Controller{
 
         $expiry_note  = "";
 
-        // if (strtotime(date('Y-m-d')) > strtotime($user_form_link_info->expiry_time)){
-        //     if (Auth::user()->role == 2){
-        //         if ($user_form_link_info->is_locked != '1') {
-        //             $expiry_note = 'The user failed to submit form before expiry time .';
-        //         }
-        //     }
-        // }
-        // else if (!$user_form_link_info->is_accessible) {
-        //     return view('user_form_not_accessible');
-        // }
+        if (strtotime(date('Y-m-d')) > strtotime($user_form_link_info->expiry_time)){
+            // dd("ok");
+            if (Auth::user()->role == 2 || Auth::user()->user_type == 1) {
+                if ($user_form_link_info->is_locked != '1') {
+                    $expiry_note = 'The user failed to submit form before expiry time .';
+                    $user_form_link_info->is_locked = 1;
+                }
+            }
+        }
+        if (!$user_form_link_info->is_accessible) {
+            return view('user_form_not_accessible');
+        }
+        // dd($user_form_link_info);
 
         $client_id  = $user_form_link_info->client_id;
         $user_id    = $user_form_link_info->user_id; 
@@ -1876,13 +1879,26 @@ class AuditFormsController extends Controller{
         }
         $expiry_note    = "";
         if (strtotime(date('Y-m-d')) > strtotime($user_form_link_info->expiry_time)){
-            if (Auth::user()->role == 2){
-                if ($user_form_link_info->is_locked != '1') {
-                    $expiry_note = 'The user failed to submit form before expiry time .';
+            if ($user_form_link_info->is_locked != '1') {
+                $expiry_note = 'The user failed to submit form before expiry time .';
+                if (!Auth::check()){
+                    $user_form_link_info->is_accessible = 0;
                 }
+                if (Auth::check()){
+                    $user_form_link_info->is_locked = 1;
+                }
+                // dd($user_form_link_info);
             }
         }
-        else if (!$user_form_link_info->is_accessible) {
+        if (!Auth::check()) {
+            // dd("not auth");
+            if ($user_form_link_info->is_locked == '1') {
+                $user_form_link_info->is_accessible = 0;
+                // dd($form_info[0]);
+            }
+        }
+        // dd($user_form_link_info);
+        if (!$user_form_link_info->is_accessible) {
             return view('user_form_not_accessible');
         }
         $client_id  = $user_form_link_info->client_id;

@@ -541,6 +541,11 @@ class Forms extends Controller{
                 if ((Auth::user()->role == 2 || Auth::user()->user_type == 1) && Auth::user()->client_id == $client_id) {
                     if ($form_info[0]->is_locked != '1') {
                         $expiry_note = 'The user failed to submit form before expiry time.';
+                        foreach($form_info as $form_loc){
+                            $form_loc->is_locked = 1;
+                        }
+                        // $form_info->is_locked = 1;
+                        // dd($form_info);
                     }
                 }
             } 
@@ -875,7 +880,7 @@ class Forms extends Controller{
                 $hidden_pb = true;
             }
         }
-        // dd($question_key_index);
+        // dd($form_info);
         if (count($form_info) > 0) {
             return view('forms.in_user_form_sec_wise', [
                 'form_type'     => $form_type,
@@ -2234,7 +2239,7 @@ class Forms extends Controller{
     }
 
     public function ex_users_show_form($client_id, $user_id, $client_email, $subform_id, $user_email, $date_time){
-
+        
         $accoc_info = [
             'client_id' => $client_id,
             'user_id' => $user_id,
@@ -2315,27 +2320,43 @@ class Forms extends Controller{
 
             return abort('404');
         }
+        
         $expiry_note = '';
         if (isset($form_info[0]) && strtotime(date('Y-m-d')) > strtotime($form_info[0]->form_expiry_time)) {
-            if (Auth::check()) {
-                // $client_id = $form_info[0]->client_id;
-                // dd($client_id);
+            // if (Auth::check()) {
+            //     // $client_id = $form_info[0]->client_id;
+            //     // dd($client_id);
 
-                if ((Auth::user()->role == 2 || Auth::user()->user_type == 1) && Auth::user()->client_id == $client_id) {
-                    if ($form_info[0]->is_locked != '1') {
-                        $expiry_note = __('The user failed to submit form before expiry time.');
-                    }
-                } else {
-                    // return view('user_form_expired');
-                    // $expiry_note = 'Failed to submit form before expiry time.';
+            //     if ((Auth::user()->role == 2 || Auth::user()->user_type == 1) && Auth::user()->client_id == $client_id) {
+            //         if ($form_info[0]->is_locked != '1') {
+            //             $expiry_note = __('The user failed to submit form before expiry time.');
+            //             $form_info[0]->is_accessible = 0;
+            //             dd($form_info[0]);
+            //         }
+            //     } else {
+            //         // return view('user_form_expired');
+            //         // $expiry_note = 'Failed to submit form before expiry time.';
 
-                }
-            } else {
-                // return view('user_form_expired');7
-                // $expiry_note = 'Failed to submit form before expiry time.';
+            //     }
+            // } else {
+            //     // return view('user_form_expired');7
+            //     // $expiry_note = 'Failed to submit form before expiry time.';
 
+            // }
+            if ($form_info[0]->is_locked != '1') {
+                $expiry_note = __('The user failed to submit form before expiry time.');
+                $form_info[0]->is_accessible = 0;
+                // dd($form_info[0]);
             }
-        } else if (isset($form_info[0]) && !$form_info[0]->is_accessible) {
+        }
+        if (!Auth::check()) {
+            // dd("not auth");
+            if ($form_info[0]->is_locked == '1') {
+                $form_info[0]->is_accessible = 0;
+                // dd($form_info[0]);
+            }
+        }
+        if (isset($form_info[0]) && !$form_info[0]->is_accessible) {
             return view('user_form_not_accessible');
         }
 

@@ -699,7 +699,7 @@
 															@foreach($formate as $format)
 																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
 															@endforeach
-															Allowed Format
+															{{__('Allowed Format')}}
 														</p>
                                                 @endif
 												<form id="upload_form-{{ $question->q_id }}" enctype="multipart/form-data" method="POST">

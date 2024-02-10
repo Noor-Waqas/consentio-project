@@ -676,6 +676,37 @@
         }
     });
 
+    Route::get('add/secup', function () {
+        try {
+                // Update section_name_fr for each section
+                DB::table('sections')->where('id', 1)->update(['section_name_fr' => "Vérification des antécédents"]);
+                DB::table('sections')->where('id', 2)->update(['section_name_fr' => "Biométrique"]);
+                DB::table('sections')->where('id', 3)->update(['section_name_fr' => "Informations de navigation"]);
+                DB::table('sections')->where('id', 4)->update(['section_name_fr' => "Informations de contact"]);
+                DB::table('sections')->where('id', 5)->update(['section_name_fr' => "Financier"]);
+                DB::table('sections')->where('id', 6)->update(['section_name_fr' => "Identification personnel"]);
+                DB::table('sections')->where('id', 6)->update(['section_name' => "Personal Identification"]);
+                DB::table('sections')->where('id', 7)->update(['section_name_fr' => "Réseaux sociaux"]);
+                DB::table('sections')->where('id', 7)->update(['section_name' => "Social Media"]);
+                DB::table('sections')->where('id', 8)->update(['section_name_fr' => "Information d'emploi"]);
+                DB::table('sections')->where('id', 9)->update(['section_name_fr' => "Information familiale"]);
+                DB::table('sections')->where('id', 10)->update(['section_name_fr' => "Génétique"]);
+                DB::table('sections')->where('id', 11)->update(['section_name_fr' => "Identifiants du gouvernement"]);
+                DB::table('sections')->where('id', 12)->update(['section_name_fr' => "Expérience professionnelle et affiliations"]);
+                DB::table('sections')->where('id', 13)->update(['section_name_fr' => "Voyage et dépenses"]);
+                DB::table('sections')->where('id', 13)->update(['section_name' => "Travel & Expense"]);
+                DB::table('sections')->where('id', 14)->update(['section_name_fr' => "Bien-être au travail"]);
+                DB::table('sections')->where('id', 14)->update(['section_name' => "Workplace Welfare"]);
+                DB::table('sections')->where('id', 15)->update(['section_name_fr' => "Éducation et compétences"]);
+                DB::table('sections')->where('id', 16)->update(['section_name_fr' => "Informations sur le compte utilisateur"]);
+
+                // Assuming you have JSON response and return it
+                return "Sections updated successfully";
+        } catch (\Exception $th) {
+            return $th->getMessage();
+        }
+    });
+
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });

@@ -287,6 +287,11 @@
 			local		= "{{session('locale')}}"
 			admin		= "{{Auth::user()->role}}"
 		>
+		@if(!empty($expiry_note))
+			<div class="alert alert-danger" role="alert">
+				<?php echo $expiry_note; ?>
+			</div>
+		@endif
 		<div class="row">  
 			<!-- <div class="col-12 p-3 bg-light">
 				<div id="bar_top" class="filling_bar w-100"></div>
