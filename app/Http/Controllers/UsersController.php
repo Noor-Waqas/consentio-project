@@ -469,6 +469,7 @@ class UsersController extends Controller
             $data = [
                 "name" => $request->input('company'),
                 "company" => $request->input('company'),
+				"rememberme_days" => $request->input('rememberme_days'),
                 "website" => $request->input('website'),
                 "phone" => $request->input('phone'),
                 "role" => 4,
@@ -541,13 +542,13 @@ class UsersController extends Controller
 
     public function edit_store(Request $request, $id)
     {
-        // dd($request->all());
+		
         // if (!empty($request->base_string)) {
         //     dd("ok");
         // }
         // $arr = explode('/', mime_content_type($request->base_string));
         // Session::forget('data');
-
+//echo '<pre>';print_r($_POST);exit;
         $this->validate(
             $request,
             [
@@ -562,7 +563,7 @@ class UsersController extends Controller
 
         $test = $data->image_name;
         $inputs = [
-            'password' => $request->password,
+            'password' => $request->upassword,
         ];
         $rules = [
             'password' => [
@@ -575,7 +576,7 @@ class UsersController extends Controller
         ];
         $validation = \Validator::make($inputs, $rules);
 
-        if ($request->password != "") {
+        if ($request->upassword != "") {
             if ($validation->fails()) {
                 if (isset($_POST['mail_verification']) && $_POST['mail_verification'] == 'on') {
                     $data = $request->all();
@@ -588,7 +589,7 @@ class UsersController extends Controller
                 Session::put('data', $data);
                 return redirect('users/edit/' . $id)->with('alert', __('Password must be Min 8 Characters, Alphanumeric with an Upper and lower case!'));
 
-            } elseif ($request->password != $request->rpassword) {
+            } elseif ($request->upassword != $request->rpassword) {
                 $data = $request->all();
                 return redirect('users/edit/' . $id)->with('alert', __('Password did not match!'));
 
@@ -620,8 +621,8 @@ class UsersController extends Controller
                     $record['login_attempts'] = 0;
                 }
 
-                if ($request->input('password')) {
-                    $record['password'] = bcrypt($request->input('password'));
+                if ($request->input('upassword')) {
+                    $record['password'] = bcrypt($request->input('upassword'));
                 }
                 if ($request->input('id')) {
 
@@ -637,7 +638,7 @@ class UsersController extends Controller
                 return redirect("/admin");
             }
         } else {
-            if ($request->password != $request->rpassword) {
+            if ($request->upassword != $request->rpassword) {
                 return redirect('users/edit/' . $id)->with('alert', __('Password did not match!'));
             } else {
                 if ($request->base_string) {
@@ -679,8 +680,8 @@ class UsersController extends Controller
                     $record['login_attempts'] = 0;
                 }
 
-                if ($request->input('password')) {
-                    $record['password'] = bcrypt($request->input('password'));
+                if ($request->input('upassword')) {
+                    $record['password'] = bcrypt($request->input('upassword'));
                 }
                 if ($request->input('id')) {
                     User::where("id", $request->input("id"))->update($record);
@@ -1335,6 +1336,7 @@ class UsersController extends Controller
         $record = array(
             "name" => $request->input('name'),
             "company" => $request->input('name'),
+			"rememberme_days" => $request->input('rememberme_days'),
             "phone" => $request->input('phone'),
             "website" => $request->input('website'),
             "image_name" => $imgname,

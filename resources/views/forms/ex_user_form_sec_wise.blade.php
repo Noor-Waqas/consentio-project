@@ -1712,6 +1712,9 @@
 					jQuery('#date-picker-<?php echo $dp_num; ?>').datetimepicker({
 						timepicker:false,
 						format:'Y-m-d',
+						@if(session('locale')=='fr')
+						lang: 'fr',
+						@endif
 						onSelectDate: function (ct) {
 							$('#date-picker-li-<?php echo $dp_num; ?>').siblings().each(function(i, li){
 								$(li).removeClass('es-selected');

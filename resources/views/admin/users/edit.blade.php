@@ -259,7 +259,7 @@
 						<div class="col-sm-6 col-md-4">
 							<div class="form-group">
 								<label class="form-control-label">Password</label>
-								<input id="password" type="password" class="form-control" name="password">
+								<input id="upassword" type="password" value="" class="form-control" name="upassword">
 							</div>
 						</div>
 
@@ -282,7 +282,9 @@
 									<option <?php if($user->is_blocked=='Yes'){ echo 'selected';  } ?> value="Yes">Yes</option>
 									<option <?php if($user->is_blocked=='No'){ echo 'selected';  } ?> value="No">No</option>
 									@endif
+									
 								</select>
+								
 								<span id='message'></span>
 							</div>
 						</div>
@@ -292,7 +294,7 @@
 								<div class="form-group">
 									<label class="form-control-label">{{ __('Enable Email Verification')}}</label><br>
 										<label class="switch">
-											<input name="mail_verification" type="checkbox" @if($value['mail_verification'] == 'on')) 'checked' @endif >
+											<input name="mail_verification" type="checkbox" @if($value['is_email_varified'] == 1)) 'checked' @endif >
 										<span class="slider round"></span>
 										</label>
 									<span id='message'></span>
@@ -633,6 +635,9 @@ $('#password, #rpassword').on('keyup', function () {
 
 });
 
+$( document ).ready(function() {
+    $( "#upassword" ).val('');
+});
 
 
 </script>
