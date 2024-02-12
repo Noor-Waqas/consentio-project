@@ -339,6 +339,9 @@
 							<div class="col-12 my-2">
                                 <div class="card">
                                     <div class="content p-3">
+										@if(Auth()->check())
+											<h6> {{__('Control ID')}}: {{ $question->control_id }} </h6>
+										@endif
                                         @if(session('locale')=='fr')
                                             <h6> {{$question->question_num}}. {{ $question->question_fr }} </h6> 
                                             @if($question->question_comment_fr)

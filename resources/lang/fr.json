@@ -1091,10 +1091,25 @@
     "Audit Remediation Plan": "Plan de remédiation de l'audit",
     "Post Remediation Rating": "Évaluation après assainissement",
 
-    "My Account": "Mon compte", 
-    "Allowed Format": "Format autorisé", 
+    "My Account": "Mon compte",
+    "Allowed Format": "Format autorisé",
+
+    "Access Notice": "Avis d'accès", 
+    "The form cannot be accessed": "Le formulaire n'est pas accessible", 
 
     "Privacy Policy"            : "politique de confidentialité",
     "Terms & Conditions"        : "termes et conditions",
-    "Copyright © 2023 Consentio Inc. All rights reserved."       : "Droits d'auteur © 2023 Consentio Inc. Tous droits réservés."
+    "Copyright © 2023 Consentio Inc. All rights reserved."       : "Droits d'auteur © 2023 Consentio Inc. Tous droits réservés.",
+	"Go_To_Inbox " : "Accédez à la boîte de réception de",
+    "Open_The_Email" : "Veuillez ouvrir le courriel de",
+    "With_Subject_Line" : "avec pour objet « Consentio 2FA Code »",
+    "Cannot_find_Email" : "(Vous ne trouvez pas le courriel ? Veuillez vérifier votre dossier spam.)",
+    "Enter_The_Authentication" : "Saisissez le code d'authentification fourni dans le courriel",
+    "Donot_Ask_Again_Pre" : "Ne me demandez pas de code pour ",
+	"Donot_Ask_Again_Post" : " jours.",
+	
+	"Login_Failed_Wrong_User_Credentials" : "Échec de la connexion Informations d'identification utilisateur incorrectes",
+	"Your_account_is_currently_blocked" : "Votre compte est actuellement bloqué. Veuillez contacter votre équipe de service client pour obtenir une assistance supplémentaire.",
+	"please_enter_accurate_email_password" : "Veuillez saisir un e-mail et un mot de passe précis. Votre compte sera bloqué après ",
+	"login_attempts" : " tentatives de connexion."
 }
