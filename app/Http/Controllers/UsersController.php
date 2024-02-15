@@ -590,7 +590,15 @@ class UsersController extends Controller
                 return redirect('users/edit/' . $id)->with('alert', __('Password must be Min 8 Characters, Alphanumeric with an Upper and lower case!'));
 
             } elseif ($request->upassword != $request->rpassword) {
-                $data = $request->all();
+                if (isset($_POST['mail_verification']) && $_POST['mail_verification'] == 'on') {
+                    $data = $request->all();
+                    $data['mail_verification'] = 'on';
+                } else {
+                    $data = $request->all();
+                    $data['mail_verification'] = 'off';
+                }
+
+                Session::put('data', $data);
                 return redirect('users/edit/' . $id)->with('alert', __('Password did not match!'));
 
             } else {

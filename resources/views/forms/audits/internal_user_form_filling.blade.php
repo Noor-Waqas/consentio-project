@@ -516,7 +516,7 @@
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">
 														<label>{{__('Rating')}} </label>
-														@if($question->responses && $question->responses->rating)
+														@if($form_details->rating_loc == 1)
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}" disabled>
 														@else
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}">
@@ -532,7 +532,11 @@
 												</div>
 												<div class="col-md-12 py-3">
 													<label>{{__('Review Comment')}}</label>
-													<textarea rows="4"   class="form-control comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->admin_comment}}@endif</textarea>
+													@if($form_details->rating_loc == 1)
+													<textarea rows="4" class="form-control comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}" disabled="disabled">@if(isset($question->responses)){{  $question->responses->admin_comment}}@endif</textarea>
+													@else
+													<textarea rows="4" class="form-control comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->admin_comment}}@endif</textarea>
+													@endif
 												</div>
 											@endif
 										</div>
@@ -599,7 +603,7 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="col-12 p-4" id="submit_rating"></div>
 			<div class="col-12 p-4" id="show_remediation_plan"></div>
         </div>
 
@@ -877,14 +881,31 @@
 							toastr.info('Assessment completed,  You can Add remediation');
 						}
 						page_loading = 0;
-						
-						$('#show_remediation_plan').html(`
-							<div class="row alert alert-success">
-								<div class="col-12 d-flex justify-content-end">
-									<a class="btn btn-primary text-white" href="/audit/remediation/add/{{$user_form_link_info->sub_form_id}}">{{__('Add Remediation plan')}}</a>
+						console.log("rating Submit", response.rating_locked.rating_loc)
+						if(response.rating_locked.rating_loc != 1){
+							$('#submit_rating').html(`
+								<div class="row alert alert-success">
+									<div class="col-md-8">
+										<h4>{{ __('Almost Done') }}!</h4>
+										{{ __('Please review your Rating before submitting and then click') }} 
+										{{ __('once finalized.') }}
+									</div>
+									<div class="col-md-4">
+										<button class="btn btn-success btn-lg submit" onclick="rating_lock()">{{ __('Submit') }}</button> 
+									</div>
 								</div>
-							</div>
-						`)
+							`)
+						}
+						
+						if(response.rating_locked.rating_loc == 1){
+							$('#show_remediation_plan').html(`
+								<div class="row alert alert-success">
+									<div class="col-12 d-flex justify-content-end">
+										<a class="btn btn-primary text-white" href="/audit/remediation/add/{{$user_form_link_info->sub_form_id}}">{{__('Add Remediation plan')}}</a>
+									</div>
+								</div>
+							`)
+						}
 					}
 
 					else if(response.total_questions == response.added_ratting && response.week_questions == 0) {
@@ -892,6 +913,7 @@
 							toastr.success('This Audit completed Successfully');
 						}
 						page_loading = 0;
+						$('#submit_rating').html("")
 						$('#show_remediation_plan').html("");
 						$('#show_remediation_plan').html(`
 							<div class="row alert alert-success">
@@ -1026,6 +1048,21 @@
         	}, 3000);
 			
 		}
+
+		function rating_lock(){
+			var data             = {};
+			data['sub_form_id']  = $('#form_details').attr('sub_form_id');
+			data['client_id']    = $('#form_details').attr('sub_form_id');
+			$.ajax({
+				url   :'{{route('ajax_lock_rating_audit_form')}}',
+				method:'POST',
+				data  : data,
+				success: function(response) {
+					window.location.reload();
+					console.log(response);
+				}
+			});	
+		};
 
 		function add_question_rating_in_db(event) {
 			const data = {

@@ -202,6 +202,7 @@ Route::post('audit/ajaxsubmitexternalaudit', 'AuditFormsController@ajax_ext_user
 Route::get('audit/count/{group}/{sub_form}', 'AuditFormsController@get_question_count')->name('get_question_count');
 Route::post('audit/add/attachment/ex', 'AuditFormsController@ex_add_attachment_to_question')->name('ex_add_attachment_to_question');
 Route::post('audit/lock', 'AuditFormsController@ajax_lock_user_audit_form')->name('ajax_lock_user_audit_form');
+Route::post('audit/rate', 'AuditFormsController@ajax_lock_rating_audit_form')->name('ajax_lock_rating_audit_form');
 Route::get('audit/success', 'AuditFormsController@show_success_msg')->name('show_audit_success_msg');
 Route::get('SAR/ExtUserForm/{client_id}/{user_id}/{client_email}/{subform_id}/{user_email}/{date_time}', 'Forms@ex_users_show_form')->name('sar_ext_user_form_link');
 Route::get('Forms/UserForm/{client_id}/{user_id}/{client_email}/{subform_id}/{user_email}/{date_time}', 'Forms@show_form')->name('user_form_link');

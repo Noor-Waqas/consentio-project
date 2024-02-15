@@ -1388,6 +1388,7 @@ class AuditFormsController extends Controller{
             $remediation_added   = DB::table('remediation_plans')->where('sub_form_id', $sub_form_id)->count();
             $remediation_plan    = DB::table('remediation_plans')->where('sub_form_id', $sub_form_id)->first();
             $remediation_plan    = DB::table('remediation_plans')->where('sub_form_id', $sub_form_id)->first();
+            $locked_ratting      = DB::table('sub_forms')->where('id', $sub_form_id)->select('rating_loc')->first();
 
 
             $sections = GroupSection::where('group_id', $group)->get();   
@@ -1404,6 +1405,7 @@ class AuditFormsController extends Controller{
                 'total_questions'       => $total_questions,
                 'responded_questions'   => $responded_questions,
                 'added_ratting'         => $added_ratting,
+                'rating_locked'         => $locked_ratting,
                 'week_questions'        => $week_questions,
                 'remediation_added'     => $remediation_added,
                 'remediation_plan'      => $remediation_plan,
@@ -2179,6 +2181,21 @@ class AuditFormsController extends Controller{
          UserFormLink::where("sub_form_id", $form_link_id)
                 ->where('is_locked', 0)
                 ->update(["is_locked" => 1]);
+        return $update;
+    }
+
+    public function ajax_lock_rating_audit_form(Request $request){
+        $client_id = null;
+        if ($request->client_id) {
+            $client_id = $request->client_id;
+        } else {
+
+            $client_id = auth()->user()->client_id;
+        }
+        $form_link_id = $request->input('sub_form_id');
+
+        $update = DB::table('sub_forms')->where("id", $form_link_id)
+                ->update(["rating_loc" => 1]);
         return $update;
     }
 

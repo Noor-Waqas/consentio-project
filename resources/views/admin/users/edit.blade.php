@@ -294,7 +294,7 @@
 								<div class="form-group">
 									<label class="form-control-label">{{ __('Enable Email Verification')}}</label><br>
 										<label class="switch">
-											<input name="mail_verification" type="checkbox" @if($value['is_email_varified'] == 1)) 'checked' @endif >
+											<input name="mail_verification" type="checkbox" <?php if($value['mail_verification']=='on'){ echo 'checked';  } ?> >
 										<span class="slider round"></span>
 										</label>
 									<span id='message'></span>

@@ -313,7 +313,11 @@
 							<li><strong>★</strong></li>
 							<li><i class="fa fa-chevron-up"></i></li>
 						</ul>
+						@if(session('locale')=='fr')
+						<h3>{{$form_details->title_fr}}</h3> 
+						@else
 						<h3>{{$form_details->title}}</h3> 
+						@endif
 					</div>
 				</div>
 			</div> 
@@ -329,7 +333,11 @@
 								<li><i class="fa fa-chevron-up" aria-hidden="true"></i></li>
 							</ul>
 							<div class="w-100 px-4 d-flex justify-content-between">
+							@if(session('locale')=='fr')
+								<h3 id="title">{{ $section->section_title_fr }}</h3>
+							@else
 								<h3 id="title">{{ $section->section_title }}</h3>
+							@endif
 							</div>
 						</div>
 					</span>
@@ -444,12 +452,12 @@
 
 												<select  class="select_box_for_js form-control" question_key="dc-{{$question->id}}" q-id="{{ $question->id }}" type="{{ $question->type }}"  style="margin-bottom:20px" @if ($user_form_link_info->is_locked == 1) disabled = "true"  @endif>
 													@if(session('locale')=='fr') 
-														<option value="">-- SELECT --</option>
+														<option value="">-- {{__('SELECT')}} --</option>
 														@if($question->not_sure_option)
 															<option value="0">Not Sure</option>
 														@endif
 													@else
-														<option value="">-- SELECT --</option>
+														<option value="">-- {{__('SELECT')}} --</option>
 														@if($question->not_sure_option)
 															<option value="0"
 															@if (isset($question->responses) &&  $question->responses != null && $question->responses->question_response == 0){
@@ -472,7 +480,7 @@
                                         @endswitch
 										@if($question->attachment_allow)
 											<div class="pt-2">
-											<label for="">Attachment</label>
+											<label for="">{{__('Attachment')}}</label>
 												<form id="question_with_attachment_{{$question->id}}" enctype="multipart/form-data" method="POST">
 													<input type="hidden" name="_token" value="{{ csrf_token()}}">
 													<input type="hidden" name="user_form_id" value="{{ $user_form_link_info->id }}">
@@ -488,8 +496,8 @@
 											</div>
 										@endif
 										<div class="col-md-12 p-0 py-3">
-											<label>Additional Comment</label>
-											<textarea rows="4"  class="form-control additional_comment_for_question" placeholder="comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
+											<label>{{__('Additional Comment')}}</label>
+											<textarea rows="4"  class="form-control additional_comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 										</div>
 										<div id="bar_{{$question->id}}" class="d-none barfiller w-100"></div>
 										@if($user_form_link_info->is_locked == 1)
@@ -497,26 +505,26 @@
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">
 														<label>{{__('Rating')}} </label>
-														@if($question->responses && $question->responses->rating)
+														@if($form_details->rating_loc == 1)
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}" disabled>
 														@else
 														<select class="form-control" class="add_rating_in_db" onchange="add_question_rating_in_db(event)" q-id="{{ $question->id }}">
 														@endif
 															@if($question->responses->rating == 0)
-																<option value="">-- SELECT Assessment --</option>
+																<option value="">-- {{__('SELECT Assessment')}} --</option>
 															@endif
 															@foreach($eval_ratings as $rate)
-																<option value="{{ $rate->rate_level }}" @if($question->responses->rating == $rate->rate_level) selected @endif>{{ $rate->assessment }}</option>
+																<option value="{{ $rate->rate_level }}" @if($question->responses->rating == $rate->rate_level) selected @endif>{{ __($rate->assessment) }}</option>
 															@endforeach
 														</select>
 													</div>
 												</div>
 												<div class="col-md-12 py-3">
 													<label>{{__('Review Comment')}}</label>
-													@if($question->responses && $question->responses->rating)
-													<textarea rows="4"   class="form-control comment_for_question" placeholder="Comment ..."  q-id="{{ $question->id }}" disabled="disabled">@if(isset($question->responses) ){{  $question->responses->admin_comment}}@endif</textarea>
+													@if($form_details->rating_loc == 1)
+													<textarea rows="4"   class="form-control comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}" disabled="disabled">@if(isset($question->responses) ){{  $question->responses->admin_comment}}@endif</textarea>
 													@else
-													<textarea rows="4"   class="form-control comment_for_question" placeholder="Comment ..."  q-id="{{ $question->id }}">@if(isset($question->responses) ){{  $question->responses->admin_comment}}@endif</textarea>
+													<textarea rows="4"   class="form-control comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}">@if(isset($question->responses) ){{  $question->responses->admin_comment}}@endif</textarea>
 													@endif
 												</div>
 											@endif
@@ -541,11 +549,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="p-4" style="margin-top:10px; background: #99e8f2">
-					<h4>Section List</h4>
+					<h4>{{__('Section List')}}</h4>
 					<div class="user-guide">
-						<p><span class="legend-green">■</span> Filled / Not Required Sections </p>
-						<p><span class="legend-red">■</span> Not Filled Sections </p>
-						<p>Please fill at least one question from each section in order to be considered filled. You can click the relevent section bullet to jump on that section</p>
+						<p><span class="legend-green">■</span> {{__('Filled / Not Required Sections')}} </p>
+						<p><span class="legend-red">■</span> {{__('Not Filled Sections')}} </p>
+						<p>{{__('Please fill at least one question from each section in order to be considered filled. You can click the relevent section bullet to jump on that section')}}</p>
 					</div>
 					<div>
 						<div class="text-white" style="margin-top:10px;">
@@ -577,6 +585,7 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-12 p-4" id="submit_rating"></div>
         </div>
 		
 
@@ -782,6 +791,8 @@
 				method: 'GET',
 				success: function(response) {
 
+					// console.log(response);
+
 					sections 	= response.sections;
 
 					$('#append_sections').html("");
@@ -791,13 +802,21 @@
 							if (section.total_questions == section.responded_questions) {
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else
 										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}else{
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else
 										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}
@@ -805,13 +824,21 @@
 							if (section.total_questions == section.rated_questions) {
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else
 										<a class=" sec-review-links arrow-green" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}else{
 								$('#append_sections').append(`
 									<li class="nav-item my-1" role="presentation">
+									@if(session('locale')=='fr')
+										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title_fr']}</a>
+									@else
 										<a class=" sec-review-links arrow-red" id="section_tab_${section['id']}" data-toggle="tab" data-target="#section_${section['id']}" type="button" role="tab" aria-controls="section_${section['id']}" aria-selected="true">${section['section_title']}</a>
+									@endif
 									</li>`
 								);
 							}
@@ -838,21 +865,40 @@
 						// 	toastr.info('Assessment completed,  You can Add remediation');
 						// }
 						page_loading = 0;
-						
-						$('#show_remediation_plan').html(`
-							<div class="row alert alert-success">
-								<div class="col-12 d-flex justify-content-end">
-									<a class="btn btn-primary text-white" href="/audit/remediation/add/{{$user_form_link_info->sub_form_id}}">{{__('Add Remediation plan')}}</a>
+						console.log("rating Submit", response.rating_locked.rating_loc)
+						if(response.rating_locked.rating_loc != 1){
+							$('#submit_rating').html(`
+								<div class="row alert alert-success">
+									<div class="col-md-8">
+										<h4>{{ __('Almost Done') }}!</h4>
+										{{ __('Please review your Rating before submitting and then click') }} 
+										{{ __('once finalized.') }}
+									</div>
+									<div class="col-md-4">
+										<button class="btn btn-success btn-lg submit" onclick="rating_lock()">{{ __('Submit') }}</button> 
+									</div>
 								</div>
-							</div>
-						`)
+							`)
+						}
+						
+						if(response.rating_locked.rating_loc == 1){
+							$('#show_remediation_plan').html(`
+								<div class="row alert alert-success">
+									<div class="col-12 d-flex justify-content-end">
+										<a class="btn btn-primary text-white" href="/audit/remediation/add/{{$user_form_link_info->sub_form_id}}">{{__('Add Remediation plan')}}</a>
+									</div>
+								</div>
+							`)
+						}
 					}
 
 					else if(response.total_questions == response.added_ratting && response.week_questions == 0) {
 						if (page_loading != 1) {
 							toastr.success('This Audit completed Successfully');
 						}
+						console.log("rating Submit 2")
 						page_loading = 0;
+						$('#submit_rating').html("")
 						$('#show_remediation_plan').html("");
 						$('#show_remediation_plan').html(`
 							<div class="row alert alert-success">
@@ -923,6 +969,21 @@
 					if (response == 1) {
 						window.location.href = "{{route('show_audit_success_msg')}}";
 					}
+					console.log(response);
+				}
+			});	
+		};
+
+		function rating_lock(){
+			var data             = {};
+			data['sub_form_id']  = $('#form_details').attr('sub_form_id');
+			data['client_id']    = $('#form_details').attr('sub_form_id');
+			$.ajax({
+				url   :'{{route('ajax_lock_rating_audit_form')}}',
+				method:'POST',
+				data  : data,
+				success: function(response) {
+					window.location.reload();
 					console.log(response);
 				}
 			});	
