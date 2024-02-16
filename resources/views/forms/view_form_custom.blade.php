@@ -484,6 +484,7 @@
                     @elseif($question->dropdown_value_from == 3)
                         @php
                             $countries = DB::table('countries')
+                                ->where('lang_code', session('locale'))
                                 ->select('id', 'country_name')
                                 ->get();
                         @endphp
@@ -564,7 +565,7 @@
                                 @foreach($attachments as $format)
                                     @if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
                                 @endforeach
-                                Allowed Format
+                                {{__('Allowed Format')}}
                             </p>
                             <input type="file" class="dropify" disabled>
                         <!-- @for ($i = 1; $i <= 5; $i++)
@@ -588,7 +589,7 @@
 															@foreach($formats as $format)
 																@if($format == 1) Image | @elseif($format == 2) Docs | @elseif($format == 3) PDF | @elseif($format == 4) Excel | @elseif($format == 5) Zip | @endif
 															@endforeach
-															Allowed Format
+															{{__('Allowed Format')}}
 														</p>
                                                 <input type="file" class="dropify" disabled>
                                                 @endif
@@ -610,6 +611,11 @@
     <script>
         $(document).ready(function(){
             $('.dropify').dropify();
+
+            $('.dropify-message p').text('Glissez-déposez un fichier ou cliquez pour sélectionner');
+            $('.dropify-infos-replace').text('Glissez-déposez un fichier ou cliquez pour remplacer');
+            $('.dropify-infos-remove').text('Supprimer le fichier');
+            $('.dropify-errors').text('Oups! Une erreur s\'est produite.');
         })
     </script>
 

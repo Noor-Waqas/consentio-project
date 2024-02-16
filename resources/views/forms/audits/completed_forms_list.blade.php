@@ -40,7 +40,6 @@
                       $lu_utype  = 'ex';
                   @endphp
                 @endif
-                dd($form_info);
                 <tr>
                   
                   
@@ -175,7 +174,7 @@
                   </td>  
                   <td>
                     <label class="switch switch-green">
-                      <input type="checkbox"   class="switch-input"  onclick="lock_unlock('the_toggle_button-{{$key}}')"  @if(!$form_info->is_locked) checked="" @endif>
+                      <input type="button" class="btn btn-sm btn-<?php echo ($form_info->is_locked)?("danger"):("success") ?>" onclick="lock_unlock('the_toggle_button-{{$key}}')" value="{{($form_info->is_locked)? __('Unlocked'): __('Locked')}}">
                       <span style="margin-right: 0px !important;" class="switch-label" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" data-on="{{ __('on') }}" data-off="{{ __('Off') }}"></span>
                       <span style="margin-right: 0px !important;" class="switch-handle" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}"></span>
                     </label>
@@ -191,6 +190,7 @@
     </div>
   </section>
   <script src="{{url('frontend/js/jquery.mswitch.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
       $(document).ready(function() {
           $('#datatable').DataTable({
@@ -206,7 +206,22 @@
   <script>
     function lock_unlock(val){
       console.log(val);
-          $('#'+val).click();
+      Swal.fire({
+            title: "{{__('Are you sure you want to Unlocked this Form?')}}",
+            icon: "warning",
+            showCancelButton: true, // This will automatically generate "Yes" and "No" buttons
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "{{__('Yes')}}",
+            cancelButtonText: "{{__('No')}}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log("confirmed")
+                $('#'+val).click();
+            } else {
+                console.log("not confirmed");
+            }
+        });
     }
     $(document).ready(function (){
       <?php
@@ -239,7 +254,7 @@
           },
           data:post_data,
           success: function (response) {
-              swal("{!! __('Lock Status') !!}", response.msg, response.status);
+              swal.fire("{!! __('Lock Status') !!}", response.msg, response.status);
               var color;
               var status;
               if (lockStatus) {

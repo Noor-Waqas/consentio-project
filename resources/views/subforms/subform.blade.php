@@ -174,7 +174,7 @@
                     @endsection
                     
                     <div class="card-table">
-                    <a href="{{ url('Forms/FormsList') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
+                    <a href="{{ url('Forms/FormsList') }}"><button class="buton" style="margin-bottom: 16px;float:left;">{{__('Back')}}</button></a>
                     <table class="table table-striped text-center" id="datatable">
                                <?php if ($user_type == 'admin'): ?>
     <thead class="back_blue">

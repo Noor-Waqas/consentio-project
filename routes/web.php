@@ -154,6 +154,7 @@ Route::middleware(['auth', '2fa', 'is_email_varified'])->group(function () {
     Route::get('FormSettings/SubFormsExpirySettings', 'Forms@show_subforms_expiry_settings')->name('subforms_expiry_settings');
     Route::post('FormSettings/SubFormsExpirySettings', 'Forms@save_subforms_expiry_settings')->name('subforms_expiry_settings');
     Route::post('/formsettings/unlock_form', 'Forms@unlock_form')->name('unlock_form');
+    Route::post('/formsettings/extend_expire', 'Forms@extend_expire')->name('extend_expire');
     Route::post('/formsettings/change_form_access', 'Forms@change_form_access')->name('change_form_access');
 
     Route::get('users_management', 'UserManagementController@users_management');

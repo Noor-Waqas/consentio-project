@@ -65,7 +65,7 @@
               <th scope="col">{{ __('EXPIRY DATE') }}</th>
               <th scope="col">{{ __('SUBMISSION STATUS') }}</th>
               <th scope="col">{{ __('LOCK/UNLOCK') }}</th>
-              <th scope="col">{{ __('CHANGE ACCESS') }}</th>
+              <!-- <th scope="col">{{ __('CHANGE ACCESS') }}</th> -->
             </tr>
           </thead>
           <tbody>
@@ -140,7 +140,7 @@
                     </label>
                   </td>
                   <div class="d-none"> <input style="display: none !important;" id="the_toggle_button-{{$key}}" type="checkbox"  title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" class="unlock-form " value="{{!$form_info->is_locked}}" u-type="{{$lu_utype}}" link="{{$form_link}}"></div>
-                  <td><button class="change-access btn-sm btn btn-<?php echo ($form_info->is_accessible)?("danger"):("success") ?>" type="{{$lu_utype}}" link="{{$form_link}}" action="<?php echo ($form_info->is_accessible)?(0):(1) ?>" ><?php echo ($form_info->is_accessible)? __("Remove"): __("Allow") ?></button></td>
+                  <!-- <td><button class="change-access btn-sm btn btn-<?php echo ($form_info->is_accessible)?("danger"):("success") ?>" type="{{$lu_utype}}" link="{{$form_link}}" action="<?php echo ($form_info->is_accessible)?(0):(1) ?>" ><?php echo ($form_info->is_accessible)? __("Remove"): __("Allow") ?></button></td> -->
                 </tr>
                 <?php $i++; ?>
               <?php endforeach; ?>

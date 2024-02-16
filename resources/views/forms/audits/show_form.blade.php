@@ -83,7 +83,7 @@
 											@if(Auth::user()->role == 1)
 
 												<h6 id="display_english_question_{{$question->id}}">
-													<strong class="mr-3">Control ID: </strong>
+													<strong class="mr-3">{{__('Control ID')}}: </strong>
 													<span class="edit_question_english" id="edit_en_q_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->question}}" value="{{$question->question}}" type="english">{{$question->control_id}}</span> 
 												</h6>
 
@@ -128,7 +128,7 @@
 											@else
 
 												<h6 id="display_english_question_{{$question->id}}">
-													<strong class="mr-3">Control ID: </strong>
+													<strong class="mr-3">{{__('Control ID')}}: </strong>
 													<span class="edit_question_english" id="edit_en_q_{{$question->id}}" q_id="{{$question->id}}" q_val="{{$question->question}}" value="{{$question->question}}" type="english">{{$question->control_id}}</span> 
 												</h6>
 												
@@ -191,7 +191,7 @@
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
 																@endforeach
 															</ul>
-															<label for="easySelectable">French Options</label>
+															<label for="easySelectable">{{__('French Options')}}</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options_fr as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
@@ -212,7 +212,7 @@
 																@endforeach
 															</ul>
 															@else
-															<label for="easySelectable">French Options</label>
+															<label for="easySelectable">{{__('French Options')}}</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options_fr as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
@@ -235,7 +235,7 @@
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
 																@endforeach
 															</ul>
-															<label for="easySelectable">French Options</label>
+															<label for="easySelectable">{{__('French Options')}}</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options_fr as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
@@ -256,7 +256,7 @@
 																@endforeach
 															</ul>
 															@else
-															<label for="easySelectable">French Options</label>
+															<label for="easySelectable">{{__('French Options')}}</label>
 															<ul id="easySelectable" class="easySelectable">
 																@foreach($options_fr as $option)
 																<li class="es-selectable " name="" value="Non applicable" type="sc">{{ $option }}</li>
@@ -359,7 +359,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="control_id" class="col-form-label">Control ID <strong style="color: red">*</strong></label>
+                                <label for="control_id" class="col-form-label">{{__('Control ID')}} <strong style="color: red">*</strong></label>
                                 <input type="text" name="control_id" class="form-control" id="control_id">
                             </div>
                             

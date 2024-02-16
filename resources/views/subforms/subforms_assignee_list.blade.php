@@ -21,11 +21,11 @@
 		  
           <div class="card-table">
 		  	@if (Request::is('audit/*'))
-			  	<a href="{{ url('audit/list') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
+			  	<a href="{{ url('audit/list') }}"><button class="buton" style="margin-bottom: 16px;float:left;">{{__('Back')}}</button></a>
 			@elseif (Request::is('SAR/*'))
-			  	<a href="{{ url('SAR/ShowSARAssignees') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
+			  	<a href="{{ url('SAR/ShowSARAssignees') }}"><button class="buton" style="margin-bottom: 16px;float:left;">{{__('Back')}}</button></a>
 			@else
-				<a href="{{ url('Forms/FormsList') }}"><button class="buton" style="margin-bottom: 16px;float:left;">Back</button></a>
+				<a href="{{ url('Forms/FormsList') }}"><button class="buton" style="margin-bottom: 16px;float:left;">{{__('Back')}}</button></a>
 			@endif
 
 		  	

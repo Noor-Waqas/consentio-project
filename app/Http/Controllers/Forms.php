@@ -5482,6 +5482,42 @@ class Forms extends Controller{
         return response()->json(['status' => 'success', 'msg' => __('status changed')]);
     }
 
+    public function extend_expire(Request $request){
+
+        // dd($request->all());
+
+        $in_link = $request->input('in_link');
+        $ex_link = $request->input('ex_link');
+
+        $subform_settings = DB::table('subform_client_expiration_settings')->where('client_id', Auth::user()->client_id)->first();
+
+        if (empty($subform_settings)) {
+            $subform_settings = DB::table('subform_admin_expiration_settings')->first();
+        }
+
+        $days = $subform_settings->duration;
+
+        $currentDateTime = date('Y-m-d H:i:s'); // Get the current date and time in the format YYYY-MM-DD HH:MM:SS
+        $newDateTime = date('Y-m-d H:i:s', strtotime($currentDateTime . ' +' . $days . ' days')); // Add $days days to the current date and time
+
+        // dd($in_link);
+        if($in_link != null){
+            DB::table('user_form_links')
+            ->Where('form_link_id', $in_link)
+            ->update(['expiry_time' => $newDateTime]);
+        }
+        if($ex_link != null){
+            DB::table('user_form_links')
+            ->Where('form_link', $ex_link)
+            ->update(['expiry_time' => $newDateTime]);
+        }
+
+        // DB::table('user_form_links')->where('form_link_id', $in_link)->orWhere('form_link', $ex_link)->update(['expiry_time' => $newDateTime]);
+        
+        
+        return response()->json(['status' => 'success', 'msg' => __('expired date Extended to 10 days')]);
+    }
+
     public function change_form_access(Request $request){
         $table = 'user_form_links';
         $form_link_attr = 'form_link';

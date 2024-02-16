@@ -2,7 +2,7 @@
 
 @section('content') 
 @section('page_title')
-  {{ __(' Import Asset ') }}
+  {{ __('Import Asset') }}
   @endsection
 		@if (Session::has('msg'))
 			<div class="alert alert-danger alert-dismissible fade show mx-5" role="alert">
@@ -22,8 +22,8 @@
 								<input type="file" name="import_file" id="import_file" class="form-control" style="padding: 6px 15px;font-size: 22px;">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary">Import Data</button>
-								<a href="{{url('export-sample-data')}}" class="button float-right">Sample Data</a>
+								<button type="submit" class="btn btn-primary">{{__('Import Data')}}</button>
+								<a href="{{url('export-sample-data')}}" class="button float-right">{{__('Sample Data')}}</a>
 							</div>
 						</form>
 					</div>
