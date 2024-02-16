@@ -342,17 +342,17 @@
             
             $('#act-msg').hide();
                     if (response.status == 'success') {
-            swal("{!! __('Sub-Form(s) Sent') !!}",  response.msg, response.status);
+            swal.fire("{!! __('Sub-Form(s) Sent') !!}",  response.msg, response.status);
                 setTimeout( function () {
                       location.reload();
                     }, 4000 );            
             }
             else if (response.status == 'fail') {
                 response.status = 'error';
-                swal('Error', response.msg, response.status);
+                swal.fire('Error', response.msg, response.status);
             }
             else {
-                swal('Error', "{!! __('Something went wrong. Please try again later') !!}", 'error');
+                swal.fire('Error', "{!! __('Something went wrong. Please try again later') !!}", 'error');
             }
             
 
@@ -380,7 +380,7 @@
           data:post_data,
           success: function (response) {
             console.log("huhu243432423")
-                    swal({
+                    swal.fire({
                       title: "{!! __('Form Access Status Updated') !!}",
                       text: "{!! __('Form Access Changed!') !!}",
                       type: "info",

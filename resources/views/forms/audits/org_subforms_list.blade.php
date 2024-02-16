@@ -130,16 +130,16 @@
                   <td><span class="{{$expired}}">{{$rem_days }}</span></td>
                   <td>{{ date('Y-m-d', strtotime($form_info->uf_expiry_time)) }}</td> 
                   <td>
-                    <span style="color:#<?php echo ($form_info->is_locked)?('7bca94'):('f26924'); ?>">{{($form_info->is_locked)? __('Submitted'): __('Not Submitted') }}</span>
+                    <span style="margin-right: 0px !important;color:#<?php echo ($form_info->is_locked)?('7bca94'):('f26924'); ?>">@if(strtotime(date('Y-m-d')) > strtotime($form_info->uf_expiry_time)) {{__('Expired')}} @elseif($form_info->is_locked) {{__('Submitted')}} @else {{__('Not Submitted')}} @endif</span>
                   </td>
                   <td>
                     <label class="switch switch-green">
-                      <input type="checkbox"   class="switch-input"  onclick="lock_unlock('the_toggle_button-{{$key}}')"  @if(!$form_info->is_locked) checked="" @endif>
-                      <span class="switch-label" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" data-on="{{ __('on') }}" data-off="{{ __('Off') }}"></span>
-                      <span class="switch-handle" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}"></span>
+                      <input type="button" class="btn btn-sm btn-<?php echo ($form_info->is_locked)?("danger"):("success") ?>"  onclick="lock_unlock('the_toggle_button-{{$key}}')" value="{{($form_info->is_locked)? __('Unlocked'): __('Locked')}}">
+                      <span style="margin-right: 0px !important;" class="switch-label" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" data-on="{{ __('on') }}" data-off="{{ __('Off') }}"></span>
+                      <span style="margin-right: 0px !important;" class="switch-handle" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}"></span>
                     </label>
+                    <div class="d-none"> <input style="display: none !important;" id="the_toggle_button-{{$key}}" type="checkbox"  title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" class="unlock-form " value="{{!$form_info->is_locked}}" u-type="{{$lu_utype}}" link="{{$form_info->form_link}}"></div>
                   </td>
-                  <div class="d-none"> <input style="display: none !important;" id="the_toggle_button-{{$key}}" type="checkbox"  title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" class="unlock-form " value="{{!$form_info->is_locked}}" u-type="{{$lu_utype}}" link="{{$form_link}}"></div>
                   <!-- <td><button class="change-access btn-sm btn btn-<?php echo ($form_info->is_accessible)?("danger"):("success") ?>" type="{{$lu_utype}}" link="{{$form_link}}" action="<?php echo ($form_info->is_accessible)?(0):(1) ?>" ><?php echo ($form_info->is_accessible)? __("Remove"): __("Allow") ?></button></td> -->
                 </tr>
                 <?php $i++; ?>
@@ -179,9 +179,26 @@
   </div><!-- /.modal -->
   <!-- </div> -->
   <script src="{{url('frontend/js/jquery.mswitch.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     function lock_unlock(val){
-          $('#'+val).click();
+      console.log(val);
+      Swal.fire({
+            title: "{{__('Are you sure you want to Unlocked this Form?')}}",
+            icon: "warning",
+            showCancelButton: true, // This will automatically generate "Yes" and "No" buttons
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "{{__('Yes')}}",
+            cancelButtonText: "{{__('No')}}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log("confirmed")
+                $('#'+val).click();
+            } else {
+                console.log("not confirmed");
+            }
+        });
     }
     $(document).ready(function (){
       <?php
@@ -213,7 +230,7 @@
           },
           data:post_data,
           success: function (response) {
-              swal("{!! __('Lock Status') !!}", response.msg, response.status);
+              swal.fire("{!! __('Lock Status') !!}", response.msg, response.status);
               var color;
               var status;
               if (lockStatus) {
@@ -303,17 +320,17 @@
             
             $('#act-msg').hide();
                     if (response.status == 'success') {
-            swal("{!! __('Sub-Form(s) Sent') !!}",  response.msg, response.status);
+            swal.fire("{!! __('Sub-Form(s) Sent') !!}",  response.msg, response.status);
                 setTimeout( function () {
                       location.reload();
                     }, 4000 );            
             }
             else if (response.status == 'fail') {
                 response.status = 'error';
-                swal('Error', response.msg, response.status);
+                swal.fire('Error', response.msg, response.status);
             }
             else {
-                swal('Error', "{!! __('Something went wrong. Please try again later') !!}", 'error');
+                swal.fire('Error', "{!! __('Something went wrong. Please try again later') !!}", 'error');
             }
             
 
@@ -340,7 +357,7 @@
           data:post_data,
           success: function (response) {
               
-                    swal({
+                    swal.fire({
                       title: "{!! __('Form Access Status Updated') !!}",
                       text: "{!! __('Form Access Changed!') !!}",
                       type: "info",
