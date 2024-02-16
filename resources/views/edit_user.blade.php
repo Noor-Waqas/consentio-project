@@ -1,6 +1,6 @@
 @extends('admin.client.client_app')
 @section('page_title')
-	EDIT USER
+	{{__('EDIT USER')}}
 @endsection
 @section('content')
 	<style>

@@ -76,7 +76,7 @@
                     </div>
                     <input type="hidden" name="id" value="{{ $data->id }}" id="as_id_up">
                     <div class="form-group">
-                        <label>{{ __('Asset  Name') }}<span class="red">*</span></label>
+                        <label>{{ __('Asset Name') }}<span class="red">*</span></label>
                         <input type="text" name="namez" value="{{ $data->name }}" class="form-control" required
                             disabled>
                     </div>
@@ -527,7 +527,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>{{ __('Asset  Name') }}<span class="red">*</span></label>
+                                        <label>{{ __('Asset Name') }}<span class="red">*</span></label>
                                         <input type="text" id="name1" name="name" class="form-control" required>
                                     </div>
                                     <div class="form-group">
