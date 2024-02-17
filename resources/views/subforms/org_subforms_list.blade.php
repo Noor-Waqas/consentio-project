@@ -46,7 +46,7 @@
               <th style="vertical-align: middle;" scope="col">{{ __('REMAINING DAYS') }}</th>
               <th style="vertical-align: middle;" scope="col">{{ __('EXPIRY DATE') }}</th>
               <th style="vertical-align: middle;" scope="col">{{ __('SUBMISSION STATUS') }}</th>
-              @if(!isset($all))
+              @if(auth()->user()->role == 2)
               <th style="vertical-align: middle;" scope="col">{{ __('LOCK/UNLOCK') }}</th>
               @endif
               <!-- <th style="vertical-align: middle;" scope="col">{{ __('CHANGE ACCESS') }}</th> -->
@@ -142,19 +142,22 @@
                     @endif
                   </td> 
                   <td>
-                    <span style="margin-right: 0px !important;color:#<?php echo ($form_info->is_locked)?('7bca94'):('f26924'); ?>">@if(strtotime(date('Y-m-d')) > strtotime($form_info->uf_expiry_time)) {{__('Expired')}} @elseif($form_info->is_locked) {{__('Submitted')}} @else {{__('Not Submitted')}} @endif</span>
+                    <span style="margin-right: 0px !important;color:#<?php echo ($form_info->is_locked)?('7bca94'):('f26924'); ?>">@if(strtotime(date('Y-m-d')) > strtotime($form_info->uf_expiry_time)) {{__('Expired')}} @elseif($form_info->is_locked) {{__('Submitted')}} @elseif($form_info->is_temp_lock) {{__('Locked')}} @else {{__('Not Submitted')}} @endif</span>
                   </td>
-                  @if(!isset($all))
+                  @if(auth()->user()->role == 2)
                   <td>
+                    <input type="button" class="btn btn-sm btn-<?php echo ($form_info->is_temp_lock == 1)?("success"):("danger") ?>"  onclick="temp_lock('{{$form_info->form_link}}','{{$form_info->form_link_id}}')" value="{{($form_info->is_temp_lock == 1)? __('Unlocked'): __('Locked')}}">
+                  </td> 
+                  @endif
+                  <!-- <td>
                     <label class="switch switch-green">
                     <input type="button" class="btn btn-sm btn-<?php echo ($form_info->is_locked)?("danger"):("success") ?>"  onclick="lock_unlock('the_toggle_button-{{$key}}')" value="{{($form_info->is_locked)? __('Unlocked'): __('Locked')}}">
                       <span style="margin-right: 0px !important;" class="switch-label" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" data-on="{{ __('on') }}" data-off="{{ __('Off') }}"></span>
                       <span style="margin-right: 0px !important;" class="switch-handle" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}"></span>
                     </label>
                   </td>
-                  <div class="d-none"> <input style="display: none !important;" id="the_toggle_button-{{$key}}" type="checkbox"  title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" class="unlock-form " value="{{!$form_info->is_locked}}" u-type="{{$lu_utype}}" link="{{$form_link}}"></div>
+                  <div class="d-none"> <input style="display: none !important;" id="the_toggle_button-{{$key}}" type="checkbox"  title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" class="unlock-form " value="{{!$form_info->is_locked}}" u-type="{{$lu_utype}}" link="{{$form_link}}"></div> -->
                   
-                  @endif
                   <!-- <td><button class="change-access btn-sm btn btn-<?php echo ($form_info->is_accessible)?("danger"):("success") ?>" type="{{$lu_utype}}" link="{{$form_link}}" action="<?php echo ($form_info->is_accessible)?(0):(1) ?>" ><?php echo ($form_info->is_accessible)? __("Remove"): __("Allow") ?></button></td> -->
                 </tr>
                 <?php $i++; ?>
@@ -251,6 +254,45 @@
                     },
                     success: function (response) {
                         Swal.fire("{!! __('Expire Date Extended') !!}", response.msg, response.status);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                    }
+                });
+            } else {
+                console.log("not confirmed");
+            }
+        });
+    }
+    function temp_lock(ex_from, in_form) {
+        console.log(ex_from);
+        console.log(in_form);
+        var post_data = {};
+
+        post_data['_token'] = '{{csrf_token()}}';
+        post_data['in_link'] = in_form;
+        post_data['ex_link'] = ex_from;
+
+        Swal.fire({
+            title: "{{__('Are you sure you want to Lock the Form?')}}",
+            icon: "warning",
+            showCancelButton: true, // This will automatically generate "Yes" and "No" buttons
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "{{__('Yes')}}",
+            cancelButtonText: "{{__('No')}}"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log("confirmed")
+                $.ajax({
+                    url: '{{ route('temp_lock') }}',
+                    method: 'post',
+                    data: post_data,
+                    beforeSend: function () {
+
+                    },
+                    success: function (response) {
+                        Swal.fire("{!! __('Lock Status') !!}", response.msg, response.status);
                         setTimeout(function () {
                             location.reload();
                         }, 3000);

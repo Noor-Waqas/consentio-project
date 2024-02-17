@@ -1153,6 +1153,11 @@ class AuditFormsController extends Controller{
         if (!$user_form_link_info->is_accessible) {
             return view('user_form_not_accessible');
         }
+        if ($user_form_link_info->is_temp_lock == 1) {
+            // dd("ok3");
+            $expiry_note = 'The Form is locked by Admin';
+            $user_form_link_info->is_locked = 1;
+        }
         // dd($user_form_link_info);
 
         $client_id  = $user_form_link_info->client_id;
@@ -1894,7 +1899,7 @@ class AuditFormsController extends Controller{
         }
         if (!Auth::check()) {
             // dd("not auth");
-            if ($user_form_link_info->is_locked == '1') {
+            if ($user_form_link_info->is_locked == '1' || $user_form_link_info->is_temp_lock == '1') {
                 $user_form_link_info->is_accessible = 0;
                 // dd($form_info[0]);
             }
@@ -1902,6 +1907,11 @@ class AuditFormsController extends Controller{
         // dd($user_form_link_info);
         if (!$user_form_link_info->is_accessible) {
             return view('user_form_not_accessible');
+        }
+        if ($user_form_link_info->is_temp_lock == 1) {
+            $expiry_note = 'The Form is locked by Admin';
+            $user_form_link_info->is_locked = 1;
+            
         }
         $client_id  = $user_form_link_info->client_id;
         $user_email = $user_form_link_info->user_email; 

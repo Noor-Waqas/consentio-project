@@ -300,7 +300,11 @@
 				admin   = "0" 
 			@endif
 		>
-
+		@if(!empty($expiry_note))
+			<div class="alert alert-danger" role="alert">
+				<?php echo $expiry_note; ?>
+			</div>
+		@endif
 		<div class="row">  
 			<!-- <div class="col-12 p-3 bg-light">
 				<div id="bar_top" class="barfiller w-100"></div>
@@ -500,7 +504,7 @@
 											<textarea rows="4"  class="form-control additional_comment_for_question" placeholder="@if(session('locale')=='fr') Commentaire ... @else Comment ... @endif"  q-id="{{ $question->id }}">@if(isset($question->responses)){{  $question->responses->additional_comment}}@endif</textarea>
 										</div>
 										<div id="bar_{{$question->id}}" class="d-none barfiller w-100"></div>
-										@if($user_form_link_info->is_locked == 1)
+										@if($user_form_link_info->is_locked == 1 && $user_form_link_info->is_temp_lock != 1)
 											@if((!Auth::user() && $question->responses->rating != 0) || Auth::user())
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">

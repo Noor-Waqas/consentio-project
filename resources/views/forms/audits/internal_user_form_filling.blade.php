@@ -512,7 +512,7 @@
 											</div>
 											@endif
 											<div id="bar_{{$question->id}}" class="d-none filling_bar w-100"></div>
-											@if($user_form_link_info->is_locked == 1 && ((Auth::user()->role != 2 && $question->responses->rating != 0) || (Auth::user()->role == 2)))
+											@if($user_form_link_info->is_locked == 1 && $user_form_link_info->is_temp_lock != 1 && ((Auth::user()->role != 2 && $question->responses->rating != 0) || (Auth::user()->role == 2)))
 												<div class="col-md-12 py-3">
 													<div class="w-100 mr-3">
 														<label>{{__('Rating')}} </label>

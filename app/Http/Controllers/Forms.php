@@ -551,6 +551,12 @@ class Forms extends Controller{
             } 
         }else if (isset($form_info[0]) && !$form_info[0]->is_accessible) {
             return view('user_form_not_accessible');
+        }else if ($form_info[0]->is_temp_lock == 1) {
+            // dd("ok3");
+            $expiry_note = 'The Form is locked by Admin';
+            foreach($form_info as $form_loc){
+                $form_loc->is_locked = 1;
+            }
         }
 
         $filled_info = DB::table('user_form_links')
@@ -880,7 +886,7 @@ class Forms extends Controller{
                 $hidden_pb = true;
             }
         }
-        // dd($form_info);
+        // dd($form_type);
         if (count($form_info) > 0) {
             return view('forms.in_user_form_sec_wise', [
                 'form_type'     => $form_type,
@@ -2354,6 +2360,20 @@ class Forms extends Controller{
             if ($form_info[0]->is_locked == '1') {
                 $form_info[0]->is_accessible = 0;
                 // dd($form_info[0]);
+            }
+        }
+        if (isset($form_info[0]) && !$form_info[0]->is_accessible) {
+            return view('user_form_not_accessible');
+        }
+        if ($form_info[0]->is_temp_lock == 1) {
+            // dd("ok3");
+            if (!Auth::check()) {
+                $form_info[0]->is_accessible = 0;
+            }
+            
+            $expiry_note = 'The Form is locked by Admin';
+            foreach($form_info as $form_loc){
+                $form_loc->is_locked = 1;
             }
         }
         if (isset($form_info[0]) && !$form_info[0]->is_accessible) {
@@ -5481,6 +5501,53 @@ class Forms extends Controller{
 
         return response()->json(['status' => 'success', 'msg' => __('status changed')]);
     }
+
+    public function temp_lock(Request $request){
+
+        // dd($request->all());
+
+        $in_link = $request->input('in_link');
+        $ex_link = $request->input('ex_link');
+
+        // dd($in_link);
+        if($in_link != null){
+            $data = DB::table('user_form_links')
+            ->Where('form_link_id', $in_link)->pluck('is_temp_lock')->first();
+
+            // dd($data);
+
+            if($data == '1'){
+                $lock_status = '0';
+            }
+            else{
+                $lock_status = '1';
+            }
+
+            DB::table('user_form_links')
+            ->Where('form_link_id', $in_link)
+            ->update(['is_temp_lock' => $lock_status]);
+        }
+        if($ex_link != null){
+            $data = DB::table('user_form_links')
+            ->Where('form_link', $ex_link)->pluck('is_temp_lock')->first();
+
+            // dd($data);
+
+            if($data == '1'){
+                $lock_status = '0';
+            }
+            else{
+                $lock_status = '1';
+            }
+
+            DB::table('user_form_links')
+            ->Where('form_link', $ex_link)
+            ->update(['is_temp_lock' => $lock_status]);
+        }
+        
+        return response()->json(['status' => 'success', 'msg' => __('status changed')]);
+    }
+
 
     public function extend_expire(Request $request){
 
