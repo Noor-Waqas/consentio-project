@@ -217,7 +217,7 @@
         post_data['ex_link'] = ex_from;
 
         Swal.fire({
-            title: "{{__('Are you sure you want to Lock the Form?')}}",
+            title: "{{__('Are you sure you want to change Lock Status?')}}",
             icon: "warning",
             showCancelButton: true, // This will automatically generate "Yes" and "No" buttons
             confirmButtonColor: "#3085d6",
