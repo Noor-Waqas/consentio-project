@@ -1123,6 +1123,12 @@
     "Mark Report as favorite?": "Marquer le rapport comme favoris?",
     "Remove Report from Favorites?": "Supprimer un rapport des favoris?",
 
+    "Sub-form already exists with Same Asset Item": "Le sous-formulaire existe déjà avec le même élément d'actif",
+    "Sub-form already exists with Same Other Item": "Le sous-formulaire existe déjà avec le même autre élément",
+    "NO ITEM SELECTED": "AUCUN ÉLÉMENT SÉLECTIONNÉ",
+    "NO ITEM SELECTED TO ADD AUDIT FORM": "AUCUN ÉLÉMENT SÉLECTIONNÉ POUR AJOUTER LE FORMULAIRE D'AUDIT",
+    "expired date Extended to 10 days": "Date d'expiration Prolongée jusqu'à 10 jours",
+
     "ASSET #": "ACTIF #",
     "IMPACT": "IMPACTE",
     "TIER": "TIER",
