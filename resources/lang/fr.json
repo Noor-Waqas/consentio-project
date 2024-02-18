@@ -1033,6 +1033,7 @@
     "Text Color":"Couleur du texte",
 
     "Show Remediation plan" : "Show Remediation",
+    "Show Remediation"      : "Remédiation des spectacles",
     "Manage Question Groups": "Manage Question Groups",
     "Question Groups List"  : "Question Groups List",
     "Accepted Formates"     : "Accepted Formates",
@@ -1115,8 +1116,12 @@
     "Expire Date Extended": "Date d'expiration prolongée",
     "Are you sure you want to Unlocked this Form?": "Êtes-vous sûr de vouloir débloquer ce formulaire?",
     "Are you sure you want to change Lock Status?": "Êtes-vous sûr de vouloir modifier l'état de verrouillage?",
+    "The Form is locked by Admin": "Le formulaire est verrouillé par l'administrateur",
+    "The user failed to submit form before expiry time.": "L'utilisateur n'a pas soumis le formulaire avant le délai d'expiration.",
     "Lock Status": "État de la serrure",
     "status changed": "statut modifié",
+    "Mark Report as favorite?": "Marquer le rapport comme favoris?",
+    "Remove Report from Favorites?": "Supprimer un rapport des favoris?",
 
     "ASSET #": "ACTIF #",
     "IMPACT": "IMPACTE",

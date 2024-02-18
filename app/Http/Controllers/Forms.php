@@ -540,7 +540,7 @@ class Forms extends Controller{
             if (Auth::check()) {
                 if ((Auth::user()->role == 2 || Auth::user()->user_type == 1) && Auth::user()->client_id == $client_id) {
                     if ($form_info[0]->is_locked != '1') {
-                        $expiry_note = 'The user failed to submit form before expiry time.';
+                        $expiry_note = __('The user failed to submit form before expiry time.');
                         foreach($form_info as $form_loc){
                             $form_loc->is_locked = 1;
                         }
@@ -553,7 +553,7 @@ class Forms extends Controller{
             return view('user_form_not_accessible');
         }else if ($form_info[0]->is_temp_lock == 1) {
             // dd("ok3");
-            $expiry_note = 'The Form is locked by Admin';
+            $expiry_note = __('The Form is locked by Admin');
             foreach($form_info as $form_loc){
                 $form_loc->is_locked = 1;
             }
@@ -2371,7 +2371,7 @@ class Forms extends Controller{
                 $form_info[0]->is_accessible = 0;
             }
             
-            $expiry_note = 'The Form is locked by Admin';
+            $expiry_note = __('The Form is locked by Admin');
             foreach($form_info as $form_loc){
                 $form_loc->is_locked = 1;
             }

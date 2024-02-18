@@ -793,7 +793,7 @@ $(document).ready(function() {
             var token = $('meta[name="csrf-token"]').attr('content');
 
             Swal.fire({
-                title: 'Mark Report as favorite?',
+                title: '{{__('Mark Report as favorite?')}}',
                 // text: 'Mark Report as favorite?',
                 icon: 'question',
                 showCancelButton: true,
@@ -827,7 +827,7 @@ $(document).ready(function() {
             var token = $('meta[name="csrf-token"]').attr('content');
 
             Swal.fire({
-                title: 'Remove Report from Favorites?',
+                title: '{{__('Remove Report from Favorites?')}}',
                 // text: 'Mark Report as favorite?',
                 icon: 'question',
                 showCancelButton: true,
