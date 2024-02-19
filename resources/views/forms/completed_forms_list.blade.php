@@ -28,7 +28,7 @@
                   <!-- <th style="vertical-align: middle;" scope="col">{{ __('Completed') }}</th> -->
                   <th style="vertical-align: middle;" scope="col">{{ __('Completed On') }}</th>
                   <th style="vertical-align: middle;" scope="col">{{ __('SUBMISSION STATUS') }}</th>
-                  <th style="vertical-align: middle;" scope="col">{{ __('LOCK/UNLOCK') }}</th>
+                  <th style="vertical-align: middle;" scope="col">{{ __('UNSUBMIT') }}</th>
                   <!-- <th style="vertical-align: middle;" scope="col">{{ __('CHANGE ACCESS') }}</th> -->
                 </tr>
               </thead>
@@ -167,7 +167,7 @@
         </td>
         <td>
           <label class="switch switch-green">
-            <input type="button" class="btn btn-sm btn-<?php echo ($form_info->is_locked)?("danger"):("success") ?>"  onclick="lock_unlock('the_toggle_button-{{$key}}')" value="{{($form_info->is_locked)? __('Unlocked'): __('Locked')}}">
+            <input type="button" class="btn btn-sm btn-<?php echo ($form_info->is_locked)?("danger"):("success") ?>"  onclick="lock_unlock('the_toggle_button-{{$key}}')" value="{{($form_info->is_locked)? __('Unsubmit'): __('Submit')}}">
             <span style="margin-right: 0px !important;" class="switch-label" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}" data-on="{{ __('on') }}" data-off="{{ __('Off') }}"></span>
             <span style="margin-right: 0px !important;" class="switch-handle" data-toggle="tooltip" title="{{($form_info->is_locked)? __('Locked'): __('Unlocked')}}"></span>
           </label>
@@ -207,7 +207,7 @@
     function lock_unlock(val){
       console.log(val);
       Swal.fire({
-            title: "{{__('Are you sure you want to Unlocked this Form?')}}",
+            title: "{{__('Are you sure you want to Unsubmit this Form?')}}",
             icon: "warning",
             showCancelButton: true, // This will automatically generate "Yes" and "No" buttons
             confirmButtonColor: "#3085d6",
@@ -254,7 +254,7 @@
           },
           data:post_data,
           success: function (response) {
-              swal.fire("{!! __('Lock Status') !!}", response.msg, response.status);
+              swal.fire("{!! __('Submittion Status Changed') !!}", response.msg, response.status);
               var color;
               var status;
               if (lockStatus) {
