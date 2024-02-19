@@ -705,8 +705,8 @@ $(document).ready(function() {
                 // text: 'Mark Report as favorite?',
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
+                confirmButtonText: '{{__('Yes')}}',
+                cancelButtonText: '{{__('No')}}',
             }).then((result) => {
                 if (result.isConfirmed) {
                     // User clicked "Yes," proceed with the AJAX request
@@ -722,7 +722,7 @@ $(document).ready(function() {
                             console.log(response);
                             $("#add_favorite").addClass("d-none");
                             $("#rem_favorite").removeClass("d-none");
-                            swal.fire('Mark as Favorite', '', 'success');
+                            swal.fire('{{__('Mark as Favorite')}}', '', 'success');
                         }
                     });
                 }
@@ -739,8 +739,8 @@ $(document).ready(function() {
                 // text: 'Mark Report as favorite?',
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
+                confirmButtonText: '{{__('Yes')}}',
+                cancelButtonText: '{{__('No')}}',
             }).then((result) => {
                 if (result.isConfirmed) {
                     // User clicked "Yes," proceed with the AJAX request
@@ -757,7 +757,7 @@ $(document).ready(function() {
                             $("#rem_favorite").addClass("d-none");
                             $("#add_favorite").removeClass("d-none");
                             // console.log("ok");
-                            swal.fire('Remove as Favorite', '', 'success');
+                            swal.fire('{{__('Remove as Favorite')}}', '', 'success');
                             /// Hit the Button in Parent Document to reload fav reports. 
                             var parentDocument = window.parent.document;
                             var parentButton = parentDocument.getElementById('load');

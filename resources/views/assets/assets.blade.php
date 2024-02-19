@@ -108,10 +108,10 @@
                             <label for='country'>{{ __('Hosting Country') }}<span class="red">*</span></label>
                             <select id='country_selectz' class="form-control" required name='countryz'>
                                 @if (isset($cont[0]->country_name))
-                                    <option value="{{ $cont[0]->country_name }}">{{ $cont[0]->country_name }}</option>
+                                    <option value="{{ $cont[0]->country_name }}">{{ __($cont[0]->country_name) }}</option>
                                 @endif
                                 @foreach ($countries as $country)
-                                    <option>{{ $country->country_name }}</option>
+                                    <option>{{ __($country->country_name) }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -129,7 +129,7 @@
                                 <label for="">{{ __('Impact') }}</label>
                                 <select name="impact" id="impact_name_up" class="form-control">
                                     @foreach ($impact as $imp)
-                                        <option value="{{ $imp->id }}" {{ $imp->id == $data->impact_id ? "selected" : "" }}> {{ $imp->impact_name_en }}</option>
+                                        <option value="{{ $imp->id }}" {{ $imp->id == $data->impact_id ? "selected" : "" }}> @if(session('locale') == 'fr') {{ $imp->impact_name_fr }} @else {{ $imp->impact_name_en }} @endif</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -138,7 +138,7 @@
                                 <select name="data_classification" id="classification_name_up"
                                     class="form-control">
                                     @foreach ($dt_classification->take(5) as $dc)
-                                        <option value="{{ $dc->id }}"  {{ $dc->id == $data->data_classification_id ? "selected" : "" }}> {{ $dc->classification_name_en }}</option>
+                                        <option value="{{ $dc->id }}"  {{ $dc->id == $data->data_classification_id ? "selected" : "" }}> @if(session('locale') == 'fr') {{ $dc->classification_name_fr }} @else {{ $dc->classification_name_en }} @endif</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -174,8 +174,8 @@
                         <label for="">{{ __('Internal or 3rd party') }}</label>
                         
                         <select id='internal_3rd_party' class="form-control" required name='internal_3rd_party'>
-                            <option value="internal" {{ $data->internal_3rd_party === "internal" ? "selected" : "" }}>Internal</option>
-                            <option value="3rd Party" {{ $data->internal_3rd_party === "3rd Party" ? "selected" : "" }}>3rd Party</option>
+                            <option value="internal" {{ $data->internal_3rd_party === "internal" ? "selected" : "" }}>{{__('Internal')}}</option>
+                            <option value="3rd Party" {{ $data->internal_3rd_party === "3rd Party" ? "selected" : "" }}>{{__('3rd Party')}}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -331,11 +331,11 @@
                                 @foreach ($asset_list as $asset)
                                 <tr>
                                     <td class='spocNames'>A-{{$asset->client_id}}-{{$asset->asset_number}}</td>
-                                    <td class='spocNames'>{{ $asset->asset_type }}</td>
+                                    <td class='spocNames'>{{ __($asset->asset_type) }}</td>
                                     <td class='spocNames'>{{ $asset->name }}</td>
-                                    <td class='spocNames'>{{ $asset->hosting_type }}</td>
+                                    <td class='spocNames'>{{ __($asset->hosting_type) }}</td>
                                     <td class='spocNames'>{{ $asset->hosting_provider }}</td>
-                                    <td class='spocNames'>{{ $asset->country }}</td>
+                                    <td class='spocNames'>{{ __($asset->country) }}</td>
                                     <td class='spocNames'>{{ $asset->city }}</td>
                                     
                                     <td class='spocNames'>
@@ -365,7 +365,7 @@
                                     <td class='spocNames'>{{ $asset->it_owner }}</td>
                                     <td class='spocNames'>{{ $asset->business_owner }}</td>
                                     <td class='spocNames'>{{ $asset->business_unit }}</td>
-                                    <td class='spocNames'>{{ $asset->internal_3rd_party }}</td>
+                                    <td class='spocNames'>{{ __($asset->internal_3rd_party) }}</td>
                                     <td class='spocNames'>{{ $asset->data_subject_volume }}</td>
 
                                     <td>
@@ -457,7 +457,7 @@
                                             <label for='country'>{{ __('Hosting Country') }}<span class="red">*</span></label>
                                             <select id='country_select' class="form-control" required name='country'>
                                                 @foreach ($countries as $country)
-                                                    <option value="{{ $country->country_name }}">{{ $country->country_name }}
+                                                    <option value="{{ $country->country_name }}">{{ __($country->country_name) }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -472,7 +472,7 @@
                                         <select name="data_classification" id="classification_name"
                                             class="form-control for_change_triger">
                                             @foreach ($dt_classification as $dc)
-                                                <option value="{{ $dc->id }}"> {{ $dc->classification_name_en }}</option>
+                                                <option value="{{ $dc->id }}"> @if(session('locale') == 'fr') {{ $dc->classification_name_fr }} @else {{ $dc->classification_name_en }} @endif</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -543,7 +543,7 @@
                                         <label for="">{{ __('Impact') }}</label>
                                         <select name="impact" id="impact_name" class="form-control for_change_triger">
                                             @foreach ($impact as $imp)
-                                                <option value="{{ $imp->id }}"> {{ $imp->impact_name_en }}</option>
+                                                <option value="{{ $imp->id }}"> @if(session('locale')) {{ $imp->impact_name_fr }} @else {{ $imp->impact_name_en }} @endif</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -566,8 +566,8 @@
                                         <label for="">{{ __('Internal or 3rd Party') }}</label>
                                         <!-- <input type="text" id="internal_3rd_party" name="internal_3rd_party" class="form-control"> -->
                                         <select id='internal_3rd_party' class="form-control" required name='internal_3rd_party'>
-                                                <option value="internal"> Internal</option>
-                                                <option value="3rd Party"> 3rd Party</option>
+                                                <option value="internal"> {{__('Internal')}}</option>
+                                                <option value="3rd Party"> {{__('3rd Party')}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
