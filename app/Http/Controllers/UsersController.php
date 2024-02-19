@@ -1114,15 +1114,83 @@ class UsersController extends Controller
 
 
             // Pending Audit Counts
-            $pen_audits = DB::table('forms')
-            ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
-            ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
-            ->where('forms.type', 'audit')
-            ->where('sub_forms.client_id', $client_id)
-            ->where('user_form_links.is_locked', '0')
-            ->groupby('user_form_links.sub_form_id')
+            // $pen_audits = DB::table('forms')
+            // ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
+            // ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+            // ->where('forms.type', 'audit')
+            // ->where('sub_forms.client_id', $client_id)
+            // ->where('user_form_links.is_locked', '0')
+            // ->groupby('user_form_links.sub_form_id')
+            // ->get();
+            // $pen_audits=$pen_audits->count();
+            // dd($pen_audits);
+            $sub_form_ids = DB::table('user_form_links')->where('is_locked', 1)->pluck('sub_form_id')->toArray();
+
+            $ext_forms = DB::table('sub_forms')
+                ->join('user_form_links as ufl', 'ufl.sub_form_id', 'sub_forms.id')
+
+                ->leftjoin('assets', 'assets.id', 'sub_forms.asset_id')
+
+                ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
+
+                ->where('ufl.is_locked', '!=', 1)
+                ->where('ufl.is_internal', 0)
+                ->where('ufl.client_id', $client_id)
+                ->whereNotIn('sub_forms.id', $sub_form_ids)
+                ->groupby('sub_forms.id')
+                ->select('*', DB::raw(
+                    'ufl.user_email as email, 
+                    forms.title as form_title, 
+                    forms.title_fr as form_title_fr, 
+                    sub_forms.title as subform_title, 
+                    sub_forms.id as id, 
+                    sub_forms.title_fr as subform_title_fr, 
+                    sub_forms.other_id, 
+                    sub_forms.other_number, 
+                    assets.asset_number, 
+                    assets.name as asset_name, 
+                    audit_questions_groups.group_name,
+                    audit_questions_groups.group_name_fr,
+                    "External" as user_type'
+                    ))
+                    ->orderby('ufl.created', 'DESC')
             ->get();
-            $pen_audits=$pen_audits->count();
+
+            $int_forms = DB::table('sub_forms')
+                ->join('user_form_links as ufl', 'ufl.sub_form_id', 'sub_forms.id')
+                ->join('users', 'users.id', 'ufl.user_id')
+                ->leftjoin('assets', 'assets.id', 'sub_forms.asset_id')
+                ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
+                ->where('ufl.is_locked', 0)
+                ->where('ufl.is_internal', 1)
+                ->where('ufl.client_id', $client_id)
+                ->whereNotIn('sub_forms.id', $sub_form_ids)
+                ->groupby('sub_forms.id')
+                ->select('ufl.*', DB::raw('
+                    users.email,
+                    users.name,
+                    forms.title as form_title,
+                    forms.title_fr as form_title_fr,
+                    sub_forms.id as id, 
+                    sub_forms.title as subform_title,
+                    sub_forms.title_fr as subform_title_fr,
+                    sub_forms.other_id, 
+                    sub_forms.other_number, 
+                    form_link_id as form_link,
+                    assets.asset_number, 
+                    assets.name as asset_name,
+                    audit_questions_groups.group_name,
+                    audit_questions_groups.group_name_fr, 
+                    "Internal" as user_type'
+                ))
+                ->orderby('ufl.created', 'DESC')
+            ->get();
+            
+            $completed_forms = $int_forms->merge($ext_forms);
+            $completed_forms = $completed_forms->unique('sub_form_id');
+            $pen_audits = $completed_forms->count();
             // dd($pen_audits);
 
             // Remediation Counts
@@ -1175,16 +1243,42 @@ class UsersController extends Controller
 
 
             // Pending Audit Counts
-            $pen_audits = DB::table('forms')
-            ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
-            ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
-            ->where('forms.type', 'audit')
-            ->where('sub_forms.client_id', $client_id)
-            ->where('user_form_links.is_locked', '0')
-            ->where('user_form_links.user_id', $user_id)
-            ->groupby('user_form_links.sub_form_id')
-            ->get();
-            $pen_audits=$pen_audits->count();
+            // $pen_audits = DB::table('forms')
+            // ->join('sub_forms', 'sub_forms.parent_form_id', 'forms.id')
+            // ->join('user_form_links', 'user_form_links.sub_form_id', 'sub_forms.id')
+            // ->where('forms.type', 'audit')
+            // ->where('sub_forms.client_id', $client_id)
+            // ->where('user_form_links.is_locked', '0')
+            // ->where('user_form_links.user_id', $user_id)
+            // ->groupby('user_form_links.sub_form_id')
+            // ->get();
+            // $pen_audits=$pen_audits->count();
+            $int_forms = DB::table('user_form_links as ufl')
+                ->join('users', 'users.id', 'ufl.user_id')
+                ->join('sub_forms', 'sub_forms.id', 'ufl.sub_form_id')
+                ->leftjoin('assets', 'assets.id', 'sub_forms.asset_id')
+                ->join('forms', 'forms.id', 'sub_forms.parent_form_id')
+                ->join('audit_questions_groups', 'audit_questions_groups.id', 'forms.group_id')
+                ->where('ufl.user_id', Auth::user()->id)
+                ->where('is_locked', 0)
+                ->select('*', DB::raw(
+                    'users.email,
+                    users.client_id,
+                    forms.title as form_title,
+                    forms.title_fr as form_title_fr,
+                    sub_forms.title as subform_title,
+                    sub_forms.title_fr as subform_title_fr,
+                    sub_forms.other_id, 
+                    sub_forms.other_number, 
+                    form_link_id as form_link,
+                    audit_questions_groups.group_name,
+                    audit_questions_groups.group_name_fr,
+                    assets.asset_number, 
+                    assets.name as asset_name, 
+                    "Internal" as user_type'))
+                    ->orderby('ufl.created', 'DESC')
+                ->get();
+            $pen_audits = $int_forms->counts();
 
             // Remediation Counts
             $remediation = DB::table('remediation_plans')
