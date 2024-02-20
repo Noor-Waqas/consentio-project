@@ -213,7 +213,7 @@ input:checked + .slider:before {
 							<div class="form-group row">
 							<label class="col-sm-2 form-control-label">{{ __('Enable Email Verification')}}</label>
 								<label class="switch" style="margin-left: 10px;">
-								    @if(old('slider') == "on")
+								    @if(old('mail_verification') == "on")
 									  <input name="mail_verification" type="checkbox" checked>
 									  @else
 									  <input name="mail_verification" type="checkbox" >

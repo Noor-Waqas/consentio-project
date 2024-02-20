@@ -153,7 +153,7 @@
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label form-control-label">{{ __('Name')}}</label>
                                 <div class="col-md-8">
-									<input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autofocus>
+									<input id="name" type="text" class="form-control" name="name" value="@if(old('name')) {{ old('name') }} @else {{ $user->name }} @endif" required autofocus>
                                 </div>
 							</div>
 							<div class="form-group row">
@@ -177,7 +177,17 @@
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-labe form-control-label">{{ __('Enable Email Verification')}}</label><br>
+
+								@if(session()->hasOldInput())
 								 <div class="col-md-8">
+									<label class="switch"> 
+							  				<input name="mail_verification" type="checkbox" @if(old('mail_verification') == 'on') checked  @endif>
+										<span class="slider round"></span>
+									</label>
+									<span id='message'></span>
+								</div>
+								@else
+								<div class="col-md-8">
 									<label class="switch"> 
 										@if($user->is_email_varified==0)
 							  				<input name="mail_verification" type="checkbox" checked>
@@ -188,9 +198,19 @@
 									</label>
 									<span id='message'></span>
 								</div>
+								@endif
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-labe form-control-label">{{ __('User Blocked')}}</label><br>
+								@if(session()->hasOldInput())
+								<div class="col-md-8">
+									<label class="switch"> 
+							  				<input name="is_blocked" type="checkbox" @if(old('is_blocked') == 'on') checked  @endif>
+										<span class="slider round"></span>
+									</label>
+									<span id='message'></span>
+								</div>
+								@else
 								 <div class="col-md-8">
 									<label class="switch"> 
 										@if($user->is_blocked=="Yes")
@@ -202,6 +222,7 @@
 									</label>
 									<span id='message'></span>
 								</div>
+								@endif
 							</div>
 						</div>
 						<div class="col-md-8">
