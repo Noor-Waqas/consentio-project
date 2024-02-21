@@ -577,7 +577,7 @@
             </ul>
         </li>
         <li class="nav-item logout">
-            <a class="nav-link" href="{{ __('logout') }}">
+            <a class="nav-link" href="{{ url('logout') }}">
             <img src="{{ url('assets-new/img/logout.png') }}" alt="Logout">
             <span>{{__('Logout')}}</span>
             </a>

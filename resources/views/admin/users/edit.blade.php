@@ -623,9 +623,9 @@ $( "body" ).on( "click", ".removePartner", function () {
 
 
 
-$('#password, #rpassword').on('keyup', function () {
+$('#upassword, #rpassword').on('keyup', function () {
 
-  if ($('#password').val() == $('#rpassword').val()) {
+  if ($('#upassword').val() == $('#rpassword').val()) {
 
     $('#message').html('<h5>Password is Matched</h5>').css('color', 'green');
 

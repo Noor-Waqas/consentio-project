@@ -38,7 +38,7 @@
           @section('page_title')
           {{-- <div class="table_breadcrumb"> --}}
             {{-- <h3> --}}
-            {{ __('ORGANISATION USERS') }} {{ __('(EXCLUDING ADMINS)') }}
+            {{ __('ORGANISATION USERS') }}
             {{-- </h3> --}}
           @endsection
           {{-- <div class="table_breadcrumb">

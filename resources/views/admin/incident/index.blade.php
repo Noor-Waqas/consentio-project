@@ -173,11 +173,10 @@
 
                             <td>
                                 <!-- {{$row->date_discovered}} -->
-
-                            {{date('d', strtotime($row->date_discovered))}} {{date(' F', strtotime($row->date_discovered))}} {{date('Y  ', strtotime($row->date_discovered))}}
+                            {{date('d', strtotime($row->date_discovered))}} {{__(trim(date(' F', strtotime($row->date_discovered))))}} {{date('Y  ', strtotime($row->date_discovered))}}
                             </td>
                             <td>
-                                 {{date('d', strtotime($row->deadline_date))}} {{date(' F', strtotime($row->deadline_date))}} {{date('Y  ', strtotime($row->deadline_date))}}
+                                 {{date('d', strtotime($row->deadline_date))}} {{__(trim(date(' F', strtotime($row->deadline_date))))}} {{date('Y  ', strtotime($row->deadline_date))}}
                             </td>
                             <td>
                           {{ __($row->incident_status)}}
@@ -185,7 +184,7 @@
                              <td class="{{$row->incident_severity}}">
                            <strong>{{ __($row->incident_severity)}}</strong>
                              </td>
-                            <td>{{date('d', strtotime($row->created_at))}} {{date(' F', strtotime($row->created_at))}} {{date('Y  h:i ', strtotime($row->created_at))}}</td>
+                            <td>{{date('d', strtotime($row->created_at))}} {{__(trim(date(' F', strtotime($row->created_at))))}}  {{date('Y  h:i ', strtotime($row->created_at))}}</td>
                             <td class="text-center">
                                 {{-- <div class="actions-btns dule-btns">
                                     <a href="{{url('edit_incident/' . $row->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>

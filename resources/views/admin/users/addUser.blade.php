@@ -275,8 +275,8 @@ input:checked + .slider:before {
 									<select name="is_blocked" id="is_blocked" class="form-control" style="width: 50%">
 
 						
-							<option value="Yes">Yes</option>
-							<option value="No">No</option>
+									<option value="No">No</option>
+									<option value="Yes">Yes</option>		
 							</select>
 								</div>
 							</div>
