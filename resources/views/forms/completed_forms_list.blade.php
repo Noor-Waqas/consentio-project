@@ -266,7 +266,7 @@
                   status = 'Not Submitted';             
               }
               
-              var new_lock_status_html = '<span style="color:#'+color+'">'+status+'</span>';
+              // var new_lock_status_html = '<span style="color:#'+color+'">'+status+'</span>';
               elem.parent().parent().prev().html(new_lock_status_html);
               setTimeout( function () {
                       location.reload();

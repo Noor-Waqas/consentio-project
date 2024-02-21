@@ -150,6 +150,7 @@
                     confirmButtonColor: '#F79426',
                     cancelButtonColor: '#d33',
                     confirmButtonText: "{!! __('Yes') !!}",
+                    cancelButtonText: "{!! __('No') !!}",
                     showLoaderOnConfirm: true
                 },
                 function () {
