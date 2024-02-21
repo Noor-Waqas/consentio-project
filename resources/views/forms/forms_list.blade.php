@@ -125,11 +125,21 @@
                   @endif
                   @if(Request::is('Forms/AdminFormsList/audit'))
                     <?php if (Auth::user()->role == 1): ?>
-                    <td><a href="{{ url('Audit/Assignees/'.$form_info->form_id) }}"> <i class="fas fa-tasks"></i> Form Assignees</a></td></td>
+                      @php
+                      $check = DB::table('forms')
+                      ->join('group_section', 'group_section.group_id', 'forms.group_id')
+                      ->join('group_questions', 'group_questions.section_id', 'group_section.id')
+                      ->where('forms.id', $form_info->form_id)
+                      ->count();
+                      @endphp
+                    <td><a href="{{ url('Audit/Assignees/'.$form_info->form_id) }}" @if($check <= 0) style="pointer-events: none;cursor: default;color:grey;" @endif> <i class="fas fa-tasks"></i> Form Assignees</a></td></td>
                     <?php endif; ?>
                   @else
                     <?php if (Auth::user()->role == 1): ?>
-                    <td><a href="{{ url('Forms/FormAssignees/'.$form_info->form_id) }}"> <i class="fas fa-tasks"></i> Form Assignees</a></td></td>
+                      @php
+                      $check = DB::table('questions')->where('form_id', $form_info->form_id)->count();
+                      @endphp
+                    <td><a href="{{ url('Forms/FormAssignees/'.$form_info->form_id) }}" @if($check <= 0) style="pointer-events: none;cursor: default;color:grey;" @endif> <i class="fas fa-tasks"></i> Form Assignees</a></td></td>
                     <?php endif; ?>
                   @endif
                   @php
