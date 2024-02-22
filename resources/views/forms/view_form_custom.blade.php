@@ -616,6 +616,26 @@
             $('.dropify-infos-replace').text('Glissez-déposez un fichier ou cliquez pour remplacer');
             $('.dropify-infos-remove').text('Supprimer le fichier');
             $('.dropify-errors').text('Oups! Une erreur s\'est produite.');
+
+            $('.sec-heading').click(function(e) {
+
+                var tag = e.target.tagName.toLowerCase();
+                console.log(tag);
+                var num = $(this).attr('num');
+
+                var up = $(this).find($('i.fa-chevron-up')).length;
+                var down = $(this).find($('i.fa-chevron-down')).length;
+
+                if (tag == 'div' || tag == 'span' || tag == 'h3' || tag == 'i') {
+                    $("#section-" + num + "-body").slideToggle("slow");
+                    if (up) {
+                        $("i.fa-chevron-up", this).toggleClass("fa-chevron-up fa-chevron-down");
+                    }
+                    if (down) {
+                        $("i.fa-chevron-down", this).toggleClass("fa-chevron-down fa-chevron-up");
+                    }
+                }
+            });
         })
     </script>
 
@@ -728,25 +748,25 @@
 
             <?php endif; ?>
 
-            $('.sec-heading').click(function(e) {
+            // $('.sec-heading').click(function(e) {
 
-                var tag = e.target.tagName.toLowerCase();
-                console.log(tag);
-                var num = $(this).attr('num');
+            //     var tag = e.target.tagName.toLowerCase();
+            //     console.log(tag);
+            //     var num = $(this).attr('num');
 
-                var up = $(this).find($('i.fa-chevron-up')).length;
-                var down = $(this).find($('i.fa-chevron-down')).length;
+            //     var up = $(this).find($('i.fa-chevron-up')).length;
+            //     var down = $(this).find($('i.fa-chevron-down')).length;
 
-                if (tag == 'div' || tag == 'span' || tag == 'h3') {
-                    $("#section-" + num + "-body").slideToggle("slow");
-                    if (up) {
-                        $("i.fa-chevron-up", this).toggleClass("fa-chevron-up fa-chevron-down");
-                    }
-                    if (down) {
-                        $("i.fa-chevron-down", this).toggleClass("fa-chevron-down fa-chevron-up");
-                    }
-                }
-            });
+            //     if (tag == 'div' || tag == 'span' || tag == 'h3') {
+            //         $("#section-" + num + "-body").slideToggle("slow");
+            //         if (up) {
+            //             $("i.fa-chevron-up", this).toggleClass("fa-chevron-up fa-chevron-down");
+            //         }
+            //         if (down) {
+            //             $("i.fa-chevron-down", this).toggleClass("fa-chevron-down fa-chevron-up");
+            //         }
+            //     }
+            // });
 
         });
     </script>

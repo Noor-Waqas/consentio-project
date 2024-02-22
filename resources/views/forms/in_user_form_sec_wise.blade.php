@@ -714,11 +714,13 @@
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
-													@if($question->is_locked==1)
-													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }} disabled>
-													@else
-													<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }}>
-													@endif
+													<div class="mandatory-att">
+														@if($question->is_locked==1)
+														<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }} disabled>
+														@else
+														<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }}>
+														@endif
+													</div>
 													<span id="image_error_{{ $question->q_id }}" style="color:red;"></span>
 												</form> 
 												@if($showcomment)
@@ -996,33 +998,23 @@
 
 		@if(session('locale')=='fr')
 		<script>
-			
-			window.onload = function() {
-				// Get the dropify message paragraph
-				var dropifyMessage = document.querySelector('.dropify-wrapper .dropify-message p');
-				var dropifyinfosMessage = document.querySelector('.dropify-infos-message');
-				var clearButton = document.querySelector('.dropify-clear');
-				if (dropifyMessage) {
-					// console.log("Paragraph found:", dropifyMessage);
-					dropifyMessage.textContent = 'Glissez-déposez un fichier ici ou cliquez sur';
-				}
-				if (dropifyinfosMessage) {
-					// console.log("Paragraph found:", dropifyinfosMessage);
-					dropifyinfosMessage.textContent = 'Glisser-déposer ou cliquer pour remplacer';
-				}
-				if (clearButton) {
-					// Set its display property to none
-					clearButton.style.display = 'none';
-				}
-			};
-		</script>
+			$(document).ready(function(){
+				$('.dropify').dropify();
+
+				$('.dropify-message p').text('Glissez-déposez un fichier ou cliquez pour sélectionner');
+				$('.dropify-infos-replace').text('Glissez-déposez un fichier ou cliquez pour remplacer');
+				$('.dropify-infos-message').text('Glissez-déposez un fichier ou cliquez pour remplacer');
+				$('.dropify-infos-remove').text('Supprimer le fichier');
+				$('.dropify-errors').text('Oups! Une erreur s\'est produite.');
+
+			})
+    	</script>
 		@endif
 
-		@if(session('locale')!='fr')
 		<script>
 			window.onload = function() {
 				// Get the dropify message paragraph
-				var clearButton = document.querySelector('.dropify-clear');
+				var clearButton = document.querySelector('.mandatory-att .dropify-clear');
 				
 				if (clearButton) {
 					// Set its display property to none
@@ -1030,7 +1022,6 @@
 				}
 			};
 		</script>
-		@endif
 
 		<script>
 			$(function(){
@@ -1873,7 +1864,7 @@
 					var up   = $(this).find($('i.fa-chevron-up')).length;
 					var down = $(this).find($('i.fa-chevron-down')).length;
 
-					if (tag == 'div' || tag == 'span' || tag == 'h3') {
+					if (tag == 'div' || tag == 'span' || tag == 'h3' || tag == 'i') {
 						$("#section-"+num+"-body").slideToggle("slow");	
 						if (up) {
 							$("i.fa-chevron-up", this).toggleClass("fa-chevron-up fa-chevron-down");
