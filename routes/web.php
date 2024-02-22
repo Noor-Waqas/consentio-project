@@ -466,7 +466,7 @@ Route::get('export', function () {
 
 Route::get('login_attempt', function () {
     try {
-        $check = DB::table('users')->update(['login_attempts', 0]);
+        $check = DB::table('users')->update(['login_attempts' => 0]);
         print_r($check);
         exit;
     } catch (\Exception $th) {
