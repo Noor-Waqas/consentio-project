@@ -199,7 +199,7 @@
           @endif
           <tr>
             <th scope="col">{{ __('Form Name') }}</th>
-      @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || (Auth::user()->role == 3)): 
+      @if (Auth::user()->role == 2 || Auth::user()->user_type == 1 || (Auth::user()->role == 3))
             <th scope="col">{{ __('External Users') }}</th>     
             <th scope="col">{{ __('Internal Users') }}</th>     
             <th scope="col">{{ __('Sub Form Users') }}</th>

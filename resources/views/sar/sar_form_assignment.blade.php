@@ -48,8 +48,7 @@
                     </a>
                   </td>
                   <?php if (Auth::user()->role != 1): ?>
-                  <td>
-                    <a href="{{ route('sar_subforms_list', ['id' => $form_info->form_id]) }}"><span>+ ADD</span></a>        
+                  <td>      
                     <a href="{{ route('sar_subforms_list', ['id' => $form_info->form_id]) }}"><span class="table-ssf"><img src="{{url('assets-new/img/sub-forms.png')}}"> {{ __('Show Sub Forms') }} </span></a>  
                   </td>
                   <?php endif; ?>

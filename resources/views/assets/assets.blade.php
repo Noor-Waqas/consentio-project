@@ -238,6 +238,7 @@
                     <input type="hidden" id="tier_matrix_up" name="tier_matrix" class="form-control">
                     <div class="update_btn text-right">
                         <span id="tier_value"></span>
+                        <a href="{{ url('assets') }}" class="buton" style="background:grey;border-color:grey;">{{__('Cancel')}}</a>
                         <input class="buton" type="submit" name="submit" value="{{ __('Update') }}">
                     </div>
                 </form>
