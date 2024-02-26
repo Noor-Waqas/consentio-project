@@ -614,6 +614,10 @@ $('#password, #rpassword').on('keyup', function () {
 
     $('#message').html('<h5>Password is Matched</h5>').css('color', 'green');
 
+	if ($('#password').val() == '' && $('#rpassword').val() == ''){
+		$('#message').html('').css('color', 'green');
+	}
+
   } else 
 
     $('#message').html('<h5>Password is Not Matching</h5>').css('color', 'red');
