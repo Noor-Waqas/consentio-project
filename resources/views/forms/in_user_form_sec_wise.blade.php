@@ -486,7 +486,7 @@
 												$options = explode(', ', $question->options); 
 												if (!empty($options)):
 												?>
-												
+												First
 													<select {{ $attr }} class="form form-control select_for_js" name="{{ $question->form_key.'_'.$question->q_id}}" q-id="{{$question->q_id}}" style="margin-bottom:20px">
 														<?php
 															foreach ($options as $option):
@@ -624,8 +624,8 @@
 														$dynmc_values_dropdown = DB::table("asset_tier_matrix")->select('id', 'tier_value AS name')->get();
 														break;
 												} ?>
-												
-												<select  class="form form-control select_for_js" name="{{ $question->form_key.'_'.$question->q_id}}" q-id="{{$question->q_id}}" style="margin-bottom:20px">
+												Second
+												<select {{ $attr }} class="form form-control select_for_js" name="{{ $question->form_key.'_'.$question->q_id}}" q-id="{{$question->q_id}}" style="margin-bottom:20px">
 
 													@if(session('locale')=='fr') 
 														<option>-- SELECT --</option>
@@ -692,6 +692,7 @@
 												break;
 											case('im'): ?>
 												@php
+													$total_questions++;
                                                     $formate =json_decode($question->attachments);
                                                 @endphp 
                                                 @if($formate)
@@ -714,6 +715,9 @@
 													<input type="hidden" name="question-key" value="{{ $question->form_key }}">
 													<!-- dev -->
 													<input type="hidden"  name="accepted_types" id="accepted_types_{{ $question->q_id }}" value="{{ $question->attachments }}">
+
+													<textarea class="textarea_for_js " style="position: absolute; top: -50%" {{ $attr }} name="{{ $question->form_key.'_'.$question->q_id }}" id="{{'attachment-'.$question->q_id}}" q-id="{{$question->q_id}}" rows="4" cols="50"><?php echo (isset($filled[$question->form_key]))?($filled[$question->form_key]['question_response']):('') ?></textarea>
+															
 													<div class="mandatory-att">
 														@if($question->is_locked==1)
 														<input type="file" name="img-{{ $question->q_id }}" id="file-upload-{{$question->q_id}}" class="dropify" {{(isset($filled[$question->form_key]['question_response']) && !empty($filled[$question->form_key]['question_response']))?("data-default-file=".URL::to('public/'.$filled[$question->form_key]['question_response'])):('') }} disabled>
@@ -1090,8 +1094,12 @@
 			function get_filled_questions_count (){
 				var count = 0;
 				// alert('get_filled_questions_count');
+				console.log("function get_filled_questions_count (){");
 				$('li.es-selectable, .textarea_for_js, .select_for_js').each(function(){
+					
+					
 					var key = $(this).attr('name');
+					//var q-idN = $(this).attr('q-id');
 					var tag = ($(this).prop('tagName')).toLowerCase(); 
 					var ques_section_id     = $(this).closest('div.form-section').attr('id');
 					//console.log('pl '+form_section_id);
@@ -1116,11 +1124,26 @@
 							break;
 						case 'select':
 							if (key.indexOf('q-') != -1 && key_list.indexOf(key) == -1) {
-
+								console.log("if (key.indexOf('q-') != -1 && key_list.indexOf(key) == -1) {" );
+								console.log("$(this).val(): "+$(this).val());
+								if ($(this).val() != '-- SELECT --' && $(this).val() != '') {
+											//-- SELECT --
+											
+											console.log('Pusing '+key+' due to select'+"----  if ($(this).val() != 'Select Country') {");
+											key_list.push(key);
+											// update_filled_sections(ques_section_id);
+										}
+										
 								if ($(this).attr('case-name')) {
+									console.log("111");
 									if ($(this).attr('case-name') == 'asset-country') {
-										if ($(this).val() != 'Select Country') {
-											//console.log('Pusing '+key+' due to select');
+										console.log("2222");
+										
+										
+										if ($(this).val() != '-- SELECT --' && $(this).val() != '') {
+											//-- SELECT --
+											
+											console.log('Pusing '+key+' due to select'+"----  if ($(this).val() != 'Select Country') {");
 											key_list.push(key);
 											// update_filled_sections(ques_section_id);
 										}
@@ -1147,7 +1170,7 @@
 									}
 								}
 								else {
-									key_list.push(key);
+									//key_list.push(key);
 									// update_filled_sections(ques_section_id);							
 								}
 							}                    
@@ -1220,7 +1243,7 @@
 					
 				var tag = ($(this).prop('tagName')).toLowerCase(); 
 				var key = $(this).attr('name');
-
+				console.log("tagggggggggg:",tag);
 				switch (tag) {
 						case 'li':
 							if ($(this).hasClass('es-selected')) {
@@ -1234,6 +1257,14 @@
 							break;
 						case 'select':
 							if (key.indexOf('q-') != -1 && key_list.indexOf(key) == -1) {
+								console.log("another select country block");
+								console.log($(this).attr('case-name')+"---var value in which select country comes");
+								if ($(this).val() != '-- SELECT --' && $(this).val() != '') {
+											is_section_filled = true;
+										}
+										
+										
+
 								if ($(this).attr('case-name')) {
 									if ($(this).attr('case-name') == 'asset-country') {
 										if ($(this).val() != 'Select Country') {
@@ -1282,7 +1313,7 @@
 			function update_progress_bar (completed_questions, id_num = '', locked = false){
 				var total_questions     = {{ $total_questions }};
 				var percentage = Math.ceil((completed_questions/total_questions)*100);
-				console.log('completed====', completed_questions)
+				console.log('completedddd====', completed_questions)
 				console.log('total ques====', total_questions)
 				console.log('percentage====', percentage)
 				console.log('id_num===', id_num)
@@ -1375,6 +1406,7 @@
 						}
 						
 						var is_filled = false;
+						console.log("value of the tagggggggg>",tag);
 						switch (tag) {
 							case 'li':
 								if ($(this).hasClass('es-selected')) {
@@ -1387,6 +1419,14 @@
 								}
 								break;
 							case 'select':
+							console.log("another select country block 22-------",$(this).val());
+								console.log($(this).attr('case-name')+"---var value in which select country comes");
+								if ($(this).val() != '-- SELECT --' && $(this).val() != '') {
+											
+											is_filled = true;
+										}
+										
+										
 						// 		if (key.indexOf('q-') != -1 && key_list.indexOf(key) == -1) {
 									if ($(this).attr('case-name')) {
 										if ($(this).attr('case-name') == 'asset-country') {
@@ -1400,6 +1440,7 @@
 											}
 										}
 										else {
+											console.log("is_filled = true;");
 											is_filled = true;
 										}
 									}
@@ -1477,18 +1518,24 @@
 				$('#lengthy_length').html('');
 				$('#filled').html('');
 				$('#not_filled').html('');
+				console.log(section['key'],'..............');
 				$.each(section['key'],function(k,val){
+					
+					console.log("------>",k,"============",val);
+					
 					$('#lengthy_length').append(section['q-list'][val].filter(e => e.status === true).length);
 					if (section['q-list'][val].filter(e => e.status === true).length > 0) {
+						console.log("check if one question is filled 1111---",section);
 					$('#filled').append('-filled:'+k+'----'+val);
 						current_section_filled.push(val); 
 					}else{
+						console.log("check if one question is filled else 2222----",section);
 						//$('#not_filled').append('-not filled:'+k+'----'+val);
 						//alert('not filled-->'+k+'----'+val);
 					}
 				
 					}); 
-					console.log(current_section_filled.length +"sdfsfd"+ section['key'].length);
+					console.log(current_section_filled.length +"GAAAAAAAAAAAAAAAP"+ section['key'].length);
 					if(current_section_filled.length==section['key'].length)
 						section_filled=true;
 					if (section_filled) {
@@ -1567,6 +1614,9 @@
 							contentType: false,
 							success:function(response){
 							console.log(response);
+							console.log("hello");
+							$(`#attachment-${response.result}`).val(response.result);
+							$(`#attachment-${response.result}`).focus();
 							},
 					});
 				});
@@ -1610,13 +1660,14 @@
 					$('.textarea_for_js').prop('disabled', true);
 					$('.select_for_js').prop('disabled', true);
 				}
-				
+				console.log("completed_questions outside before11: ");
+				console.log("completed_questions outside before: "+completed_questions);
 				var completed_questions = get_filled_questions_count();
-				
+				console.log("completed_questions outside: "+completed_questions);
 				var curr_sec = {{ $curr_sec }};
 				check_if_one_questions_filled_in_each_question_curr_section(curr_sec);
 
-				//update_progress_bar(curr_sec);
+				console.log("on reload....");
 				update_progress_bar(completed_questions,'', locked);
 				
 				$('.prev, .next').click(function (){
@@ -1647,7 +1698,7 @@
 						$('.prev').prop('disabled', false);             
 					}            
 					curr_sec = sec_num;
-					//update_progress_bar(curr_sec);
+					
 				});
 				
 				$('#section-'+curr_sec).show();
@@ -1753,7 +1804,7 @@
 								update_form_data_request(post_data);
 							}
 						}
-
+						console.log("Finding cmopleted increment place");
 						if (post_data[question_key] == '' && (ind = key_list.indexOf(question_key)) > -1) {
 							key_list.splice(ind,1);
 							completed_questions--;
@@ -1767,13 +1818,17 @@
 				
 				
 				$('.select_for_js, .textarea_for_js').change(function(){
+					
+					console.log("Finding cmopleted increment place 2--"+completed_questions);
 					var type                  = $(this).attr('type');
 					var question_key          = $(this).attr('name');
 					var id                    = $(this).attr('q-id');
 					var mul_val_response      = {};
 					var response_info         = {};
+					console.log("Type: "+type+"--question_key: "+question_key+"--id: "+id);
 					
 					if ($(this).attr('custom') && $(this).attr('custom') == 1) {
+						console.log("Cusomt block...");
 						//assets_case
 						if ($(this).attr('case-name') && $(this).attr('case-name') == 'assets') {
 							mul_val_response['dd']        = $(".select_for_js[case-name='assets']").val();
@@ -1820,27 +1875,39 @@
 						post_data[question_key]       = response_info;	            
 					}
 					else {
+						console.log("Cusomt block else...");
 						post_data['is_response_obj']  = 0;	 
 						post_data['mul_val_obj']      = 1;
 						post_data[question_key]   = $(this).val();
 					}
 					
-					console.log($(this).attr('custom'));
+					console.log("UUUUUUUU>",$(this).attr('custom'));
 					console.log(post_data);
 					
 					post_data['curr-form-sec'] = curr_sec;
 					
 					update_form_data_request(post_data);
-								
+					console.log("completed questions count control outside.");
+					console.log("complated questions::"+completed_questions);
+
+					
+					console.log("key_list.length:",key_list.length);
+					console.log(key_list);
+					completed_questions = key_list.length;
+					console.log(">>>>>>>>>>>>>",question_key);
 					if (question_key.indexOf('q-') > -1 && post_data[question_key] != '' && key_list.indexOf(question_key) == -1) {
+						console.log("FFFFFFFFirst");
 						key_list.push(question_key);
 						completed_questions++;
+						console.log("$(this).val()checking"+$(this).val());
 					}
 					else if (question_key.indexOf('q-') > -1 && post_data[question_key] == '' && (ind = key_list.indexOf(question_key)) > -1) {
+						console.log("SSSSSSSSecond");
 						key_list.splice(ind,1);
 						completed_questions--;
+						console.log("$(this).val()checking in negative"+$(this).val());
 					}
-											
+					console.log("Its called on On change of country dropdown....");						
 					update_progress_bar(completed_questions,id,locked);
 					delete post_data[question_key];
 					delete post_data['is_response_obj'];	            
@@ -1848,6 +1915,7 @@
 				});
 				
 				$('.textarea_for_js').focus(function(){
+					console.log("along with ...........");
 					var id = $(this).attr('q-id');
 					setTimeout(function(){
 					get_sectionwise_questions ();
@@ -1982,6 +2050,7 @@
 								key_list.push(question_key);
 								completed_questions++;
 							}
+							console.log("Not called On change of country dropdown....2");
 							update_progress_bar(completed_questions,id,locked);	
 							delete post_data[question_key];
 						}
@@ -2036,11 +2105,12 @@
 						console.log('data post');
 
 						update_form_data_request(post_data);
-
+						console.log("completed_questions first occurance=",completed_questions);
 						if (post_data[question_key] != '' && key_list.indexOf(question_key) == -1) {
 							key_list.push(question_key);
 							completed_questions++;
 						}
+						console.log("NOt called On change of country dropdown....1");
 						update_progress_bar(completed_questions, id, locked);
 						delete post_data[question_key];
 					}

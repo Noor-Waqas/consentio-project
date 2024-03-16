@@ -1278,7 +1278,7 @@ class UsersController extends Controller
                     "Internal" as user_type'))
                     ->orderby('ufl.created', 'DESC')
                 ->get();
-            $pen_audits = $int_forms->counts();
+            $pen_audits = $int_forms->count();
 
             // Remediation Counts
             $remediation = DB::table('remediation_plans')

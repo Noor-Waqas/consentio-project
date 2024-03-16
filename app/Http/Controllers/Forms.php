@@ -986,7 +986,11 @@ class Forms extends Controller{
                         [   'question_response' => $file_path, "is_internal" => 1, 'custom_case' => 1, 'created' => date('Y-m-d H:i:s')]
                     );
 
-                return;
+                $result = $question_id;
+
+                return response()->json([
+                    'result' => $result
+                ]);
             }
         }
 
